@@ -1,7 +1,6 @@
 import {dispatcher} from "../componentsReact/App";
 import {store} from "../store/createStore";
 import {GAME_MODULES} from "../constants/constants_modules";
-import {ASSETS_TO_LOAD} from "../constants/constants_elements";
 import {startPlay} from "../store/actions";
 import { connectEmitterToActions } from "../store/actions";
 
@@ -18,7 +17,9 @@ export async function pipeLineForInit () {
     const { loaderAssets, emitter } = gameContext
 
     connectEmitterToActions(emitter)
-    gameContext.assets = await loaderAssets.loadAssets(ASSETS_TO_LOAD)
+
+    const dataToLoad = getAssetsFromModulesData(GAME_MODULES)
+    gameContext.assets = await loaderAssets.loadAssets(dataToLoad)
 
     initModulesByState('beforeStartPlay', GAME_MODULES, gameContext)
 
@@ -36,4 +37,16 @@ const initModulesByState = (state, modulesData, gameContext) => {
         const {  key, constr, initStateKey } = GAME_MODULES[i]
         initStateKey === state && (gameContext[key] = new constr(gameContext))
     }
+}
+
+const getAssetsFromModulesData = modulesData => {
+    const arr = []
+    for (let i = 0; i < modulesData.length; ++i) {
+        if (modulesData[i].assetsToLoad && modulesData[i].assetsToLoad.length) {
+            for (let j = 0; j < modulesData[i].assetsToLoad.length; ++j) {
+                arr.push(modulesData[i].assetsToLoad[j])
+            }
+        }
+    }
+    return arr
 }

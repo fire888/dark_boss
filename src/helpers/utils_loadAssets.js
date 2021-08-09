@@ -30,7 +30,7 @@ const createLoaders = () => {
 
 export class LoaderAssets {
 
-    constructor() {
+    constructor () {
         this.resources = {}
         this._load = createLoaders()
     }
