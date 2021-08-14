@@ -1,6 +1,5 @@
-//import { emitter } from '../helpers/util_emitter'
 import { S, H } from '../constants/constants_elements'
-//import { pr } from '../componentsReact/App'
+
 
 
 export const START_LAYER_STATE = 'outer'
@@ -173,20 +172,6 @@ export const CHANGE_LAYER_STATE = [
             }
         ],
     },
-
-
-    /** **********************************************************/
-
-    // {
-    //     oldState: 'addWell', newState: 'addWell',
-    //     oldQuadrant: ['ANY', 'ANY', 'ANY'], newQuadrant: ['ANY', 'ANY_MINUS_ONE', 'ANY'],
-    //     emitData: [
-    //         {
-    //             emitKey: 'CHANGE_QUADRANT',
-    //             counter: val => ++val,
-    //         }
-    //     ],
-    // },
 ]
 
 
@@ -197,7 +182,7 @@ export class ChangerQuadrant {
         const checkerNewQuadrant = createCheckerNewQuadrant()
 
 
-        emitter.subscribe('playerMove')(pos => {
+        emitter.subscribe('playerMove')(({ pos }) => {
             const data = checkerNewQuadrant.update(pos)
             const { currentQuadrant, oldQuadrant, isChanged } = data
 

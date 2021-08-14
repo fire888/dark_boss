@@ -36,10 +36,22 @@
     border: 1px solid #c1e1ff; 
     height: 2em;
     overflow: hidden;
-    border-radius: 5px; 
+    border-radius: 5px;
     background: rgba(36, 0, 80, 0.73);
     cursor: pointer;
     max-width: 360px;
+    margin: 0.2em;
+}
+
+.ui button.control {
+    height: 3.1em;
+    width: 3.1em;
+}
+
+.ui button:hover {
+    background:#7dc0ff;
+    color: #001950;
+    border-color:  #001950;
 }
 
 
@@ -54,7 +66,12 @@
 }
 
 .butt-front {
-    bottom: 1.5em;
+    bottom: 4em;
+    right: 1em;
+}
+
+.butt-back {
+    bottom: .5em;
     right: 1em;
 }
 
@@ -69,42 +86,27 @@
 }
 
 button.butt-toggleDialog {
-    display: block;
     bottom: 7rem;
     max-width: 30vw;
     min-width: 30vw;
     left: 35vw;
-    padding: 10px;
-    height: auto;
     font-size: 1.1rem;
     z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
 @media (max-width: 900px) {
     button.butt-toggleDialog {
-        bottom: 1.5rem;
-        padding: 3px;
+        bottom: 1.5em;
     }
 }
 
 
 
-.ui button.control {
-    height: 3.1em;
-    width: 3.1em;
-    border-radius: 2.8em;
-    margin: 0.2em;
-}
 
-
-
-.ui button:hover {
-    background:#7dc0ff; 
-    color: #001950;
-    border-color:  #001950;
-    cursor: pointer;
-}
 
 
 
@@ -139,7 +141,6 @@ button.butt-toggleDialog {
     padding: 20px;
     background: rgba(55, 2, 119, 0.75);
     border-radius: 5px;
-    padding: 20px;
     font-size: 2.2em;
     color: white;
 }

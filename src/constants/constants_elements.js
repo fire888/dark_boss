@@ -146,6 +146,7 @@ export const playerConfig = {
         pos: [0, 2, -0.5],
     },
     frontObjPos: [0, 0, -1],
+    backObjPos: [0, 0, 1],
     lightDataOne: {
         color: 0xffffff,
         strength: 5000,

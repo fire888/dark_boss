@@ -34,6 +34,7 @@ import nzjpg2 from '../assets/matIronBox/negz.jpg'
 
 
 import { ChangerQuadrant } from "../store/actionByChangeQuadrant"
+import { Component_PlayerInBot } from '../components/component_playerInBot'
 
 
 export const GAME_MODULES = [
@@ -113,6 +114,11 @@ export const GAME_MODULES = [
     {
         key: 'changerQuadrant',
         constr: ChangerQuadrant,
+        initStateKey: 'beforeStartPlay',
+    },
+    {
+        key: 'playerInBot',
+        constr: Component_PlayerInBot,
         initStateKey: 'beforeStartPlay',
     },
 ]

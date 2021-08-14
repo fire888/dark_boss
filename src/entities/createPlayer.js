@@ -4,7 +4,6 @@ import { playerConfig } from '../constants/constants_elements'
 
 import { createComponentCollisionFloors } from '../components/component_collisionFloor'
 import { createComponentCollisionWalls } from '../components/component_collisionWalls'
-import { createCheckerNearItem } from '../components/component_checkNearItem'
 
 import { FRAME_UPDATE } from '../constants/constants_elements'
 import { showMessages, startPlay } from '../store/actions'
@@ -20,6 +19,7 @@ export class Player {
             startRot,
             cameraData,
             frontObjPos,
+            backObjPos,
             lightDataOne,
             speed,
             offsetFromFloor,
@@ -34,6 +34,10 @@ export class Player {
         let keys = {}
         let isButtonsDisabled = false
         this._isBlocked = true
+        this._isCanMove = {
+            'up': true,
+            'down': true,
+        }
 
         this._mainObj = new THREE.Object3D()
         this._mainObj.position.fromArray(startPos)
@@ -42,6 +46,12 @@ export class Player {
         const frontObj = new THREE.Object3D()
         frontObj.position.fromArray(frontObjPos)
         this._mainObj.add(frontObj)
+        this.frontObj = frontObj
+
+        const backObj = new THREE.Object3D()
+        backObj.position.fromArray(backObjPos)
+        this._mainObj.add(backObj)
+        this.backObj = backObj
 
         {
             const { fov, ratio, near, far, pos } = cameraData
@@ -59,8 +69,8 @@ export class Player {
 
 
         this._checkFloors = createComponentCollisionFloors(this._mainObj, offsetFromFloor, offsetFromFloorFactor, speedDown)
-        const checkWalls = createComponentCollisionWalls(this._mainObj, frontObj, offsetWallCollision)
-        const checkNearItem = createCheckerNearItem(this._mainObj, emitter)
+        const checkWallsFront = createComponentCollisionWalls(this._mainObj, frontObj, offsetWallCollision)
+        const checkWallsBack = createComponentCollisionWalls(this._mainObj, backObj, offsetWallCollision)
 
         let oldY = this._mainObj.position.y
         let countDropped = 0
@@ -75,12 +85,19 @@ export class Player {
             if (!keys) return;
 
             if (keys['up']) {
-                if (checkWalls.check()) return;
+                if (checkWallsFront.check()) return;
+                if (!this._isCanMove['up']) return;
 
                 this._mainObj.translateZ(-speed * data.count)
-                //console.log(mainObj.position.x,  mainObj.position.y, mainObj.position.z)
-                checkNearItem()
-                emitter.emit('playerMove')(this._mainObj.position)
+                emitter.emit('playerMove')({ pos: this._mainObj.position, dir: 'up' })
+            }
+
+            if (keys['down']) {
+                if (checkWallsBack.check()) return;
+                if (!this._isCanMove['down']) return;
+
+                this._mainObj.translateZ(speed * data.count)
+                emitter.emit('playerMove')({ pos: this._mainObj.position, dir: 'down' })
             }
             keys['left'] && (this._mainObj.rotation.y += (speedRot * data.count))
             keys['right'] && (this._mainObj.rotation.y -= (speedRot * data.count))
@@ -116,8 +133,12 @@ export class Player {
 
     toggleBlocked (val) {
         this._isBlocked = val
-        //this._checkFloors.start()
     }
+
+    toggleCanMove(key, val) {
+        this._isCanMove[key] = val
+    }
+
     getObj () {
         return this._mainObj
     }

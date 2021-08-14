@@ -29,7 +29,7 @@ function App(props) {
         <div className="ui">
             {props.isButtonDialog && (
                 <button
-                    className="butt-toggleDialog"
+                    className="butt-toggleDialog control"
                     onClick={() => {toggleDialog(props.dispatch).toggleDialog(!props.isDialog)}}>
                     {props.isDialog ? t('close dialog') : t('open dialog') }
                 </button>)}
@@ -70,6 +70,17 @@ function App(props) {
                     onTouchEnd={() => props.gameContext.emitter.emit('mouseUp')('butt-front')}
                     >
                     &#9650;
+                </button>)}
+
+            {!props.isDialog && (
+                <button
+                    className="butt-back control"
+                    onMouseDown={() => props.gameContext.emitter.emit('mouseDown')('butt-back')}
+                    onTouchStart={() => props.gameContext.emitter.emit('mouseDown')('butt-back')}
+                    onMouseUp={() => props.gameContext.emitter.emit('mouseUp')('butt-back')}
+                    onTouchEnd={() => props.gameContext.emitter.emit('mouseUp')('butt-back')}
+                    >
+                    &#x25BC;
                 </button>)}
 
 

@@ -28,7 +28,6 @@ export const createComponentCollisionWalls = (objFromLink, objToLink, offset) =>
             return intersectsWalls[0] && intersectsWalls[0].distance < offsetWallCollision
         }
     }
-
 }
 
 

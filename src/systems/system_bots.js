@@ -1,7 +1,6 @@
 import * as THREE from 'three'
 import { FRAME_UPDATE } from '../constants/constants_elements'
 import { Bot } from '../entities/Bot'
-import { toggleDialog } from '../store/actions'
 
 
 const S = 175.335
@@ -11,7 +10,7 @@ const H_BOT = 14
 
 export class Bots {
     constructor(gameContext) {
-        const { assets, emitter, store, studio, pr, materials } = gameContext
+        const { assets, emitter, store, studio, materials } = gameContext
 
         Bot.botMaterial = materials.iron
         Bot.botScene = assets.bot
@@ -23,6 +22,7 @@ export class Bots {
 
 
         const arrBots = []
+        this.arrBots = arrBots
 
 
         let botRooms = null
@@ -71,7 +71,7 @@ export class Bots {
 
 
 
-        emitter.subscribe('levelChanged')(({ typeLevelChange, instanceKey, objKey, kv, isAddBot, isRemoveBot }) => {
+        emitter.subscribe('levelChanged')(({ objKey, kv, isAddBot, isRemoveBot }) => {
             if (isAddBot) {
                 for (let i = 0; i < arrBots.length; ++i) {
                     if (!arrBots[i].inScene) {
@@ -89,35 +89,6 @@ export class Bots {
                         arrBots[i].container.position.y = -10000
                         arrBots[i].removeCollisionMesh()
                     }
-                }
-            }
-        })
-
-
-
-
-
-
-        emitter.subscribe('playerMove')(pos => {
-            for (let i = 0; i < arrBots.length; ++i) {
-                if (!arrBots[i].inScene) continue;
-
-                const botWorldPos = new THREE.Vector3()
-                arrBots[i]._modelGroup.getWorldPosition(botWorldPos)
-                const distance = botWorldPos.distanceTo(pos)
-
-
-                if (arrBots[i]._state === 'say' && distance > 30) {
-                    arrBots[i]._startRotate()
-                    toggleDialog(pr.dispatch).toggleButtonDialog(false)
-                    continue;
-                }
-
-
-                if (arrBots[i]._state !== 'say' && distance < 30) {
-                    arrBots[i].prepareToSay(pos)
-                    toggleDialog(pr.dispatch).toggleButtonDialog(true)
-                    continue;
                 }
             }
         })

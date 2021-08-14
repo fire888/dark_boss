@@ -5,33 +5,39 @@ export class KeyBoard {
 
         const keys = {
             'up': false,
+            'down': false,
             'left': false,
             'right': false,
-            's': false,
-            'm': false,
-            'w': false,
         }
+
+        const keysEnabled = {
+            'up': true,
+            'down': true,
+            'left': true,
+            'right': true,
+        }
+
+        this.keysEnabled = keysEnabled
+        this.keys = keys
 
 
         const keyUpdate = function ( keyCode, isDown ) {
             switch( keyCode ) {
                 case 38:
-                    keys['up'] = isDown
+                case 87:
+                    keysEnabled['up'] && (keys['up'] = isDown)
+                    break
+                case 40:
+                case 83:
+                    keysEnabled['down'] && (keys['down'] = isDown)
                     break
                 case 37:
+                case 65:
                     keys['left'] = isDown
                     break
                 case 39:
+                case 68:
                     keys['right'] = isDown
-                    break
-                case 83:
-                    keys['s'] = isDown
-                    break
-                case 77:
-                    keys['m'] = isDown
-                    break
-                case 87:
-                    keys['w'] = isDown
                     break
             }
             emitter.emit('keyEvent')(keys)
@@ -48,12 +54,19 @@ export class KeyBoard {
             if (key === 'butt-left') keyUpdate(37, true)
             if (key === 'butt-right') keyUpdate(39, true)
             if (key === 'butt-front') keyUpdate(38, true)
+            if (key === 'butt-back') keyUpdate(40, true)
         })
         emitter.subscribe('mouseUp')(key => {
             if (key === 'butt-left') keyUpdate(37, false)
             if (key === 'butt-right') keyUpdate(39, false)
             if (key === 'butt-front') keyUpdate(38, false)
+            if (key === 'butt-back') keyUpdate(40, false)
         })
+    }
+
+    toggleEnableKeys (key, is) {
+        this.keysEnabled[key] = is
+        !is && (this.keys[key] = false)
     }
 }
 
