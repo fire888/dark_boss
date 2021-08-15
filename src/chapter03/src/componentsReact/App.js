@@ -3,7 +3,6 @@ import { BotAnswers } from './BotAnswers'
 
 import { connect } from 'react-redux'
 import { toggleDialog } from '../store/actions'
-//import { t } from '../../../_CORE/helpers/helper_translate'
 import PlayerControls from '../../../_CORE/componentsReact/PlayerControls'
 
 

@@ -360,6 +360,8 @@ const appData = {
         fogNear: FLOORS_CONF['-1']['start'].fogNear,
         fogFar: FLOORS_CONF['-1']['start'].fogFar,
         backgroundImgKey: null,
+
+        //'start': { fogNear: 0, fogFar: 5, color: 0x18257d },
     },
 
     playerQuadrant: {

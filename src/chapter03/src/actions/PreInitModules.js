@@ -12,5 +12,11 @@ export class PreInitModules {
         gameContext.appWrapper = document.querySelector('.app-wrapper')
         gameContext.App = App
         connectEmitterToActions(gameContext.emitter)
+
+
+        store.subscribe(() => {
+            const newState = store.getState()
+            gameContext.emitter.emit('changeSceneEnvironment')(newState.app.sceneEnvironment)
+        })
     }
 }

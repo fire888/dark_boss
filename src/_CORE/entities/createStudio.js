@@ -24,15 +24,15 @@ export class Studio {
         this._scene = new THREE.Scene()
 
         {
-            if (store) {
-                const { color, fogNear, fogFar, backgroundImgKey } = store.getState().app.sceneEnvironment
-                this._scene.background = assets[backgroundImgKey] || null
-                this._scene.fog = new THREE.Fog(color, fogNear, fogFar)
-            } else {
+            // if (store) {
+            //     const { color, fogNear, fogFar, backgroundImgKey } = store.getState().app.sceneEnvironment
+            //     this._scene.background = assets[backgroundImgKey] || null
+            //     this._scene.fog = new THREE.Fog(color, fogNear, fogFar)
+            // } else {
                 const { color, fogNear, fogFar, backgroundImgKey } = gameContext.CONSTANTS.studioConfig.sceneEnvironment
                 this._scene.background = assets[backgroundImgKey] || null
                 this._scene.fog = new THREE.Fog(color, fogNear, fogFar)
-            }
+            //}
         }
 
 
@@ -74,54 +74,52 @@ export class Studio {
 
 
 
-        // let
-        //     oldFogNear = this._scene.fog.near,
-        //     oldFogFar = this._scene.fog.far,
-        //     oldColor = this._scene.fog.color,
-        //     oldBackgroundImgKey = store.getState().app.sceneEnvironment.backgroundImgKey
+        let
+            oldFogNear = this._scene.fog.near,
+            oldFogFar = this._scene.fog.far,
+            oldColor = this._scene.fog.color,
+            oldBackgroundImgKey = gameContext.CONSTANTS.studioConfig.sceneEnvironment.backgroundImgKey
 
 
 
-
-        // store.subscribe(() => {
-        //     const newState = store.getState()
-        //     const { fogNear, fogFar, color, backgroundImgKey } = newState.app.sceneEnvironment
-
-        //     if (fogNear !== oldFogNear || fogFar !== oldFogFar || color !== oldColor ) {
-        //         let startData = {
-        //             color: this._scene.fog.color,
-        //             near: this._scene.fog.near,
-        //             far: this._scene.fog.far,
-        //         }
-        //         let endData = {
-        //             color: new THREE.Color(color),
-        //             near: fogNear,
-        //             far: fogFar,
-        //         }
-
-        //         oldFogNear = fogNear
-        //         oldFogFar = fogFar
-        //         oldColor = color
-
-        //         new TWEEN.Tween(startData)
-        //             .to(endData, 3000)
-        //             .onUpdate(() => {
-        //                 this._scene.fog.color = startData.color
-        //                 this._scene.fog.near = startData.near
-        //                 this._scene.fog.far = startData.far
-        //                 lightA.color = startData.color
-        //                 renderer.setClearColor(startData.color)
-        //             })
-        //             .start()
-        //     }
-
-
-        //     if (backgroundImgKey !== oldBackgroundImgKey) {
-        //         oldBackgroundImgKey = backgroundImgKey
-        //         this._scene.background = assets[backgroundImgKey] || null
-        //     }
-        // })
-
+            emitter.subscribe('changeSceneEnvironment')(sceneEnvironment => {
+                const { fogNear, fogFar, color, backgroundImgKey } = sceneEnvironment
+    
+                if (fogNear !== oldFogNear || fogFar !== oldFogFar || color !== oldColor ) {
+                    let startData = {
+                        color: this._scene.fog.color,
+                        near: this._scene.fog.near,
+                        far: this._scene.fog.far,
+                    }
+                    let endData = {
+                        color: new THREE.Color(color),
+                        near: fogNear,
+                        far: fogFar,
+                    }
+    
+                    oldFogNear = fogNear
+                    oldFogFar = fogFar
+                    oldColor = color
+    
+                    new TWEEN.Tween(startData)
+                        .to(endData, 3000)
+                        .onUpdate(() => {
+                            this._scene.fog.color = startData.color
+                            this._scene.fog.near = startData.near
+                            this._scene.fog.far = startData.far
+                            lightA.color = startData.color
+                            renderer.setClearColor(startData.color)
+                        })
+                        .start()
+                }
+    
+    
+                if (backgroundImgKey !== oldBackgroundImgKey) {
+                    oldBackgroundImgKey = backgroundImgKey
+                    this._scene.background = assets[backgroundImgKey] || null
+                }
+            })
+    
     }
 
     setCamera (cam) {

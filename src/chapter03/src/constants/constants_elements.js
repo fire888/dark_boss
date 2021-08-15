@@ -123,6 +123,12 @@ export const studioConfig = {
         color: FLOORS_CONF[-1]['outer'].color,
         strength: 0.7,
     },
+    sceneEnvironment: {
+        color: FLOORS_CONF['-1']['start'].color,
+        fogNear: FLOORS_CONF['-1']['start'].fogNear,
+        fogFar: FLOORS_CONF['-1']['start'].fogFar,
+        backgroundImgKey: null,
+    },
 }
 
 

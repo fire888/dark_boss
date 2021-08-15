@@ -1,7 +1,7 @@
 import { LoaderAssets } from '../../../_CORE/helpers/helper_LoadAssets'
 import { EventEmitter } from "../../../_CORE/helpers/helper_Emitter"
 //import { PreInitModules } from '../actions/PreInitModules'
-import { UI } from '../../../_CORE/componentsReact/UI'
+import { UI } from '../ui/Ui'
 import { DeviceResizer } from "../../../_CORE/helpers/helper_DeviceResizer"
 import { FrameUpdater } from "../../../_CORE/helpers/helper_FrameUpater"
 import { Helper_TweenUpdater } from "../../../_CORE/helpers/helper_TweenUpdater"
