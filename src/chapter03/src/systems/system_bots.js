@@ -51,12 +51,12 @@ export class Bots {
 
 
         const initState = store.getState()
-        let saveIsStartCorridorShow = initState.app.level.isStartCorridorShow
+        let saveIsStartCorridorShow = initState.ui.level.isStartCorridorShow
 
         store.subscribe(() => {
             const newState = store.getState()
-            if (saveIsStartCorridorShow && saveIsStartCorridorShow !== newState.app.level.isStartCorridorShow) {
-                saveIsStartCorridorShow = newState.app.level.isStartCorridorShow
+            if (saveIsStartCorridorShow && saveIsStartCorridorShow !== newState.ui.level.isStartCorridorShow) {
+                saveIsStartCorridorShow = newState.ui.level.isStartCorridorShow
 
                 for (let i = 0; i < arrBots.length; ++i) {
                     arrBots[i].inScene = null

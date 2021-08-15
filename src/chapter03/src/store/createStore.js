@@ -354,7 +354,7 @@ const DIALOGS_DATA = [
 
 
 
-const appData = {
+const uiState = {
     sceneEnvironment: {
         color: FLOORS_CONF['-1']['start'].color,
         fogNear: FLOORS_CONF['-1']['start'].fogNear,
@@ -375,16 +375,13 @@ const appData = {
         isStartCorridorShow: true,
     },
 
-    ui: {
-        isShowButtFullScreen: true,
-        isShowInfo: false,
-        isShowFinalMessage: false,
-        botAnswers: [],
-        userReplicies: [],
-        history: [],
-        isDialog: false,
-        isButtonDialog: false,
-    },
+    
+    isShowFinalMessage: false,
+    botAnswers: [],
+    userReplicies: [],
+    history: [],
+    isShowControls: true,
+    isButtonDialog: false,
 
     botIndex: -1,
     phraseIndex: 0,
@@ -393,49 +390,12 @@ const appData = {
 
 
 
-const app = function(state = appData, action) {
-    if (action.type === 'CLICK_FULL_SCREEN') {
-        return ({
-            ...state,
-            ui: {
-                ...state.ui,
-                isShowButtFullScreen: false,
-            }
-        })
-    }
-
-
-    if (action.type === 'EXIT_FULL_SCREEN') {
-        return ({
-            ...state,
-            ui: {
-                ...state.ui,
-                isShowButtFullScreen: true,
-            }
-        })
-    }
-
-
-    if (action.type === 'INFO_TOGGLE') {
-        return ({
-            ...state,
-            ui: {
-                ...state.ui,
-                isShowFinalMessage: false,
-                isShowInfo: action.mode,
-            }
-        })
-    }
-
+const ui = function(state = uiState, action) {
 
     if (action.type === 'TOGGLE_FINAL_MESSAGE') {
         return ({
             ...state,
-            ui: {
-                ...state.ui,
-                isShowFinalMessage: action.mode,
-                isShowInfo: false,
-            }
+            isShowFinalMessage: action.mode,
         })
     }
 
@@ -491,14 +451,11 @@ const app = function(state = appData, action) {
     if (action.type === 'CLICK_PHRASE') {
         return ({
             ...state,
-            ui: {
-                ...state.ui,
-                botAnswers: [
-                    ...state.ui.botAnswers,
-                    action.phrase,
-                ],
-                userReplicies: [],
-            },
+            botAnswers: [
+                ...state.botAnswers,
+                action.phrase,
+            ],
+            userReplicies: [],
         })
     }
 
@@ -514,10 +471,7 @@ const app = function(state = appData, action) {
             return ({
                 ...state,
                 phraseIndex: state.phraseIndex + 1,
-                ui: {
-                    ...state.ui,
-                    userReplicies,
-                }
+                userReplicies,
             })
 
         }
@@ -525,11 +479,8 @@ const app = function(state = appData, action) {
         if (event === 'close') {
             return ({
                 ...state,
-                ui: {
-                    ...state.ui,
-                    userReplicies: [],
-                    isButtonDialog: true,
-                },
+                userReplicies: [],
+                isButtonDialog: true,
                 playerQuadrant: {
                     ...state.playerQuadrant,
                     oldDialogPlayerQuadrant: [...state.playerQuadrant.newQuadrant]
@@ -556,12 +507,8 @@ const app = function(state = appData, action) {
         if (!isNewBot) {
             return ({
                 ...state,
-                ui: {
-                    ...state.ui,
-                    isDialog: action.isDialog,
-                    isButtonDialog: true,
-                },
-
+                isDialog: action.isDialog,
+                isButtonDialog: true,
             })
         }
 
@@ -570,18 +517,6 @@ const app = function(state = appData, action) {
         const phraseIndex = 0
         const botIndex = state.botIndex + 1
         const isButtonDialog = false
-        /////////////////////////////////////////////////////
-
-
-        ///////////////////////////////////////////// TODO: REMOVE
-        // let botIndex = state.botIndex
-        // let phraseIndex = state.phraseIndex
-        // if (action.isDialog) {
-        //     botIndex = state.botIndex + 1
-        //     phraseIndex = 0
-        // }
-        // const isButtonDialog = !action.isDialog
-        // /////////////////////////////////////////////////
 
 
         const userReplicies = state.phrasesData[botIndex] ? [state.phrasesData[botIndex].phrases[phraseIndex]] : []
@@ -589,13 +524,10 @@ const app = function(state = appData, action) {
         return ({
             ...state,
 
-            ui: {
-                ...state.ui,
-                userReplicies,
-                botAnswers: [],
-                isDialog: action.isDialog,
-                isButtonDialog,
-            },
+            userReplicies,
+            botAnswers: [],
+            isDialog: action.isDialog,
+            isButtonDialog,
 
             isCanChangeBotIndex: false,
             botIndex,
@@ -607,11 +539,8 @@ const app = function(state = appData, action) {
 
         return ({
             ...state,
-            ui: {
-                ...state.ui,
-                isDialog: false,
-                isButtonDialog: action.isButtonDialog,
-            },
+            isDialog: false,
+            isButtonDialog: action.isButtonDialog,
         })
     }
 
@@ -621,7 +550,7 @@ const app = function(state = appData, action) {
 
 
 
-const rootReducer = combineReducers({ app })
+const rootReducer = combineReducers({ ui })
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 

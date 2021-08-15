@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
+import App, { dispatcher } from './App';
 
 
 
@@ -30,13 +31,13 @@ loaderTimeOut()
 
 export class UI {
     constructor(gameContext) {
+        gameContext.pr = dispatcher
         this._gameContext = gameContext
-        const { App, store } = gameContext
+        const { store } = gameContext
 
-        App && store && ReactDOM.render(
+        store && ReactDOM.render(
             <Provider store={store}>
-                <App
-                    gameContext={gameContext}/>
+                <App gameContext={gameContext}/>
             </Provider>,
             document.getElementById('root')
         )

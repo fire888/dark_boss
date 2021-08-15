@@ -1,10 +1,10 @@
 
-.ui button.butt-toggleDialog {
+button.butt-toggleDialog {
     bottom: 7rem;
     max-width: 30vw;
     min-width: 30vw;
     left: 35vw;
-    font-size: 1rem;
+    font-size: 1.1rem;
     z-index: 10;
     display: flex;
     justify-content: center;
@@ -63,7 +63,7 @@
 
 }
 
-.ui .userReplicies button {
+.userReplicies button {
     display: block;
     position: static;
     flex: 2 0 auto;
@@ -72,7 +72,7 @@
     max-width: 1000px;
     height: auto;
     padding: 7px;
-    width: 100%;
+
 }
 
 .botAnswers {

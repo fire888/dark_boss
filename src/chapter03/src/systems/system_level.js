@@ -116,9 +116,9 @@ export class Level {
         let flagIsSpecial = false
 
         const initState = store.getState()
-        let saveOldQuadrant = initState.app.playerQuadrant.oldQuadrant
-        let saveNewQuadrant = initState.app.playerQuadrant.newQuadrant
-        let saveIsStartCorridorShow = initState.app.level.isStartCorridorShow
+        let saveOldQuadrant = initState.ui.playerQuadrant.oldQuadrant
+        let saveNewQuadrant = initState.ui.playerQuadrant.newQuadrant
+        let saveIsStartCorridorShow = initState.ui.level.isStartCorridorShow
 
 
 
@@ -127,7 +127,7 @@ export class Level {
         store.subscribe(() => {
             const newState = store.getState()
 
-            if (saveIsStartCorridorShow && saveIsStartCorridorShow !== newState.app.level.isStartCorridorShow) {
+            if (saveIsStartCorridorShow && saveIsStartCorridorShow !== newState.ui.level.isStartCorridorShow) {
                 saveIsStartCorridorShow = false
                 for (let key in startL) {
                     removeItemFromFloorsCollision(startL[key])
@@ -137,7 +137,7 @@ export class Level {
             }
 
 
-            const { type, oldQuadrant, newQuadrant, counter } = newState.app.playerQuadrant
+            const { type, oldQuadrant, newQuadrant, counter } = newState.ui.playerQuadrant
 
 
             if ( type !== 'CHANGE_QUADRANT' ) return;

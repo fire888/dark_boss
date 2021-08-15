@@ -30,11 +30,11 @@
     justify-content: center;
     align-items: center;
     align-content: center;
-    font-size: 2.2em;
+    font-size: 1.25rem;
     transition: 0.2s;
     color: #c4e2ff;
     border: 1px solid #c1e1ff;
-    height: 2em;
+    height: 2rem;
     overflow: hidden;
     border-radius: 5px;
     background: rgba(36, 0, 80, 0.73);

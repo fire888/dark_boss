@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 
 
 const mapStateToProps = state => ({
-    botAnswers: state.ui.botAnswers,
+    botAnswers: state.app.ui.botAnswers,
 })
 
 
