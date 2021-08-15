@@ -33,7 +33,7 @@ export class UI {
         this._gameContext = gameContext
         const { App, store } = gameContext
 
-        ReactDOM.render(
+        App && store && ReactDOM.render(
             <Provider store={store}>
                 <App
                     gameContext={gameContext}/>

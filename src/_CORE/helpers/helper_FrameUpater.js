@@ -1,12 +1,11 @@
 import * as R from 'ramda'
-import { FRAME_UPDATE } from '../../chapter03/constants/constants_elements'
 
 
 export class FrameUpdater {
     constructor (gameContext) {
         const { emitter } = gameContext
 
-        const emitFrameUpdate = emitter.emit(FRAME_UPDATE)
+        const emitFrameUpdate = emitter.emit('frameUpdate')
 
         let data = {
             time: 0,

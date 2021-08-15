@@ -1,6 +1,5 @@
 import * as THREE from "three";
-import {FRAME_UPDATE} from "../../chapter03/constants/constants_elements";
-import { toggleDialog } from '../../chapter03/store/actions'
+
 
 const MIN_DIST_TO_BOT = 12
 const MAX_DIALOG_DIST_TO_BOT = 30
@@ -25,7 +24,7 @@ export class Component_PlayerNearItems {
         this._funcToMap = () => {}
 
 
-        emitter.subscribe(FRAME_UPDATE)(() => {
+        emitter.subscribe('frameUpdate')(() => {
             let downKey = null
             if (keyBoard.keys['up']) downKey = 'up'
             if (keyBoard.keys['down']) downKey = 'down'

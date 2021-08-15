@@ -1,4 +1,3 @@
-import { clickFullScreen } from '../../chapter03/store/actions'
 
 
 
@@ -9,7 +8,9 @@ const MIN_W = 350
 
 export class DeviceResizer {
     constructor (gameContext) {
-        const { emitter, appWrapper, pr } = gameContext
+        let { emitter, appWrapper } = gameContext
+
+        !appWrapper && (appWrapper = document.querySelector('.app-wrapper')) 
 
         emitter.subscribe('mouseDown')(key => {
             if (key === 'butt-fullscreen') openAppFullScreenIfMobile()
@@ -36,7 +37,6 @@ export class DeviceResizer {
 
             if (!document.fullscreenElement) {
                 emitter.emit('screenMode')('exitFullScreen')
-                //pr && clickFullScreen(pr.dispatch).exitFullScreen()
             }
 
         }

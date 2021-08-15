@@ -1,16 +1,15 @@
-import { MATERIALS_CONFIG } from '../../chapter03/constants/constants_elements'
 import * as THREE from 'three'
 
 export class Helper_MaterialsLib {
     constructor (gameContext) {
-        const { assets } = gameContext
+        const { assets, CONSTANTS } = gameContext
 
-        gameContext.materials = createMaterials(assets)
+        gameContext.materials = createMaterials(assets, CONSTANTS.MATERIALS_CONFIG)
     }
 }
 
 
-const createMaterials = assets => {
+const createMaterials = (assets, MATERIALS_CONFIG) => {
     for (let key in assets)
         assets[key].wrapS && (assets[key].wrapS = assets[key].wrapT = THREE.RepeatWrapping)
 

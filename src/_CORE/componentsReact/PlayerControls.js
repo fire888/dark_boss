@@ -1,4 +1,4 @@
-import { t } from "../helpers/helper_translate";
+//import { t } from "../helpers/helper_translate";
 import { useState, useEffect } from 'react'
 import '../stylesheets/controls.css'
 

@@ -1,5 +1,5 @@
-export async function pipeLineForInit (gameModules) {
-    const gameContext = {}
+export async function pipeLineForInit (gameModules, CONSTANTS) {
+    const gameContext = { CONSTANTS }
 
     initModulesByState('pageLoaded', gameModules, gameContext)
 

@@ -1,18 +1,13 @@
 import * as THREE from 'three'
 
-import { playerConfig } from '../../chapter03/constants/constants_elements'
-
 import { createComponentCollisionFloors } from '../components/component_collisionFloor'
 import { createComponentCollisionWalls } from '../components/component_collisionWalls'
-
-import { FRAME_UPDATE } from '../../chapter03/constants/constants_elements'
-import { showMessages, startPlay } from '../../chapter03/store/actions'
 
 
 
 export class Player {
     constructor (gameContext) {
-        const { emitter, studio, pr } = gameContext
+        const { emitter, studio, pr, CONSTANTS } = gameContext
 
         const {
             startPos,
@@ -27,7 +22,7 @@ export class Player {
             speedDown,
             offsetWallCollision,
             speedRot,
-        } = playerConfig
+        } = CONSTANTS.playerConfig
 
 
         this._camera = null
@@ -101,29 +96,11 @@ export class Player {
             }
             keys['left'] && (this._mainObj.rotation.y += (speedRot * data.count))
             keys['right'] && (this._mainObj.rotation.y -= (speedRot * data.count))
-
-
-            if (oldY > this._mainObj.position.y) {
-                ++countDropped
-            } else {
-                countDropped = 0
-            }
-            oldY = this._mainObj.position.y
-
-            if (countDropped > 800 && !isGameComplete) {
-                isGameComplete = true
-                setTimeout(() => {
-                    startPlay(pr.dispatch).startFinalFog()
-                    setTimeout(() => {
-                        showMessages(pr.dispatch).toggleFinalMessage(true)
-                    }, 6000)
-                }, 10000)
-            }
         }
 
 
         emitter.subscribe('keyEvent')(data => keys = data)
-        emitter.subscribe(FRAME_UPDATE)(update)
+        emitter.subscribe('frameUpdate')(update)
         emitter.subscribe('toggleDialog')(val => isButtonsDisabled = val.isOpen)
 
 

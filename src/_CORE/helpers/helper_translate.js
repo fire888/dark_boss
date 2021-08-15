@@ -1,10 +1,14 @@
-import { TRANSLATE_WORLDS } from '../../chapter03/constants/constants_replicies'
+export class Translater {
+    constructor (gameContext) {
+        this._lang = 'en'
+        this._words = gameContext.CONSTANTS.TRANSLATE_WORLDS
 
-let currentLanguage = 'en'
+        gameContext.emitter.subscribe('setLanguage')(lang => this._lang = lang)
 
-// emitter.subscribe('setLanguage')(keyLanguage => {
-//     currentLanguage = keyLanguage
-// })
+        window.t = this.t.bind(this)
+    }
 
-
-export const t = val => (TRANSLATE_WORLDS[currentLanguage] && TRANSLATE_WORLDS[currentLanguage][val]) || val
+    t (w) {
+        return (this._words[this._lang] && this._words[this._lang][w]) || w
+    }
+}

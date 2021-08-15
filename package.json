@@ -20,8 +20,12 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start01": "set FOLDER=chapter01 && react-app-rewired start",
+    "build01": "set FOLDER=chapter01 && react-app-rewired build",
+
+    "start03": "set FOLDER=chapter03 && react-app-rewired start",
+    "build03": "set FOLDER=chapter03 && react-app-rewired build",
+    
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -42,5 +46,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "react-app-rewired": "^2.1.8"
   }
 }
