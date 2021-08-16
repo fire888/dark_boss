@@ -8,7 +8,7 @@ import { FLOORS_CONF } from '../constants/constants_elements'
 
 
 const DIALOGS_DATA = [
-    {
+{
      phrases: [
          {
              q: 'Hello there!',
@@ -27,7 +27,7 @@ const DIALOGS_DATA = [
              levelEvent: null,
          },
      ]
-  }, {
+}, {
      phrases: [
          {
              q: 'Say, where do these corridors lead ?',
@@ -41,10 +41,7 @@ const DIALOGS_DATA = [
              levelEvent: null,
          },
      ]
-  }, {
-  
-  
-  
+}, {
      phrases: [
          {
              q: 'What do you do here ?',
@@ -59,30 +56,23 @@ const DIALOGS_DATA = [
              levelEvent: null,
          },
      ]
-  },
-  
-  
-  
-     {
+}, {
      phrases: [
          {
-         q: 'Hey, it looks like I\'m walking in circles.',
-         a: 'You have walked long enough.',
-         event: 'nextReply',
-         levelEvent: null,
-     },{
-         q: 'Meaning?',
-         a: 'The way to the next level is open to you.',
-         event: 'close',
-         levelEvent: 'addStairs',
-     },
-     ]
-  },
-  
-  
-     // %%%%%%%%%%%%%%%%%%%%%%% 22222222222222222 %%%%%%%%%%%%%%%%%%%%
-  
-     {
+             q: 'Hey, it looks like I\'m walking in circles.',
+             a: 'You have walked long enough.',
+             event: 'nextReply',
+             levelEvent: null,
+         },{
+             q: 'Meaning?',
+             a: 'The way to the next level is open to you.',
+             event: 'close',
+             levelEvent: 'addStairs',
+         },
+    ]
+},
+// %%%%%%%%%%%%%%%%%%%%%%% 22222222222222222 %%%%%%%%%%%%%%%%%%%%
+{
      phrases: [
          {
              q: 'Hi, I heard I can find the "end" around here?',
@@ -96,10 +86,7 @@ const DIALOGS_DATA = [
              levelEvent: null,
          },
      ]
-  },
-  
-  
-     {
+}, {
          phrases: [
              {
                  q: 'Soooo, is that you again ?',
@@ -113,10 +100,7 @@ const DIALOGS_DATA = [
                  levelEvent: null,
              },
          ]
-     },
-  
-  
-     {
+}, {
          phrases: [
              {
                  q: 'Am I there yet?',
@@ -130,10 +114,7 @@ const DIALOGS_DATA = [
                  levelEvent: null,
              },
          ]
-     },
-  
-  
-     {
+ }, {
          phrases: [
              {
                  q: 'That\'s the same exact corridor with you again.',
@@ -142,12 +123,9 @@ const DIALOGS_DATA = [
                  levelEvent: 'addStairs',
              },
          ]
-     },
-  
-     // %%%%%%%%%%%%%%%%%%%%% 33333333 %%%%%%%%%%%%%%%%%%%%%%
-  
-  
-     {
+ },
+// %%%%%%%%%%%%%%%%%%%%% 33333333 %%%%%%%%%%%%%%%%%%%%%%
+{
          phrases: [
              {
                  q: 'Hey man, seriously, how do I get out of here ?',
@@ -162,12 +140,8 @@ const DIALOGS_DATA = [
                  levelEvent: null,
              },
          ]
-     },
-  
-  
-  
-     {
-         phrases: [
+}, {
+          phrases: [
              {
                  q: 'So how\'s your way btw ?',
                  a: 'It is like yourself.',
@@ -396,6 +370,7 @@ const ui = function(state = uiState, action) {
         return ({
             ...state,
             isShowFinalMessage: action.mode,
+            isShowControls: false,
         })
     }
 
@@ -508,6 +483,7 @@ const ui = function(state = uiState, action) {
             return ({
                 ...state,
                 isDialog: action.isDialog,
+                isShowControls: !action.isDialog,
                 isButtonDialog: true,
             })
         }
@@ -527,8 +503,8 @@ const ui = function(state = uiState, action) {
             userReplicies,
             botAnswers: [],
             isDialog: action.isDialog,
+            isShowControls: !action.isDialog,
             isButtonDialog,
-
             isCanChangeBotIndex: false,
             botIndex,
             phraseIndex,

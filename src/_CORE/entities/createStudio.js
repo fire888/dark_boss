@@ -125,7 +125,7 @@ export class Studio {
     setCamera (cam) {
         this._camera = cam
         this._composer.addPass(new RenderPass(this._scene, this._camera))
-        this._composer.addPass(new ShaderPass(Saturate))
+        //this._composer.addPass(new ShaderPass(Saturate))
     }
 }
 

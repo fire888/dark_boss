@@ -15,6 +15,7 @@ import { Helper_MaterialsLib } from '../../../_CORE/helpers/helper_MaterialsLib'
 
 import { SystemLevel } from '../systems/system_Level'
 import levelSrc from '../../../assets/chapter01/level.obj'
+import levelCollisionSrc from '../../../assets/chapter01/level-ray.obj'
 // import mapFloorOuter from '../../assets/floor_outer_map.jpg'
 // import pxjpg from '../../assets/skybox/px.jpg'
 // import nxjpg from '../../assets/skybox/nx.jpg'
@@ -106,6 +107,7 @@ export const GAME_MODULES = [
         initStateKey: 'beforeStartPlay',
         assetsToLoad: [
             { type: 'obj', path: levelSrc, key: 'level-rooms' },
+            { type: 'obj', path: levelCollisionSrc, key: 'levelCollisions' },
             //{ type: 'cubeTextures', path: [ pxjpg, nxjpg, pyjpg, nyjpg, pzjpg, nzjpg, ], key: 'skyBox' },
             //{ type: 'img', path: mapFloorOuter, key: 'mapFloorOuter', wrap: true },
         ],

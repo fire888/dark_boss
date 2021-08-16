@@ -5,7 +5,7 @@ export class Translater {
 
         gameContext.emitter.subscribe('setLanguage')(lang => this._lang = lang)
 
-        window.t = this.t.bind(this)
+        window['t'] = this.t.bind(this)
     }
 
     t (w) {

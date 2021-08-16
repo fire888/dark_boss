@@ -1,7 +1,9 @@
 import { store } from "../store/createStore";
 import { connectEmitterToActions } from "../store/actions";
 import '../stylesheets/style.css'
+import '../../../_CORE/stylesheets/controls.css'
 import CustomReactComponent from '../componentsReact/CustomReactComponent';
+
 
 
 export class PreInitConnectStoreToCoreUi {

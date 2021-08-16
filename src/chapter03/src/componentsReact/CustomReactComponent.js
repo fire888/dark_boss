@@ -22,7 +22,7 @@ function CustomReactComponent(props) {
                 <button
                     className="butt-toggleDialog control"
                     onClick={() => {toggleDialog(props.dispatch).toggleDialog(props.isShowControls)}}>
-                    {!props.isShowControls ? t('close dialog') : t('open dialog') }
+                    {!props.isShowControls ? window.t('close dialog') : window.t('open dialog') }
                 </button>)}
 
 
@@ -38,7 +38,7 @@ function CustomReactComponent(props) {
             {props.isShowFinalMessage && (
                 <div className="info">
                     <div className="info-inner final-message">
-                        <p>{t('To be continued')}</p>
+                        <p>{window.t('To be continued')}</p>
                     </div>
                 </div>)}
         </div>

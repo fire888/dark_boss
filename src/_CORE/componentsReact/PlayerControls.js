@@ -1,6 +1,5 @@
-//import { t } from "../helpers/helper_translate";
 import { useState, useEffect } from 'react'
-import '../stylesheets/controls.css'
+
 
 
 
@@ -89,20 +88,20 @@ function PlayerControls(props) {
                             x
                         </button>
                         <p>
-                            {`1 ${t('chapter')}: `}
-                            <a href="http://js.otrisovano.ru/factory/" target="blank">{ t('link') }</a>
+                            {`1 ${window.t('chapter')}: `}
+                            <a href="http://js.otrisovano.ru/factory/" target="blank">{ window.t('link') }</a>
                         </p>
                         <p>
-                            {`2 ${t('chapter')}: `}
-                            <a href="http://js.otrisovano.ru/bridge/" target="blank">{ t('link') }</a>
+                            {`2 ${window.t('chapter')}: `}
+                            <a href="http://js.otrisovano.ru/bridge/" target="blank">{ window.t('link') }</a>
                         </p>
                         <p><br /><br />
-                            {t('Author: ')}
-                            <a href="http://otrisovano.ru" target="blank">{ t('link') }</a>
+                            {window.t('Author: ')}
+                            <a href="http://otrisovano.ru" target="blank">{ window.t('link') }</a>
                         </p>
                         <p>
-                            {t('Github: ')}
-                            <a href="https://github.com/fire888/levels/" target="blank">{ t('link') }</a>
+                            {window.t('Github: ')}
+                            <a href="https://github.com/fire888/levels/" target="blank">{ window.t('link') }</a>
                         </p>
                     </div>
                 </div>)}
