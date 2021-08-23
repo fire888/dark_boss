@@ -67,9 +67,6 @@ export class Player {
         const checkWallsFront = createComponentCollisionWalls(this._mainObj, frontObj, offsetWallCollision)
         const checkWallsBack = createComponentCollisionWalls(this._mainObj, backObj, offsetWallCollision)
 
-        let oldY = this._mainObj.position.y
-        let countDropped = 0
-        let isGameComplete = false
 
         const update = data => {
             if (isButtonsDisabled) return;

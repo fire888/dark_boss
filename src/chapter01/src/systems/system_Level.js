@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { setItemToFloorsCollision } from '../../../_CORE/components/component_collisionFloor'
+import { setItemToWallCollision } from '../../../_CORE/components/component_collisionWalls'
 
 export class SystemLevel {
     constructor (gameContext) {
@@ -12,9 +13,8 @@ export class SystemLevel {
         console.log(assets)
 
         assets['level-rooms'].traverse(child => {
-            child.name.includes("room_")
-              && levelItems.push(new THREE.Mesh(child.geometry, materials.wall))
-            
+            child.name.includes("room_") && levelItems.push(new THREE.Mesh(child.geometry, materials.wall))            
+
             // if (child.name.includes("doormesh_")) {
             //   const key = child.name.split('_')[1]
             //   !doors[key] && (doors[key] = {})
@@ -40,7 +40,8 @@ export class SystemLevel {
         for (let i = 0; i < collisionFloors.length; ++i) {
             setItemToFloorsCollision(collisionFloors[i])
         }
-
-
+        for (let i = 0; i < collisionWalls.length; ++i) {
+            setItemToWallCollision(collisionWalls[i])
+        }
     }
 }

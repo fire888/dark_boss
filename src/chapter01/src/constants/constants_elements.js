@@ -21,10 +21,24 @@ export const MATERIALS_CONFIG = {
     'wall': {
         mat: 'MeshPhongMaterial',
         props: {
-            color: 0x004466,
-            emissive: 0xffffff,
-            map: 'mapFloorOuter',
+            color: 0xffffff,
+            emissive: 0x000000,
+            map: 'wallTexture',
             bumpMap: 'mapFloorOuter',
+            bumpScale: 1,
+            envMap: 'skyBox',
+            reflectivity: 0.5,
+            specular: 0x222222,
+        },
+    },
+
+    'door': {
+        mat: 'MeshPhongMaterial',
+        props: {
+            color: 0xffffff,
+            emissive: 0x000000,
+            map: 'doorTexture',
+            bumpMap: 'doorTexture',
             bumpScale: 1,
             envMap: 'skyBox',
             reflectivity: 0.5,
@@ -119,11 +133,11 @@ export const studioConfig = {
     },
     amb: {
         color: 0x18257d,
-        strength: 0.1,
+        strength: 0.8,
     },
     sceneEnvironment: {
-        fogNear: 3,
-        fogFar: 50,
+        fogNear: 50,
+        fogFar: 80,
         color: 0x18257d, 
         backgroundImgKey: null, 
     },
@@ -135,7 +149,7 @@ export const playerConfig = {
     speed: 0.8,
     speedRot: 0.02,
     speedDown: -0.45,
-    offsetFromFloor: 10.0,
+    offsetFromFloor: 5.0,
     offsetFromFloorFactor: 0.5,
     offsetWallCollision: 3.5,
     level: -13,
@@ -152,7 +166,7 @@ export const playerConfig = {
     backObjPos: [0, 0, 1],
     lightDataOne: {
         color: 0xffffff,
-        strength: 5000,
+        strength: 50,
         pos: [0, 50, 5],
     },
 }

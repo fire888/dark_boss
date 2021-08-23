@@ -15,7 +15,14 @@ import { Helper_MaterialsLib } from '../../../_CORE/helpers/helper_MaterialsLib'
 
 import { SystemLevel } from '../systems/system_Level'
 import levelSrc from '../../../assets/chapter01/level.obj'
+import wallTextureSrc from '../../../assets/chapter01/wall.jpg' 
 import levelCollisionSrc from '../../../assets/chapter01/level-ray.obj'
+
+
+import { SystemDoors } from '../systems/system_Doors'
+import doorTextureSrc from '../../../assets/chapter01/door.jpg'
+
+
 // import mapFloorOuter from '../../assets/floor_outer_map.jpg'
 // import pxjpg from '../../assets/skybox/px.jpg'
 // import nxjpg from '../../assets/skybox/nx.jpg'
@@ -109,8 +116,16 @@ export const GAME_MODULES = [
             { type: 'obj', path: levelSrc, key: 'level-rooms' },
             { type: 'obj', path: levelCollisionSrc, key: 'levelCollisions' },
             //{ type: 'cubeTextures', path: [ pxjpg, nxjpg, pyjpg, nyjpg, pzjpg, nzjpg, ], key: 'skyBox' },
-            //{ type: 'img', path: mapFloorOuter, key: 'mapFloorOuter', wrap: true },
+            { type: 'img', path: wallTextureSrc, key: 'wallTexture', wrap: true },
         ],
+    },
+    {
+        key: 'doors',
+        constr: SystemDoors,
+        initStateKey: 'beforeStartPlay',
+        assetsToLoad: [
+            { type: 'img', path: doorTextureSrc, key: 'doorTexture', wrap: false }, 
+        ] 
     },
     // {
     //     key: 'bots',
