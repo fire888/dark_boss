@@ -19,6 +19,7 @@ export const createComponentCollisionFloors = (objFromLink, offset, delta, speed
     
     const raycasterDown = new THREE.Raycaster(vec3Src, vec3Ray)
 
+
     return {
         check: updateData => {
             if (isDisable) return;
@@ -35,9 +36,7 @@ export const createComponentCollisionFloors = (objFromLink, offset, delta, speed
             } 
             objFrom.position.y = intersectsFloor[0].point.y + offsetFromFloor
         },
-        toggleDisable: val => {
-            isDisable = val
-        }
+        toggleDisable: val => isDisable = val
     }
 
 }

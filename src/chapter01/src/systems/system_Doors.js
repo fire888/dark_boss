@@ -1,69 +1,69 @@
-import * as THREE from "three";
-import { setItemToWallCollision } from '../../../_CORE/components/component_collisionWalls'
+import * as THREE from "three"
+import { animateMoveAndReturn } from '../../../_CORE/components/componentMoveAndReturn'
 
-
+const OFFSET_PLAYER_FROM_DOOR = 7
 
 export class SystemDoors {
-    constructor (gameContext) {
-        const { assets, materials, studio, emitter } = gameContext
+    constructor (root) {
+        const {
+            assets,
+            materials,
+            studio,
+            emitter,
+            systemPlayerCollisionItems
+        } = root
 
-        const doors = {} 
-        const arrDoors = []
+        this._doors = {}
 
         assets['level-rooms'].traverse(child => {
             if (child.name.includes("doormesh_")) {
                 const key = child.name.split('_')[1]
-                !doors[key] && (doors[key] = {})
-                doors[key]['mesh'] = new THREE.Mesh(child.geometry, materials.door)
-                doors[key]['mesh']['userData'] = {
+                !this._doors[key] && (this._doors[key] = {})
+                this._doors[key]['mesh'] = new THREE.Mesh(child.geometry, materials.door)
+                this._doors[key]['state'] = 'closed'
+                this._doors[key]['access'] = 'confirm' // ||'denied' || 'confirm'
+                this._doors[key]['mesh']['userData'] = {
                     part: 'mesh',
                     type: 'door',
                     id: key,
                 }
-
-                arrDoors.push(child)
             }
         })
-        for (let key in doors) {
-            studio.addToScene(doors[key]['mesh'])
-            setItemToWallCollision(doors[key]['mesh'])
+
+
+        for (let key in this._doors) {
+
+            studio.addToScene(this._doors[key]['mesh'])
+            systemPlayerCollisionItems && systemPlayerCollisionItems.setItemToCollision({
+                mesh: this._doors[key]['mesh'],
+                dist: OFFSET_PLAYER_FROM_DOOR,
+                itemKeyEmitCollision: { key, type: 'door' },
+                isDisablePlayer: true
+            })
         }
 
-        // const objFrom = objFromLink
-        // const objTo = objToLink
-        // const offsetWallCollision = 2
-        
 
-        // const checkCollision = (objFrom, objTo) => {
-        //     vec3Src2.copy(objFrom.position)
-        //     objTo.getWorldPosition(vec3Ray2)
-        
-        //     vec3Ray2.sub(vec3Src2)
-        
-        //     const raycasterDoors = new THREE.Raycaster(vec3Src2, vec3Ray2)
-        //     const intersectsDoors = raycasterDoors.intersectObjects(arrDoors)
-        
-        //     if (intersectsDoors[0] && intersectsDoors[0].distance < 10) {
-        //         //const doorId = checkDoor(intersectsDoors[0].object)
-        //         console.log('!!!')
-        //         //doorId && EMITTER.emit('collisionDoors')(doorId)
-        //     }
-        
-        //     if (intersectsDoors[0] && intersectsDoors[0].distance < offsetWallCollision) {
-        //         return true;
-        //     }
-        
-        //     return false;
-        // }
+        emitter.subscribe('playerCollision')(data =>
+            data.type === 'door'
+                && this._doors[data.key]['access'] === 'confirm'
+                    && this._doors[data.key].state === 'closed'
+                        && this._openDoor(data.key)
+        )
+    }
 
 
-        emitter.subscribe('playerMove')(({ pos, dir }) => {
-            if (dir !== 'up') return;
-            
-            for (let key in doors) {
-                //console.log(doors[key].mesh.position.distanceTo(pos))
-                //checkCollision()
-            }
-        })
+
+    _openDoor (key) {
+        this._doors[key].state = 'opened'
+
+        const data = {
+            position: this._doors[key]['mesh'].position,
+            keyPos: 'y',
+            fromVal: this._doors[key]['mesh'].position.y,
+            offset: 15,
+            time: 500,
+            pause: 2000,
+        }
+        animateMoveAndReturn(data, () => this._doors[key].state = 'closed')
     }
 }

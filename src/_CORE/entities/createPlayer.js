@@ -7,6 +7,7 @@ import { createComponentCollisionWalls } from '../components/component_collision
 
 export class Player {
     constructor (gameContext) {
+        this._root = gameContext
         const { emitter, studio, pr, CONSTANTS } = gameContext
 
         const {
@@ -77,6 +78,11 @@ export class Player {
             if (!keys) return;
 
             if (keys['up']) {
+                if (this._root.systemPlayerCollisionItems) {
+                    const isBlockedByItem = this._root.systemPlayerCollisionItems.checkCollisions(this._mainObj, frontObj)
+                    if (isBlockedByItem) return;
+                }
+
                 if (checkWallsFront.check()) return;
                 if (!this._isCanMove['up']) return;
 

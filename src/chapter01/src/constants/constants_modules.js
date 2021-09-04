@@ -8,6 +8,7 @@ import { Helper_TweenUpdater } from "../../../_CORE/helpers/helper_TweenUpdater"
 import { Studio } from '../../../_CORE/entities/createStudio'
 import { KeyBoard } from "../../../_CORE/helpers/helper_KeyBoard"
 import { Player } from '../../../_CORE/entities/createPlayer'
+import { SystemCollisionsPlayerWithItems } from '../../../_CORE/systems/SystemCollisionsItems'
 import { StarterPlay } from "../actions/StarterPlay";
 
 import { Helper_MaterialsLib } from '../../../_CORE/helpers/helper_MaterialsLib'
@@ -102,6 +103,11 @@ export const GAME_MODULES = [
          key: 'player',
          constr: Player,
          initStateKey: 'beforeStartPlay',
+    },
+    {
+        key: 'systemPlayerCollisionItems',
+        constr: SystemCollisionsPlayerWithItems,
+        initStateKey: 'beforeStartPlay',
     },
     {
          key: 'materialsLib',

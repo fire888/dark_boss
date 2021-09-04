@@ -1,10 +1,6 @@
-import { UserReplicies } from './UserReplicies'
-import { BotAnswers } from './BotAnswers'
-
 import { connect } from 'react-redux'
-import { toggleDialog } from '../store/actions'
 import PlayerControls from '../../../_CORE/componentsReact/PlayerControls'
-
+import '../../../_CORE/stylesheets/controls.css'
 
 
 
