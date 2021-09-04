@@ -24,8 +24,7 @@ const move = (pos, keyPos, fromVal, toVal, time, callback) => {
 
         if (currentCount > count) {
             pos[keyPos] = toVal
-            callback()
-            return;
+            return void callback()
         }
 
         pos[keyPos] += speed
