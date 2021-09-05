@@ -1,6 +1,5 @@
 import { LoaderAssets } from '../../../_CORE/helpers/helper_LoadAssets'
 import { EventEmitter } from "../../../_CORE/helpers/helper_Emitter"
-//import { PreInitModules } from '../actions/PreInitModules'
 import { UI } from '../ui/Ui'
 import { DeviceResizer } from "../../../_CORE/helpers/helper_DeviceResizer"
 import { FrameUpdater } from "../../../_CORE/helpers/helper_FrameUpater"
@@ -8,8 +7,8 @@ import { Helper_TweenUpdater } from "../../../_CORE/helpers/helper_TweenUpdater"
 import { Studio } from '../../../_CORE/entities/createStudio'
 import { KeyBoard } from "../../../_CORE/helpers/helper_KeyBoard"
 import { Player } from '../../../_CORE/entities/createPlayer'
-import { SystemCollisionsPlayerWithItems } from '../../../_CORE/systems/SystemCollisionsItems'
-import { StarterPlay } from "../actions/StarterPlay";
+import { SystemCollisionWithItems } from '../../../_CORE/systems/SystemCollisionsItems'
+import { StarterPlay } from "../actions/StarterPlay"
 
 import { Helper_MaterialsLib } from '../../../_CORE/helpers/helper_MaterialsLib'
 
@@ -24,18 +23,10 @@ import { SystemDoors } from '../systems/system_Doors'
 import doorTextureSrc from '../../../assets/chapter01/door.jpg'
 
 
-// import mapFloorOuter from '../../assets/floor_outer_map.jpg'
-// import pxjpg from '../../assets/skybox/px.jpg'
-// import nxjpg from '../../assets/skybox/nx.jpg'
-// import pyjpg from '../../assets/skybox/py.jpg'
-// import nyjpg from '../../assets/skybox/ny.jpg'
-// import pzjpg from '../../assets/skybox/pz.jpg'
-// import nzjpg from '../../assets/skybox/nz.jpg'
+import { SystemBots } from "../systems/system_Bots"
+import botSrc from '../../../assets/chapter01/monster-animate3.glb'
+import botMap from "../../../assets/chapter01/monster-skin.jpg";
 
-
-// import { Bots } from '../systems/system_bots'
-// import botMap from '../../assets/botMap.png'
-// import botSrc from '../../assets/botAnim2.glb'
 // import pxjpg2 from '../../assets/matIronBox/posx.jpg'
 // import nxjpg2 from '../../assets/matIronBox/negx.jpg'
 // import pyjpg2 from '../../assets/matIronBox/posy.jpg'
@@ -56,11 +47,6 @@ export const GAME_MODULES = [
         constr: EventEmitter,
         initStateKey: 'pageLoaded',
     },
-    // {
-    //     key: 'preInitModules',
-    //     constr: PreInitModules,
-    //     initStateKey: 'pageLoaded',
-    // },
     {
         key: 'ui',
         constr: UI,
@@ -105,8 +91,13 @@ export const GAME_MODULES = [
          initStateKey: 'beforeStartPlay',
     },
     {
-        key: 'systemPlayerCollisionItems',
-        constr: SystemCollisionsPlayerWithItems,
+        key: 'systemCollisionItems',
+        constr: SystemCollisionWithItems,
+        initStateKey: 'beforeStartPlay',
+    },
+    {
+        key: 'systemCollisionFloor',
+        constr: SystemCollisionWithItems,
         initStateKey: 'beforeStartPlay',
     },
     {
@@ -133,21 +124,16 @@ export const GAME_MODULES = [
             { type: 'img', path: doorTextureSrc, key: 'doorTexture', wrap: false }, 
         ] 
     },
-    // {
-    //     key: 'bots',
-    //     constr: Bots,
-    //     initStateKey: 'beforeStartPlay',
-    //         assetsToLoad: [
-    //             { type: 'glb', path: botSrc, key: 'bot' },
-    //             { type: 'img', path: botMap, key: 'botMap' },
-    //             { type: 'cubeTextures', path: [  pxjpg2, nxjpg2, pyjpg2, nyjpg2, pzjpg2, nzjpg2, ], key: 'ironEnv' },
-    //         ]
-    // },
-    // {
-    //     key: 'changerQuadrant',
-    //     constr: ChangerQuadrant,
-    //     initStateKey: 'beforeStartPlay',
-    // },
+    {
+        key: 'bots',
+        constr: SystemBots ,
+        initStateKey: 'beforeStartPlay',
+        assetsToLoad: [
+            { type: 'glb', path: botSrc, key: 'bot' },
+            { type: 'img', path: botMap, key: 'monster-skin' },
+            //{ type: 'cubeTextures', path: [  pxjpg2, nxjpg2, pyjpg2, nyjpg2, pzjpg2, nzjpg2, ], key: 'ironEnv' },
+        ]
+    },
     // {
     //     key: 'playerInBot',
     //     constr: Component_PlayerInBot,

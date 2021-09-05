@@ -1,7 +1,7 @@
 import * as THREE from "three";
 
 
-export class SystemCollisionsPlayerWithItems {
+export class SystemCollisionWithItems {
     constructor(root) {
         this._root = root
         this._arrMeshes = []
@@ -16,16 +16,16 @@ export class SystemCollisionsPlayerWithItems {
         mesh,
         dist,
         itemKeyEmitCollision = null,
-        isDisablePlayer = true
+        isStopUnits = true
     }) {
         mesh.userData.offsetFromPlayer = dist
         mesh.userData.itemKeyEmitCollision = itemKeyEmitCollision
-        mesh.userData.isDisablePlayer = isDisablePlayer
+        mesh.userData.isStopUnits = isStopUnits
         this._arrMeshes.push(mesh)
     }
 
 
-    checkCollisions (objFrom, objTo) {
+    checkCollisions (objFrom, objTo, d) {
         objFrom.getWorldPosition(this._vecStart)
         objTo.getWorldPosition(this._vecDir)
 
@@ -34,17 +34,20 @@ export class SystemCollisionsPlayerWithItems {
         const intersects = this._rayCaster.intersectObjects(this._arrMeshes)
 
         if (intersects[0]) {
-            if (intersects[0].distance < intersects[0].object.userData.offsetFromPlayer) {
+            if (intersects[0].distance < d) {
                 if (intersects[0].object.userData.itemKeyEmitCollision) {
-                    this._root.emitter.emit('playerCollision')(intersects[0].object.userData.itemKeyEmitCollision)
+                    this._root.emitter.emit('collision')({ 
+                        ...intersects[0].object.userData.itemKeyEmitCollision, 
+                        type2: objFrom.userData.type 
+                    })
                 }
 
-                if (intersects[0].object.userData.isDisablePlayer) {
-                    return true
+                if (intersects[0].object.userData.isStopUnits) {
+                    return [ true, intersects[0].distance ]
                 }
             }
         }
 
-        return false
+        return [ false, null ]
     }
 }

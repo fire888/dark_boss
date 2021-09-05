@@ -1,14 +1,11 @@
 import * as THREE from 'three'
 
-import { createComponentCollisionFloors } from '../components/component_collisionFloor'
-import { createComponentCollisionWalls } from '../components/component_collisionWalls'
-
-
 
 export class Player {
-    constructor (gameContext) {
-        this._root = gameContext
-        const { emitter, studio, pr, CONSTANTS } = gameContext
+    constructor (root) {
+        this._root = root
+
+        const { emitter, studio, pr, CONSTANTS } = root
 
         const {
             startPos,
@@ -20,8 +17,8 @@ export class Player {
             speed,
             offsetFromFloor,
             offsetFromFloorFactor,
-            speedDown,
             offsetWallCollision,
+            speedDown,
             speedRot,
         } = CONSTANTS.playerConfig
 
@@ -38,6 +35,11 @@ export class Player {
         this._mainObj = new THREE.Object3D()
         this._mainObj.position.fromArray(startPos)
         this._mainObj.rotation.fromArray(startRot)
+        this._mainObj.userData.type = 'player'
+
+        const bottomObj = new THREE.Object3D() 
+        bottomObj.position.fromArray([0, -3, 0])
+        this._mainObj.add(bottomObj)
 
         const frontObj = new THREE.Object3D()
         frontObj.position.fromArray(frontObjPos)
@@ -64,39 +66,55 @@ export class Player {
         }
 
 
-        this._checkFloors = createComponentCollisionFloors(this._mainObj, offsetFromFloor, offsetFromFloorFactor, speedDown)
-        const checkWallsFront = createComponentCollisionWalls(this._mainObj, frontObj, offsetWallCollision)
-        const checkWallsBack = createComponentCollisionWalls(this._mainObj, backObj, offsetWallCollision)
-
-
         const update = data => {
             if (isButtonsDisabled) return;
             if (this._isBlocked) return;
 
-            this._checkFloors.check(data)
+
+            /** check bottom floors */
+            if (this._root.systemCollisionFloor) {
+                const [
+                    isBlockedByItem, 
+                    offset,
+                ] = this._root.systemCollisionFloor.checkCollisions(this._mainObj, bottomObj, offsetFromFloor)
+                
+                if (!isBlockedByItem) {
+                    this._mainObj.position.y += speedDown
+                } else {
+                    if (offset < (offsetFromFloor - offsetFromFloorFactor)) 
+                        this._mainObj.position.y += (offsetFromFloor - offset)
+                }
+            }
+
 
             if (!keys) return;
 
             if (keys['up']) {
-                if (this._root.systemPlayerCollisionItems) {
-                    const isBlockedByItem = this._root.systemPlayerCollisionItems.checkCollisions(this._mainObj, frontObj)
+                if (!this._isCanMove['up']) return;
+
+                if (this._root.systemCollisionItems) {
+                    const [ isBlockedByItem ] 
+                        = this._root.systemCollisionItems.checkCollisions(this._mainObj, frontObj, offsetWallCollision)
                     if (isBlockedByItem) return;
                 }
-
-                if (checkWallsFront.check()) return;
-                if (!this._isCanMove['up']) return;
 
                 this._mainObj.translateZ(-speed * data.count)
                 emitter.emit('playerMove')({ pos: this._mainObj.position, dir: 'up' })
             }
 
             if (keys['down']) {
-                if (checkWallsBack.check()) return;
                 if (!this._isCanMove['down']) return;
+
+                if (this._root.systemCollisionItems) {
+                    const [ isBlockedByItem ] 
+                        = this._root.systemCollisionItems.checkCollisions(this._mainObj, backObj, offsetWallCollision)
+                    if (isBlockedByItem) return;
+                }
 
                 this._mainObj.translateZ(speed * data.count)
                 emitter.emit('playerMove')({ pos: this._mainObj.position, dir: 'down' })
             }
+
             keys['left'] && (this._mainObj.rotation.y += (speedRot * data.count))
             keys['right'] && (this._mainObj.rotation.y -= (speedRot * data.count))
         }

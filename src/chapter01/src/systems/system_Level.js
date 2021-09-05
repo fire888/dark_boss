@@ -1,47 +1,43 @@
 import * as THREE from "three";
-import { setItemToFloorsCollision } from '../../../_CORE/components/component_collisionFloor'
-import { setItemToWallCollision } from '../../../_CORE/components/component_collisionWalls'
 
 export class SystemLevel {
-    constructor (gameContext) {
-        const { assets, materials, studio } = gameContext
+    constructor (root) {
+        const { 
+            assets, 
+            materials, 
+            studio, 
+            systemCollisionItems,
+            systemCollisionFloor,
+        } = root
 
-        const levelItems = []
-        const collisionWalls = []
-        const collisionFloors = []
+        const {
+            offsetFromFloor,
+        } = root.CONSTANTS.playerConfig
 
-        console.log(assets)
+
 
         assets['level-rooms'].traverse(child => {
-            child.name.includes("room_") && levelItems.push(new THREE.Mesh(child.geometry, materials.wall))            
-
-            // if (child.name.includes("doormesh_")) {
-            //   const key = child.name.split('_')[1]
-            //   !doors[key] && (doors[key] = {})
-            //   doors[key]['mesh'] = new THREE.Mesh(child.geometry, materials.door)
-            //   doors[key]['mesh']['userData'] = {
-            //     part: 'mesh',
-            //     type: 'door',
-            //     id: key,
-            //   }
-            // }
+            child.name.includes("room_") 
+                && studio.addToScene(new THREE.Mesh(child.geometry, materials.wall))            
         })
-        for (let i = 0; i < levelItems.length; ++i) {
-            studio.addToScene(levelItems[i])
-        }
 
 
 
-        const easyMat = new THREE.MeshBasicMaterial()
         assets['levelCollisions'].traverse(child => {
-            child.name === "wall_collision" && collisionWalls.push(new THREE.Mesh(child.geometry, easyMat))
-            child.name === "floor_collision" && collisionFloors.push(new THREE.Mesh(child.geometry, easyMat))
+            child.name === "wall_collision" 
+                && systemCollisionItems
+                    && systemCollisionItems.setItemToCollision({
+                            mesh: new THREE.Mesh(child.geometry, materials.easyMaterial),
+                            dist: 5,
+                            isStopUnits: true
+                        })
+            child.name === "floor_collision" 
+                && systemCollisionFloor     
+                    && systemCollisionFloor.setItemToCollision({ 
+                        mesh: new THREE.Mesh(child.geometry, materials.easyMaterial), 
+                        dist: offsetFromFloor,
+                        isStopUnits: true,
+                    })
         })
-        for (let i = 0; i < collisionFloors.length; ++i) {
-            setItemToFloorsCollision(collisionFloors[i])
-        }
-        for (let i = 0; i < collisionWalls.length; ++i) {
-            setItemToWallCollision(collisionWalls[i])
-        }
     }
 }

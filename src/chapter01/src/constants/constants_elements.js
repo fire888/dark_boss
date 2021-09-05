@@ -1,21 +1,11 @@
 
+const PI = Math.PI
+const hPI = PI / 2
 
 export const MATERIALS_CONFIG = {
-
-    'iron': {
-        mat: 'MeshPhongMaterial',
-        props: {
-            color: 0xffffff,
-            emissive: 0x003388,
-            specular: 0xffffff,
-            shininess: 60,
-            bumpMap: 'botMap',
-            bumpScale: 0.1,
-            envMap: 'ironEnv',
-            reflectivity: 0.5,
-            map: 'botMap',
-            skinning: true,
-        },
+    'easyMaterial': {
+        mat: 'MeshBasicMaterial',
+        props: {},
     },
 
     'wall': {
@@ -46,84 +36,20 @@ export const MATERIALS_CONFIG = {
         },
     },
 
-
-    'green': {
+    'bot': {
         mat: 'MeshPhongMaterial',
-        props: {
-            color: 0x004466,
-            emissive: 0xffffff,
-            map: 'mapFloorOuter',
-            bumpMap: 'mapFloorOuter',
-            bumpScale: 1,
-            envMap: 'skyBox',
-            reflectivity: 0.5,
-        },        
-    },
-
-    'road': {
-        mat: 'MeshPhongMaterial',
-        props: {
-            color: 0xa1129f,
-            emissive: 0xa1129f,
-            map: 'mapFloorOuter',
-            bumpMap: 'mapFloorOuter',
-            bumpScale: 1,
-            envMap: 'skyBox',
-            reflectivity: 0.5,
-        },        
-    } 
+        props: { 
+            color: 0xa7b4b2,
+            map: 'monster-skin',
+            emissive: 0x191c38,
+            bumpMap: 'monster-skin',
+            bumpScale: 0.2,
+            shininess: 500,
+            specular: 0xffffff,
+            skinning: true,
+        }, 
+    }
 }
-
-
-
-
-/** size element */
-// export const S = 175.335
-// export const H = 70
-
-
-
-/** emitter constants */
-//export const FRAME_UPDATE = 'FRAME_UPDATE'
-
-
-
-
-// export const FLOORS_CONF = {
-//     '-2': {
-//         'outer': { fogNear: -200, fogFar: 500, color: 0x18257d },
-//         'corridorLight': { fogNear: -40, fogFar: 150, color: 0x6b006c },
-//         'default': { fogNear: -40, fogFar: 150, color: 0x8805a8 },
-//     },
-//
-//
-//
-//     '-1': {
-//         'start': { fogNear: 0, fogFar: 5, color: 0x18257d },
-//         'outer': { fogNear: 20, fogFar: 500, color: 0x18257d },
-//         'back': { fogNear: 20, fogFar: 500, color: 0x18257d, backgroundImgKey: 'skyBox' },
-//         'firstRoomLight': { fogNear: -40, fogFar: 150, color: 0x00235e},
-//         'corridorLight': { fogNear: -40, fogFar: 150, color: 0x6b006c },
-//         'default': { fogNear: -40, fogFar: 150, color: 0x2e118b },
-//     },
-//
-//
-//     '0': { 'default': { fogNear: -40, fogFar: 150, color: 0x3c4900 }, },
-//
-//
-//     '1': { 'default': { fogNear: -40, fogFar: 150, color: 0x0e3e52 }, },
-//
-//
-//     '2': { 'default': { fogNear: 0, fogFar: 80, color: 0x0a1763 }, },
-//
-//
-//     '3': { 'default': { fogNear: 0, fogFar: 80, color: 0x0a6340 }, },
-//
-//
-//     '4': { 'default': { fogNear: 0, fogFar: 80, color: 0xac0000 }, },
-// }
-
-
 
 
 export const studioConfig = {
@@ -170,3 +96,51 @@ export const playerConfig = {
         pos: [0, 50, 5],
     },
 }
+
+export const BOT = {
+    offsetWallCollision: 5,
+}
+
+export const BOTS = [
+    {
+        name: 'guard_01',
+        pos: [-51, 26.316999435, 27],
+        rot: 0,
+    },
+    {
+        name: 'guard_Super_02',
+        pos: [-39, 45.317001, -112],
+        rot: 0,
+    },
+    {
+        name: 'master',
+        pos: [-91, 26.316999435, 35],
+        rot: hPI - 1,
+    },
+    {
+        name: 'scientist',
+        pos: [31, 64.3152008, -48],
+        rot: hPI,
+    },
+    {
+        name: 'engineer',
+        pos: [-1, 25.31520, -69],
+        rot: PI,
+    },
+    {
+        name: 'programmer',
+        pos: [25, 64.3152008, -4],
+        rot: 0,
+    },
+    {
+        name: 'mechanic',
+        pos: [11, 25.31520, -8],
+        rot: hPI,
+    },
+    {
+        name: 'scout',
+        pos: [-49, 26.316999435, 172],
+        rot: hPI,
+    }
+]
+

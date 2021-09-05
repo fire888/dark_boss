@@ -1,5 +1,5 @@
 import * as THREE from "three"
-import { animateMoveAndReturn } from '../../../_CORE/components/componentMoveAndReturn'
+import { animateToOffsetAndReturn } from '../../../_CORE/components/componentTween'
 
 const OFFSET_PLAYER_FROM_DOOR = 7
 
@@ -10,7 +10,7 @@ export class SystemDoors {
             materials,
             studio,
             emitter,
-            systemPlayerCollisionItems
+            systemCollisionItems
         } = root
 
         this._doors = {}
@@ -34,20 +34,23 @@ export class SystemDoors {
         for (let key in this._doors) {
 
             studio.addToScene(this._doors[key]['mesh'])
-            systemPlayerCollisionItems && systemPlayerCollisionItems.setItemToCollision({
+            systemCollisionItems && systemCollisionItems.setItemToCollision({
                 mesh: this._doors[key]['mesh'],
                 dist: OFFSET_PLAYER_FROM_DOOR,
                 itemKeyEmitCollision: { key, type: 'door' },
-                isDisablePlayer: true
+                isStopUnits: true
             })
         }
 
 
-        emitter.subscribe('playerCollision')(data =>
-            data.type === 'door'
-                && this._doors[data.key]['access'] === 'confirm'
-                    && this._doors[data.key].state === 'closed'
-                        && this._openDoor(data.key)
+        emitter.subscribe('collision')(data => {
+            data.type === 'door' 
+                && data.type2 
+                    && data.type2 === 'player'
+                        && this._doors[data.key]['access'] === 'confirm'
+                            && this._doors[data.key].state === 'closed'
+                                && this._openDoor(data.key)
+            }
         )
     }
 
@@ -57,13 +60,13 @@ export class SystemDoors {
         this._doors[key].state = 'opened'
 
         const data = {
-            position: this._doors[key]['mesh'].position,
-            keyPos: 'y',
+            prop: this._doors[key]['mesh'].position,
+            key: 'y',
             fromVal: this._doors[key]['mesh'].position.y,
             offset: 15,
             time: 500,
             pause: 2000,
         }
-        animateMoveAndReturn(data, () => this._doors[key].state = 'closed')
+        animateToOffsetAndReturn(data, () => this._doors[key].state = 'closed')
     }
 }
