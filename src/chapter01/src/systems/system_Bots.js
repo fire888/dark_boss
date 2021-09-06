@@ -14,7 +14,7 @@ export class SystemBots {
         } = root
 
     
-        const arrMonsters = []
+        this.bots = {}
 
         root.CONSTANTS.BOTS.forEach(item => {
             const unit = createBot(
@@ -29,13 +29,15 @@ export class SystemBots {
             unit.mesh.rotation.y = item.rot
             unit.name = item.name
             studio.addToScene(unit.mesh)
-            arrMonsters.push(unit)
+            unit.mesh.userData.inScene = true
+            unit.mesh.userData.key = item.name
+            this.bots[item.name] = unit
         })
 
 
         emitter.subscribe('frameUpdate')(data => {
-            for (let i = 0; i < arrMonsters.length; i++) {
-                arrMonsters[i].update(data)
+            for (let key in this.bots) {
+                this.bots[key].update(data)
             }
         })
     }

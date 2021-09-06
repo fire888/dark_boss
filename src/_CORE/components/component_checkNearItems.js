@@ -1,4 +1,4 @@
-import * as THREE from "three";
+/*import * as THREE from "three";
 
 
 const MIN_DIST_TO_BOT = 12
@@ -62,11 +62,10 @@ export class Component_PlayerNearItems {
     }
 
     setArrItems (arr, funcToMap) {
-
         this._arr = arr
         this._funcToMap = funcToMap
     }
-}
+}*/
 
 
 

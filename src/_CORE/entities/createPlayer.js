@@ -68,8 +68,12 @@ export class Player {
 
         const update = data => {
             if (isButtonsDisabled) return;
-            if (this._isBlocked) return;
 
+            keys['left'] && (this._mainObj.rotation.y += (speedRot * data.count))
+            keys['right'] && (this._mainObj.rotation.y -= (speedRot * data.count))
+
+
+            if (this._isBlocked) return;
 
             /** check bottom floors */
             if (this._root.systemCollisionFloor) {
@@ -114,9 +118,6 @@ export class Player {
                 this._mainObj.translateZ(speed * data.count)
                 emitter.emit('playerMove')({ pos: this._mainObj.position, dir: 'down' })
             }
-
-            keys['left'] && (this._mainObj.rotation.y += (speedRot * data.count))
-            keys['right'] && (this._mainObj.rotation.y -= (speedRot * data.count))
         }
 
 

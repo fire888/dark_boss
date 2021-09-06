@@ -27,6 +27,9 @@ import { SystemBots } from "../systems/system_Bots"
 import botSrc from '../../../assets/chapter01/monster-animate3.glb'
 import botMap from "../../../assets/chapter01/monster-skin.jpg";
 
+
+import { CheckerDialogWithBot } from "../systems/system_CheckerDialogWithBot";
+
 // import pxjpg2 from '../../assets/matIronBox/posx.jpg'
 // import nxjpg2 from '../../assets/matIronBox/negx.jpg'
 // import pyjpg2 from '../../assets/matIronBox/posy.jpg'
@@ -133,6 +136,11 @@ export const GAME_MODULES = [
             { type: 'img', path: botMap, key: 'monster-skin' },
             //{ type: 'cubeTextures', path: [  pxjpg2, nxjpg2, pyjpg2, nyjpg2, pzjpg2, nzjpg2, ], key: 'ironEnv' },
         ]
+    },
+    {
+        key: 'playerNearBot',
+        constr: CheckerDialogWithBot,
+        initStateKey: 'beforeStartPlay',   
     },
     // {
     //     key: 'playerInBot',

@@ -17,6 +17,11 @@ export function animateToOffsetAndReturn (
         animateFromOffsetToStart = [tween, [prop, key, fromVal + offset, fromVal, time]],
         onComplete = [onAllComplete, []]
 
-    start([animateToOffset, wait, animateFromOffsetToStart, onComplete])
+    start([
+        animateToOffset, 
+        wait, 
+        animateFromOffsetToStart, 
+        onComplete,
+    ])
 }
 

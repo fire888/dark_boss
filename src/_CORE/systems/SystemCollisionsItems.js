@@ -14,11 +14,9 @@ export class SystemCollisionWithItems {
 
     setItemToCollision ({
         mesh,
-        dist,
         itemKeyEmitCollision = null,
         isStopUnits = true
     }) {
-        mesh.userData.offsetFromPlayer = dist
         mesh.userData.itemKeyEmitCollision = itemKeyEmitCollision
         mesh.userData.isStopUnits = isStopUnits
         this._arrMeshes.push(mesh)
