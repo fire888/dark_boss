@@ -37,8 +37,11 @@ export function componentFreeWalk (mesh, meshFrontObj, wallOffset, root) {
 }
 
 
+
+const ran = Math.random
+
 const startRotate = mesh => {
-    const angleRot = (Math.random() * (Math.PI * 1.5) + 1) * Math.random() < 0.5 ? 1 : -1
+    const angleRot = (ran() * Math.PI * 1.5 + 1) * ran() < 0.5 ? 1 : -1
     const numRotations = 40
     const speed = angleRot / numRotations
 
@@ -53,7 +56,7 @@ const startRotate = mesh => {
 
 
 const startGo = mesh => {
-    const numsMove = Math.random() * 300
+    const numsMove = ran() * 300
 
     let countMove = 0 
 
