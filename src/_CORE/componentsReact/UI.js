@@ -30,14 +30,18 @@ loaderTimeOut()
 
 
 export class UI {
-    constructor(gameContext) {
-        gameContext.pr = dispatcher
-        this._gameContext = gameContext
-        const { store } = gameContext
+    constructor(root) {
+
+        !root.t && (window.t = () => {})
+
+        root.pr = dispatcher
+        this._gameContext = root
+        const { store } = root
+
 
         store && ReactDOM.render(
             <Provider store={store}>
-                <App gameContext={gameContext}/>
+                <App gameContext={root}/>
             </Provider>,
             document.getElementById('root')
         )

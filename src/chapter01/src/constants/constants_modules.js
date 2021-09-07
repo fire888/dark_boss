@@ -1,6 +1,6 @@
 import { LoaderAssets } from '../../../_CORE/helpers/helper_LoadAssets'
 import { EventEmitter } from "../../../_CORE/helpers/helper_Emitter"
-import { UI } from '../ui/Ui'
+import { CustomUi } from '../ui/Ui'
 import { DeviceResizer } from "../../../_CORE/helpers/helper_DeviceResizer"
 import { FrameUpdater } from "../../../_CORE/helpers/helper_FrameUpater"
 import { Helper_TweenUpdater } from "../../../_CORE/helpers/helper_TweenUpdater"
@@ -30,19 +30,6 @@ import botMap from "../../../assets/chapter01/monster-skin.jpg";
 
 import { CheckerDialogWithBot } from "../systems/system_CheckerDialogWithBot";
 
-// import pxjpg2 from '../../assets/matIronBox/posx.jpg'
-// import nxjpg2 from '../../assets/matIronBox/negx.jpg'
-// import pyjpg2 from '../../assets/matIronBox/posy.jpg'
-// import nyjpg2 from '../../assets/matIronBox/negy.jpg'
-// import pzjpg2 from '../../assets/matIronBox/posz.jpg'
-// import nzjpg2 from '../../assets/matIronBox/negz.jpg'
-
-
-// import { ChangerQuadrant } from "../store/actionByChangeQuadrant"
-// import { Component_PlayerInBot } from '../components/component_playerInBot'
-// import { StarterPlay } from '../actions/StarterPlay'
-// import { EnderPlay } from '../actions/EnderPlay'
-
 
 export const GAME_MODULES = [
     {
@@ -51,10 +38,15 @@ export const GAME_MODULES = [
         initStateKey: 'pageLoaded',
     },
     {
-        key: 'ui',
-        constr: UI,
-        initStateKey: 'pageLoaded',
+        key: 'customUi',
+        constr: CustomUi,
+        initStateKey: 'pageLoaded',  
     },
+    // {
+    //     key: 'ui',
+    //     constr: UI,
+    //     initStateKey: 'pageLoaded',
+    // },
     {
          key: 'deviceResizer',
          constr: DeviceResizer,
@@ -115,7 +107,6 @@ export const GAME_MODULES = [
         assetsToLoad: [
             { type: 'obj', path: levelSrc, key: 'level-rooms' },
             { type: 'obj', path: levelCollisionSrc, key: 'levelCollisions' },
-            //{ type: 'cubeTextures', path: [ pxjpg, nxjpg, pyjpg, nyjpg, pzjpg, nzjpg, ], key: 'skyBox' },
             { type: 'img', path: wallTextureSrc, key: 'wallTexture', wrap: true },
         ],
     },
@@ -134,7 +125,6 @@ export const GAME_MODULES = [
         assetsToLoad: [
             { type: 'glb', path: botSrc, key: 'bot' },
             { type: 'img', path: botMap, key: 'monster-skin' },
-            //{ type: 'cubeTextures', path: [  pxjpg2, nxjpg2, pyjpg2, nyjpg2, pzjpg2, nzjpg2, ], key: 'ironEnv' },
         ]
     },
     {
@@ -142,11 +132,6 @@ export const GAME_MODULES = [
         constr: CheckerDialogWithBot,
         initStateKey: 'beforeStartPlay',   
     },
-    // {
-    //     key: 'playerInBot',
-    //     constr: Component_PlayerInBot,
-    //     initStateKey: 'beforeStartPlay',
-    // },
     {
         key: 'starterPlay',
         constr: StarterPlay,
