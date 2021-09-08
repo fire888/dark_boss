@@ -1,21 +1,21 @@
 export async function pipeLineForInit (gameModules, CONSTANTS) {
-    const gameContext = { CONSTANTS }
+    const root = { CONSTANTS }
 
-    initModulesByState('pageLoaded', gameModules, gameContext)
+    initModulesByState('pageLoaded', gameModules, root)
 
-    const { loaderAssets } = gameContext
+    const { loaderAssets } = root
 
     const dataToLoad = getAssetsFromModulesData(gameModules)
-    gameContext.assets = await loaderAssets.loadAssets(dataToLoad)
+    root.assets = await loaderAssets.loadAssets(dataToLoad)
 
-    initModulesByState('beforeStartPlay', gameModules, gameContext)
+    initModulesByState('beforeStartPlay', gameModules, root)
 }
 
 
-const initModulesByState = (state, modulesData, gameContext) => {
+const initModulesByState = (state, modulesData, root) => {
     for (let i = 0; i < modulesData.length; ++i) {
         const {  key, constr, initStateKey } = modulesData[i]
-        initStateKey === state && (gameContext[key] = new constr(gameContext))
+        initStateKey === state && (root[key] = new constr(root))
     }
 }
 

@@ -1,5 +1,5 @@
-import "../stylesheets/style.css";
-import { UI } from '../../../_CORE/componentsReact/UI'
+import "./stylesheets/style.css";
+import { UI } from '../../../_CORE/ui/UI'
 import CustomReactComponent from "./CustomReactComponent";
 import { dialogs } from "./createStore";
 

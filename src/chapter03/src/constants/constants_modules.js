@@ -2,7 +2,7 @@ import { LoaderAssets } from '../../../_CORE/helpers/helper_LoadAssets'
 import { Translater } from '../../../_CORE/helpers/helper_translate'
 import { EventEmitter } from "../../../_CORE/helpers/helper_Emitter"
 import { PreInitConnectStoreToCoreUi } from '../actions/PreInitConnectStoreToCoreUi'
-import { UI } from '../../../_CORE/componentsReact/UI'
+import { UI } from '../../../_CORE/ui/UI'
 import { DeviceResizer } from "../../../_CORE/helpers/helper_DeviceResizer"
 import { FrameUpdater } from "../../../_CORE/helpers/helper_FrameUpater"
 import { Helper_TweenUpdater } from "../../../_CORE/helpers/helper_TweenUpdater"

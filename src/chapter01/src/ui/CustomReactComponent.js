@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { ButtonLong } from '../../../_CORE/componentsReact/componentsSmall/ButtonLong'
+import { ButtonLong } from '../../../_CORE/ui/componentsReact/ButtonLong'
 // import { UserReplicies } from './UserReplicies'
 // import { BotAnswers } from './BotAnswers'
 

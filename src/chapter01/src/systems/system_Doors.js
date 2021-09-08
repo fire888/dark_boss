@@ -1,5 +1,5 @@
 import * as THREE from "three"
-import { animateToOffsetAndReturn } from '../../../_CORE/components/componentTween'
+import { animateToOffsetAndReturn } from '../../../_CORE/components/componentTweenProp'
 
 const OFFSET_PLAYER_FROM_DOOR = 7
 

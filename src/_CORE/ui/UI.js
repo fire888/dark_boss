@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
-import App, { dispatcher } from './App';
-import { prepareStore } from '../store/createStore'
+import App, { dispatcher } from './containersReact/App';
+import { prepareStore } from './store/createStore'
 
 
 /** ANIMATION LOADER */

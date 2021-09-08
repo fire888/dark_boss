@@ -3,8 +3,8 @@
  */
 
  
-import { timer, tween } from "./funcs/tweenPause";
-import { start } from "../utils/startPiplineFunctions";
+import { timer, tween } from "./funcs/transformProp";
+import { start } from "../utils/iterate";
 
 
 export function animateToOffsetAndReturn (
