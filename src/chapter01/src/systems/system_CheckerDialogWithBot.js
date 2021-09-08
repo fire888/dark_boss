@@ -26,11 +26,13 @@ export class CheckerDialogWithBot {
                 if (keyBotNear) {
                     bots.bots[keyBotNear].walk(player._mainObj.position)
                     keyBotNear = null
+                    emitter.emit('nearBot')({ isNearBot: false, botKey: keyBotNear })
                 }
             } else {
                 if (!keyBotNear) {
                     keyBotNear = data.key
                     bots.bots[keyBotNear].stay(player._mainObj.position)
+                    emitter.emit('nearBot')({ isNearBot: true, botKey: keyBotNear })
                 }
             }
         })

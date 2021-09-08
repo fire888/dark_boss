@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import PlayerControls from './PlayerControls'
 
 const mapStateToProps = state => ({ 
-    isShowControls: state.ui.isShowControls,
+    isShowControls: state.controls.isShowControls,
 })
 
 function App(props) {

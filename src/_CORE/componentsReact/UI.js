@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
 import App, { dispatcher } from './App';
-
+import { prepareStore } from '../store/createStore'
 
 
 /** ANIMATION LOADER */
@@ -34,9 +34,9 @@ export class UI {
 
         !root.t && (window.t = () => {})
 
-        root.pr = dispatcher
-        this._gameContext = root
-        const { store } = root
+        root.dispatcher = dispatcher
+        this._root = root
+        const store = prepareStore(root)
 
 
         store && ReactDOM.render(
@@ -52,7 +52,7 @@ export class UI {
         const progressWrapper = document.querySelector('.progress-wrapper')
 
         const hideStartScreen = e => {
-            this._gameContext.emitter.emit('setLanguage')(e.target.dataset.lang)
+            this._root.emitter.emit('setLanguage')(e.target.dataset.lang)
             document.querySelector('.start-screen').style.display = 'none'
         }
 

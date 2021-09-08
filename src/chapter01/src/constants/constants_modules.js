@@ -8,8 +8,6 @@ import { Studio } from '../../../_CORE/entities/createStudio'
 import { KeyBoard } from "../../../_CORE/helpers/helper_KeyBoard"
 import { Player } from '../../../_CORE/entities/createPlayer'
 import { SystemCollisionWithItems } from '../../../_CORE/systems/SystemCollisionsItems'
-import { StarterPlay } from "../actions/StarterPlay"
-
 import { Helper_MaterialsLib } from '../../../_CORE/helpers/helper_MaterialsLib'
 
 
@@ -26,9 +24,12 @@ import doorTextureSrc from '../../../assets/chapter01/door.jpg'
 import { SystemBots } from "../systems/system_Bots"
 import botSrc from '../../../assets/chapter01/monster-animate3.glb'
 import botMap from "../../../assets/chapter01/monster-skin.jpg";
-
-
 import { CheckerDialogWithBot } from "../systems/system_CheckerDialogWithBot";
+
+
+import { AdderActions } from "../actions/AdderActions"
+
+
 
 
 export const GAME_MODULES = [
@@ -42,11 +43,6 @@ export const GAME_MODULES = [
         constr: CustomUi,
         initStateKey: 'pageLoaded',  
     },
-    // {
-    //     key: 'ui',
-    //     constr: UI,
-    //     initStateKey: 'pageLoaded',
-    // },
     {
          key: 'deviceResizer',
          constr: DeviceResizer,
@@ -133,13 +129,9 @@ export const GAME_MODULES = [
         initStateKey: 'beforeStartPlay',   
     },
     {
-        key: 'starterPlay',
-        constr: StarterPlay,
+        key: 'adderActions',
+        constr: AdderActions,
         initStateKey: 'beforeStartPlay',
     },
-    // {
-    //     key: 'enderPlay',
-    //     constr: EnderPlay,
-    //     initStateKey: 'beforeStartPlay',
-    // },
 ]
+

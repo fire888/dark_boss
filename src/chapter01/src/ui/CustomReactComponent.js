@@ -1,16 +1,15 @@
+import { connect } from 'react-redux'
+import { ButtonLong } from '../../../_CORE/componentsReact/componentsSmall/ButtonLong'
 // import { UserReplicies } from './UserReplicies'
 // import { BotAnswers } from './BotAnswers'
 
-import { connect } from 'react-redux'
 
-//import { toggleDialog } from '../store/actions'
-
-
-const mapStateToProps = state => ({
-    //isButtonDialog: state.ui.isButtonDialog,
-    //isShowControls: !state.ui.isDialog,
-    //isShowFinalMessage: state.ui.isShowFinalMessage,
-})
+const mapStateToProps = state => {
+    console.log(state) 
+    return ({
+        isButtonDialog: state.dialogs.isButtonDialog,
+    })
+}
 
 
 
@@ -18,6 +17,13 @@ const mapStateToProps = state => ({
 function CustomReactComponent(props) {
     return (
         <div>
+            {props.isButtonDialog && <ButtonLong 
+                display={props.isButtonDialog}
+                val="диалог"
+                onClick={() => {
+                    
+                }}
+            />}
             AAAAA
             {/* {props.isButtonDialog && (
                 <button
@@ -48,3 +54,37 @@ function CustomReactComponent(props) {
 
 
 export default connect(mapStateToProps)(CustomReactComponent);
+
+
+/*
+  <!-- <div class="ui">
+  <div id='info' style="display: none;">
+      <button id="close-info" class="control">x</button>
+      <div>От</br> <a href='http://otrisovano.ru' target="blanck">www.otrisovano.ru</a></br>
+        <a href='https://github.com/fire888/laboratory'>github.com</a></div>
+    </div>
+    <div class="ui-top">
+      <button id="butt-info" class="control">i</button>     
+    </div>
+    <div class="ui-center">
+        <div id="dialog-wrapper">
+          <div id="messages-wrapper" style="display: none;">
+            <div id="messages"></div>
+            <div id="replicies"></div>
+          </div>
+        </div>
+    </div>
+    <div class="ui-bottom">
+      <div class='left-container'>
+        <button class="butt-left control">&#9668;</button>
+        <button class="butt-right control">&#9658;</button>
+      </div>
+      <div class="center-container">
+        <button id="dialog-button-toggle" style="display: none;">диалог</button>
+      </div>
+      <div class='right-container'>
+        <button class="butt-front control">&#9650;</button>
+      </div>  
+    </div>
+  </div> -->
+  */
