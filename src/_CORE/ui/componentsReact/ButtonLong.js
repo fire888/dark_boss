@@ -5,6 +5,7 @@ export function ButtonLong (props) {
         <div className="center-container">
             <button 
                 className="dialog-button-toggle" 
+                onClick={props.callbackClick}
                 style={{ "display": props.display }}>
                 { props.val }        
             </button>

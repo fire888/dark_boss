@@ -1,8 +1,6 @@
 
 
 const storeStartState = {
-    isButtonDialog: false,
-
     replicies: {
         mechanic: {
             isDone: false,
@@ -162,18 +160,36 @@ const storeStartState = {
                 isDone: false,
             },]
         },
-    } 
+    },
+
+    isButtonDialog: false,
+    isShowPalleteDialog: false,
+    currentBotKey: null,
 } 
 
 
 
 export const dialogs = (store = storeStartState, action) => {
     if (action.type === 'BUTTON_DIALOG_TOGGLE') {
+
+        const {  isButtonDialog, currentBotKey } = action
+
         return {
             ...store,
-            isButtonDialog: action.isButtonDialog,
+            isButtonDialog,
+            currentBotKey,
         }
     }
+
+    console.log('!!!!')
+    if (action.type === 'SHOW_PALLETE_DIALOG') {
+        return {
+            ...store,
+            isButtonDialog: !action.is,
+            isShowPalleteDialog: action.is,
+        }
+    }
+        
 
     return store
 }

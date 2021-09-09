@@ -71,7 +71,7 @@
     margin-bottom: 4vh;
 }
 
-#dialog-wrapper {
+.dialog-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -79,7 +79,7 @@
     justify-content: stretch;
  }
  
- #messages-wrapper {
+ .messages-wrapper {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -91,7 +91,7 @@
     justify-content: flex-end;
  }
 
- #messages {
+ .messages {
     flex: 1 0 auto;
     display: flex;
     flex-direction: column;
@@ -101,17 +101,17 @@
     color: #ffffff;
  }
 
- #messages p{
+ .messages p{
     margin: 3px;
     font-size: 23px;
  }
 
- #messages p.player{
+ .messages p.player{
     font-size: 18px;
     color: chartreuse;
  }
 
- #replicies {
+ .replicies {
     flex: 0 1 auto;
     display: flex;
     flex-direction: column;
@@ -170,6 +170,7 @@
     max-height: 80px;
     border-radius: 40px;
 }
+
 
 .ui #replicies button {
     height: 35px;

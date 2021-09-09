@@ -1,5 +1,8 @@
 import { connect } from 'react-redux'
 import { ButtonLong } from '../../../_CORE/ui/componentsReact/ButtonLong'
+import DialogPallete from "./DialogPallete";
+
+import { dialogChanger } from "../actions/AdderActions";
 // import { UserReplicies } from './UserReplicies'
 // import { BotAnswers } from './BotAnswers'
 
@@ -8,6 +11,7 @@ const mapStateToProps = state => {
     console.log(state) 
     return ({
         isButtonDialog: state.dialogs.isButtonDialog,
+        isShowPalleteDialog: state.dialogs.isShowPalleteDialog,
     })
 }
 
@@ -17,14 +21,16 @@ const mapStateToProps = state => {
 function CustomReactComponent(props) {
     return (
         <div>
-            {props.isButtonDialog && <ButtonLong 
-                display={props.isButtonDialog}
-                val="диалог"
-                onClick={() => {
-                    
-                }}
-            />}
-            AAAAA
+            {props.isButtonDialog && 
+                <ButtonLong 
+                    display={props.isButtonDialog}
+                    val="диалог"
+                    callbackClick={() => 
+                        dialogChanger(props.dispatch).togglePalleteDialog(true)}
+                  />}
+
+            {props.isShowPalleteDialog && <DialogPallete />}
+
             {/* {props.isButtonDialog && (
                 <button
                     className="butt-toggleDialog control"
