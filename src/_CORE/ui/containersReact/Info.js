@@ -1,4 +1,5 @@
 import { connect } from "react-redux";
+import '../stylesheets/Info.css'
 
 
 const mapStateToProps = (state) => { 

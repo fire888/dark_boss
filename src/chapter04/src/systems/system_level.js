@@ -1,11 +1,11 @@
-import {
-    setItemToFloorsCollision,
-    removeItemFromFloorsCollision, 
-} from '../../../_CORE/components/component_collisionFloor'
-import {
-    setItemToWallCollision,
-    removeItemFromWallCollision,
-} from '../../../_CORE/components/component_collisionWalls'
+//import {
+//    setItemToFloorsCollision,
+//    removeItemFromFloorsCollision, 
+//} from '../../../_CORE/components/component_collisionFloor'
+//import {
+//    setItemToWallCollision,
+//    removeItemFromWallCollision,
+//} from '../../../_CORE/components/component_collisionWalls'
 import * as THREE from 'three'
 
 
@@ -13,7 +13,7 @@ import * as THREE from 'three'
 
 export class Level {
     constructor(gameContext) {
-        const { studio, assets, materials } = gameContext
+        const { studio, assets, materials, systemCollisionItems } = gameContext
         const { allMeshes } = createLevelMeshes(assets, materials)
 
         const group = new THREE.Group()
@@ -23,10 +23,20 @@ export class Level {
 
         for (let i = 0; i < START_ROOMS.length; ++i) {
             const l = allMeshes[START_ROOMS[i]].clone()
-            setItemToFloorsCollision(l)
-            setItemToWallCollision(l)
+            systemCollisionItems && systemCollisionItems.setItemToCollision({
+                    mesh: l,
+                    dist: 5,
+                    isStopUnits: true
+                })
+            
+            
+            //setItemToFloorsCollision(l)
+            //setItemToWallCollision(l)
             group.add(l)
         }
+
+
+        
     }
 }
 
@@ -72,3 +82,46 @@ const createLevelMeshes = (assets, materials) => {
         collisionsBotsRooms,
     }
 }
+
+
+
+/*
+const { 
+    assets, 
+    materials, 
+    studio, 
+    systemCollisionItems,
+    systemCollisionFloor,
+} = root
+
+const {
+    offsetFromFloor,
+} = root.CONSTANTS.playerConfig
+
+
+
+assets['level-rooms'].traverse(child => {
+    child.name.includes("room_") 
+        && studio.addToScene(new THREE.Mesh(child.geometry, materials.wall))            
+})
+
+
+
+assets['levelCollisions'].traverse(child => {
+    child.name === "wall_collision" 
+        && systemCollisionItems
+            && systemCollisionItems.setItemToCollision({
+                    mesh: new THREE.Mesh(child.geometry, materials.easyMaterial),
+                    dist: 5,
+                    isStopUnits: true
+                })
+    child.name === "floor_collision" 
+        && systemCollisionFloor     
+            && systemCollisionFloor.setItemToCollision({ 
+                mesh: new THREE.Mesh(child.geometry, materials.easyMaterial), 
+                dist: offsetFromFloor,
+                isStopUnits: true,
+            })
+})
+}
+*/

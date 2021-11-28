@@ -120,24 +120,6 @@
     align-items: center;
  }
 
-/* .left-container,
-.center-container,
-.right-container {
-    justify-content: center;
-    display: flex;
-    flex-direction: row;
-    width: 25vw;
-} */
-
-/* .left-container {
-    justify-content: flex-start;
-    flex: 0 1 auto;
-}
-
-.right-container {
-    justify-content: flex-end;
-    flex: 0 1 auto;
-} */
 
 
 .ui button {

@@ -1,8 +1,7 @@
 import { LoaderAssets } from '../../../_CORE/helpers/helper_LoadAssets'
 import { Translater } from '../../../_CORE/helpers/helper_translate'
 import { EventEmitter } from "../../../_CORE/helpers/helper_Emitter"
-import { PreInitModules } from '../actions/PreInitModules'
-import { UI } from '../../../_CORE/componentsReact/UI'
+import { UI } from '../../../_CORE/ui/UI'
 import { DeviceResizer } from "../../../_CORE/helpers/helper_DeviceResizer"
 import { FrameUpdater } from "../../../_CORE/helpers/helper_FrameUpater"
 import { Helper_TweenUpdater } from "../../../_CORE/helpers/helper_TweenUpdater"
@@ -39,11 +38,11 @@ export const GAME_MODULES = [
         constr: Translater,
         initStateKey: 'pageLoaded',
     },
-    {
-        key: 'preInitModules',
-        constr: PreInitModules,
-        initStateKey: 'pageLoaded',
-    },
+    // {
+    //     key: 'preInitModules',
+    //     constr: PreInitModules,
+    //     initStateKey: 'pageLoaded',
+    // },
     {
         key: 'ui',
         constr: UI,

@@ -1,0 +1,42 @@
+/* %%%%%%%%%%%%%%%%%%%%%%%%%% */
+
+
+.info {
+    flex-direction: column;
+    background: #000033aa;
+    border: 5px solid #ffffff;
+    flex: 1 0 auto;
+ }
+
+
+
+.info {
+    position: absolute;
+    display: flex;
+    justify-content: stretch;
+    align-items: center;
+    align-content: center;
+    top: 30px;
+    bottom: 30px;
+    left: 30px;
+    right: 30px;
+    padding: 10px;
+}
+
+
+.butt-infoClose {
+    right: 0;
+    top: 0;
+}
+
+.info-inner {
+    margin-top: 2rem;
+    max-width: 500px;
+}
+
+
+.info p {
+    color:#fff;
+    font-size: 1rem;
+    margin-top: .4rem;
+}

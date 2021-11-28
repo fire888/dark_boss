@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import Info from './Info'
+import '../stylesheets/PlayerControls.css'
 
 
 
