@@ -1,11 +1,20 @@
 import { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
+import Info from './Info'
 
 
 
 
 
-function PlayerControls(props) {
-    const [isInfo, changeShowInfo] = useState(false)
+export default connect(
+    state => ({
+            isInfo: state.controls.isInfo,
+            isShowControls: state.controls.isShowControls, 
+    })
+)(
+    function(props) {
+        console.log(props)
+    //const [isInfo, changeShowInfo] = useState(false)
     const [isShowFullScreenButt, changeShowFullScreenButt] = useState(true)
 
     useEffect(() =>
@@ -15,9 +24,9 @@ function PlayerControls(props) {
 
 
     return (
-        <div>
+        <div className='ui-controls'>
 
-            <button
+            {props.isShowControls && <button
                 className="butt-left control"
                 onMouseDown={() => props.gameContext.emitter.emit('mouseDown')('butt-left')}
                 onTouchStart={() => props.gameContext.emitter.emit('mouseDown')('butt-left')}
@@ -25,10 +34,10 @@ function PlayerControls(props) {
                 onTouchEnd={() => props.gameContext.emitter.emit('mouseUp')('butt-left')}
             >
                 &#9668;
-            </button>
+            </button>}
 
 
-            <button
+            {props.isShowControls && <button
                 className="butt-right control"
                 onMouseDown={() => props.gameContext.emitter.emit('mouseDown')('butt-right')}
                 onTouchStart={() => props.gameContext.emitter.emit('mouseDown')('butt-right')}
@@ -36,10 +45,10 @@ function PlayerControls(props) {
                 onTouchEnd={() => props.gameContext.emitter.emit('mouseUp')('butt-right')}
             >
                 &#9658;
-            </button>
+            </button>}
 
 
-            <button
+            {props.isShowControls && <button
                 className="butt-front control"
                 onMouseDown={() => props.gameContext.emitter.emit('mouseDown')('butt-front')}
                 onTouchStart={() => props.gameContext.emitter.emit('mouseDown')('butt-front')}
@@ -47,9 +56,9 @@ function PlayerControls(props) {
                 onTouchEnd={() => props.gameContext.emitter.emit('mouseUp')('butt-front')}
             >
                 &#9650;
-            </button>
+            </button>}
 
-            <button
+            {props.isShowControls && <button
                 className="butt-back control"
                 onMouseDown={() => props.gameContext.emitter.emit('mouseDown')('butt-back')}
                 onTouchStart={() => props.gameContext.emitter.emit('mouseDown')('butt-back')}
@@ -57,11 +66,11 @@ function PlayerControls(props) {
                 onTouchEnd={() => props.gameContext.emitter.emit('mouseUp')('butt-back')}
             >
                 &#x25BC;
-            </button>
+            </button>}
 
 
 
-            {isShowFullScreenButt && (
+            {props.isShowControls && isShowFullScreenButt && (
                 <button
                     className="butt-fullscreen control"
                     onClick={() => {
@@ -71,43 +80,16 @@ function PlayerControls(props) {
                     &#10066;
                 </button>)}
 
-            {!isInfo && (
+            {!props.isInfo && (
                 <button
                     className="butt-info control"
-                    onClick={() => changeShowInfo(true)}>
+                    onClick={() => props.dispatch({ type: 'TOGGLE_INFO' })}>
                     i
                 </button>)}
 
 
-            {isInfo && (
-                <div className="info">
-                    <div className="info-inner">
-                        <button
-                            className="control butt-infoClose"
-                            onClick={() => changeShowInfo(false)}>
-                            x
-                        </button>
-                        <p>
-                            {`1 ${window.t('chapter')}: `}
-                            <a href="http://js.otrisovano.ru/factory/" target="blank">{ window.t('link') }</a>
-                        </p>
-                        <p>
-                            {`2 ${window.t('chapter')}: `}
-                            <a href="http://js.otrisovano.ru/bridge/" target="blank">{ window.t('link') }</a>
-                        </p>
-                        <p><br /><br />
-                            {window.t('Author: ')}
-                            <a href="http://otrisovano.ru" target="blank">{ window.t('link') }</a>
-                        </p>
-                        <p>
-                            {window.t('Github: ')}
-                            <a href="https://github.com/fire888/levels/" target="blank">{ window.t('link') }</a>
-                        </p>
-                    </div>
-                </div>)}
+            {props.isInfo && <Info />}
         </div>
     )
-}
+})
 
-
-export default PlayerControls

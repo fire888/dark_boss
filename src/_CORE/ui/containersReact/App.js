@@ -9,7 +9,7 @@ function App(props) {
     !dispatcher.dispatch && (dispatcher.dispatch = props.dispatch)
     return (
         <div className="ui">
-            {props.isShowControls && <PlayerControls gameContext={props.gameContext} />}
+            {<PlayerControls gameContext={props.gameContext} />}
             {props.gameContext.CustomReactComponent && <props.gameContext.CustomReactComponent gameContext={props.gameContext}/>}
         </div>
     )

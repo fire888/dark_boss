@@ -181,7 +181,6 @@ export const dialogs = (store = storeStartState, action) => {
         }
     }
 
-    console.log('!!!!')
     if (action.type === 'SHOW_PALLETE_DIALOG') {
         return {
             ...store,

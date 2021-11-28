@@ -8,7 +8,6 @@ import { dialogChanger } from "../actions/AdderActions";
 
 
 const mapStateToProps = state => {
-    console.log(state) 
     return ({
         isButtonDialog: state.dialogs.isButtonDialog,
         isShowPalleteDialog: state.dialogs.isShowPalleteDialog,

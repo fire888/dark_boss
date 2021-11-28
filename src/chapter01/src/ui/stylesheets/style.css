@@ -79,14 +79,14 @@
     justify-content: stretch;
  }
  
- .messages-wrapper {
+ .messages-wrapper,
+ .info {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     background: #000033aa;
     border: 5px solid #ffffff;
     flex: 1 0 auto;
-    width: 98vw;
     margin-bottom: 1vh;
     justify-content: flex-end;
  }
@@ -120,16 +120,16 @@
     align-items: center;
  }
 
-.left-container,
+/* .left-container,
 .center-container,
 .right-container {
     justify-content: center;
     display: flex;
     flex-direction: row;
     width: 25vw;
-}
+} */
 
-.left-container {
+/* .left-container {
     justify-content: flex-start;
     flex: 0 1 auto;
 }
@@ -137,7 +137,7 @@
 .right-container {
     justify-content: flex-end;
     flex: 0 1 auto;
-}
+} */
 
 
 .ui button {
@@ -163,6 +163,7 @@
 
 
 .ui button.control  {
+    position: absolute;
     flex: 0 0 60px;
     height: 60px;
     width: 60px;
@@ -189,4 +190,72 @@
 
 .dialog-button-toggle {
     color: red;
+}
+
+
+
+.butt-left {
+    bottom: 1.5rem;
+    left: .5rem;
+}
+
+.butt-right {
+    bottom: 1.5rem;
+    left: 5rem;
+}
+
+.butt-front {
+    bottom: 5.5rem;
+    right: 1rem;
+}
+
+.butt-back {
+    bottom: 1.5rem;
+    right: 1rem;
+}
+
+.butt-fullscreen {
+    top: .5rem;
+    right: 1rem
+}
+
+.butt-info {
+    top: .5rem;
+    right: 5.5rem;
+}
+
+
+
+
+/* %%%%%%%%%%%%%%%%%%%%%%%%%% */
+
+.info {
+    position: absolute;
+    display: flex;
+    justify-content: stretch;
+    align-items: center;
+    align-content: center;
+    top: 30px;
+    bottom: 30px;
+    left: 30px;
+    right: 30px;
+    padding: 10px;
+}
+
+
+.butt-infoClose {
+    right: 0;
+    top: 0;
+}
+
+.info-inner {
+    margin-top: 2rem;
+    max-width: 500px;
+}
+
+
+.info p {
+    color:#fff;
+    font-size: 1rem;
+    margin-top: .4rem;
 }
