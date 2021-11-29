@@ -20,8 +20,18 @@ export default connect(mapStateToProps)(function(props) {
             <div className="info-inner">
                 <p>{props.title}</p>
                 <p>{props.topText}</p>
+                <ul>{props.chapters.map((item, index) => 
+                    <li key={index}>
+                        <a href={item.href} target="blank">{item.text}</a>{index === props.currentChapter && ' current'}
+                    </li>)
+                }</ul>
                 <p>{props.bottomText}</p>
-                <p>{props.afterWolds}</p>
+                <ul>{props.afterWords.map((item, index) => 
+                    <li key={index}>
+                        {item.text} 
+                        <a href={item.href} target="blank">{item.aText}</a>
+                    </li>)
+                }</ul>
             </div>      
         </div>)
 })

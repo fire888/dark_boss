@@ -36,7 +36,15 @@
 
 
 .info p {
+    margin: 1rem  0;
+}
+
+.info p, 
+.info li { 
     color:#fff;
     font-size: 1rem;
-    margin-top: .4rem;
+}
+
+li {
+    list-style-type: none;
 }

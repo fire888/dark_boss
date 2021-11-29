@@ -2,6 +2,9 @@
 const PI = Math.PI
 const hPI = PI / 2
 
+
+export const CURRENT_CHAPTER = 0
+
 export const MATERIALS_CONFIG = {
     'easyMaterial': {
         mat: 'MeshBasicMaterial',

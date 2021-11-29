@@ -15,6 +15,15 @@ export function prepareStore(root) {
                 isInfo: !state.isInfo,
             })
         }
+        if (action.type === 'CHANGE_INFO_CHAPTER') {
+            return ({
+                ...state,
+                infoPanelData: {
+                    ...state.infoPanelData,
+                    currentChapter: action.currentChapter,
+                }
+            })
+        }
         return ({ ...state })
     }
     
