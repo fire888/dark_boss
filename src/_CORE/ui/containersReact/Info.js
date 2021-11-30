@@ -22,7 +22,11 @@ export default connect(mapStateToProps)(function(props) {
                 <p>{props.topText}</p>
                 <ul>{props.chapters.map((item, index) => 
                     <li key={index}>
-                        <a href={item.href} target="blank">{item.text}</a>{index === props.currentChapter && ' current'}
+                        {index + 1}.&nbsp;
+                        {item.href 
+                            ? <span><a href={item.href} target="blank">{item.text}</a></span>
+                            : <span>{item.text}</span>}
+                        {index === props.currentChapter && ' (current)'}
                     </li>)
                 }</ul>
                 <p>{props.bottomText}</p>
@@ -35,27 +39,4 @@ export default connect(mapStateToProps)(function(props) {
             </div>      
         </div>)
 })
-/*
-(
-                <div className="info">
-                    <div className="info-inner">
 
-                        <p>
-                            {`1 ${window.t('chapter')}: `}
-                            <a href="http://js.otrisovano.ru/factory/" target="blank">{ window.t('link') }</a>
-                        </p>
-                        <p>
-                            {`2 ${window.t('chapter')}: `}
-                            <a href="http://js.otrisovano.ru/bridge/" target="blank">{ window.t('link') }</a>
-                        </p>
-                        <p><br /><br />
-                            {window.t('Author: ')}
-                            <a href="http://otrisovano.ru" target="blank">{ window.t('link') }</a>
-                        </p>
-                        <p>
-                            {window.t('Github: ')}
-                            <a href="https://github.com/fire888/levels/" target="blank">{ window.t('link') }</a>
-                        </p>
-                    </div>
-                </div>)}
-*/

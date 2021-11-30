@@ -2,12 +2,13 @@ export const startDefaultStoreData = {
     isShowControls: true,
     isInfo: false,
     infoPanelData: {
-        title: 'Discovery of small android.',
+        title: 'Discovery of small android',
         topText: 'Few chapters:',
         chapters: [
-            { text: '1. Factory', href: 'http://js.otrisovano.ru/factory/' },
-            { text: '2. Brige', href: 'http://js.otrisovano.ru/factory/' },
-            { text: '3. Cube', href: 'http://js.otrisovano.ru/factory/' },
+            { text: 'Factory', href: 'http://js.otrisovano.ru/factory/' },
+            { text: 'Brige', href: 'http://js.otrisovano.ru/bridge/' },
+            { text: 'Cube', href: 'http://js.otrisovano.ru/levels/' },
+            { text: 'in production' },
         ],
         currentChapter: null,
         bottomText: 'Wait next chapter.',
