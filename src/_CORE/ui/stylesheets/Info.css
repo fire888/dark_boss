@@ -1,16 +1,10 @@
 /* %%%%%%%%%%%%%%%%%%%%%%%%%% */
 
 
+
 .info {
     flex-direction: column;
-    background: #000033aa;
-    border: 5px solid #ffffff;
     flex: 1 0 auto;
- }
-
-
-
-.info {
     position: absolute;
     display: flex;
     justify-content: stretch;
@@ -21,6 +15,8 @@
     left: 30px;
     right: 30px;
     padding: 10px;
+    background: #000033aa;
+    border: 5px solid #ffffff;
 }
 
 

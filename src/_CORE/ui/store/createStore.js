@@ -20,7 +20,7 @@ export function prepareStore(root) {
                 ...state,
                 infoPanelData: {
                     ...state.infoPanelData,
-                    currentChapter: action.currentChapter,
+                    currentChapterIndex: action.currentChapterIndex,
                 }
             })
         }

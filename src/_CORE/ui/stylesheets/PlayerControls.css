@@ -11,7 +11,7 @@
     width: 35vw;
     border: 2px solid #e4f9ff; 
     min-height: 4vh;
-    width: 30vw;
+    width: auto;
     overflow: hidden;
     border-radius: 5px; 
     background: #181d38;
@@ -32,23 +32,12 @@
 }
 
 
-.ui #replicies button {
-    height: 35px;
-    width: 100%;
-    margin: 1px;
-}
-
 
 .ui button:hover {
     background: #e4f9ff;
     color: #181d38;
     cursor: pointer;
     border-color:  #181d38;
-}
-
-
-.dialog-button-toggle {
-    color: red;
 }
 
 

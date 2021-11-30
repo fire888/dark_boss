@@ -1,0 +1,50 @@
+.bottom-button-wrapper {
+    position: absolute;
+    left: 8rem;
+    right: 8rem;
+    bottom: 3rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.dialog-wrapper {
+    position: absolute;
+    left: 8rem;
+    right: 8rem;
+    bottom: 7rem;
+    top: 5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center; 
+
+
+}
+
+.messages-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-width: 350px;
+    padding: 10px;
+    background: #000033aa;
+    border: 5px solid #ffffff;
+}
+
+.messages {
+    flex: 2 2 auto; 
+} 
+
+.replicies {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: stretch;
+}
+
+
+.replicies button {
+    font-size: 18px;
+    height: 40px;
+    margin: .2rem;
+}
+

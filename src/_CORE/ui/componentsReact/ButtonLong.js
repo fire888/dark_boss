@@ -1,17 +1,3 @@
-import React from "react";
-
-export function ButtonLong (props) {
-    return (
-        <div className="center-container">
-            <button 
-                className="dialog-button-toggle" 
-                onClick={props.callbackClick}
-                style={{ "display": props.display }}>
-                { props.val }        
-            </button>
-        </div>
-    )
-}
 
 /*
 

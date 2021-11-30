@@ -29,17 +29,14 @@ export default connect(
             if (item.isDone) return <div key={ind}></div>
 
             return (
-                <div key={ind}>
-                    <button
-                        onClick={()=>
-                            dialogChanger(props.dispatch)
-                                .clickOnPlayerPhrase(props.currentBotKey, ind)}>
-                        {item.player}
-                    </button>
-                </div>)
+                <button
+                    key={ind}
+                    onClick={()=>
+                        dialogChanger(props.dispatch)
+                            .clickOnPlayerPhrase(props.currentBotKey, ind)}>
+                    {item.player}
+                </button>)
         })
-
-
 
 
         return (

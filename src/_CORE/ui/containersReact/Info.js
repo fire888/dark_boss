@@ -26,7 +26,7 @@ export default connect(mapStateToProps)(function(props) {
                         {item.href 
                             ? <span><a href={item.href} target="blank">{item.text}</a></span>
                             : <span>{item.text}</span>}
-                        {index === props.currentChapter && ' (current)'}
+                        {index === props.currentChapterIndex && ' (current)'}
                     </li>)
                 }</ul>
                 <p>{props.bottomText}</p>

@@ -36,7 +36,7 @@ export class AdderActions {
 
         const { player, ui, dispatcher, emitter } = root
 
-        dispatcher.dispatch({ type: 'CHANGE_INFO_CHAPTER', currentChapter: 0 })
+        dispatcher.dispatch({ type: 'CHANGE_INFO_CHAPTER', currentChapterIndex: 0 })
         ui.showStartButton(() => player.toggleBlocked(false))
 
         emitter.subscribe('nearBot')(({ isNearBot, botKey }) => {
