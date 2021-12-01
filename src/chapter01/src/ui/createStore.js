@@ -161,7 +161,7 @@ const storeStartState = {
             },]
         },
     },
-
+    isCloseisButtonDialog: false,
     isButtonDialog: false,
     isShowPalleteDialog: false,
     currentBotKey: null,
@@ -171,7 +171,6 @@ const storeStartState = {
 
 export const dialogs = (store = storeStartState, action) => {
     if (action.type === 'BUTTON_DIALOG_TOGGLE') {
-
         const {  isButtonDialog, currentBotKey } = action
 
         return {
@@ -188,7 +187,23 @@ export const dialogs = (store = storeStartState, action) => {
             isShowPalleteDialog: action.is,
         }
     }
+
+    if (action.type === 'CLICK_ON_PLAYER_PHRASE') {
+        const replicies = JSON.parse(JSON.stringify(store.replicies))
+        replicies[action.currentBotKey].messages[action.phraseIndex].isDone = true
+
+        let isBotDone = true
+        for (let i = 0; i < replicies[action.currentBotKey].messages.length; ++i) {
+            replicies[action.currentBotKey].messages[i].isDone === false && (isBotDone = false)
+        }
+        replicies[action.currentBotKey].isDone = isBotDone
         
+        return ({
+            ...store,
+            replicies,
+            isCloseisButtonDialog: isBotDone,
+        })
+    }
 
     return store
 }

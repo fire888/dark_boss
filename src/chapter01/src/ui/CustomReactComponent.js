@@ -10,6 +10,7 @@ import './stylesheets/CustomReactComponent.css'
 const mapStateToProps = state => {
     return ({
         isButtonDialog: state.dialogs.isButtonDialog,
+        isCloseisButtonDialog: state.dialogs.isCloseisButtonDialog,
         isShowPalleteDialog: state.dialogs.isShowPalleteDialog,
     })
 }
@@ -19,19 +20,24 @@ const mapStateToProps = state => {
 
 function CustomReactComponent(props) {
     return (
-        <div className="DialogSystem">
-            {props.isButtonDialog && 
-                <div className="bottom-button-wrapper">
+      <div className="dialog-wrapper">
+          <div className="dialog-content">           
+            {props.isShowPalleteDialog && <DialogPallete />}
+            {(props.isButtonDialog || props.isShowPalleteDialog) && 
                   <button 
                       className="dialog-button-toggle" 
                       onClick={() => 
-                        dialogChanger(props.dispatch).togglePalleteDialog(true)}
+                        dialogChanger(props.dispatch)
+                          .togglePalleteDialog(
+                            (props.isButtonDialog && true) || 
+                            (props.isShowPalleteDialog&& false))
+                          }
                       style={{ "display": props.display }}>
-                      диалог       
-                  </button>
-                </div>}
-
-            {props.isShowPalleteDialog && <DialogPallete />}
+                      {
+                        (props.isButtonDialog && 'диалог') ||
+                        (props.isShowPalleteDialog && 'закрыть')
+                      }       
+                  </button>}
 
             {/* {props.isButtonDialog && (
                 <button
@@ -56,6 +62,7 @@ function CustomReactComponent(props) {
                         <p>{window.t('To be continued')}</p>
                     </div>
                 </div>)} */}
+           </div>     
         </div>
     )
 }

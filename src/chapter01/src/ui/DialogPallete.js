@@ -11,6 +11,7 @@ export default connect(
     }) }
 )(
     function (props) {
+        //console.log
 
         const { messages } = props.replicies[props.currentBotKey]
 
@@ -18,7 +19,9 @@ export default connect(
             if (!item.isDone) return <div key={ind}></div>
 
             return (
-                <div key={ind}>
+                <div 
+                    key={ind}
+                    className='marTop-small'>
                     <p className='player'>{item.player}</p>
                     <p>{item.nps}</p>
                 </div>)
@@ -32,15 +35,13 @@ export default connect(
                 <button
                     key={ind}
                     onClick={()=>
-                        dialogChanger(props.dispatch)
-                            .clickOnPlayerPhrase(props.currentBotKey, ind)}>
+                        dialogChanger(props.dispatch).clickOnPlayerPhrase(props.currentBotKey, ind)}>
                     {item.player}
                 </button>)
         })
 
 
         return (
-            <div className="dialog-wrapper">
                 <div className="messages-wrapper">
                     <div className="messages">
                         {arrM}
@@ -49,7 +50,6 @@ export default connect(
                         {arrR}
                     </div>
                 </div>
-            </div>    
         )
     }
 )

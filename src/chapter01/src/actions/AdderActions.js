@@ -21,6 +21,7 @@ export const dialogChanger = dispatch => ({
         root.player.toggleBlocked(is)
     },
     clickOnPlayerPhrase: (currentBotKey, phraseIndex) => {
+        console.log('!!!!!', currentBotKey, phraseIndex)
         dispatch({
             type: 'CLICK_ON_PLAYER_PHRASE',
             currentBotKey,

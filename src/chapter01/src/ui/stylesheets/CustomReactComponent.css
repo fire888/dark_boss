@@ -1,30 +1,33 @@
-.bottom-button-wrapper {
-    position: absolute;
-    left: 8rem;
-    right: 8rem;
-    bottom: 3rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+.marTop-small {
+    margin-top: 2rem;
 }
+
 
 .dialog-wrapper {
     position: absolute;
     left: 8rem;
     right: 8rem;
-    bottom: 7rem;
-    top: 5rem;
+    bottom: 8rem;
+    top: 7rem;
     display: flex;
     flex-direction: row;
     justify-content: center; 
+    align-items: stretch;
+}
 
-
+.dialog-content {
+    min-width: 40vw;
+    max-width: 30rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-content: stretch;
 }
 
 .messages-wrapper {
+    flex: 2 0 auto;
     display: flex;
     flex-direction: column;
-    min-width: 350px;
     padding: 10px;
     background: #000033aa;
     border: 5px solid #ffffff;
@@ -32,7 +35,20 @@
 
 .messages {
     flex: 2 2 auto; 
+    font-size: 18px;
+    color: #fff;
+    padding: 20px;
 } 
+
+.messages .player {
+    color: aqua;
+    font-size: 14px;
+}
+
+.dialog-wrapper .dialog-button-toggle {
+    margin: .5rem 0;
+}
+
 
 .replicies {
     display: flex;
@@ -46,5 +62,5 @@
     font-size: 18px;
     height: 40px;
     margin: .2rem;
-}
+} 
 
