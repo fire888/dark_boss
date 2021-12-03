@@ -5,12 +5,13 @@ const OFFSET_PLAYER_FROM_DOOR = 7
 
 export class SystemDoors {
     constructor (root) {
+        console.log(root)
         const {
             assets,
             materials,
             studio,
             emitter,
-            systemCollisionItems
+            systemCollisionItems,
         } = root
 
         this._doors = {}
@@ -21,7 +22,7 @@ export class SystemDoors {
                 !this._doors[key] && (this._doors[key] = {})
                 this._doors[key]['mesh'] = new THREE.Mesh(child.geometry, materials.door)
                 this._doors[key]['state'] = 'closed'
-                this._doors[key]['access'] = 'confirm' // ||'denied' || 'confirm'
+                this._doors[key]['access'] = 'denied' // ||'denied' || 'confirm'
                 this._doors[key]['mesh']['userData'] = {
                     part: 'mesh',
                     type: 'door',
@@ -32,7 +33,6 @@ export class SystemDoors {
 
 
         for (let key in this._doors) {
-
             studio.addToScene(this._doors[key]['mesh'])
             systemCollisionItems && systemCollisionItems.setItemToCollision({
                 mesh: this._doors[key]['mesh'],
@@ -52,6 +52,19 @@ export class SystemDoors {
                                 && this._openDoor(data.key)
             }
         )
+
+        emitter.subscribe('unblockDoor')(data => { 
+            for (let i = 0; i < data.idDoor.length; i++) {
+                this._doors[data.idDoor[i]]['access'] = 'confirm'
+            } 
+        }) 
+
+
+        emitter.subscribe('blockDoor')(data => { 
+            for (let i = 0; i < data.idDoor.length; i++) {
+                this._doors[data.idDoor[i]]['access'] = 'denied'
+            } 
+        }) 
     }
 
 

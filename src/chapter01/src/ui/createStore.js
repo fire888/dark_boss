@@ -168,44 +168,56 @@ const storeStartState = {
 } 
 
 
+export const createCustomStore = root => {
+    
+    const dialogs = (store = storeStartState, action) => {
+        if (action.type === 'BUTTON_DIALOG_TOGGLE') {
+            const {  isButtonDialog, currentBotKey } = action
 
-export const dialogs = (store = storeStartState, action) => {
-    if (action.type === 'BUTTON_DIALOG_TOGGLE') {
-        const {  isButtonDialog, currentBotKey } = action
-
-        return {
-            ...store,
-            isButtonDialog,
-            currentBotKey,
+            return {
+                ...store,
+                isButtonDialog,
+                currentBotKey,
+            }
         }
+
+        if (action.type === 'SHOW_PALLETE_DIALOG') {
+            root.player.toggleBlocked(action.is)
+            return {
+                ...store,
+                isButtonDialog: !action.is,
+                isShowPalleteDialog: action.is,
+            }
+        }
+
+        if (action.type === 'CLICK_ON_PLAYER_PHRASE') {
+            const replicies = JSON.parse(JSON.stringify(store.replicies))
+            replicies[action.currentBotKey].messages[action.phraseIndex].isDone = true
+            if (replicies[action.currentBotKey].messages[action.phraseIndex].event) {
+                const { type, data } = replicies[action.currentBotKey].messages[action.phraseIndex].event
+                root.emitter.emit(type)(data) 
+            }
+
+            let isBotDone = true
+            for (let i = 0; i < replicies[action.currentBotKey].messages.length; ++i) {
+                replicies[action.currentBotKey].messages[i].isDone === false && (isBotDone = false)
+            }
+            replicies[action.currentBotKey].isDone = isBotDone
+            
+            return ({
+                ...store,
+                replicies,
+                isCloseisButtonDialog: isBotDone,
+            })
+        }
+
+        return store
     }
 
-    if (action.type === 'SHOW_PALLETE_DIALOG') {
-        return {
-            ...store,
-            isButtonDialog: !action.is,
-            isShowPalleteDialog: action.is,
-        }
+
+    return { 
+        dialogs 
     }
-
-    if (action.type === 'CLICK_ON_PLAYER_PHRASE') {
-        const replicies = JSON.parse(JSON.stringify(store.replicies))
-        replicies[action.currentBotKey].messages[action.phraseIndex].isDone = true
-
-        let isBotDone = true
-        for (let i = 0; i < replicies[action.currentBotKey].messages.length; ++i) {
-            replicies[action.currentBotKey].messages[i].isDone === false && (isBotDone = false)
-        }
-        replicies[action.currentBotKey].isDone = isBotDone
-        
-        return ({
-            ...store,
-            replicies,
-            isCloseisButtonDialog: isBotDone,
-        })
-    }
-
-    return store
 }
 
 

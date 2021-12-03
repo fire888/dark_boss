@@ -11,8 +11,6 @@ export default connect(
     }) }
 )(
     function (props) {
-        //console.log
-
         const { messages } = props.replicies[props.currentBotKey]
 
         const arrM = messages.map((item, ind)=> {
@@ -34,8 +32,7 @@ export default connect(
             return (
                 <button
                     key={ind}
-                    onClick={()=>
-                        dialogChanger(props.dispatch).clickOnPlayerPhrase(props.currentBotKey, ind)}>
+                    onClick={()=>props.dispatch({ type: 'CLICK_ON_PLAYER_PHRASE', currentBotKey: props.currentBotKey, phraseIndex: ind, })}>
                     {item.player}
                 </button>)
         })
