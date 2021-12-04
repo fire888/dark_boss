@@ -14,8 +14,6 @@ export default connect(
     })
 )(
     function(props) {
-        console.log(props)
-    //const [isInfo, changeShowInfo] = useState(false)
     const [isShowFullScreenButt, changeShowFullScreenButt] = useState(true)
 
     useEffect(() =>

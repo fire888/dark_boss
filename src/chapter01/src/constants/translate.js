@@ -1,0 +1,32 @@
+export const VOC = {
+    'ru': {
+        'I ...?': 'Я ...?', 
+        'You ...?': 'Ты ...?', 
+        'MM ...?': 'М ...?', 
+        'You is new droid.': 'Ты новый дроид.',
+        'I am mechanic. I create your body.': 'Механик. Делаю корпусы дроидов.',
+        'Go. Door is unblocked.... Beeeb.': 'Иди, дверь разблокирована.... Бииб.',
+        'Once .... Beeeb.. I set basic program in your memory.': 'Секунду .... Бииб.. Программа в память загружена.',
+        'I am programmer.': 'Программирую дроидов.',
+        'Go. Once... Beeeb.. Door to laboratory unblocked.': 'Ты должен идти в отдел тестирования. Бииб.. Доступ разрешен.',
+        'Once .. Beeeb! I give name to you. Droid_Id: 17543-06767-6767': 'Секунду... Бииб. Тестирование прошло успешно.',
+        'I am engineer. I test new droids.': 'Тестестировщик, тестирую новых дроидов.',
+        'Go.': 'Иди на приемку.',
+        'Droid_Id: 17543-06767-6767, Hmm.., marriage. crap.': 'Секунду... Бииб. Халтура, брак ... Ладно ты теперь дроид_17543-06767-6767.',
+        'I am scientist. I check your abilities. ... garbage.': 'Приемщик. Проверяю качество сборки. ',
+        'Go to store. Doors unblocked.': 'Иди на склад. Доступ дан.',
+        'I don’t know anything, go to the boss. ... Beeeb. You have the accesses.': 'Ничего для тебя нет, иди в штаб... Бииб. Статус: модель укомлектована.',
+        'You want see Boss. He is absent.': 'Ищешь босса, его нет.',
+        'I am guard. I give you a secret mission.':  'Помошник. Я даю тебе секретную миссию.',
+        'You must see all around base, and return. Doors unblocked.': 'Ты должен сходить на разведку вокруг базы и доложить. Вперед.',
+        'Droid_Id: 17543-06767-6767 with secret mission. I know.': 'Ты дроид с важной секретной миссией.',
+        'I am gateman. Beeeb... Door is opened! Good bye!': 'Ответственный за внешний периметр. Бииб... Доступ к воротам дан.',
+        'It does not matter.': 'Это не имеет значения.',
+        'I am scout. Crazy factory create droids and close gates. You alone in this desert.': 'Дроид. Суммасшедшая фабрика клепает дроидов, дает секретиные миссии и закрывает ворота.',
+        'This is the end.': 'Это все. The end.',
+
+        'open': 'диалог',
+        'close': 'закрыть',
+    },
+}
+

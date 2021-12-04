@@ -5,16 +5,16 @@ const storeStartState = {
         mechanic: {
             isDone: false,
             messages: [{ 
-                player: 'Я ...?', 
-                nps: 'Ты новый дроид.',
+                player: 'I ...?', 
+                nps: 'You is new droid.',
                 isDone: false,
             },{
-                player: 'Ты ...?', 
-                nps: 'Механик. Делаю корпусы дроидов.',
+                player: 'You ...?', 
+                nps: 'I am mechanic. I create your body.',
                 isDone: false,
             },{
-                player: 'МММ ...?', 
-                nps: 'Иди, дверь разблокирована.... Бииб.',
+                player: 'MM ...?', 
+                nps: 'Go. Door is unblocked.... Beeeb.',
                 isDone: false,
                 event: {
                     type: 'unblockDoor',
@@ -27,16 +27,16 @@ const storeStartState = {
         programmer: {
             isDone: false,
             messages: [{ 
-                player: 'Я ...?', 
-                nps: 'Секунду .... Бииб.. Программа в память загружена.',
+                player: 'I ...?', 
+                nps: 'Once .... Beeeb.. I set basic program in your memory.',
                 isDone: false,
             },{
-                player: 'Ты ...?', 
-                nps: 'Программирую дроидов.',
+                player: 'You ...?', 
+                nps: 'I am programmer.',
                 isDone: false,
             },{
-                player: 'МММ...?', 
-                nps: 'Ты должен идти в отдел тестирования. Бииб.. Доступ разрешен.',
+                player: 'MM ...?', 
+                nps: 'Go. Once... Beeeb.. Door to laboratory unblocked.',
                 isDone: false,
                 event: {
                     type: 'unblockDoor',
@@ -49,32 +49,32 @@ const storeStartState = {
         engineer: {
             isDone: false,
             messages: [{ 
-                player: 'Я ...?', 
-                nps: 'Секунду... Бииб. Тестирование прошло успешно.',
+                player: 'I ...?', 
+                nps: 'Once .. Beeeb! I give name to you. Droid_Id: 17543-06767-6767',
                 isDone: false,
             },{
-                player: 'Ты ...?', 
-                nps: 'Тестестировщик, тестирую новых дроидов.',
+                player: 'You ...?', 
+                nps: 'I am engineer. I test new droids.',
                 isDone: false,
             },{
-                player: 'МММ ...?', 
-                nps: 'Иди на приемку.',
+                player: 'MM ...?', 
+                nps: 'Go.',
                 isDone: false,
             }]
         },
         scientist: {
             isDone: false,
             messages: [{ 
-                player: 'Я ...?', 
-                nps: 'Секунду... Бииб. Халтура, брак ... Ладно ты теперь дроид_17543-06767-6767.',
+                player: 'I ...?', 
+                nps: 'Droid_Id: 17543-06767-6767, Hmm.., marriage. crap.',
                 isDone: false,
             },{
-                player: 'Ты ...?', 
-                nps: 'Приемщик. Проверяю качество сборки. ',
+                player: 'You ...?', 
+                nps: 'I am scientist. I check your abilities. ... garbage.',
                 isDone: false,
             },{
-                player: 'МММ ...?', 
-                nps: 'Иди на склад. Доступ дан.',
+                player: 'MM ...?', 
+                nps: 'Go to store. Doors unblocked.',
                 isDone: false,
                 event: {
                     type: 'unblockDoor',
@@ -87,8 +87,8 @@ const storeStartState = {
         master: {
             isDone: false,
             messages: [{ 
-                player: 'Я ...?', 
-                nps: 'Ничего для тебя нет, иди в штаб... Бииб. Статус: модель укомлектована.',
+                player: 'I ...?', 
+                nps: 'I don’t know anything, go to the boss. ... Beeeb. You have the accesses.',
                 isDone: false,
                 event: {
                     type: 'unblockDoor',
@@ -101,16 +101,16 @@ const storeStartState = {
         guard_Super_02: {
             isDone: false,
             messages: [{ 
-                player: 'Я ...?', 
-                nps: 'Ищешь босса, его нет.',
+                player: 'I ...?', 
+                nps: 'You want see Boss. He is absent.',
                 isDone: false,
             },{
-                player: 'Ты ...?', 
-                nps: 'Помошник. Я даю тебе секретную миссию.',
+                player: 'You ...?', 
+                nps: 'I am guard. I give you a secret mission.',
                 isDone: false,
             },{
-                player: 'МММ ...?', 
-                nps: 'Ты должен сходить на разведку вокруг базы и доложить. Вперед.',
+                player: 'MM ...?', 
+                nps: 'You must see all around base, and return. Doors unblocked.',
                 isDone: false,
                 event: {
                     type: 'unblockDoor',
@@ -123,12 +123,12 @@ const storeStartState = {
         guard_01: {
             isDone: false,
             messages: [{ 
-                player: 'Я ...?', 
-                nps: 'Ты дроид с важной секретной миссией.',
+                player: 'I ...?', 
+                nps: 'Droid_Id: 17543-06767-6767 with secret mission. I know.',
                 isDone: false,
             },{
-                player: 'Ты ...?', 
-                nps: 'Ответственный за внешний периметр. Бииб... Доступ к воротам дан.',
+                player: 'You ...?', 
+                nps: 'I am gateman. Beeeb... Door is opened! Good bye!',
                 isDone: false,
                 event: {
                     type: 'unblockDoor',
@@ -141,8 +141,8 @@ const storeStartState = {
         scout: {
             isDone: false,
             messages: [{ 
-                player: 'Я ...?', 
-                nps: 'Это не имеет значения.',
+                player: 'I ...?', 
+                nps: 'It does not matter.',
                 isDone: false,
                 event: {
                     type: 'blockDoor',
@@ -151,12 +151,12 @@ const storeStartState = {
                     }
                 }
             },{
-                player: 'Ты ...?', 
-                nps: 'Дроид. Суммасшедшая фабрика клепает дроидов, дает секретиные миссии и закрывает ворота.',
+                player: 'You ...?', 
+                nps: 'I am scout. Crazy factory create droids and close gates. You alone in this desert.',
                 isDone: false,
             },{
-                player: 'МММ ...?', 
-                nps: 'Это все. The end.',
+                player: 'MM ...?', 
+                nps: 'This is the end.',
                 isDone: false,
             },]
         },
@@ -165,6 +165,7 @@ const storeStartState = {
     isButtonDialog: false,
     isShowPalleteDialog: false,
     currentBotKey: null,
+    currentLanguage: 'en',
 } 
 
 
@@ -173,7 +174,6 @@ export const createCustomStore = root => {
     const dialogs = (store = storeStartState, action) => {
         if (action.type === 'BUTTON_DIALOG_TOGGLE') {
             const {  isButtonDialog, currentBotKey } = action
-
             return {
                 ...store,
                 isButtonDialog,
@@ -193,6 +193,8 @@ export const createCustomStore = root => {
         if (action.type === 'CLICK_ON_PLAYER_PHRASE') {
             const replicies = JSON.parse(JSON.stringify(store.replicies))
             replicies[action.currentBotKey].messages[action.phraseIndex].isDone = true
+
+            /** emit event */
             if (replicies[action.currentBotKey].messages[action.phraseIndex].event) {
                 const { type, data } = replicies[action.currentBotKey].messages[action.phraseIndex].event
                 root.emitter.emit(type)(data) 

@@ -16,7 +16,8 @@
 }
 
 .dialog-content {
-    min-width: 40vw;
+    min-width: 300px;
+    width: 40vw;
     max-width: 30rem;
     display: flex;
     flex-direction: column;

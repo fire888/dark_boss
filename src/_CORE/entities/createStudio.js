@@ -1,17 +1,13 @@
 import * as THREE from 'three'
 import * as TWEEN from '@tweenjs/tween.js'
-//import { studioConfig } from '../../chapter03/constants/constants_elements'
-//import { FRAME_UPDATE } from '../../chapter03/constants/constants_elements'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
-import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
-import { Saturate } from '../shaders/saturate'
 
 
 
 export class Studio {
     constructor(gameContext) {
-        const { store, assets, emitter, } = gameContext
+        const { assets, emitter, } = gameContext
         const { canId, rendererCon, clearColor, amb } = gameContext.CONSTANTS.studioConfig
 
         rendererCon.canvas = document.getElementById(canId)
@@ -125,7 +121,6 @@ export class Studio {
     setCamera (cam) {
         this._camera = cam
         this._composer.addPass(new RenderPass(this._scene, this._camera))
-        //this._composer.addPass(new ShaderPass(Saturate))
     }
 }
 

@@ -1,9 +1,13 @@
 import { connect } from "react-redux";
 import '../stylesheets/Info.css'
+import { createTranslater } from '../../helpers/helper_translate'
+import { INFO_VOC } from '../../constants/default_voc'
 
+
+const t = createTranslater(INFO_VOC)
 
 const mapStateToProps = (state) => { 
-    console.log(state.controls.infoPanelData)
+    console.log(state)
     return {
         ...state.controls.infoPanelData,
     }
@@ -18,22 +22,22 @@ export default connect(mapStateToProps)(function(props) {
                 x
             </button>
             <div className="info-inner">
-                <p>{props.title}</p>
-                <p>{props.topText}</p>
+                <p>{t(props.title)}</p>
+                <p>{t(props.topText)}</p>
                 <ul>{props.chapters.map((item, index) => 
                     <li key={index}>
                         {index + 1}.&nbsp;
                         {item.href 
-                            ? <span><a href={item.href} target="blank">{item.text}</a></span>
-                            : <span>{item.text}</span>}
-                        {index === props.currentChapterIndex && ' (current)'}
+                            ? <span><a href={item.href} target="blank">{t(item.text)}</a></span>
+                            : <span>{t(item.text)}</span>}
+                        {index === props.currentChapterIndex && t(' (current)')}
                     </li>)
                 }</ul>
                 <p>{props.bottomText}</p>
                 <ul>{props.afterWords.map((item, index) => 
                     <li key={index}>
-                        {item.text} 
-                        <a href={item.href} target="blank">{item.aText}</a>
+                        {t(item.text)} 
+                        <a href={item.href} target="blank">{t(item.aText)}</a>
                     </li>)
                 }</ul>
             </div>      

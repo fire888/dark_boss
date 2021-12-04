@@ -1,9 +1,11 @@
 import * as THREE from 'three'
+import { componentFreeWalkWithCustomWalls } from "../../../_CORE/components/componentFreeWalKWithCustomWalls";
 
-export function createBot (monsterModel, monsterMat, componentsArr, root) {
+export function createBot (monsterModel, monsterMat, botData, root) {
     const {
         offsetWallCollision,
     } = root.CONSTANTS.BOT
+
 
     const group = new THREE.Group()
 
@@ -26,18 +28,24 @@ export function createBot (monsterModel, monsterMat, componentsArr, root) {
     mixer = new THREE.AnimationMixer(m)
     const walkAnimate = mixer.clipAction(animations[ 2 ])
     const actionAnimate = mixer.clipAction(animations[ 0 ])
+    //actionAnimate.play()
+    //mixer.timeScale = 0.3 
     mixer.timeScale = 0.7 
     walkAnimate.play()
 
 
-    let state = 'walk' // || 'stay' 
+    let state = 'walk' // || 'stay' || 'walk' 
     let isUpdate = false
 
-
-    const components = {}
-    for (let i = 0; i < componentsArr.length; i++) {
-        const { key, func } = componentsArr[i] 
-        components[key] = func(group, objRay, offsetWallCollision, root)
+    let freeWalk = null
+    if (botData.keyWallToWalkCollisions) {
+        freeWalk = componentFreeWalkWithCustomWalls(
+            group, 
+            objRay, 
+            offsetWallCollision,
+            [root.botsCustomWallsCollisions[botData.keyWallToWalkCollisions]], 
+            root,
+        )   
     }
 
     return ({ 
@@ -45,7 +53,7 @@ export function createBot (monsterModel, monsterMat, componentsArr, root) {
         isUpdate,
         update (data) {
             if (state === 'walk') { 
-                components['freeWalk'] && components['freeWalk'].update(data)
+                freeWalk && freeWalk.update(data)
             }
             mixer.update(data.delta)
         },

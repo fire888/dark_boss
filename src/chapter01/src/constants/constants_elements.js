@@ -1,4 +1,3 @@
-
 const PI = Math.PI
 const hPI = PI / 2
 
@@ -17,7 +16,7 @@ export const MATERIALS_CONFIG = {
             color: 0xffffff,
             emissive: 0x000000,
             map: 'wallTexture',
-            bumpMap: 'mapFloorOuter',
+            bumpMap: 'mapFloorOuter',    
             bumpScale: 1,
             envMap: 'skyBox',
             reflectivity: 0.5,
@@ -61,13 +60,14 @@ export const studioConfig = {
         antialias: true
     },
     amb: {
-        color: 0x18257d,
-        strength: 0.8,
+        color: 0xccccff,
+        strength: 0.6,
     },
+    clearColor: 0x0e2535,
     sceneEnvironment: {
-        fogNear: 50,
+        fogNear: 10,
         fogFar: 80,
-        color: 0x18257d, 
+        color: 0x0e2535, 
         backgroundImgKey: null, 
     },
 }
@@ -84,6 +84,7 @@ export const playerConfig = {
     level: -13,
     startRot: [0, 0, 0],
     startPos: [48, 28, 10],
+    //startPos: [-200, 28, 10],
     cameraData: {
         fov: 90,
         ratio: window.innerWidth / window.innerHeight,
@@ -94,9 +95,9 @@ export const playerConfig = {
     frontObjPos: [0, 0, -1],
     backObjPos: [0, 0, 1],
     lightDataOne: {
-        color: 0xffffff,
-        strength: 50,
-        pos: [0, 50, 5],
+        color: 0xccccff, 
+        strength: 0.3,
+        pos: [0, 50, 0],
     },
 }
 
@@ -107,43 +108,51 @@ export const BOT = {
 export const BOTS = [
     {
         name: 'guard_01',
-        pos: [-51, 26.316999435, 27],
+        pos: [-53, 26.316999435, 27],
         rot: 0,
+        keyWallToWalkCollisions: 'collision_bot_guardsmall',
     },
     {
         name: 'guard_Super_02',
         pos: [-39, 45.317001, -112],
         rot: 0,
+        keyWallToWalkCollisions: 'collision_bot_guardsuper',
     },
     {
         name: 'master',
         pos: [-91, 26.316999435, 35],
         rot: hPI - 1,
+        keyWallToWalkCollisions: 'collision_bot_lab',
     },
     {
         name: 'scientist',
         pos: [31, 64.3152008, -48],
         rot: hPI,
+        keyWallToWalkCollisions: 'collision_bot_sciensist',
     },
     {
         name: 'engineer',
         pos: [-1, 25.31520, -69],
         rot: PI,
+        keyWallToWalkCollisions: 'collision_bot_engeneer',
     },
     {
         name: 'programmer',
         pos: [25, 64.3152008, -4],
         rot: 0,
+        keyWallToWalkCollisions: 'collision_bot_programmer', 
     },
     {
         name: 'mechanic',
         pos: [11, 25.31520, -8],
         rot: hPI,
+        keyWallToWalkCollisions: 'collision_bot_start', 
     },
     {
         name: 'scout',
         pos: [-49, 26.316999435, 172],
         rot: hPI,
+        keyWallToWalkCollisions: 'collision_bot_scout',
     }
 ]
 

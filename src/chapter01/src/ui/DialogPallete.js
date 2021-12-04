@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { dialogChanger } from "../actions/AdderActions";
+import { VOC } from "../constants/translate";
+import * as LIBA from '../../../_CORE/'
+const t = LIBA.createTranslater(VOC)
 
 
 export default connect(
@@ -20,8 +22,8 @@ export default connect(
                 <div 
                     key={ind}
                     className='marTop-small'>
-                    <p className='player'>{item.player}</p>
-                    <p>{item.nps}</p>
+                    <p className='player'>{t(item.player)}</p>
+                    <p>{t(item.nps)}</p>
                 </div>)
         })
 
@@ -33,7 +35,7 @@ export default connect(
                 <button
                     key={ind}
                     onClick={()=>props.dispatch({ type: 'CLICK_ON_PLAYER_PHRASE', currentBotKey: props.currentBotKey, phraseIndex: ind, })}>
-                    {item.player}
+                    {t(item.player)}
                 </button>)
         })
 

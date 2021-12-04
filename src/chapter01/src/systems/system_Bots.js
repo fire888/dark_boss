@@ -1,8 +1,6 @@
-import * as THREE from "three";
-//import { setItemToFloorsCollision } from '../../../_CORE/components/component_collisionFloor'
 import { createBot } from '../entities/Bot'
 import { GLTFCopy } from '../../../_CORE/helpers/helper_GLTFcopy' 
-import { componentFreeWalk } from "../../../_CORE/components/componentFreeWalk";
+
 
 export class SystemBots {
     constructor (root) {
@@ -12,7 +10,6 @@ export class SystemBots {
             studio, 
             emitter,
         } = root
-
     
         this.bots = {}
 
@@ -20,9 +17,7 @@ export class SystemBots {
             const unit = createBot(
                 GLTFCopy(assets.bot), 
                 materials.bot, 
-                [ 
-                    { key: 'freeWalk', func: componentFreeWalk } 
-                ],
+                item,
                 root,
             )
             unit.mesh.position.set(item.pos[0], item.pos[1], item.pos[2])
@@ -32,6 +27,7 @@ export class SystemBots {
             unit.mesh.userData.inScene = true
             unit.mesh.userData.key = item.name
             this.bots[item.name] = unit
+            //this.bots[item.name].stay()
         })
 
 

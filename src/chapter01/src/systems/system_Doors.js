@@ -5,7 +5,6 @@ const OFFSET_PLAYER_FROM_DOOR = 7
 
 export class SystemDoors {
     constructor (root) {
-        console.log(root)
         const {
             assets,
             materials,
@@ -22,7 +21,7 @@ export class SystemDoors {
                 !this._doors[key] && (this._doors[key] = {})
                 this._doors[key]['mesh'] = new THREE.Mesh(child.geometry, materials.door)
                 this._doors[key]['state'] = 'closed'
-                this._doors[key]['access'] = 'denied' // ||'denied' || 'confirm'
+                this._doors[key]['access'] = 'confirm' // ||'denied' || 'confirm'
                 this._doors[key]['mesh']['userData'] = {
                     part: 'mesh',
                     type: 'door',

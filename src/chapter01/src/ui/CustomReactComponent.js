@@ -1,7 +1,9 @@
 import { connect } from 'react-redux'
 import DialogPallete from "./DialogPallete"
 import './stylesheets/CustomReactComponent.css'
-
+import { VOC } from '../constants/translate'
+import { createTranslater } from "../../../_CORE/helpers/helper_translate";
+const t = createTranslater(VOC)
 
 const mapStateToProps = state => {
     return ({
@@ -33,8 +35,8 @@ function CustomReactComponent(props) {
                                 })}            
                       style={{ "display": props.display }}>
                       {
-                        (props.isButtonDialog && 'диалог') ||
-                        (props.isShowPalleteDialog && 'закрыть')
+                        (props.isButtonDialog && t('open')) ||
+                        (props.isShowPalleteDialog && t('close'))
                       }       
                   </button>}
            </div>     

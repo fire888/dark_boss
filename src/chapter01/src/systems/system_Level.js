@@ -15,11 +15,19 @@ export class SystemLevel {
         } = root.CONSTANTS.playerConfig
 
 
+        const botsCustomWallsCollisions = {}
 
         assets['level-rooms'].traverse(child => {
             child.name.includes("room_") 
-                && studio.addToScene(new THREE.Mesh(child.geometry, materials.wall))            
+                && studio.addToScene(new THREE.Mesh(child.geometry, materials.wall))
+                
+                
+            if (child.name.includes("collision_bot")) {
+                botsCustomWallsCollisions[child.name] = child 
+            }    
         })
+
+        root.botsCustomWallsCollisions = botsCustomWallsCollisions
 
 
 

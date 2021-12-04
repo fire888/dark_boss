@@ -12,7 +12,7 @@ import { Helper_MaterialsLib } from '../../../_CORE/helpers/helper_MaterialsLib'
 
 
 import { SystemLevel } from '../systems/system_Level'
-import levelSrc from '../../../assets/chapter01/level.obj'
+import levelSrc from '../../../assets/chapter01/level_01.obj'
 import wallTextureSrc from '../../../assets/chapter01/wall.jpg' 
 import levelCollisionSrc from '../../../assets/chapter01/level-ray.obj'
 

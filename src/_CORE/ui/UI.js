@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
 import App, { dispatcher } from './containersReact/App';
 import { prepareStore } from './store/createStore'
+import { changeLang } from "../helpers/helper_translate";
 
 
 /** ANIMATION LOADER */
@@ -31,9 +32,6 @@ loaderTimeOut()
 
 export class UI {
     constructor(root) {
-
-        !root.t && (window.t = () => {})
-
         root.dispatcher = dispatcher
         this._root = root
         const store = prepareStore(root)
@@ -52,7 +50,7 @@ export class UI {
         const progressWrapper = document.querySelector('.progress-wrapper')
 
         const hideStartScreen = e => {
-            this._root.emitter.emit('setLanguage')(e.target.dataset.lang)
+            e.target.dataset && e.target.dataset.lang && changeLang(e.target.dataset.lang)
             document.querySelector('.start-screen').style.display = 'none'
         }
 
