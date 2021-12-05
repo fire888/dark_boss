@@ -26,6 +26,7 @@ export default connect(
                         type: 'CLICK_ON_PLAYER_PHRASE',
                         currentTerminalKey: props.currentTerminalKey,
                         actionKey: item.action,
+                        dataAction: item.dataAction || null, 
                         phraseIndex: ind, })
                     }>
                     {t(item.txt)}

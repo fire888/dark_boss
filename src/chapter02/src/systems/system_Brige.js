@@ -15,9 +15,19 @@ export class SystemBridge {
             PROGRAMS,
         } = CONSTANTS
 
-        const bridge = createBridge(materials.wall)
-        studio.addToScene(bridge.mesh)
-        bridge.setPose(BRIDGE_START_STATE)
+        this._PROGRAMS = PROGRAMS
+
+        this._bridge = createBridge(materials.wall)
+        studio.addToScene(this._bridge.mesh)
+        this._bridge.setPose(BRIDGE_START_STATE)
+
+        this._inProgram = false
+    }
+
+    startProgram(key) {
+        this._inProgram = true
+        this._bridge.startProgram(this._PROGRAMS[key])
+            .then(() => this._inProgram = false)
     }
 }
 

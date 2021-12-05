@@ -1,9 +1,13 @@
+import * as THREE from 'three'
+
+
 export function createBridgeMesh (materials)
 {
     const geom = new THREE.BoxGeometry(3, 2, 3)
     const mesh = new THREE.Mesh(geom, materials.wall)
     mesh.name = 'roomBridge'
 
+    //const changeMesh = () => {} //params => updateMesh(params, mesh)
     const changeMesh = params => updateMesh(params, mesh)
 
     return {
@@ -124,38 +128,41 @@ function createPointsCarcass (points, data)
 const createGeomFromPoints = data =>
 {
     const points = data
-
-    var geometry = new THREE.Geometry()
+    
+    const vertices = [] 
     for (let i = 1; i < points.length - 1; i += 2) {
-        geometry.vertices.push(
-            new THREE.Vector3(points[i-1][0][0], points[i-1][0][1], points[i-1][0][2]),
-            new THREE.Vector3(points[i-1][1][0], points[i-1][1][1], points[i-1][1][2]),
-            new THREE.Vector3(points[i-1][2][0], points[i-1][2][1], points[i-1][2][2]),
-            new THREE.Vector3(points[i-1][3][0], points[i-1][3][1], points[i-1][3][2]),
+        vertices.push(
+            points[i-1][0][0], points[i-1][0][1], points[i-1][0][2],
+            points[i-1][1][0], points[i-1][1][1], points[i-1][1][2],
+            points[i-1][2][0], points[i-1][2][1], points[i-1][2][2],
+            points[i-1][3][0], points[i-1][3][1], points[i-1][3][2],
 
-            new THREE.Vector3(points[i][0][0], points[i][0][1], points[i][0][2]),
-            new THREE.Vector3(points[i][1][0], points[i][1][1], points[i][1][2]),
-            new THREE.Vector3(points[i][2][0], points[i][2][1], points[i][2][2]),
-            new THREE.Vector3(points[i][3][0], points[i][3][1], points[i][3][2]),
+            points[i][0][0], points[i][0][1], points[i][0][2],
+            points[i][1][0], points[i][1][1], points[i][1][2],
+            points[i][2][0], points[i][2][1], points[i][2][2],
+            points[i][3][0], points[i][3][1], points[i][3][2],
         )
 
-        geometry.faces.push(new THREE.Face3((i - 1) * 4, (i - 1) * 4 + 1, i * 4))
-        geometry.faces.push(new THREE.Face3((i - 1) * 4 + 1, i * 4 + 1, i * 4))
+        // geometry.faces.push(new THREE.Face3((i - 1) * 4, (i - 1) * 4 + 1, i * 4))
+        // geometry.faces.push(new THREE.Face3((i - 1) * 4 + 1, i * 4 + 1, i * 4))
 
-        geometry.faces.push(new THREE.Face3((i - 1) * 4 + 1, (i - 1) * 4 + 2, i * 4 + 1))
-        geometry.faces.push(new THREE.Face3((i - 1) * 4 + 2, i * 4 + 2, i * 4 + 1))
+        // geometry.faces.push(new THREE.Face3((i - 1) * 4 + 1, (i - 1) * 4 + 2, i * 4 + 1))
+        // geometry.faces.push(new THREE.Face3((i - 1) * 4 + 2, i * 4 + 2, i * 4 + 1))
 
-        geometry.faces.push(new THREE.Face3((i - 1) * 4 + 2, (i - 1) * 4 + 3, i * 4 + 2))
-        geometry.faces.push(new THREE.Face3((i - 1) * 4 + 3, i * 4 + 3, i * 4 + 2))
+        // geometry.faces.push(new THREE.Face3((i - 1) * 4 + 2, (i - 1) * 4 + 3, i * 4 + 2))
+        // geometry.faces.push(new THREE.Face3((i - 1) * 4 + 3, i * 4 + 3, i * 4 + 2))
 
-        geometry.faces.push(new THREE.Face3((i - 1) * 4 + 3, (i - 1) * 4, i * 4 + 3))
-        geometry.faces.push(new THREE.Face3((i - 1) * 4, i * 4, i * 4 + 3))
+        // geometry.faces.push(new THREE.Face3((i - 1) * 4 + 3, (i - 1) * 4, i * 4 + 3))
+        // geometry.faces.push(new THREE.Face3((i - 1) * 4, i * 4, i * 4 + 3))
 
-        if (i < points.length - 4) {
-            geometry.faces.push(new THREE.Face3(i * 4 + 3, i * 4, (i + 1) * 4 + 3))
-            geometry.faces.push(new THREE.Face3(i * 4, (i + 1) * 4, (i + 1) * 4 + 3))
-        }
-    }
+        // if (i < points.length - 4) {
+        //     geometry.faces.push(new THREE.Face3(i * 4 + 3, i * 4, (i + 1) * 4 + 3))
+        //     geometry.faces.push(new THREE.Face3(i * 4, (i + 1) * 4, (i + 1) * 4 + 3))
+        // }
+    }    
+    var geometry = new THREE.BufferGeometry()
+    var arr = new Float32Array(vertices)
+    geometry.setAttribute( 'position', new THREE.BufferAttribute( arr, 3 ) );
     geometry.computeVertexNormals()
     geometry.computeBoundingSphere();
 

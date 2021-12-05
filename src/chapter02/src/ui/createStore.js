@@ -49,6 +49,10 @@ export const createCustomStore = root => {
 
             if (action.actionKey === 'startBridge') {
                 setTimeout(() => toggleOpenDialog(root.dispatcher.dispatch, false))
+                if (action.dataAction) {
+                    root.bridge.startProgram(action.dataAction.keyProgramBridge)
+                    //dataAction: { keyProgramBridge: 'PROGRAM_05', }
+                }
                 return {
                     ...store,
                     currentPhraseIndex: 0,
