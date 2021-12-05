@@ -27,7 +27,6 @@ export class SystemBots {
             unit.mesh.userData.inScene = true
             unit.mesh.userData.key = item.name
             this.bots[item.name] = unit
-            //this.bots[item.name].stay()
         })
 
 

@@ -6,8 +6,7 @@ import { INFO_VOC } from '../../constants/default_voc'
 
 const t = createTranslater(INFO_VOC)
 
-const mapStateToProps = (state) => { 
-    console.log(state)
+const mapStateToProps = (state) => {
     return {
         ...state.controls.infoPanelData,
     }

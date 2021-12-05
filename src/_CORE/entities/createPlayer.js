@@ -5,7 +5,7 @@ export class Player {
     constructor (root) {
         this._root = root
 
-        const { emitter, studio, pr, CONSTANTS } = root
+        const { emitter, studio, CONSTANTS } = root
 
         const {
             startPos,

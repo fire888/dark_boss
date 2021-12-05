@@ -28,8 +28,6 @@ export function createBot (monsterModel, monsterMat, botData, root) {
     mixer = new THREE.AnimationMixer(m)
     const walkAnimate = mixer.clipAction(animations[ 2 ])
     const actionAnimate = mixer.clipAction(animations[ 0 ])
-    //actionAnimate.play()
-    //mixer.timeScale = 0.3 
     mixer.timeScale = 0.7 
     walkAnimate.play()
 
@@ -47,6 +45,17 @@ export function createBot (monsterModel, monsterMat, botData, root) {
             root,
         )   
     }
+
+    const boxCollisionWithPlayer = new THREE.Mesh(
+        new THREE.BoxGeometry(6, 6, 6),
+        new THREE.MeshBasicMaterial()
+    )
+    boxCollisionWithPlayer.position.y = -5
+    boxCollisionWithPlayer.visible = false
+    group.add(boxCollisionWithPlayer)
+    root.systemCollisionItems.setItemToCollision({ mesh: boxCollisionWithPlayer })
+
+
 
     return ({ 
         mesh: group,
