@@ -7,16 +7,19 @@ const t = LIBA.createTranslater(TRANSLATE_WORLDS)
 
 export default connect(
     state => { 
+        console.log(state.dialogs.currentTerminalKey)
+        console.log(state.dialogs.currentPhraseIndex)
         return ({
             replicies: state.dialogs.replicies,
-            blockPhrases:  state.dialogs.replicies[state.dialogs.currentTerminalKey][state.dialogs.currentPhraseIndex],
+            blockPhrases: state.dialogs.replicies[state.dialogs.currentTerminalKey][state.dialogs.currentPhraseIndex],
             currentTerminalKey: state.dialogs.currentTerminalKey,
             currentPhraseIndex: state.dialogs.currentPhraseIndex,
     }) }
 )(
     function (props) {
-        const message = props.blockPhrases.q.txt
-        const replicies = props.blockPhrases.a.map((item, ind) =>
+        const message = t(props.blockPhrases.q.txt)
+        const filteredAnswers = props.blockPhrases.a.filter(item => item.isShow)
+        const replicies = filteredAnswers.map((item, ind) =>
                 <button
                     key={ind}
                     onClick={()=>props.dispatch({

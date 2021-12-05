@@ -26,6 +26,8 @@ import { SystemTerminals } from '../systems/system_Terminals'
 
 import { CheckerDialogWithTerminals } from '../systems/system_DialogsWithTerminals'
 
+import { SystemBridge } from '../systems/system_Brige'
+
 
 
 import { AdderActions } from "../actions/AdderActions"
@@ -125,6 +127,11 @@ export const GAME_MODULES = [
     {
         key: 'checkerDialogsWithTerminals',
         constr: CheckerDialogWithTerminals,
+        initStateKey: 'beforeStartPlay',
+    },
+    {
+        key: 'bridge',
+        constr: SystemBridge,
         initStateKey: 'beforeStartPlay',
     },
     // {

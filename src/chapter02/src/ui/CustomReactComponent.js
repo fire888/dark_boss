@@ -2,8 +2,12 @@ import { connect } from 'react-redux'
 import DialogPallete from "./DialogPallete"
 import './stylesheets/CustomReactComponent.css'
 import { VOC } from '../constants/translate'
+import { toggleOpenDialog } from "../actions/AdderActions";
+
 import { createTranslater } from "../../../_CORE/helpers/helper_translate";
 const t = createTranslater(VOC)
+
+
 
 const mapStateToProps = state => {
     return ({
@@ -11,21 +15,6 @@ const mapStateToProps = state => {
         isCloseisButtonDialog: state.dialogs.isCloseisButtonDialog,
         isShowPalleteDialog: state.dialogs.isShowPalleteDialog,
     })
-}
-
-
-const toggleOpenDialog = (dispatch, isToOpen) => {
-    const time = isToOpen ? 1300 : 0
-    dispatch({
-        type: 'TOGGLE_TERMINAL_ANIMATION',
-        is: isToOpen
-    })
-    setTimeout(() => {
-        dispatch({
-            type: 'SHOW_PALLETE_DIALOG',
-            is: isToOpen
-        })
-    }, time)
 }
 
 

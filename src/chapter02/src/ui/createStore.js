@@ -1,4 +1,5 @@
 import { REPLICIES_CONFIG } from '../constants/constants_replicies'
+import { toggleOpenDialog } from '../actions/AdderActions'
 
 const storeStartState = {
     replicies: REPLICIES_CONFIG,
@@ -9,7 +10,6 @@ const storeStartState = {
     currentPhraseIndex: 0,
     currentLanguage: 'en',
 }
-
 
 
 export const createCustomStore = root => {
@@ -40,11 +40,26 @@ export const createCustomStore = root => {
         }
 
         if (action.type === 'CLICK_ON_PLAYER_PHRASE') {
-            console.log(action)
             if (action.actionKey === 'next') {
                 return {
                     ...store,
-                    currentPhraseIndex: ++store.currentPhraseIndex
+                    currentPhraseIndex: ++store.currentPhraseIndex,
+                }
+            }
+
+            if (action.actionKey === 'startBridge') {
+                setTimeout(() => toggleOpenDialog(root.dispatcher.dispatch, false))
+                return {
+                    ...store,
+                    currentPhraseIndex: 0,
+                }
+            }
+
+            if (action.actionKey === 'close') {
+                setTimeout(() => toggleOpenDialog(root.dispatcher.dispatch, false))
+                return {
+                    ...store,
+                    currentPhraseIndex: 0,
                 }
             }
             //const replicies = JSON.parse(JSON.stringify(store.replicies))
