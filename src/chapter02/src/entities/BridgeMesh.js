@@ -1,13 +1,12 @@
 import * as THREE from 'three'
 
 
-export function createBridgeMesh (materials)
-{
+export function createBridgeMesh (material) {
+    console.log(material)
     const geom = new THREE.BoxGeometry(3, 2, 3)
-    const mesh = new THREE.Mesh(geom, materials.wall)
+    const mesh = new THREE.Mesh(geom, material)
     mesh.name = 'roomBridge'
 
-    //const changeMesh = () => {} //params => updateMesh(params, mesh)
     const changeMesh = params => updateMesh(params, mesh)
 
     return {
@@ -18,8 +17,7 @@ export function createBridgeMesh (materials)
 
 
 
-const updateMesh = (data, mesh) =>
-{
+const updateMesh = (data, mesh) => {
     mesh.geometry.dispose()
     mesh.geometry = createGeom(data)
     mesh.geometry.needsUpdate = true
@@ -30,8 +28,7 @@ const updateMesh = (data, mesh) =>
 
 
 
-const createGeom = data =>
-{
+const createGeom = data => {
     const pointsPath = createPointsPath(data)
     const pointsCarcass = createPointsCarcass(pointsPath, data)
     return createGeomFromPoints(pointsCarcass)
@@ -48,8 +45,7 @@ const createGeom = data =>
  *         |
  *         *
  */
-function createPointsPath (data)
-{
+function createPointsPath (data) {
     const {
         count,
         twist,
@@ -89,8 +85,7 @@ function createPointsPath (data)
  *          /  |    /
  *         *---*---*
  */
-function createPointsCarcass (points, data)
-{
+function createPointsCarcass (points, data) {
     const h = data['floor']
     const w = data['width']
 
@@ -125,22 +120,77 @@ function createPointsCarcass (points, data)
  *         *-------------------*--------------*
  *     p[i-2][0]               p[i-1][0]       p[i][0]
  */
-const createGeomFromPoints = data =>
-{
+const createGeomFromPoints = data => {
     const points = data
     
     const vertices = [] 
     for (let i = 1; i < points.length - 1; i += 2) {
         vertices.push(
+            /*
+            // points[i-1][0][0], points[i-1][0][1], points[i-1][0][2],
+            // points[i-1][1][0], points[i-1][1][1], points[i-1][1][2],
+            // points[i-1][2][0], points[i-1][2][1], points[i-1][2][2],
+            // points[i-1][3][0], points[i-1][3][1], points[i-1][3][2],
+            //
+            // points[i][0][0], points[i][0][1], points[i][0][2],
+            // points[i][1][0], points[i][1][1], points[i][1][2],
+            // points[i][2][0], points[i][2][1], points[i][2][2],
+            // points[i][3][0], points[i][3][1], points[i][3][2],
+            */
+
+            /** bottom first */
             points[i-1][0][0], points[i-1][0][1], points[i-1][0][2],
-            points[i-1][1][0], points[i-1][1][1], points[i-1][1][2],
-            points[i-1][2][0], points[i-1][2][1], points[i-1][2][2],
+            points[i][0][0], points[i][0][1], points[i][0][2],
+            points[i][3][0], points[i][3][1], points[i][3][2],
+
+            points[i-1][0][0], points[i-1][0][1], points[i-1][0][2],
+            points[i][3][0], points[i][3][1], points[i][3][2],
             points[i-1][3][0], points[i-1][3][1], points[i-1][3][2],
 
+            /** left */
+
+            points[i-1][0][0], points[i-1][0][1], points[i-1][0][2],
             points[i][0][0], points[i][0][1], points[i][0][2],
             points[i][1][0], points[i][1][1], points[i][1][2],
-            points[i][2][0], points[i][2][1], points[i][2][2],
+
+            points[i-1][0][0], points[i-1][0][1], points[i-1][0][2],
+            points[i][1][0], points[i][1][1], points[i][1][2],
+            points[i-1][1][0], points[i-1][1][1], points[i-1][1][2],
+
+
+            /** right */
+
             points[i][3][0], points[i][3][1], points[i][3][2],
+            points[i-1][3][0], points[i-1][3][1], points[i-1][3][2],
+            points[i-1][2][0], points[i-1][2][1], points[i-1][2][2],
+
+            points[i][3][0], points[i][3][1], points[i][3][2],
+            points[i-1][2][0], points[i-1][2][1], points[i-1][2][2],
+            points[i][2][0], points[i][2][1], points[i][2][2],
+
+
+            /** top */
+
+            points[i-1][1][0], points[i-1][1][1], points[i-1][1][2],
+            points[i][1][0], points[i][1][1], points[i][1][2],
+            points[i][2][0], points[i][2][1], points[i][2][2],
+
+            points[i-1][1][0], points[i-1][1][1], points[i-1][1][2],
+            points[i][2][0], points[i][2][1], points[i][2][2],
+            points[i-1][2][0], points[i-1][2][1], points[i-1][2][2],
+
+
+            /** bottom second */
+
+            points[i][0][0], points[i][0][1], points[i][0][2],
+            points[i+1][0][0], points[i+1][0][1], points[i+1][0][2],
+            points[i+1][3][0], points[i+1][3][1], points[i+1][3][2],
+
+            points[i][0][0], points[i][0][1], points[i][0][2],
+            points[i+1][3][0], points[i+1][3][1], points[i+1][3][2],
+            points[i][3][0], points[i][3][1], points[i][3][2],
+
+
         )
 
         // geometry.faces.push(new THREE.Face3((i - 1) * 4, (i - 1) * 4 + 1, i * 4))
