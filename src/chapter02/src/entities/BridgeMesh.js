@@ -126,17 +126,6 @@ const createGeomFromPoints = data => {
     const vertices = [] 
     for (let i = 1; i < points.length - 1; i += 2) {
         vertices.push(
-            /*
-            // points[i-1][0][0], points[i-1][0][1], points[i-1][0][2],
-            // points[i-1][1][0], points[i-1][1][1], points[i-1][1][2],
-            // points[i-1][2][0], points[i-1][2][1], points[i-1][2][2],
-            // points[i-1][3][0], points[i-1][3][1], points[i-1][3][2],
-            //
-            // points[i][0][0], points[i][0][1], points[i][0][2],
-            // points[i][1][0], points[i][1][1], points[i][1][2],
-            // points[i][2][0], points[i][2][1], points[i][2][2],
-            // points[i][3][0], points[i][3][1], points[i][3][2],
-            */
 
             /** bottom first */
             points[i-1][0][0], points[i-1][0][1], points[i-1][0][2],
@@ -210,8 +199,9 @@ const createGeomFromPoints = data => {
         //     geometry.faces.push(new THREE.Face3(i * 4, (i + 1) * 4, (i + 1) * 4 + 3))
         // }
     }    
-    var geometry = new THREE.BufferGeometry()
-    var arr = new Float32Array(vertices)
+
+    const arr = new Float32Array(vertices)
+    const geometry = new THREE.BufferGeometry()
     geometry.setAttribute( 'position', new THREE.BufferAttribute( arr, 3 ) );
     geometry.computeVertexNormals()
     geometry.computeBoundingSphere();
