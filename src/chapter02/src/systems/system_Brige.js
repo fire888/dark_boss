@@ -7,12 +7,14 @@ export class SystemBridge {
             emitter,
             materials,
             studio,
+            systemCollisionFloor,
             CONSTANTS,
         } = root
 
         const {
             BRIDGE_START_STATE,
             PROGRAMS,
+            playerConfig,
         } = CONSTANTS
 
         this._PROGRAMS = PROGRAMS
@@ -20,6 +22,14 @@ export class SystemBridge {
         this._bridge = createBridge(materials.wall)
         studio.addToScene(this._bridge.mesh)
         this._bridge.setPose(BRIDGE_START_STATE)
+
+
+        systemCollisionFloor     
+            && systemCollisionFloor.setItemToCollision({ 
+                mesh: this._bridge.mesh, 
+                dist: playerConfig.offsetFromFloor,
+                isStopUnits: true,
+            })
 
         this._inProgram = false
     }
