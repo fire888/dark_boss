@@ -41,7 +41,7 @@ export class SystemCollisionWithItems {
                 }
 
                 if (intersects[0].object.userData.isStopUnits) {
-                    return [ true, intersects[0].distance ]
+                    return [ true, intersects[0].distance, intersects[0].point ]
                 }
             }
         }

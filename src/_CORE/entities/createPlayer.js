@@ -38,7 +38,7 @@ export class Player {
         this._mainObj.userData.type = 'player'
 
         const bottomObj = new THREE.Object3D() 
-        bottomObj.position.fromArray([0, -3, 0])
+        bottomObj.position.fromArray([0, -.05, 0])
         this._mainObj.add(bottomObj)
 
         const frontObj = new THREE.Object3D()
@@ -80,13 +80,15 @@ export class Player {
                 const [
                     isBlockedByItem, 
                     offset,
+                    point, 
                 ] = this._root.systemCollisionFloor.checkCollisions(this._mainObj, bottomObj, offsetFromFloor)
                 
                 if (!isBlockedByItem) {
                     this._mainObj.position.y += speedDown
                 } else {
-                    if (offset < (offsetFromFloor - offsetFromFloorFactor)) 
-                        this._mainObj.position.y += (offsetFromFloor - offset)
+                    if (offset < (offsetFromFloor - offsetFromFloorFactor))  {
+                        this._mainObj.position.y = point.y + offsetFromFloor
+                    }                        
                 }
             }
 

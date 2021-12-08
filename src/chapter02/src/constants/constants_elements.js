@@ -38,14 +38,15 @@ export const studioConfig = {
 }
 
 
+const speedDown = -0.45
 export const playerConfig = {
     //speed: 0.35,
     speed: 0.8,
     speedRot: 0.02,
-    speedDown: -0.45,
+    speedDown,
     //offsetFromFloor: 5.0,
     offsetFromFloor: 7.0,
-    offsetFromFloorFactor: .5,
+    offsetFromFloorFactor: speedDown * (-1) + .1,
     offsetWallCollision: 3.5,
     level: -13,
     startRot: [0, 0, 0],
@@ -92,10 +93,10 @@ export const LAST_TERMINAL_CONFIG = { terminalKey: 'TERMINAL_LAST', r: 350, angl
 
 
 export const BRIDGE_START_STATE =
-{time: 3000,count: 34,twist: 3.141592653589793,strengthTwist: 1,radius: 0,height: 0,rotate: 3.05840734641021,width: 0,floor: 0,x: 0,y: 0,z: 58,}
+//{time: 3000,count: 34,twist: 3.141592653589793,strengthTwist: 1,radius: 0,height: 0,rotate: 3.05840734641021,width: 0,floor: 0,x: 0,y: 0,z: 58,}
 // states bridge for debugging
 //{time: '3000', count: 60,twist: 11.6840734641021,strengthTwist: 1,radius: 10,height: 78,rotate: 0.858407346410207,width: 0,floor: 0,x: 0,y: -15,z: 0,}
-//{time: '3000', count: 100, twist: 1.53407346410207, strengthTwist: 0, radius: 100, height: 2, rotate: 0, width: 10, floor: 17, x: 0, y: 0, z: 0,}
+{time: '3000', count: 100, twist: 1.53407346410207, strengthTwist: 0, radius: 100, height: 2, rotate: 0, width: 10, floor: 17, x: 0, y: 0, z: 0,}
 //{time: 1000, count: 100, twist: 0,strengthTwist: 0,radius: 85,height: -73,rotate: PI * 2 + 0.25,width: 12,floor: 30,x: 0,y: 67,z: 0,}
 //{time: 3000, count: 100, twist: -2.81592653589793, strengthTwist: 1, radius: 96, height: 0, rotate: -0.341592653589793, width: 8, floor: 18, x: 0, y: 65, z: 0, }
 //{ time: 3000,count: 100, twist: 13.7340734641021, strengthTwist: 0.351, radius: 126, height: 52, rotate: -2.84159265358979, width: 10, floor: 17, x: 42, y: 69, z: 0, }
