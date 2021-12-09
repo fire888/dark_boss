@@ -2,6 +2,8 @@ import * as THREE from "three";
 
 export class SystemLevel {
     constructor (root) {
+        this.root = root
+
         const { 
             assets, 
             materials, 
@@ -14,10 +16,17 @@ export class SystemLevel {
             offsetFromFloor,
         } = root.CONSTANTS.playerConfig
 
-
+    
+    
+        this._topLevel = null
+        
         assets['level-rooms'].traverse(child => {
             if (child.name.includes("room_")) {
                 studio.addToScene(new THREE.Mesh(child.geometry, materials.wall))
+            }
+
+            if (child.name.includes("topworld_")) {
+                this._topLevel = new THREE.Mesh(child.geometry, materials.wall)
             }
         })
 
@@ -37,6 +46,21 @@ export class SystemLevel {
                         dist: offsetFromFloor,
                         isStopUnits: true,
                     })
+
+            if (child.name.includes("topworld_")) {
+                systemCollisionFloor     
+                    && systemCollisionFloor.setItemToCollision({ 
+                        mesh: new THREE.Mesh(child.geometry, materials.easyMaterial), 
+                        dist: offsetFromFloor,
+                        isStopUnits: true,
+                    })
+            }        
         })
+    }
+
+
+    addTopZone () {
+        console.log('ADD TOP ZONE')
+        this.root.studio.addToScene(this._topLevel)
     }
 }

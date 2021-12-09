@@ -50,8 +50,26 @@ export const createCustomStore = root => {
             if (action.actionKey === 'startBridge') {
                 setTimeout(() => toggleOpenDialog(root.dispatcher.dispatch, false))
                 if (action.dataAction) {
-                    root.bridge.startProgram(action.dataAction.keyProgramBridge)
-                    //dataAction: { keyProgramBridge: 'PROGRAM_05', }
+                    if (action.dataAction.keyProgramBridge) {
+                        root.bridge.startProgram(action.dataAction.keyProgramBridge)
+                    }  
+                    
+                    if (action.dataAction.keyProgramBridge === 'PROGRAM_06') {
+                        root.level.addTopZone()
+                        root.terminals.addLastTerminal()
+                    }
+
+                    if (action.dataAction.idChangerState) { 
+                        if (action.dataAction.idChangerState === 'resetAllAfterEnd') {
+                            const replicies = JSON.parse(JSON.stringify(store.replicies))
+                            replicies['TERMINAL_LAST'].splice(0, 1)
+                            return ({
+                                ...store,
+                                replicies,
+                                currentPhraseIndex: 0,
+                            })    
+                        }
+                    }
                 }
                 return {
                     ...store,
@@ -61,6 +79,19 @@ export const createCustomStore = root => {
 
             if (action.actionKey === 'close') {
                 setTimeout(() => toggleOpenDialog(root.dispatcher.dispatch, false))
+
+                if (action.dataAction && action.dataAction.idChangerState) {
+                    if (action.dataAction.idChangerState === 'openPhrasePROGRAM_00') {
+                        const replicies = JSON.parse(JSON.stringify(store.replicies))
+                        replicies['TERMINAL_00'][1]['a'][2].isShow = true 
+                        return {
+                            ...store,
+                            replicies,
+                            currentPhraseIndex: 0,
+                        }
+                    }
+                }
+
                 return {
                     ...store,
                     currentPhraseIndex: 0,

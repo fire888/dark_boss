@@ -7,8 +7,6 @@ const t = LIBA.createTranslater(TRANSLATE_WORLDS)
 
 export default connect(
     state => { 
-        console.log(state.dialogs.currentTerminalKey)
-        console.log(state.dialogs.currentPhraseIndex)
         return ({
             replicies: state.dialogs.replicies,
             blockPhrases: state.dialogs.replicies[state.dialogs.currentTerminalKey][state.dialogs.currentPhraseIndex],
@@ -23,11 +21,12 @@ export default connect(
                 <button
                     key={ind}
                     onClick={()=>props.dispatch({
-                        type: 'CLICK_ON_PLAYER_PHRASE',
-                        currentTerminalKey: props.currentTerminalKey,
-                        actionKey: item.action,
-                        dataAction: item.dataAction || null, 
-                        phraseIndex: ind, })
+                            type: 'CLICK_ON_PLAYER_PHRASE',
+                            currentTerminalKey: props.currentTerminalKey,
+                            actionKey: item.action,
+                            dataAction: item.dataAction || null, 
+                            phraseIndex: ind, 
+                        })
                     }>
                     {t(item.txt)}
                 </button>)

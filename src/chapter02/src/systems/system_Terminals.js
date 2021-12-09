@@ -11,6 +11,7 @@ export class SystemTerminals {
         } = root
 
         const {
+            LAST_TERMINAL_CONFIG,
             TERMINALS_CONFIG,
         } = root.CONSTANTS
 
@@ -25,6 +26,9 @@ export class SystemTerminals {
         }
 
         for (let i = 0; i < TERMINALS_CONFIG.length; i ++) createTerminal(TERMINALS_CONFIG[i])
+        
+        createTerminal(LAST_TERMINAL_CONFIG)
+        this.terminals['TERMINAL_LAST'].mesh.visible = false
 
         //emitter.subscribe('toggleTerminal')(data => {
             // if (!this.terminals[data.terminalKey]) return;
@@ -43,6 +47,10 @@ export class SystemTerminals {
 
     closeTerminal (key) {
         this.terminals[key].startClose()
+    }
+
+    addLastTerminal () {
+        this.terminals['TERMINAL_LAST'].mesh.visible = true
     }
 }
 

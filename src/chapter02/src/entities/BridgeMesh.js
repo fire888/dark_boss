@@ -2,7 +2,6 @@ import * as THREE from 'three'
 
 
 export function createBridgeMesh (material) {
-    console.log(material)
     const geom = new THREE.BoxGeometry(3, 2, 3)
     const mesh = new THREE.Mesh(geom, material)
     mesh.name = 'roomBridge'
@@ -181,23 +180,6 @@ const createGeomFromPoints = data => {
 
 
         )
-
-        // geometry.faces.push(new THREE.Face3((i - 1) * 4, (i - 1) * 4 + 1, i * 4))
-        // geometry.faces.push(new THREE.Face3((i - 1) * 4 + 1, i * 4 + 1, i * 4))
-
-        // geometry.faces.push(new THREE.Face3((i - 1) * 4 + 1, (i - 1) * 4 + 2, i * 4 + 1))
-        // geometry.faces.push(new THREE.Face3((i - 1) * 4 + 2, i * 4 + 2, i * 4 + 1))
-
-        // geometry.faces.push(new THREE.Face3((i - 1) * 4 + 2, (i - 1) * 4 + 3, i * 4 + 2))
-        // geometry.faces.push(new THREE.Face3((i - 1) * 4 + 3, i * 4 + 3, i * 4 + 2))
-
-        // geometry.faces.push(new THREE.Face3((i - 1) * 4 + 3, (i - 1) * 4, i * 4 + 3))
-        // geometry.faces.push(new THREE.Face3((i - 1) * 4, i * 4, i * 4 + 3))
-
-        // if (i < points.length - 4) {
-        //     geometry.faces.push(new THREE.Face3(i * 4 + 3, i * 4, (i + 1) * 4 + 3))
-        //     geometry.faces.push(new THREE.Face3(i * 4, (i + 1) * 4, (i + 1) * 4 + 3))
-        // }
     }    
 
     const arr = new Float32Array(vertices)

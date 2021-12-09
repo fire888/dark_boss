@@ -158,6 +158,7 @@ export const REPLICIES_CONFIG = {
 
 
 
+
 export const TRANSLATE_WORLDS = {
     'ru': {
         'After a long wandering in the desert...': 'После долгого блуждания по пустоши...',

@@ -8,7 +8,6 @@ export class CheckerDialogWithTerminals {
         const checkerNear = new SystemCheckerNearItem()
         for (let key in terminals.terminals) {
             checkerNear.setItemToCheck(terminals.terminals[key].mesh)
-            console.log(terminals.terminals[key].mesh)
         }
         const mesh = {
             'up': player.frontObj,
