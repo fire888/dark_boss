@@ -50,21 +50,21 @@ export class Bots {
 
 
 
-        const initState = store.getState()
-        let saveIsStartCorridorShow = initState.ui.level.isStartCorridorShow
+       // const initState = store.getState()
+        //let saveIsStartCorridorShow = initState.ui.level.isStartCorridorShow
 
-        store.subscribe(() => {
-            const newState = store.getState()
-            if (saveIsStartCorridorShow && saveIsStartCorridorShow !== newState.ui.level.isStartCorridorShow) {
-                saveIsStartCorridorShow = newState.ui.level.isStartCorridorShow
-
-                for (let i = 0; i < arrBots.length; ++i) {
-                    arrBots[i].inScene = null
-                    arrBots[i].container.position.y = -10000
-                    arrBots[i].removeCollisionMesh()
-                }
-            }
-        })
+        // store.subscribe(() => {
+        //     const newState = store.getState()
+        //     if (saveIsStartCorridorShow && saveIsStartCorridorShow !== newState.ui.level.isStartCorridorShow) {
+        //         saveIsStartCorridorShow = newState.ui.level.isStartCorridorShow
+        //
+        //         for (let i = 0; i < arrBots.length; ++i) {
+        //             arrBots[i].inScene = null
+        //             arrBots[i].container.position.y = -10000
+        //             arrBots[i].removeCollisionMesh()
+        //         }
+        //     }
+        // })
 
 
 

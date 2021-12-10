@@ -5,8 +5,8 @@ export class StarterPlay {
     constructor (gameContext) {
         const { player, ui, pr } = gameContext
         ui.showStartButton(() => {
-            startPlay(pr.dispatch).startPlay()
-            startPlay(pr.dispatch).showBackground()
+            //startPlay(pr.dispatch).startPlay()
+            //startPlay(pr.dispatch).showBackground()
             player.toggleBlocked(false)
         })
     }
