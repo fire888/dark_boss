@@ -35,7 +35,8 @@ export class Bots {
             const bot = new Bot()
             groupBots.add(bot.container)
             bot.container.position.set(-30 + i * 30, -92, 750)
-            bot.inScene = 'aaa'
+            bot.container.userData.inScene = true
+            bot.container.userData.key = 'id_' + i
             botRooms && bot.setCollisionMesh(botRooms['collision_r_01'].clone())
             arrBots.push(bot)
         }
@@ -44,7 +45,7 @@ export class Bots {
 
 
         emitter.subscribe('frameUpdate')(data => {
-            for (let i = 0; i < arrBots.length; ++i) arrBots[i].inScene && arrBots[i].update(data)
+            for (let i = 0; i < arrBots.length; ++i) arrBots[i].container.userData.inScene && arrBots[i].update(data)
         })
 
 
@@ -75,7 +76,7 @@ export class Bots {
             if (isAddBot) {
                 for (let i = 0; i < arrBots.length; ++i) {
                     if (!arrBots[i].inScene) {
-                        arrBots[i].inScene = objKey
+                        arrBots[i].container.userData.inScene = objKey
                         arrBots[i].container.position.set(kv[0] * S, kv[1] * H + H_BOT, kv[2] * S)
                         botRooms && arrBots[i].setCollisionMesh(botRooms['collision_r_01'].clone())
                         break;
@@ -84,8 +85,8 @@ export class Bots {
             }
             if (isRemoveBot) {
                 for (let i = 0; i < arrBots.length; ++i) {
-                    if (arrBots[i].inScene === objKey) {
-                        arrBots[i].inScene = null
+                    if (arrBots[i].container.userData.inScene === objKey) {
+                        arrBots[i].container.userData.inScene= null
                         arrBots[i].container.position.y = -10000
                         arrBots[i].removeCollisionMesh()
                     }

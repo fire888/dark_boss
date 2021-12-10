@@ -10,13 +10,8 @@ import * as THREE from 'three'
 import { S, H } from '../constants/constants_elements'
 
 
-
-
-
-
 const STANDART_ROOMS = ['room_02', 'room_03', 'room_04', 'room_05']
 const START_ROOMS = ['outer_walls', 'outer_floor', 'outer_road']
-
 
 
 export class Level {
@@ -85,9 +80,6 @@ export class Level {
             instanceKey === 'room_dummy' && removeRoom([kv[0], kv[1] - 1, kv[2]])
             instanceKey === 'room_06' && removeRoom([kv[0], kv[1] + 1, kv[2]])
         }
-
-
-
 
 
 

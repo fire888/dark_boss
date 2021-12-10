@@ -17,7 +17,7 @@ export class SystemCheckerNearItem {
     checkNear (mainMesh, dist) {
         mainMesh.getWorldPosition(this._mainCheckerWorldPos)
 
-        for (let i = 0; i < this._arr.length; i++) {
+        for (let i = 0; i < this._arr.length; ++i) {
             if (!this._arr[i].userData.inScene) continue;
 
             this._arr[i].getWorldPosition(this._itemWorldPos)

@@ -8,7 +8,13 @@ const MAX_DIALOG_DIST_TO_BOT = 30
 
 export class Component_PlayerInBot {
     constructor(gameContext) {
-        const { bots, player, pr } = gameContext
+        console.log(gameContext)
+        const { 
+            bots, 
+            player, 
+            pr, 
+            emitter, 
+        } = gameContext
 
         // TODO: CHANGE
         const map = (bot, distance) => {
@@ -28,7 +34,40 @@ export class Component_PlayerInBot {
 
         const checkerNearItems = new SystemCheckerNearItem(gameContext)
         for (let i = 0; i < bots.arrBots.length; ++i) {
-            checkerNearItems.setItemToCheck(bots.arrBots[i].mesh)
+            checkerNearItems.setItemToCheck(bots.arrBots[i].container)
         }
+
+        const mesh = {
+            'up': player.frontObj,
+            'down': player.backObj,
+        }
+
+        let keyBotNear = null
+        
+        emitter.subscribe('playerMove')(({ pos, dir}) => {
+            /** check dialog */
+            {
+                const [ isNear, data ] = checkerNearItems.checkNear(mesh[dir], 20)
+                console.log(isNear)
+            
+                if (!isNear) {
+                    if (keyBotNear) {
+                        keyBotNear = null
+                        console.log('toggle Out', keyBotNear)
+                        //bots.bots[keyBotNear].walk(player._mainObj.position)
+                       
+                        //emitter.emit('nearBot')({ isNearBot: false, botKey: keyBotNear })
+                    }
+                } else {
+                    if (!keyBotNear) {
+                        keyBotNear = data.key
+                        console.log('toggle in', keyBotNear)
+                        //bots.bots[keyBotNear].stay(player._mainObj.position)
+                        //emitter.emit('nearBot')({ isNearBot: true, botKey: keyBotNear })
+                    }
+                }
+            }
+        })
+
     }
 }
