@@ -143,9 +143,11 @@ export class Player {
     getObj () {
         return this._mainObj
     }
+
     getCamera () {
         return this._camera
     }
+    
     setToPos (x, y, z) {
         this._mainObj.position.set(x, y, z)
     }

@@ -128,7 +128,7 @@ export const TRANSLATE_WORLDS = {
 
         'open dialog': 'начать диалог',
         'close dialog': 'закончить диалог',
-        'To be continued': 'Продолжение следует',
+        'Level completed': 'Уровень завершен',
         'open': 'пуск',
     }
 }

@@ -10,11 +10,6 @@ export const startPlay = dispatch => ({
         newQuadrant: [0, -1, -50],
         environmentMode: 'outer',
     }),
-    showBackground: () => dispatch({
-        type: 'CHANGE_ENVIRONMENT',
-        newQuadrant: [0, -1, -50],
-        environmentMode: 'back',
-    }),
     startFinalFog: () => dispatch({
         type: 'CHANGE_ENVIRONMENT',
         newQuadrant: [0, -1, -50],

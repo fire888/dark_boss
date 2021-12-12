@@ -1,6 +1,3 @@
-import { createStore , applyMiddleware, compose} from 'redux'
-import thunk from 'redux-thunk'
-import { combineReducers } from 'redux'
 import { FLOORS_CONF } from '../constants/constants_elements'
 
 
@@ -385,6 +382,8 @@ export const createCustomStore = root => {
 
             const { fogNear, fogFar, color, backgroundImgKey } = FLOORS_CONF[newQuadrant[1]][environmentMode]
 
+            root.studio.changeEnvironment({ fogNear, fogFar, color, backgroundImgKey })
+
             return ({
                 ...state,
                 sceneEnvironment: {
@@ -440,9 +439,6 @@ export const createCustomStore = root => {
 
 
         if (action.type === 'PHRASE_EVENT') {
-            //r.levelEvent && emitter && emitter.emit('changeLevelMode')(r.levelEvent)
-            console.log(action)
-
             const { event, levelEvent } = action.phrase
             levelEvent && root.emitter.emit('changeLevelMode')(levelEvent)
 

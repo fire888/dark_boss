@@ -44,7 +44,7 @@ function CustomReactComponent(props) {
             {props.isShowFinalMessage && (
                 <div className="info">
                     <div className="info-inner final-message">
-                        <p>{t('To be continued')}</p>
+                        <p>{t('Level completed')}</p>
                     </div>
                 </div>)}
         </>

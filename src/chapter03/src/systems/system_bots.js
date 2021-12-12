@@ -1,5 +1,4 @@
 import * as THREE from 'three'
-// import { FRAME_UPDATE } from '../constants/constants_elements'
 import { Bot } from '../Entities/Bot'
 
 
@@ -48,24 +47,7 @@ export class Bots {
         })
 
 
-
-
-       // const initState = store.getState()
-        //let saveIsStartCorridorShow = initState.ui.level.isStartCorridorShow
-
-        // store.subscribe(() => {
-        //     const newState = store.getState()
-        //     if (saveIsStartCorridorShow && saveIsStartCorridorShow !== newState.ui.level.isStartCorridorShow) {
-        //         saveIsStartCorridorShow = newState.ui.level.isStartCorridorShow
-        //
-        //         for (let i = 0; i < arrBots.length; ++i) {
-        //             arrBots[i].inScene = null
-        //             arrBots[i].container.position.y = -10000
-        //             arrBots[i].removeCollisionMesh()
-        //         }
-        //     }
-        // })
-
+        
         emitter.subscribe('removeStartBots')(() => {
             for (let i = 0; i < arrBots.length; ++i) {
                 arrBots[i].inScene = null
@@ -75,9 +57,7 @@ export class Bots {
         })
 
 
-
-
-
+    
         emitter.subscribe('levelChanged')(({ objKey, kv, isAddBot, isRemoveBot }) => {
             if (isAddBot) {
                 for (let i = 0; i < arrBots.length; ++i) {
@@ -100,5 +80,4 @@ export class Bots {
             }
         })
     }
-
 }
