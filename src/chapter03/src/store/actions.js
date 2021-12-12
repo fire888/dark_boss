@@ -31,33 +31,6 @@ export const showMessages = dispatch => ({
 })
 
 
-export const clickFullScreen = dispatch => ({
-    clickFullScreen: () => {
-        dispatch({
-            type: 'CLICK_FULL_SCREEN',
-        })
-    },
-
-    exitFullScreen: () => {
-        dispatch({
-            type: 'EXIT_FULL_SCREEN',
-        })
-    },
-})
-
-
-export const clickInfo = dispatch => {
-    return ({
-        clickInfo: val => {
-            dispatch({
-                type: 'INFO_TOGGLE',
-                mode: val,
-            })
-        },
-    })
-}
-
-
 
 export const toggleDialog = dispatch => ({
     clickPhrase: r => {
@@ -75,20 +48,4 @@ export const toggleDialog = dispatch => ({
             r.levelEvent && emitter && emitter.emit('changeLevelMode')(r.levelEvent)
         }, 1000)
     },
-
-
-    toggleDialog: is => {
-        dispatch({
-            type: 'TOGGLE_DIALOG',
-            isDialog: is,
-        })
-    },
-
-
-    toggleButtonDialog: is => {
-        dispatch({
-            type: 'TOGGLE_BUTTON',
-            isButtonDialog: is,
-        })
-    }
 })

@@ -356,177 +356,174 @@ const uiState = {
     history: [],
     isShowControls: true,
     isButtonDialog: false,
+    isShowPalleteDialog: false,
 
     botIndex: -1,
     phraseIndex: 0,
     phrasesData: DIALOGS_DATA,
 }
 
+export const createCustomStore = root => {
+    const ui = function(state = uiState, action) {
 
-
-const ui = function(state = uiState, action) {
-
-    if (action.type === 'TOGGLE_FINAL_MESSAGE') {
-        return ({
-            ...state,
-            isShowFinalMessage: action.mode,
-            isShowControls: false,
-        })
-    }
-
-
-
-
-
-    if (action.type === 'CHANGE_ENVIRONMENT') {
-        const { newQuadrant, environmentMode } = action
-
-        if (!FLOORS_CONF[newQuadrant[1]]) return state;
-
-        const { fogNear, fogFar, color, backgroundImgKey } = FLOORS_CONF[newQuadrant[1]][environmentMode]
-
-        return ({
-            ...state,
-            sceneEnvironment: {
-                fogNear,
-                fogFar,
-                color,
-                backgroundImgKey,
-            }
-        })
-    }
-
-
-
-
-    if (action.type === 'CHANGE_QUADRANT') {
-        return ({
-            ...state,
-            playerQuadrant: {
-                ...state.playerQuadrant,
-                ...action,
-            },
-        })
-    }
-
-
-
-    if (action.type === 'DESTROY_START_CORRIDOR') {
-        return ({
-            ...state,
-            level: {
-                ...state.level,
-                isStartCorridorShow: false,
-            }
-        })
-    }
-
-
-
-    if (action.type === 'CLICK_PHRASE') {
-        return ({
-            ...state,
-            botAnswers: [
-                ...state.botAnswers,
-                action.phrase,
-            ],
-            userReplicies: [],
-        })
-    }
-
-
-
-
-    if (action.type === 'PHRASE_EVENT') {
-        const { event } = action.phrase
-
-        if (event === 'nextReply') {
-            const userReplicies = [state.phrasesData[state.botIndex].phrases[state.phraseIndex + 1]]
-
+        if (action.type === 'TOGGLE_FINAL_MESSAGE') {
             return ({
                 ...state,
-                phraseIndex: state.phraseIndex + 1,
-                userReplicies,
+                isShowFinalMessage: action.mode,
+                isShowControls: false,
             })
-
         }
 
-        if (event === 'close') {
+
+
+
+
+        if (action.type === 'CHANGE_ENVIRONMENT') {
+            const { newQuadrant, environmentMode } = action
+
+            if (!FLOORS_CONF[newQuadrant[1]]) return state;
+
+            const { fogNear, fogFar, color, backgroundImgKey } = FLOORS_CONF[newQuadrant[1]][environmentMode]
+
             return ({
                 ...state,
-                userReplicies: [],
-                isButtonDialog: true,
-                playerQuadrant: {
-                    ...state.playerQuadrant,
-                    oldDialogPlayerQuadrant: [...state.playerQuadrant.newQuadrant]
+                sceneEnvironment: {
+                    fogNear,
+                    fogFar,
+                    color,
+                    backgroundImgKey,
                 }
             })
         }
-    }
-
-
-
-    if (action.type === 'TOGGLE_DIALOG') {
-
-        let isNewBot = false
-        const { oldDialogPlayerQuadrant, newQuadrant } = state.playerQuadrant
-        if (
-            oldDialogPlayerQuadrant[0] !== newQuadrant[0] ||
-            oldDialogPlayerQuadrant[1] !== newQuadrant[1] ||
-            oldDialogPlayerQuadrant[2] !== newQuadrant[2]
-        ) isNewBot = true
 
 
 
 
-        if (!isNewBot) {
+        if (action.type === 'CHANGE_QUADRANT') {
             return ({
                 ...state,
-                isDialog: action.isDialog,
-                isShowControls: !action.isDialog,
-                isButtonDialog: true,
+                playerQuadrant: {
+                    ...state.playerQuadrant,
+                    ...action,
+                },
             })
         }
 
 
 
-        const phraseIndex = 0
-        const botIndex = state.botIndex + 1
-        const isButtonDialog = false
+        if (action.type === 'DESTROY_START_CORRIDOR') {
+            return ({
+                ...state,
+                level: {
+                    ...state.level,
+                    isStartCorridorShow: false,
+                }
+            })
+        }
 
 
-        const userReplicies = state.phrasesData[botIndex] ? [state.phrasesData[botIndex].phrases[phraseIndex]] : []
 
-        return ({
-            ...state,
+        if (action.type === 'CLICK_PHRASE') {
+            return ({
+                ...state,
+                botAnswers: [
+                    ...state.botAnswers,
+                    action.phrase,
+                ],
+                userReplicies: [],
+            })
+        }
 
-            userReplicies,
-            botAnswers: [],
-            isDialog: action.isDialog,
-            isShowControls: !action.isDialog,
-            isButtonDialog,
-            isCanChangeBotIndex: false,
-            botIndex,
-            phraseIndex,
-        })
+
+
+
+        if (action.type === 'PHRASE_EVENT') {
+            const { event } = action.phrase
+
+            if (event === 'nextReply') {
+                const userReplicies = [state.phrasesData[state.botIndex].phrases[state.phraseIndex + 1]]
+
+                return ({
+                    ...state,
+                    phraseIndex: state.phraseIndex + 1,
+                    userReplicies,
+                })
+
+            }
+
+            if (event === 'close') {
+                return ({
+                    ...state,
+                    userReplicies: [],
+                    isButtonDialog: true,
+                    playerQuadrant: {
+                        ...state.playerQuadrant,
+                        oldDialogPlayerQuadrant: [...state.playerQuadrant.newQuadrant]
+                    }
+                })
+            }
+        }
+
+
+
+        if (action.type === 'TOGGLE_DIALOG') {
+
+            let isNewBot = false
+            const { oldDialogPlayerQuadrant, newQuadrant } = state.playerQuadrant
+            if (
+                oldDialogPlayerQuadrant[0] !== newQuadrant[0] ||
+                oldDialogPlayerQuadrant[1] !== newQuadrant[1] ||
+                oldDialogPlayerQuadrant[2] !== newQuadrant[2]
+            ) isNewBot = true
+
+
+
+
+            if (!isNewBot) {
+                return ({
+                    ...state,
+                    isShowPalleteDialog: action.isShowPalleteDialog,
+                    isButtonDialog: true,
+                })
+            }
+
+
+
+            const phraseIndex = 0
+            const botIndex = state.botIndex + 1
+            const isButtonDialog = false
+
+
+            const userReplicies = state.phrasesData[botIndex] ? [state.phrasesData[botIndex].phrases[phraseIndex]] : []
+
+
+            return ({
+                ...state,
+
+                userReplicies,
+                botAnswers: [],
+                isShowPalleteDialog: action.isShowPalleteDialog,
+                isButtonDialog,
+                isCanChangeBotIndex: false,
+                botIndex,
+                phraseIndex,
+            })
+        }
+
+        if (action.type === 'TOGGLE_BUTTON') {
+
+            return ({
+                ...state,
+                isButtonDialog: action.isButtonDialog,
+            })
+        }
+
+
+        return state
     }
 
-    if (action.type === 'TOGGLE_BUTTON') {
-
-        return ({
-            ...state,
-            isDialog: false,
-            isButtonDialog: action.isButtonDialog,
-        })
-    }
-
-
-    return state
+    return { ui }
 }
 
 
-
-const rootReducer = combineReducers({ ui })
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 

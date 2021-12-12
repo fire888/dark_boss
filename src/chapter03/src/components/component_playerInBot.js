@@ -1,5 +1,6 @@
+import * as THREE from 'three'
 import { toggleDialog } from '../store/actions'
-//import { Component_PlayerNearItems } from '../../../_CORE/components/component_checkPlayerNearItems'
+
 
 import { SystemCheckerNearItem } from "../../../_CORE/systems/SystemCheckerNearItem";
 
@@ -7,28 +8,52 @@ import { SystemCheckerNearItem } from "../../../_CORE/systems/SystemCheckerNearI
 const MAX_DIALOG_DIST_TO_BOT = 30
 
 export class Component_PlayerInBot {
-    constructor(gameContext) {
-        const { bots, player, pr } = gameContext
+    constructor(root) {
+        console.log(root)
+        const {
+            bots,
+            player,
+            pr,
+            emitter,
+            dispatcher,
+        } = root
 
-        // TODO: CHANGE
-        const map = (bot, distance) => {
-            if (bot._state === 'say' && distance > MAX_DIALOG_DIST_TO_BOT) {
-                bot._startRotate()
-                toggleDialog(pr.dispatch).toggleButtonDialog(false)
-            }
 
-            if (bot._state !== 'say' && distance < MAX_DIALOG_DIST_TO_BOT) {
-                bot.prepareToSay(player._mainObj.position)
-                toggleDialog(pr.dispatch).toggleButtonDialog(true)
-            }
-        }
-
-        //const checkerNearItems = new Component_PlayerNearItems(gameContext)
-        //checkerNearItems.setArrItems(bots.arrBots, map)
-
-        const checkerNearItems = new SystemCheckerNearItem(gameContext)
+        const checkerNearItems = new SystemCheckerNearItem(root)
         for (let i = 0; i < bots.arrBots.length; ++i) {
             checkerNearItems.setItemToCheck(bots.arrBots[i].mesh)
         }
+
+
+        const botWorldPos = new THREE.Vector3()
+
+
+        emitter.subscribe('playerMove')(data => {
+            for (let i = 0; i < bots.arrBots.length; ++i) {
+                if (!bots.arrBots[i].inScene) continue;
+
+
+                bots.arrBots[i].mesh.getWorldPosition(botWorldPos)
+                const distance = botWorldPos.distanceTo(data.pos)
+
+                if (bots.arrBots[i]._state === 'say' && distance > MAX_DIALOG_DIST_TO_BOT) {
+                    dispatcher.dispatch({
+                        type: 'TOGGLE_BUTTON',
+                        isButtonDialog: false,
+                    })
+                    bots.arrBots[i]._startRotate()
+                    continue;
+                }
+
+
+                if (bots.arrBots[i]._state !== 'say' && distance < MAX_DIALOG_DIST_TO_BOT) {
+                    bots.arrBots[i].prepareToSay(data.pos)
+                    dispatcher.dispatch({
+                        type: 'TOGGLE_BUTTON',
+                        isButtonDialog: true,
+                    })
+                }
+            }
+        })
     }
 }

@@ -17,19 +17,19 @@ export class Bot {
 
         this.container = new THREE.Group()
 
-        this._modelGroup = new THREE.Group()
-        this._modelGroup.position.x = OFFSETS['room_01'].x
-        this._modelGroup.position.z = OFFSETS['room_01'].z
-        this._modelGroup.rotation.y = Math.random() * (2 * Math.PI)
-        this.container.add(this._modelGroup)
+        this.mesh = new THREE.Group()
+        this.mesh.position.x = OFFSETS['room_01'].x
+        this.mesh.position.z = OFFSETS['room_01'].z
+        this.mesh.rotation.y = Math.random() * (2 * Math.PI)
+        this.container.add(this.mesh)
 
         this._objFrom = new THREE.Object3D()
-        this._modelGroup.add(this._objFrom)
+        this.mesh.add(this._objFrom)
 
 
         this._objTo = new THREE.Object3D()
         this._objTo.position.set(0, 0, 1)
-        this._modelGroup.add(this._objTo)
+        this.mesh.add(this._objTo)
 
 
         const copy = GLTFCopy(Bot.botScene)
@@ -44,7 +44,7 @@ export class Bot {
         this._speakAction = this._mixer.clipAction(this._animations[0])
         this._speakAction.timeScale = .4
 
-        this._modelGroup.add(this.model)
+        this.mesh.add(this.model)
     }
 
 
@@ -76,7 +76,7 @@ export class Bot {
         this._state = 'say'
         this._walkAction.stop()
         this._speakAction.play()
-        this._modelGroup.lookAt(pos.x, this.container.position.y, pos.z)
+        this.mesh.lookAt(pos.x, this.container.position.y, pos.z)
     }
 
 
@@ -86,16 +86,16 @@ export class Bot {
         if (this._state === 'go') {
             const isNear = this._componentCollision.check()
             if (!isNear) {
-                this._modelGroup.translateZ(0.05)
+                this.mesh.translateZ(0.05)
             } else {
                 this._startRotate()
             }
         }
 
         if (this._state === 'rotate') {
-            this._modelGroup.rotation.y += ((this._targetAngle - this._modelGroup.rotation.y) < 0) ? -.01 : .01
-            this._modelGroup.rotation.y %= 2 * Math.PI
-            const isComplete = Math.abs(this._modelGroup.rotation.y - this._targetAngle) < .5
+            this.mesh.rotation.y += ((this._targetAngle - this.mesh.rotation.y) < 0) ? -.01 : .01
+            this.mesh.rotation.y %= 2 * Math.PI
+            const isComplete = Math.abs(this.mesh.rotation.y - this._targetAngle) < .5
             isComplete && this._startGo()
         }
     }
@@ -111,7 +111,7 @@ export class Bot {
 
     _startRotate() {
         this._state = 'rotate'
-        this._targetAngle = (this._modelGroup.rotation.y + 1.5 + Math.random() * 4) % (2 * Math.PI)
+        this._targetAngle = (this.mesh.rotation.y + 1.5 + Math.random() * 4) % (2 * Math.PI)
     }
 }
 
