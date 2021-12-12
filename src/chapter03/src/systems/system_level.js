@@ -108,8 +108,6 @@ export class Level {
         }
 
 
-
-        console.log('this._wentLevels', this._wentLevels)
         let keyCreateRoom = STANDART_ROOMS[Math.floor(Math.random() * STANDART_ROOMS.length)]
         if (counter) {
             this._wentLevels = counter(this._wentLevels)
@@ -369,58 +367,3 @@ const createLevelMeshes = (assets, materials) => {
         collisionsBotsRooms,
     }
 }
-
-
-
-
-// const createRoom = (kv, key) => {
-//     const instanceKey = key || STANDART_ROOMS[Math.floor(Math.random() * STANDART_ROOMS.length)]
-//
-//     const objKey = `r_${kv[0]}_${kv[1]}_${kv[2]}`
-//
-//     const mesh = rooms[instanceKey].clone()
-//     mesh.position.set(kv[0] * S, kv[1] * H, kv[2] * S)
-//     systemCollisionFloor.setItemToCollision({ mesh })
-//     systemCollisionItems.setItemToCollision({ mesh })
-//     this._group.add(mesh)
-//     this._objRooms[objKey] = mesh
-//
-//
-//     emitter.emit('levelChanged')({
-//         typeLevelChange: 'createRoom',
-//         instanceKey,
-//         objKey,
-//         kv,
-//         isAddBot: instanceKey === 'room_01'
-//     })
-//
-//     instanceKey === 'room_06' && createRoom([kv[0], kv[1] + 1, kv[2]], 'room_dummy')
-// }
-
-
-// const removeRoom = kv => {
-//     const objKey = `r_${ kv[0] }_${ kv[1] }_${ kv[2] }`
-//     if (!this._objRooms[objKey]) return;
-//
-//
-//     const instanceKey = this._objRooms[objKey].name
-//
-//
-//     this._group.remove(this._objRooms[objKey])
-//     //removeItemFromFloorsCollision(objRooms[objKey])
-//     //removeItemFromWallCollision(objRooms[objKey])
-//     delete this._objRooms[objKey]
-//
-//
-//     emitter.emit('levelChanged')({
-//         typeLevelChange: 'destroyRoom',
-//         instanceKey,
-//         objKey,
-//         kv,
-//         isRemoveBot: instanceKey === 'room_01'
-//     })
-//
-//     instanceKey === 'room_dummy' && removeRoom([kv[0], kv[1] - 1, kv[2]])
-//     instanceKey === 'room_06' && removeRoom([kv[0], kv[1] + 1, kv[2]])
-// }
-

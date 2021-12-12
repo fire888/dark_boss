@@ -2,6 +2,8 @@ import * as THREE from 'three'
 import * as TWEEN from '@tweenjs/tween.js'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
+import { Saturate } from '../shaders/saturate'
 
 
 
@@ -21,15 +23,9 @@ export class Studio {
         this._scene = new THREE.Scene()
 
         {
-            // if (store) {
-            //     const { color, fogNear, fogFar, backgroundImgKey } = store.getState().app.sceneEnvironment
-            //     this._scene.background = assets[backgroundImgKey] || null
-            //     this._scene.fog = new THREE.Fog(color, fogNear, fogFar)
-            // } else {
-                const { color, fogNear, fogFar, backgroundImgKey } = root.CONSTANTS.studioConfig.sceneEnvironment
-                this._scene.background = assets[backgroundImgKey] || null
-                this._scene.fog = new THREE.Fog(color, fogNear, fogFar)
-            //}
+            const { color, fogNear, fogFar, backgroundImgKey } = root.CONSTANTS.studioConfig.sceneEnvironment
+            this._scene.background = assets[backgroundImgKey] || null
+            this._scene.fog = new THREE.Fog(color, fogNear, fogFar)
         }
 
 
@@ -44,7 +40,7 @@ export class Studio {
 
 
         this._composer = new EffectComposer(this._renderer)
-        //composer.addPass(new RenderPass(scene, camera))
+        //this._composer.addPass(new RenderPass(this._scene, this._camera))
 
 
 
@@ -85,6 +81,12 @@ export class Studio {
     setCamera (cam) {
         this._camera = cam
         this._composer.addPass(new RenderPass(this._scene, this._camera))
+        
+        if (!this._root.CONSTANTS.studioConfig.composerAddPass) return; 
+        
+        if (this._root.CONSTANTS.studioConfig.composerAddPass === 'Saturate') {
+            this._composer.addPass(new ShaderPass(Saturate))
+        }  
     }
 
     changeEnvironment (sceneEnvironment) {

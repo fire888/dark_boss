@@ -41,9 +41,13 @@
     padding: 20px;
 } 
 
-.messages .player {
-    color: aqua;
+.messages .player,
+.messages .q
+{
+    color: rgb(154, 212, 127);
     font-size: 14px;
+    margin-top: 1rem;
+    font-weight: bold;
 }
 
 .dialog-wrapper .dialog-button-toggle {
@@ -64,4 +68,17 @@
     height: 40px;
     margin: .2rem;
 } 
+
+
+
+.final-message {
+    text-align: center;
+    background: none;
+}
+
+
+.final-message p {
+    font-size: 14px;
+    font-weight: bold;
+}
 

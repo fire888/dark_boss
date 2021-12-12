@@ -2,7 +2,12 @@ import { connect } from 'react-redux'
 import { TRANSLATE_WORLDS} from "../constants/constants_replicies";
 import { createTranslater } from "../../../_CORE";
 
+
+
 const t = createTranslater(TRANSLATE_WORLDS)
+
+
+
 
 const mapStateToProps = state => ({
     botAnswers: state.ui.botAnswers,

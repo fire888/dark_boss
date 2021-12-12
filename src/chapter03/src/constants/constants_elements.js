@@ -127,6 +127,7 @@ export const studioConfig = {
         fogFar: FLOORS_CONF['-1']['start'].fogFar,
         backgroundImgKey: null,
     },
+    composerAddPass: 'Saturate',
 }
 
 

@@ -190,9 +190,8 @@ export class ChangerQuadrant {
 
             const arrEmitData = getEmitsByChangeQuadrant(oldQuadrant, currentQuadrant)
 
-            arrEmitData.length && arrEmitData.forEach(item => dispatcher.dispatch({
-                ...item,
-            }))
+            arrEmitData.length && 
+                arrEmitData.forEach(item => dispatcher.dispatch({ ...item }))
         })
     }
 }
