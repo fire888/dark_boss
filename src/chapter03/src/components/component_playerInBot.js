@@ -1,19 +1,14 @@
 import * as THREE from 'three'
-import { toggleDialog } from '../store/actions'
-
-
 import { SystemCheckerNearItem } from "../../../_CORE/systems/SystemCheckerNearItem";
 
 
 const MAX_DIALOG_DIST_TO_BOT = 30
 
+
 export class Component_PlayerInBot {
     constructor(root) {
-        console.log(root)
         const {
             bots,
-            player,
-            pr,
             emitter,
             dispatcher,
         } = root

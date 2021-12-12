@@ -34,7 +34,7 @@ export const TRANSLATE_WORLDS = {
         'Yes, I told you this is where the corridors lead.': 'Я помню о твоем пути.',
 
         'Man, you all look the same.': 'Вы все так похожи.',
-        'We will meet again.': 'Мы еще встретимся.',
+        //'We will meet again.': 'Мы еще встретимся.',
 
         'Soooo, is that you again ?': 'Это снова ты?',
         'Yes. All of me are myself.': 'Да, мы все едины.',

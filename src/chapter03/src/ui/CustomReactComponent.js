@@ -2,11 +2,12 @@ import './CustomReactComponent.css'
 import { createTranslater } from '../../../_CORE/helpers/helper_translate'
 import { UserReplicies } from './UserReplicies'
 import { BotAnswers } from './BotAnswers'
+import { TRANSLATE_WORLDS } from '../constants/constants_replicies'
 
 import { connect } from 'react-redux'
 
 
-const t = createTranslater(UserReplicies)
+const t = createTranslater(TRANSLATE_WORLDS)
 
 const mapStateToProps = state => ({
     isButtonDialog: state.ui.isButtonDialog,
