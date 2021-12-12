@@ -66,6 +66,13 @@ export class Bots {
         //     }
         // })
 
+        emitter.subscribe('removeStartBots')(() => {
+            for (let i = 0; i < arrBots.length; ++i) {
+                arrBots[i].inScene = null
+                arrBots[i].container.position.y = -10000
+                arrBots[i].removeCollisionMesh()
+            }
+        })
 
 
 
@@ -93,4 +100,5 @@ export class Bots {
             }
         })
     }
+
 }

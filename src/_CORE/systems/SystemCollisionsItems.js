@@ -23,6 +23,11 @@ export class SystemCollisionWithItems {
     }
 
 
+    removeItemFromCollision(mesh) {
+        this._arrMeshes = this._arrMeshes.filter(item => item !== mesh)
+    }
+
+
     checkCollisions (objFrom, objTo, d) {
         objFrom.getWorldPosition(this._vecStart)
         objTo.getWorldPosition(this._vecDir)

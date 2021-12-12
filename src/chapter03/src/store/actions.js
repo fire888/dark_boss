@@ -44,8 +44,6 @@ export const toggleDialog = dispatch => ({
                 type: 'PHRASE_EVENT',
                 phrase: r,
             })
-
-            r.levelEvent && emitter && emitter.emit('changeLevelMode')(r.levelEvent)
         }, 1000)
     },
 })

@@ -440,7 +440,11 @@ export const createCustomStore = root => {
 
 
         if (action.type === 'PHRASE_EVENT') {
-            const { event } = action.phrase
+            //r.levelEvent && emitter && emitter.emit('changeLevelMode')(r.levelEvent)
+            console.log(action)
+
+            const { event, levelEvent } = action.phrase
+            levelEvent && root.emitter.emit('changeLevelMode')(levelEvent)
 
             if (event === 'nextReply') {
                 const userReplicies = [state.phrasesData[state.botIndex].phrases[state.phraseIndex + 1]]
