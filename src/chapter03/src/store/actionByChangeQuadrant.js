@@ -15,7 +15,7 @@ export const CHANGE_LAYER_STATE = [
         oldQuadrant: [0, -2, 4], newQuadrant: [0, -2, 3],
         emitData: [
             {
-                emitKey: 'CHANGE_ENVIRONMENT',
+                type: 'CHANGE_ENVIRONMENT',
                 environmentMode: 'corridorLight',
                 backgroundImg: false
             },
@@ -26,7 +26,7 @@ export const CHANGE_LAYER_STATE = [
         oldQuadrant: [0, -2, 3], newQuadrant: [0, -2, 4],
         emitData: [
             {
-                emitKey: 'CHANGE_ENVIRONMENT',
+                type: 'CHANGE_ENVIRONMENT',
                 environmentMode: 'outer',
             },
         ]
@@ -38,7 +38,7 @@ export const CHANGE_LAYER_STATE = [
         oldQuadrant: [0, -1, 2], newQuadrant: [0, -1, 1],
         emitData: [
             {
-                emitKey: 'CHANGE_ENVIRONMENT',
+                type: 'CHANGE_ENVIRONMENT',
                 environmentMode: 'firstRoomLight',
             }
         ],
@@ -48,7 +48,7 @@ export const CHANGE_LAYER_STATE = [
         oldQuadrant: [0, -1, 1], newQuadrant: [0, -1, 2],
         emitData: [
             {
-                emitKey: 'CHANGE_ENVIRONMENT',
+                type: 'CHANGE_ENVIRONMENT',
                 environmentMode: 'corridorLight',
             },
         ],
@@ -61,10 +61,10 @@ export const CHANGE_LAYER_STATE = [
         oldQuadrant: [0, -1, 0], newQuadrant: [0, -1, 'ANY_MINUS_ONE'],
         emitData: [
             {
-                emitKey: 'DESTROY_START_CORRIDOR'
+                type: 'DESTROY_START_CORRIDOR'
             },
             {
-                emitKey: 'CHANGE_QUADRANT'
+                type: 'CHANGE_QUADRANT'
             },
         ],
     },
@@ -73,10 +73,10 @@ export const CHANGE_LAYER_STATE = [
         oldQuadrant: [0, -1, 0], newQuadrant: ['ANY_MINUS_ONE', -1, 0],
         emitData: [
             {
-                emitKey: 'DESTROY_START_CORRIDOR'
+                type: 'DESTROY_START_CORRIDOR'
             },
             {
-                emitKey: 'CHANGE_QUADRANT'
+                type: 'CHANGE_QUADRANT'
             },
         ],
     },
@@ -85,10 +85,10 @@ export const CHANGE_LAYER_STATE = [
         oldQuadrant: [0, -1, 0], newQuadrant: ['ANY_PLUS_ONE', -1, 0],
         emitData: [
             {
-                emitKey: 'DESTROY_START_CORRIDOR'
+                type: 'DESTROY_START_CORRIDOR'
             },
             {
-                emitKey: 'CHANGE_QUADRANT'
+                type: 'CHANGE_QUADRANT'
             },
         ],
     },
@@ -100,11 +100,11 @@ export const CHANGE_LAYER_STATE = [
         oldQuadrant: ['ANY', 'ANY', 'ANY'], newQuadrant: ['ANY', 'ANY_PLUS_ONE', 'ANY'],
         emitData: [
             {
-                emitKey: 'CHANGE_ENVIRONMENT',
+                type: 'CHANGE_ENVIRONMENT',
                 environmentMode: 'default',
             },
             {
-                emitKey: 'CHANGE_QUADRANT',
+                type: 'CHANGE_QUADRANT',
                 counter: () => 0,
             },
         ],
@@ -116,11 +116,11 @@ export const CHANGE_LAYER_STATE = [
         oldQuadrant: ['ANY', 'ANY', 'ANY'], newQuadrant: ['ANY', 'ANY_MINUS_ONE', 'ANY'],
         emitData: [
             {
-                emitKey: 'CHANGE_ENVIRONMENT',
+                type: 'CHANGE_ENVIRONMENT',
                 environmentMode: 'default',
             },
             {
-                emitKey: 'CHANGE_QUADRANT',
+                type: 'CHANGE_QUADRANT',
                 counter: () => 100,
             },
         ],
@@ -134,7 +134,7 @@ export const CHANGE_LAYER_STATE = [
         oldQuadrant: ['ANY', 'ANY', 'ANY'], newQuadrant: ['ANY', 'ANY', 'ANY_MINUS_ONE'],
         emitData: [
             {
-                emitKey: 'CHANGE_QUADRANT',
+                type: 'CHANGE_QUADRANT',
                 counter: val => ++val,
             },
         ],
@@ -145,7 +145,7 @@ export const CHANGE_LAYER_STATE = [
         oldQuadrant: ['ANY', 'ANY', 'ANY'], newQuadrant: ['ANY_MINUS_ONE', 'ANY', 'ANY'],
         emitData: [
             {
-                emitKey: 'CHANGE_QUADRANT',
+                type: 'CHANGE_QUADRANT',
                 counter: val => ++val,
             }
         ],
@@ -156,7 +156,7 @@ export const CHANGE_LAYER_STATE = [
         oldQuadrant: ['ANY', 'ANY', 'ANY'], newQuadrant: ['ANY_PLUS_ONE', 'ANY', 'ANY'],
         emitData: [
             {
-                emitKey: 'CHANGE_QUADRANT',
+                type: 'CHANGE_QUADRANT',
                 counter: val => ++val,
             }
         ],
@@ -167,7 +167,7 @@ export const CHANGE_LAYER_STATE = [
         oldQuadrant: ['ANY', 'ANY', 'ANY'], newQuadrant: ['ANY', 'ANY', 'ANY_PLUS_ONE'],
         emitData: [
             {
-                emitKey: 'CHANGE_QUADRANT',
+                type: 'CHANGE_QUADRANT',
                 counter: val => ++val,
             }
         ],
@@ -177,8 +177,8 @@ export const CHANGE_LAYER_STATE = [
 
 
 export class ChangerQuadrant {
-    constructor(gameContext) {
-        const { pr, emitter } = gameContext
+    constructor(root) {
+        const { emitter, dispatcher } = root
         const checkerNewQuadrant = createCheckerNewQuadrant()
 
 
@@ -190,9 +190,8 @@ export class ChangerQuadrant {
 
             const arrEmitData = getEmitsByChangeQuadrant(oldQuadrant, currentQuadrant)
 
-            arrEmitData.length && arrEmitData.forEach(item => pr.dispatch({
+            arrEmitData.length && arrEmitData.forEach(item => dispatcher.dispatch({
                 ...item,
-                type: item.emitKey,
             }))
         })
     }

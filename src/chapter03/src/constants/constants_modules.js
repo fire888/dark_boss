@@ -40,6 +40,7 @@ import { ChangerQuadrant } from "../store/actionByChangeQuadrant"
 import { Component_PlayerInBot } from '../components/component_playerInBot'
 import { StarterPlay } from '../actions/StarterPlay'
 import { EnderPlay } from '../actions/EnderPlay'
+import {SystemCollisionWithItems} from "../../../_CORE/systems/SystemCollisionsItems";
 
 
 export const GAME_MODULES = [
@@ -94,6 +95,16 @@ export const GAME_MODULES = [
     {
         key: 'player',
         constr: Player,
+        initStateKey: 'beforeStartPlay',
+    },
+    {
+        key: 'systemCollisionFloor',
+        constr: SystemCollisionWithItems,
+        initStateKey: 'beforeStartPlay',
+    },
+    {
+        key: 'systemCollisionItems',
+        constr: SystemCollisionWithItems,
         initStateKey: 'beforeStartPlay',
     },
     {

@@ -328,7 +328,7 @@ const DIALOGS_DATA = [
 
 
 
-const uiState = {
+export const uiState = {
     sceneEnvironment: {
         color: FLOORS_CONF['-1']['start'].color,
         fogNear: FLOORS_CONF['-1']['start'].fogNear,
@@ -400,13 +400,15 @@ export const createCustomStore = root => {
 
 
         if (action.type === 'CHANGE_QUADRANT') {
-            return ({
+            const data = {
                 ...state,
                 playerQuadrant: {
                     ...state.playerQuadrant,
                     ...action,
                 },
-            })
+            }
+            root.level.changeQuadrant(data)
+            return data
         }
 
 

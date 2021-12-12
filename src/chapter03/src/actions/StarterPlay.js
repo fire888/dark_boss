@@ -1,10 +1,10 @@
 //import { startPlay } from "../store/actions";
+import { uiState } from '../store/createStore'
 
 
 export class StarterPlay {
     constructor (root) {
-        const { player, ui, pr } = root
-        console.log('----', root)
+        const { player, ui, } = root
         ui.showStartButton(() => {
             //startPlay(pr.dispatch).startPlay()
             //startPlay(pr.dispatch).showBackground()

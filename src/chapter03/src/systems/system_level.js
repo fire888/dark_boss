@@ -8,6 +8,7 @@
 // } from '../../../_CORE/components/component_collisionWalls'
 import * as THREE from 'three'
 import { S, H } from '../constants/constants_elements'
+import { uiState } from '../store/createStore'
 
 
 const STANDART_ROOMS = ['room_02', 'room_03', 'room_04', 'room_05']
@@ -16,10 +17,18 @@ const START_ROOMS = ['outer_walls', 'outer_floor', 'outer_road']
 
 export class Level {
     constructor(gameContext) {
-        const { emitter, studio, store, assets, materials } = gameContext
+        const {
+            emitter,
+            studio,
+            assets,
+            materials,
+            systemCollisionFloor,
+            systemCollisionItems,
+        } = gameContext
         const { rooms, allMeshes, collisionsBotsRooms } = createLevelMeshes(assets, materials)
 
         this.collisionsBotsRooms = collisionsBotsRooms
+
 
         const group = new THREE.Group()
         studio.addToScene(group)
@@ -37,6 +46,8 @@ export class Level {
 
             const mesh = rooms[instanceKey].clone()
             mesh.position.set(kv[0] * S, kv[1] * H, kv[2] * S)
+            systemCollisionFloor.setItemToCollision({ mesh })
+            systemCollisionItems.setItemToCollision({ mesh })
             //setItemToFloorsCollision(mesh)
             //setItemToWallCollision(mesh)
             group.add(mesh)
@@ -94,6 +105,8 @@ export class Level {
         const startL = {}
         for (let i = 0; i < START_ROOMS.length; ++i) {
             const l = allMeshes[START_ROOMS[i]].clone()
+            systemCollisionFloor.setItemToCollision({ mesh: l })
+            systemCollisionItems.setItemToCollision({ mesh: l })
             //setItemToFloorsCollision(l)
             //setItemToWallCollision(l)
             group.add(l)
@@ -102,15 +115,14 @@ export class Level {
         }
 
 
-
-
         let wentLevels = 0
         let flagIsSpecial = false
 
-        //const initState = store.getState()
-        // let saveOldQuadrant = initState.ui.playerQuadrant.oldQuadrant
-        // let saveNewQuadrant = initState.ui.playerQuadrant.newQuadrant
-        // let saveIsStartCorridorShow = initState.ui.level.isStartCorridorShow
+
+        const { oldQuadrant, newQuadrant } = uiState.playerQuadrant
+        this._saveOldQuadrant = oldQuadrant
+        this._saveNewQuadrant = newQuadrant
+        this._saveIsStartCorridorShow = uiState.level.isStartCorridorShow
 
 
 
@@ -306,6 +318,11 @@ export class Level {
         //
         // })
     }
+
+    changeQuadrant (data) {
+        console.log(data)
+    }
+
 }
 
 
