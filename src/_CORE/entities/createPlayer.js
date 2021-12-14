@@ -101,6 +101,9 @@ export class Player {
                 if (this._root.systemCollisionItems) {
                     const [ isBlockedByItem ] 
                         = this._root.systemCollisionItems.checkCollisions(this._mainObj, frontObj, offsetWallCollision)
+                   
+                        
+
                     if (isBlockedByItem) return;
                 }
 
