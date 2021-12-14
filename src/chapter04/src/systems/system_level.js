@@ -32,11 +32,20 @@ const createLevelMeshes = (assets, materials) => {
     const collisionsBotsRooms = {}
 
     assets['level-rooms'].traverse(child => {
+        console.log(child.name)
         if (child.name.includes("level")) {
             const mesh = new THREE.Mesh(child.geometry, materials.wall)
             mesh.name = child.name
             allMeshes[child.name] = mesh
         }
+
+        if (child.name.includes("road_wall")) {
+            const mesh = new THREE.Mesh(child.geometry, materials.road)
+            mesh.name = child.name
+            allMeshes[child.name] = mesh
+        }
+
+
         // if (child.name.includes("room_")) {
         //     const mesh = new THREE.Mesh(child.geometry, materials.wall)
         //     rooms[child.name] = mesh
