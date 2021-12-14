@@ -77,6 +77,7 @@ export const studioConfig = {
         color: 0x18257d,
         backgroundImgKey: null,
     },
+    composerAddPass: 'Saturate',
 }
 
 

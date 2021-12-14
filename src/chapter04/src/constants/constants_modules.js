@@ -8,12 +8,14 @@ import { Helper_TweenUpdater } from "../../../_CORE/helpers/helper_TweenUpdater"
 import { Studio } from '../../../_CORE/entities/createStudio'
 import { KeyBoard } from "../../../_CORE/helpers/helper_KeyBoard"
 import { Player } from '../../../_CORE/entities/createPlayer'
+import { SystemCollisionWithItems } from "../../../_CORE/systems/SystemCollisionsItems";
 
 import { Helper_MaterialsLib } from '../../../_CORE/helpers/helper_MaterialsLib'
 
 
 import { Level } from '../systems/system_level'
-import levelRoomsSrc from '../../../assets/level_chapter04/level.obj'
+//import levelRoomsSrc from '../../../assets/level_chapter04/level.obj'
+import levelRoomsSrc from '../../../assets/level_chapter04/level02.obj'
 import mapFloorOuter from '../../../assets/floor_outer_map.jpg'
 import pxjpg from '../../../assets/skybox/px.jpg'
 import nxjpg from '../../../assets/skybox/nx.jpg'
@@ -27,17 +29,18 @@ import { StarterPlay } from '../actions/StarterPlay'
 
 
 
+
 export const GAME_MODULES = [
     {
         key: 'emitter',
         constr: EventEmitter,
         initStateKey: 'pageLoaded',
     },
-    {
-        key: 'translater',
-        constr: Translater,
-        initStateKey: 'pageLoaded',
-    },
+    // {
+    //     key: 'translater',
+    //     constr: Translater,
+    //     initStateKey: 'pageLoaded',
+    // },
     // {
     //     key: 'preInitModules',
     //     constr: PreInitModules,
@@ -84,6 +87,16 @@ export const GAME_MODULES = [
     {
         key: 'player',
         constr: Player,
+        initStateKey: 'beforeStartPlay',
+    },
+    {
+        key: 'systemCollisionFloor',
+        constr: SystemCollisionWithItems,
+        initStateKey: 'beforeStartPlay',
+    },
+    {
+        key: 'systemCollisionItems',
+        constr: SystemCollisionWithItems,
         initStateKey: 'beforeStartPlay',
     },
     {

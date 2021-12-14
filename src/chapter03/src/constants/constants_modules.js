@@ -37,7 +37,7 @@ import { ChangerQuadrant } from "../store/actionByChangeQuadrant"
 import { Component_PlayerInBot } from '../components/component_playerInBot'
 import { StarterPlay } from '../actions/StarterPlay'
 import { EnderPlay } from '../actions/EnderPlay'
-import {SystemCollisionWithItems} from "../../../_CORE/systems/SystemCollisionsItems";
+import { SystemCollisionWithItems } from "../../../_CORE/systems/SystemCollisionsItems"
 
 
 export const GAME_MODULES = [
