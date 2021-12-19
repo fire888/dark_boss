@@ -46,8 +46,6 @@ export class SystemCollisionWithItems {
                 }
 
                 if (intersects[0].object.userData.isStopUnits) {
-                    console.log( intersects[0])
-                    //debugger;
                     return [ true, intersects[0].distance, intersects[0].point ]
                 }
             }

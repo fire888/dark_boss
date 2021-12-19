@@ -4,22 +4,25 @@ import * as THREE from 'three'
 
 
 export class Level {
-    constructor(gameContext) {
+    constructor(root) {
         const { 
             studio, 
             assets, 
             materials, 
             systemCollisionFloor, 
             systemCollisionItems 
-        } = gameContext
+        } = root
 
         const { allMeshes } = createLevelMeshes(assets, materials)
 
         for (let key in allMeshes) {
             studio.addToScene(allMeshes[key])
-            systemCollisionFloor.setItemToCollision({ mesh: allMeshes[key] })
-            systemCollisionItems.setItemToCollision({ mesh: allMeshes[key] })
+            //systemCollisionFloor.setItemToCollision({ mesh: allMeshes[key] })
+            //systemCollisionItems.setItemToCollision({ mesh: allMeshes[key] })
         }
+
+
+        this.allMeshes = allMeshes
     }
 }
 
@@ -32,7 +35,6 @@ const createLevelMeshes = (assets, materials) => {
     const collisionsBotsRooms = {}
 
     assets['level-rooms'].traverse(child => {
-        console.log(child.name)
         if (child.name.includes("level")) {
             const mesh = new THREE.Mesh(child.geometry, materials.wall)
             mesh.name = child.name

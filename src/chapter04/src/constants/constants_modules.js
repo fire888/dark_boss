@@ -1,5 +1,4 @@
 import { LoaderAssets } from '../../../_CORE/helpers/helper_LoadAssets'
-import { Translater } from '../../../_CORE/helpers/helper_translate'
 import { EventEmitter } from "../../../_CORE/helpers/helper_Emitter"
 import { UI } from '../../../_CORE/ui/UI'
 import { DeviceResizer } from "../../../_CORE/helpers/helper_DeviceResizer"
@@ -9,7 +8,7 @@ import { Studio } from '../../../_CORE/entities/createStudio'
 import { KeyBoard } from "../../../_CORE/helpers/helper_KeyBoard"
 //import { Player } from '../../../_CORE/entities/createPlayer'
 import { Player } from '../../../_CORE/entities/createPlayer_v02'
-import { SystemCollisionWithItems } from "../../../_CORE/systems/SystemCollisionsItems";
+//import { SystemCollisionWithItems } from "../../../_CORE/systems/SystemCollisionsItems";
 
 import { Helper_MaterialsLib } from '../../../_CORE/helpers/helper_MaterialsLib'
 
@@ -26,6 +25,7 @@ import pzjpg from '../../../assets/skybox/pz.jpg'
 import nzjpg from '../../../assets/skybox/nz.jpg'
 
 
+import { system_PlayerMoveOnLevel } from '../systems/system_PlayerMoveOnLevel' 
 import { StarterPlay } from '../actions/StarterPlay'
 
 
@@ -37,16 +37,6 @@ export const GAME_MODULES = [
         constr: EventEmitter,
         initStateKey: 'pageLoaded',
     },
-    // {
-    //     key: 'translater',
-    //     constr: Translater,
-    //     initStateKey: 'pageLoaded',
-    // },
-    // {
-    //     key: 'preInitModules',
-    //     constr: PreInitModules,
-    //     initStateKey: 'pageLoaded',
-    // },
     {
         key: 'ui',
         constr: UI,
@@ -90,16 +80,16 @@ export const GAME_MODULES = [
         constr: Player,
         initStateKey: 'beforeStartPlay',
     },
-    {
-        key: 'systemCollisionFloor',
-        constr: SystemCollisionWithItems,
-        initStateKey: 'beforeStartPlay',
-    },
-    {
-        key: 'systemCollisionItems',
-        constr: SystemCollisionWithItems,
-        initStateKey: 'beforeStartPlay',
-    },
+    // {
+    //     key: 'systemCollisionFloor',
+    //     constr: SystemCollisionWithItems,
+    //     initStateKey: 'beforeStartPlay',
+    // },
+    // {
+    //     key: 'systemCollisionItems',
+    //     constr: SystemCollisionWithItems,
+    //     initStateKey: 'beforeStartPlay',
+    // },
     {
         key: 'materialsLib',
         constr: Helper_MaterialsLib,
@@ -114,6 +104,11 @@ export const GAME_MODULES = [
             { type: 'cubeTextures', path: [ pxjpg, nxjpg, pyjpg, nyjpg, pzjpg, nzjpg, ], key: 'skyBox' },
             { type: 'img', path: mapFloorOuter, key: 'mapFloorOuter', wrap: true },
         ],
+    },
+    {
+        key: 'system_PlayerMoveOnLevel',
+        constr: system_PlayerMoveOnLevel,
+        initStateKey: 'beforeStartPlay',
     },
     {
         key: 'starterPlay',

@@ -1,12 +1,9 @@
 import * as THREE from 'three'
-import { createComponentPlayerMove } from '../components/componentPlayerMove_v02'
 
 
 export class Player {
     constructor (root) {
-        this._root = root
-
-        const { emitter, studio, CONSTANTS } = root
+        const { studio, CONSTANTS } = root
 
         const {
             startPos,
@@ -59,7 +56,7 @@ export class Player {
             this._mainObj.add(light)
         }
 
-        const componentPlayerMove = createComponentPlayerMove(this, root) 
+        //const componentPlayerMove = createComponentPlayerMove(this, root) 
 
         studio.setCamera(this._camera)
         studio.addToScene(this._mainObj)
