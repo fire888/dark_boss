@@ -1,4 +1,5 @@
 import { helper_CollisionsItems_v02 } from '../../../_CORE/helpers/helper_CollisionsItems_v02'
+import * as THREE from 'three'
 
 
 export class system_PlayerMoveOnLevel {
@@ -60,20 +61,22 @@ export class system_PlayerMoveOnLevel {
             'down': true,
         }
 
+        let isDropDownY = true
+
 
     
     
         const update = data => {
             if (isButtonsDisabled) return;
 
-            keys['left'] && (player._mainObj.rotation.y += (speedRot * data.count))
-            keys['right'] && (player._mainObj.rotation.y -= (speedRot * data.count))
+            keys['left'] && (player._mainObj.rotateY(speedRot * data.count))
+            keys['right'] && (player._mainObj.rotateY(-speedRot * data.count))
 
 
             if (isBlocked) return;
 
             /** check bottom floors */
-            {
+            if (isDropDownY) {
                 const [isCollision, collision] = collisionsFloor.checkCollisions(player._mainObj, player.bottomObj, offsetFromFloor)
                 if (!isCollision) {
                         player._mainObj.position.y += speedDown
@@ -95,7 +98,37 @@ export class system_PlayerMoveOnLevel {
                             
                             helperNear.setToHistory(true)
                             if (helperNear.checkHistoryLen) {
+                                isDropDownY = false
                                 console.log(collision.face.normal)
+                                
+                                // NORMALNO БЕЗ ПОТОЛКА
+                                //const la = new THREE.Vector3().addVectors(player._mainObj.position, collision.face.normal)
+                                //player._mainObj.lookAt(la)
+                                //player._mainObj.rotateX(Math.PI / 2)
+                                
+                                
+                                //player._mainObj.rotateOnAxis(new THREE.Vector3(1, 0, 0), Math.PI / 2)
+
+
+
+                                // const n = collision.face.normal.clone();
+                                // n.transformDirection( player._mainObj.matrixWorld );
+                                // n.multiplyScalar( 10 );
+                                // n.add( collision.point );
+                                // player._mainObj.lookAt( n );
+
+
+
+
+
+
+
+
+                                
+                                //player._mainObj.setRotationFromAxisAngle(collision.face.normal,  Math.PI / 2)
+                                
+                                //player._mainObj.rotation.x = Math.PI / 2
+                                //player._mainObj.up = collision.face.normal
                                 helperNear.clearHistory()
                             }
                         } else {
