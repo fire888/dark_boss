@@ -5,6 +5,8 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import { Saturate } from '../shaders/saturate'
 
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+
 
 
 export class Studio {
@@ -37,6 +39,12 @@ export class Studio {
         }
 
         this._camera = null
+        this._camera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 5000 );
+        this._camera.position.set(0, 0, 20)
+
+        const controls = new OrbitControls( this._camera, this._renderer.domElement );
+        controls.target.set( 0, 0, 0 );
+        controls.update();
 
 
         this._composer = new EffectComposer(this._renderer)
@@ -79,7 +87,7 @@ export class Studio {
     /** PUBLIC ****************************************/
 
     setCamera (cam) {
-        this._camera = cam
+        //this._camera = cam
         this._composer.addPass(new RenderPass(this._scene, this._camera))
         
         if (!this._root.CONSTANTS.studioConfig.composerAddPass) return; 

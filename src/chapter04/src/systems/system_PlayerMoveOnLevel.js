@@ -76,16 +76,16 @@ export class system_PlayerMoveOnLevel {
             if (isBlocked) return;
 
             /** check bottom floors */
-            if (isDropDownY) {
-                const [isCollision, collision] = collisionsFloor.checkCollisions(player._mainObj, player.bottomObj, offsetFromFloor)
-                if (!isCollision) {
-                        player._mainObj.position.y += speedDown
-                } else {
-                    if (collision.distance < (offsetFromFloor - offsetFromFloorFactor))  {
-                        player._mainObj.position.y = collision.point.y + offsetFromFloor
-                    }                        
-                }
-            }
+            // if (isDropDownY) {
+            //     const [isCollision, collision] = collisionsFloor.checkCollisions(player._mainObj, player.bottomObj, offsetFromFloor)
+            //     if (!isCollision) {
+            //             player._mainObj.position.y += speedDown
+            //     } else {
+            //         if (collision.distance < (offsetFromFloor - offsetFromFloorFactor))  {
+            //             player._mainObj.position.y = collision.point.y + offsetFromFloor
+            //         }                        
+            //     }
+            // }
 
             /** check walls */
             {
@@ -98,13 +98,17 @@ export class system_PlayerMoveOnLevel {
                             
                             helperNear.setToHistory(true)
                             if (helperNear.checkHistoryLen) {
+                                if (!isDropDownY) {
+                                   // player._camera.rotation.x = Math.PI / 2 
+                                }
+                                
                                 isDropDownY = false
                                 console.log(collision.face.normal)
                                 
                                 // NORMALNO БЕЗ ПОТОЛКА
-                                //const la = new THREE.Vector3().addVectors(player._mainObj.position, collision.face.normal)
-                                //player._mainObj.lookAt(la)
-                                //player._mainObj.rotateX(Math.PI / 2)
+                                const la = new THREE.Vector3().addVectors(player._mainObj.position, collision.face.normal)
+                                player._mainObj.lookAt(la)
+                                player._mainObj.rotateX(Math.PI / 2)
                                 
                                 
                                 //player._mainObj.rotateOnAxis(new THREE.Vector3(1, 0, 0), Math.PI / 2)
