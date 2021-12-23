@@ -69,8 +69,8 @@ export class system_PlayerMoveOnLevel {
         const update = data => {
             if (isButtonsDisabled) return;
 
-            keys['left'] && (player._mainObj.rotateY(speedRot * data.count))
-            keys['right'] && (player._mainObj.rotateY(-speedRot * data.count))
+            keys['left'] && (player._mainObj.rotateZ(speedRot * data.count))
+            keys['right'] && (player._mainObj.rotateZ(-speedRot * data.count))
 
 
             if (isBlocked) return;
@@ -92,7 +92,7 @@ export class system_PlayerMoveOnLevel {
                 if (keys['up']) {
                     const [isCollision, collision] = collisionsWalls.checkCollisions(player._mainObj, player.frontObj, offsetWallCollision)
                     if (!isCollision) {
-                        player._mainObj.translateZ(-speed * data.count)
+                        player._mainObj.translateY(speed * data.count)
                     } else {
                         if (collision.object.userData.isCanWalk) {
                             
@@ -107,8 +107,21 @@ export class system_PlayerMoveOnLevel {
                                 
                                 // NORMALNO БЕЗ ПОТОЛКА
                                 const la = new THREE.Vector3().addVectors(player._mainObj.position, collision.face.normal)
-                                player._mainObj.lookAt(la)
+                                //player._mainObj.up = collision.face.normal
+                                //console.log(la)
                                 player._mainObj.rotateX(Math.PI / 2)
+
+                                const rotPlayer = new THREE.Vector3() 
+                                player._mainObj.getWorldDirection(rotPlayer)
+
+                                console.log(rotPlayer)
+
+
+
+                                const angle = rotPlayer.angleTo(la)
+                                console.log(angle)
+                                //player._mainObj.lookAt(la)
+                                //player._mainObj.rotateX(Math.PI / 2)
                                 
                                 
                                 //player._mainObj.rotateOnAxis(new THREE.Vector3(1, 0, 0), Math.PI / 2)
@@ -152,7 +165,7 @@ export class system_PlayerMoveOnLevel {
 
                     const [isCollision, collision] = collisionsWalls.checkCollisions(player._mainObj, player.backObj, offsetWallCollision)
                     if (!isCollision) {
-                        player._mainObj.translateZ(speed * data.count)
+                        player._mainObj.translateY(-speed * data.count)
                     } 
                     // else {
                     //     if (collision.distance < (offsetWallCollision))  {

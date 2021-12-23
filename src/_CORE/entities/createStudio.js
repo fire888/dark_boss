@@ -87,7 +87,7 @@ export class Studio {
     /** PUBLIC ****************************************/
 
     setCamera (cam) {
-        //this._camera = cam
+        this._camera = cam
         this._composer.addPass(new RenderPass(this._scene, this._camera))
         
         if (!this._root.CONSTANTS.studioConfig.composerAddPass) return; 
