@@ -52,6 +52,30 @@ export class Studio {
 
 
 
+
+        const box = new THREE.Mesh(
+            new THREE.BoxGeometry(1, 1, 1),
+            new THREE.MeshBasicMaterial({ color: 0x00FF00 }),
+        )
+        box.matrixAutoUpdate = false
+        setTimeout(() => {
+            //box.matrixAutoUpdate = true
+        }, 2000)
+
+        this._scene.add(box)
+        let scale = 1
+
+
+
+
+
+
+
+
+
+
+
+
         const resize = () => {
             const size = { width: window.innerWidth, height: window.innerHeight }
             this._renderer.setSize(size.width, size.height)
@@ -68,7 +92,18 @@ export class Studio {
 
 
         this.addToScene = this._scene.add.bind(this._scene)
-        const drawFrame = () => this._camera && this._composer.render(this._scene, this._camera)
+        const drawFrame = () => {
+            // scale += 0.01
+            // box.matrix.set(...[
+            //     scale, 0, 0, 0,
+            //     0, scale, 0, 0,
+            //     0, 0, scale, 0,
+            //     0, 0, 0, 1,
+            // ])
+
+
+            this._camera && this._composer.render(this._scene, this._camera)
+        }
         emitter.subscribe('frameUpdate')(drawFrame)
 
 
