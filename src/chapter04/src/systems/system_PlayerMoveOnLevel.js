@@ -6,34 +6,21 @@ export class system_PlayerMoveOnLevel {
     constructor (root) {
         const { 
             emitter, 
-            CONSTANTS ,
+            CONSTANTS,
             player,
             level,
         } = root
 
         const {
-            startPos,
-            startRot,
-            cameraData,
-            frontObjPos,
-            backObjPos,
-            lightDataOne,
             speed,
-            offsetFromFloor,
-            offsetFromFloorFactor,
-            offsetWallCollision,
             speedDown,
             speedRot,
         } = CONSTANTS.playerConfig
 
+        const OFFSET_FROM_PLANES = 5
 
 
-        console.log('player', player)
-        console.log('emitter', emitter)
-        console.log('level', level)
-    
-
-
+        /** set items to collisions */
         const collisionsFloor = new helper_CollisionsItems_v02()
         for (let key in level.allMeshes) {
             collisionsFloor.setItemToCollision(level.allMeshes[key])
@@ -57,13 +44,23 @@ export class system_PlayerMoveOnLevel {
             'up': true,
             'down': true,
         }
-
-        let isDropDownY = true
-
-
         const quaternionOld = new THREE.Quaternion()
         const quaternionNew = new THREE.Quaternion()
-        //player._mainObj.matrixAutoUpdate = false
+        const upDefaultVector = new THREE.Vector3(0, 1, 0)
+
+
+
+        const rotatePlayerToTop = () => {
+            isCanMove['up'] = false
+            quaternionOld.copy(player._mainObj.quaternion)
+            quaternionNew.setFromAxisAngle(upDefaultVector, Math.random() * Math.PI * 2 )
+            helper_rotate(player._mainObj, quaternionOld, quaternionNew)
+                .then(() => {
+                    player._mainObj.up.copy(upDefaultVector)
+                    isCanMove['up'] = true
+                })
+        }
+
     
     
         const update = data => {
@@ -76,27 +73,62 @@ export class system_PlayerMoveOnLevel {
             if (isBlocked) return;
 
             /** check bottom floors */
-            // if (isDropDownY) {
-            //     const [isCollision, collision] = collisionsFloor.checkCollisions(player._mainObj, player.bottomObj, offsetFromFloor)
-            //     if (!isCollision) {
-            //             player._mainObj.position.y += speedDown
-            //     } else {
-            //         if (collision.distance < (offsetFromFloor - offsetFromFloorFactor))  {
-            //             player._mainObj.position.y = collision.point.y + offsetFromFloor
-            //         }                        
-            //     }
-            // }
+
+            if (isCanMove['up']) {
+                const [isCollision, collision] = collisionsFloor.checkCollisions(player._mainObj, player.bottomObj, OFFSET_FROM_PLANES + 0.2)
+
+
+                /** free down without intercepts */
+                if (!isCollision) {
+
+                    /** if player not up - rotated to up */
+                    !player._mainObj.up.equals(upDefaultVector) && rotatePlayerToTop()
+
+                    player._mainObj.position.y += speedDown
+
+                /** check collisionFloor */
+                } else {
+
+                    /** check is player in wall and must down - rotate to top */
+                    if (
+                        !collision.object.userData.isCanWalk &&
+                        !player._mainObj.up.equals(upDefaultVector)
+                    ) {
+
+                        rotatePlayerToTop()
+
+                    } else {
+
+                        if (collision.distance < 4.5) {
+                            player._mainObj.translateY(OFFSET_FROM_PLANES - collision.distance)
+                        }
+                    }
+                }
+            }
+
+
 
             /** check walls */
             {
                 if (keys['up'] && isCanMove['up']) {
-                    const [isCollision, collision] = collisionsWalls.checkCollisions(player._mainObj, player.frontObj, offsetWallCollision)
+
+
+                    const [isCollision, collision] = collisionsWalls.checkCollisions(player._mainObj, player.frontObj, OFFSET_FROM_PLANES)
+
+                    /** move player to front */
                     if (!isCollision) {
+
+
                         player._mainObj.translateZ(-speed * data.count)
+
+
+                    /** rotate player to wall */
                     } else {
+
 
                         if (collision.object.userData.isCanWalk) {
                             if (isCanMove['up']) {
+
                                 quaternionOld.copy(player._mainObj.quaternion)
                                 const la = new THREE.Vector3().addVectors(player._mainObj.position, collision.face.normal)
                                 player._mainObj.lookAt(la)
@@ -113,18 +145,13 @@ export class system_PlayerMoveOnLevel {
                                         isCanMove['up'] = true
                                     })
                             }
-
-
-
-
-                        } else {
                         }
-                        
                     }
                 }
 
+
                 if (keys['down']) {
-                    const [isCollision, collision] = collisionsWalls.checkCollisions(player._mainObj, player.backObj, offsetWallCollision)
+                    const [isCollision, collision] = collisionsWalls.checkCollisions(player._mainObj, player.backObj, OFFSET_FROM_PLANES)
                     if (!isCollision) {
                         player._mainObj.translateZ(speed * data.count)
                     }
@@ -146,10 +173,11 @@ export class system_PlayerMoveOnLevel {
 
 
 const helper_rotate = (mesh, q1, q2) => {
+    console.log('startRotate')
     return new Promise(res => {
         let n = 0
         const update = () => {
-            n += 0.01
+            n += 0.03
             n > 1 && (n = 1)
             mesh.quaternion.slerpQuaternions(q1, q2, n)
 
@@ -157,7 +185,7 @@ const helper_rotate = (mesh, q1, q2) => {
                 return res()
             }
 
-            setTimeout(update, 0.015)
+            setTimeout(update, 15)
         }
 
         update()
