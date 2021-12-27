@@ -76,7 +76,6 @@ export class system_PlayerMoveOnLevel {
 
             player.mesh.setRotationFromQuaternion(quaternionOld)
 
-
             isBlocked = true
             helper_rotate(player.mesh, quaternionOld, quaternionNew)
                 .then(() => {
