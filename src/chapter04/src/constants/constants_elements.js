@@ -21,41 +21,41 @@ export const MATERIALS_CONFIG = {
     'wall': {
         mat: 'MeshPhongMaterial',
         props: {
-            color: 0x004466,
-            emissive: 0xffffff,
+            color: 0x485569,
+            emissive: 0x999999,
             map: 'mapFloorOuter',
             bumpMap: 'mapFloorOuter',
             bumpScale: 1,
             envMap: 'skyBox',
-            reflectivity: 0.5,
+            reflectivity: 0.1,
             specular: 0x222222,
         },
     },
 
 
-    'green': {
-        mat: 'MeshPhongMaterial',
-        props: {
-            color: 0x004466,
-            emissive: 0xffffff,
-            map: 'mapFloorOuter',
-            bumpMap: 'mapFloorOuter',
-            bumpScale: 1,
-            envMap: 'skyBox',
-            reflectivity: 0.5,
-        },        
-    },
+    // 'green': {
+    //     mat: 'MeshPhongMaterial',
+    //     props: {
+    //         color: 0x004466,
+    //         emissive: 0xffffff,
+    //         map: 'mapFloorOuter',
+    //         bumpMap: 'mapFloorOuter',
+    //         bumpScale: 1,
+    //         envMap: 'skyBox',
+    //         reflectivity: 0.5,
+    //     },
+    // },
 
     'road': {
         mat: 'MeshPhongMaterial',
         props: {
-            color: 0xa1129f,
-            emissive: 0xa1129f,
-            map: 'mapFloorOuter',
-            bumpMap: 'mapFloorOuter',
+            color: 0xb2b081,
+            emissive: 0x444444,
+            map: 'mapFloorOuter2',
+            bumpMap: 'mapFloorOuter2',
             bumpScale: 1,
             envMap: 'skyBox',
-            reflectivity: 0.5,
+            reflectivity: 0.4,
         },        
     } 
 }
@@ -68,13 +68,13 @@ export const studioConfig = {
         antialias: true
     },
     amb: {
-        color: 0x18257d,
+        color: 0x187d53,
         strength: 0.7,
     },
     sceneEnvironment: {
         fogNear: 20, 
         fogFar: 500, 
-        color: 0x18257d,
+        color: 0x187d53,
         backgroundImgKey: null,
     },
     composerAddPass: 'Saturate',

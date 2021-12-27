@@ -6,23 +6,22 @@ import { FrameUpdater } from "../../../_CORE/helpers/helper_FrameUpater"
 import { Helper_TweenUpdater } from "../../../_CORE/helpers/helper_TweenUpdater"
 import { Studio } from '../../../_CORE/entities/createStudio'
 import { KeyBoard } from "../../../_CORE/helpers/helper_KeyBoard"
-//import { Player } from '../../../_CORE/entities/createPlayer'
 import { Player } from '../../../_CORE/entities/createPlayer_v02'
-//import { SystemCollisionWithItems } from "../../../_CORE/systems/SystemCollisionsItems";
+
 
 import { Helper_MaterialsLib } from '../../../_CORE/helpers/helper_MaterialsLib'
 
 
 import { Level } from '../systems/system_level'
-//import levelRoomsSrc from '../../../assets/level_chapter04/level.obj'
 import levelRoomsSrc from '../../../assets/level_chapter04/level02.obj'
-import mapFloorOuter from '../../../assets/floor_outer_map.jpg'
-import pxjpg from '../../../assets/skybox/px.jpg'
-import nxjpg from '../../../assets/skybox/nx.jpg'
-import pyjpg from '../../../assets/skybox/py.jpg'
-import nyjpg from '../../../assets/skybox/ny.jpg'
-import pzjpg from '../../../assets/skybox/pz.jpg'
-import nzjpg from '../../../assets/skybox/nz.jpg'
+import mapFloorOuter from '../../../assets/level_chapter04/floor_outer_map.jpg'
+import mapFloorOuter2 from '../../../assets/level_chapter04/floor_outer_map2.jpg'
+import pxjpg from '../../../assets/sky2/px.jpg'
+import nxjpg from '../../../assets/sky2/nx.jpg'
+import pyjpg from '../../../assets/sky2/py.jpg'
+import nyjpg from '../../../assets/sky2/ny.jpg'
+import pzjpg from '../../../assets/sky2/pz.jpg'
+import nzjpg from '../../../assets/sky2/nz.jpg'
 
 
 import { system_PlayerMoveOnLevel } from '../systems/system_PlayerMoveOnLevel' 
@@ -103,6 +102,7 @@ export const GAME_MODULES = [
             { type: 'obj', path: levelRoomsSrc, key: 'level-rooms' },
             { type: 'cubeTextures', path: [ pxjpg, nxjpg, pyjpg, nyjpg, pzjpg, nzjpg, ], key: 'skyBox' },
             { type: 'img', path: mapFloorOuter, key: 'mapFloorOuter', wrap: true },
+            { type: 'img', path: mapFloorOuter2, key: 'mapFloorOuter2', wrap: true },
         ],
     },
     {
