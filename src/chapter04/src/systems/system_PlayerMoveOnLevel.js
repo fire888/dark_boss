@@ -132,7 +132,7 @@ export class system_PlayerMoveOnLevel {
 
         const checkAndMoveBack = data => {
             const [isCollision] = collisionsWalls.checkCollisions(player.mesh, player.backObj, OFFSET_FROM_PLANES)
-            if (!isCollision) return;
+            if (isCollision) return;
                 
             player.mesh.translateZ(speed * data.count)
         }
