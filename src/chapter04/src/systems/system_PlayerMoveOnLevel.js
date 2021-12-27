@@ -5,6 +5,9 @@ import * as THREE from 'three'
 
 export class system_PlayerMoveOnLevel {
     constructor (root) {
+
+
+
         const { 
             emitter, 
             CONSTANTS,
@@ -48,9 +51,6 @@ export class system_PlayerMoveOnLevel {
 
 
 
-
-
-
         const rotatePlayerToTop = () => {
             quaternionOld.copy(player.mesh.quaternion)
             quaternionNew.setFromAxisAngle(UP_VECTOR, Math.random() * Math.PI * 2)
@@ -62,7 +62,6 @@ export class system_PlayerMoveOnLevel {
                     isBlocked = false
                 })
         }
-
 
 
 
@@ -82,7 +81,6 @@ export class system_PlayerMoveOnLevel {
                     isBlocked = false
                 })
         } 
-
 
 
 
@@ -115,7 +113,6 @@ export class system_PlayerMoveOnLevel {
 
 
 
-
         const checkAndMoveFront = data => {
             const [isCollision, collision] = collisionsWalls.checkCollisions(player.mesh, player.frontObj, OFFSET_FROM_PLANES)
 
@@ -128,7 +125,6 @@ export class system_PlayerMoveOnLevel {
         
         
 
-
         const checkAndMoveBack = data => {
             const [isCollision] = collisionsWalls.checkCollisions(player.mesh, player.backObj, OFFSET_FROM_PLANES)
             if (isCollision) return;
@@ -137,8 +133,7 @@ export class system_PlayerMoveOnLevel {
         }
 
 
-    
-    
+
         const update = data => {
             if (isButtonsDisabled) return;
 
@@ -151,7 +146,6 @@ export class system_PlayerMoveOnLevel {
             keys['up'] && checkAndMoveFront(data)
             keys['down'] && checkAndMoveBack(data)
         }
-    
     
 
 
