@@ -20,7 +20,7 @@ export class system_PlayerMoveOnLevel {
         /** set items to collisions */
         const collisionsWalls = new helper_CollisionsItems_v02()
         for (let key in level.allMeshes) {
-            if (key === 'road_wall') {
+            if (key.includes('road_wall')) {
                 level.allMeshes[key].userData['isWallWalking'] = true
             }
 
@@ -106,7 +106,7 @@ export class system_PlayerMoveOnLevel {
             }
 
             /** move player to top if on stairs */
-            if (collision.distance < OFFSET_FROM_PLANES_TO_STAIR) {
+            if (collision.distance < OFFSET_FROM_PLANES) {
                 player.mesh.translateY(OFFSET_FROM_PLANES - collision.distance)
             }
         }
@@ -117,7 +117,7 @@ export class system_PlayerMoveOnLevel {
             const [isCollision, collision] = collisionsWalls.checkCollisions(player.mesh, player.frontObj, OFFSET_FROM_PLANES)
 
             if (!isCollision) {
-                player.mesh.translateZ(-speed * data.count)
+                player.mesh.translateZ(-0.01 * data.count)
             } else if (collision.object.userData['isWallWalking']) {
                 rotatePlayerToCollisionTarget(collision)
             }
