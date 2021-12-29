@@ -22,7 +22,7 @@ export const MATERIALS_CONFIG = {
         mat: 'MeshPhongMaterial',
         props: {
             color: 0x485569,
-            emissive: 0x999999,
+            emissive: 0x663333,
             map: 'mapFloorOuter',
             bumpMap: 'mapFloorOuter',
             bumpScale: 1,
@@ -49,13 +49,13 @@ export const MATERIALS_CONFIG = {
     'road': {
         mat: 'MeshPhongMaterial',
         props: {
-            color: 0xb2b081,
-            emissive: 0x444444,
+            color: 0xffffff,
+            emissive: 0x666666,
             map: 'mapFloorOuter2',
             bumpMap: 'mapFloorOuter2',
             bumpScale: 1,
             envMap: 'skyBox',
-            reflectivity: 0.4,
+            reflectivity: 0.3,
         },        
     } 
 }

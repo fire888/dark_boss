@@ -17,6 +17,7 @@ export class system_PlayerMoveOnLevel {
 
 
 
+
         /** set items to collisions */
         const collisionsWalls = new helper_CollisionsItems_v02()
         for (let key in level.allMeshes) {
@@ -87,6 +88,15 @@ export class system_PlayerMoveOnLevel {
         const checkBottomAndDropDownPlayer = data => {
             const [isCollision, collision] = collisionsWalls.checkCollisions(player.mesh, player.bottomObj, OFFSET_FROM_PLANES_TO_DROP)
 
+
+            /** move player to top if on stairs */
+            if (isCollision && OFFSET_FROM_PLANES > collision.distance) {
+                player.mesh.translateY(OFFSET_FROM_PLANES - collision.distance)
+
+                return;
+            }
+
+
             /** free down without intercepts */
             if (!isCollision) {
                 /** if player not up - rotated to up */
@@ -102,12 +112,8 @@ export class system_PlayerMoveOnLevel {
                 !player.mesh.up.equals(UP_VECTOR)
             ) {
                 rotatePlayerToTop()
+                
                 return;
-            }
-
-            /** move player to top if on stairs */
-            if (collision.distance < OFFSET_FROM_PLANES) {
-                player.mesh.translateY(OFFSET_FROM_PLANES - collision.distance)
             }
         }
 
@@ -117,7 +123,7 @@ export class system_PlayerMoveOnLevel {
             const [isCollision, collision] = collisionsWalls.checkCollisions(player.mesh, player.frontObj, OFFSET_FROM_PLANES)
 
             if (!isCollision) {
-                player.mesh.translateZ(-0.01 * data.count)
+                player.mesh.translateZ(-speed * data.count)
             } else if (collision.object.userData['isWallWalking']) {
                 rotatePlayerToCollisionTarget(collision)
             }
@@ -145,6 +151,7 @@ export class system_PlayerMoveOnLevel {
             checkBottomAndDropDownPlayer(data)
             keys['up'] && checkAndMoveFront(data)
             keys['down'] && checkAndMoveBack(data)
+            keys['p'] && console.log(`this.mesh.position.fromArray([${player.mesh.position.x}, ${player.mesh.position.y + 25}, ${player.mesh.position.z}])`)
         }
     
 

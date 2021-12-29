@@ -14,7 +14,7 @@ import { Helper_MaterialsLib } from '../../../_CORE/helpers/helper_MaterialsLib'
 
 import { Level } from '../systems/system_level'
 import levelRoomsSrc from '../../../assets/level_chapter04/level02.obj'
-import mapFloorOuter from '../../../assets/level_chapter04/floor_outer_map.jpg'
+import mapFloorOuter from '../../../assets/level_chapter04/floor_outer_map3.jpg'
 import mapFloorOuter2 from '../../../assets/level_chapter04/floor_outer_map2.jpg'
 import pxjpg from '../../../assets/sky2/px.jpg'
 import nxjpg from '../../../assets/sky2/nx.jpg'

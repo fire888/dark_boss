@@ -8,6 +8,7 @@ export class KeyBoard {
             'down': false,
             'left': false,
             'right': false,
+            'p': false,
         }
 
         const keysEnabled = {
@@ -26,21 +27,23 @@ export class KeyBoard {
                 case 38:
                 case 87:
                     keysEnabled['up'] && (keys['up'] = isDown)
-                    break
+                    break;
                 case 40:
                 case 83:
                     keysEnabled['down'] && (keys['down'] = isDown)
-                    break
+                    break;
                 case 37:
                 case 65:
                     keys['left'] = isDown
-                    break
+                    break;
                 case 39:
                 case 68:
                     keys['right'] = isDown
                     break
+                case 80: 
+                    keys['p'] = isDown
                 default:
-                    break
+                    break;
 
             }
             emitter.emit('keyEvent')(keys)
