@@ -18,11 +18,15 @@ const createLoaders = () => {
             return gltfLoader = (gltfLoader || new GLTFLoader())
         if (type === 'img')
             return textureLoader = (textureLoader || new THREE.TextureLoader())
-        if (type === 'cubeTextures')
+        if (type === 'cubeTextures') {
             return cubeTextureLoader = (cubeTextureLoader || new THREE.CubeTextureLoader())
+        }
+
     }
 
-    return (path, type) => new Promise(resolve => getterLoader(type).load(path, resolve))
+    return (path, type) => new Promise(resolve => {
+        getterLoader(type).load(path, resolve)
+    })
 }
 
 
