@@ -25,9 +25,9 @@ export class Player {
         //this.mesh.position.fromArray([0, 25, 0]) //
         //this.mesh.position.fromArray([-359.5509120346753, -19.249698816167083, -19.280099775221846]) // layer 0002
         //this.mesh.position.fromArray([-705.4687564820642, 200.96628564538472, 79.73976473321487]) // layer 0006
-        //this.mesh.position.fromArray([-754.9745654011924, 186.53239310383614, 46.935836090143646])
+        this.mesh.position.fromArray([-754.9745654011924, 186.53239310383614, 46.935836090143646])
         //this.mesh.position.fromArray([-632.6617733125263, 284.5924616087458, 245.47023525719305])
-        this.mesh.position.fromArray([-410.58781451337603, 363.14256112515284, 20.043236034992436])
+        //this.mesh.position.fromArray([-410.58781451337603, 363.14256112515284, 20.043236034992436])
         
 
 

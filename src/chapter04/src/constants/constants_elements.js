@@ -11,7 +11,7 @@ export const MATERIALS_CONFIG = {
             shininess: 60,
             bumpMap: 'botMap',
             bumpScale: 0.1,
-            //envMap: 'ironEnv',
+            envMap: 'ironEnv',
             reflectivity: 0.5,
             map: 'botMap',
             skinning: true,
@@ -21,22 +21,15 @@ export const MATERIALS_CONFIG = {
     'wall': {
         mat: 'MeshPhongMaterial',
         props: {
-            color: 0x004466,
-            emissive: 0x999999,
+            color: 0x338877,
+            emissive: 0x9997777,
             map: 'mapFloorOuter',
             bumpMap: 'mapFloorOuter',
-            bumpScale: 1.,
+            bumpScale: 0.7,
             envMap: 'skyBox',
-            reflectivity: .5,
+            reflectivity: 0.3,
+            shininess: 60,
             specular: 0x222222,
-            // color: 0x485569,
-            // emissive: 0x663333,
-            // map: 'mapFloorOuter',
-            // bumpMap: 'mapFloorOuter',
-            // bumpScale: 1,
-            // envMap: 'skyBox',
-            // reflectivity: 0.1,
-            // specular: 0x222222,
         },
     },
 
@@ -64,8 +57,8 @@ export const MATERIALS_CONFIG = {
             bumpScale: 1,
             envMap: 'skyBox',
             reflectivity: 0.3,
-        },        
-    } 
+        },
+    }
 }
 
 
@@ -76,14 +69,14 @@ export const studioConfig = {
         antialias: true
     },
     amb: {
-        color: 0x187d53,
-        strength: 0.7,
+        color: 0xa5ecc5,
+        strength: 0.8,
     },
     sceneEnvironment: {
-        fogNear: 20, 
-        fogFar: 500, 
-        color: 0x187d53,
-        backgroundImgKey: 'skyBox',
+        fogNear: 20,
+        fogFar: 500,
+        color: 0x4a0a45,
+        backgroundImgKey: null,
     },
     composerAddPass: 'Saturate',
 }
@@ -109,8 +102,8 @@ export const playerConfig = {
     frontObjPos: [0, 0, -1],
     backObjPos: [0, 0, 1],
     lightDataOne: {
-        color: 0xffffff,
-        strength: 5000,
-        pos: [0, 50, 5],
+        color: 0x555555,
+        strength: 0,
+        pos: [0, 400, 5],
     },
 }
