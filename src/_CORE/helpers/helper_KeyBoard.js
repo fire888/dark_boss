@@ -39,7 +39,10 @@ export class KeyBoard {
                 case 39:
                 case 68:
                     keys['right'] = isDown
-                    break
+                    break;
+                case 79: 
+                    keys['o'] = isDown
+                    break;                
                 case 80: 
                     keys['p'] = isDown
                 default:

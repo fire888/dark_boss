@@ -38,21 +38,51 @@ export class Studio {
             this._scene.add( this._lightA )
         }
 
-        this._camera = null
-        this._camera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 5000 );
-        this._camera.position.set(0, 0, 20)
+        this._playerCamera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 5000)
 
-        const controls = new OrbitControls( this._camera, this._renderer.domElement );
-        controls.target.set( 0, 0, 0 );
+
+        this._controlsCamera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 5000)
+        this._controlsCamera.position.set(0, 0, 20)
+        const controls = new OrbitControls(this._controlsCamera, this._renderer.domElement)
+        controls.target.set(0, 0, 0)
         controls.update();
 
 
         this._composer = new EffectComposer(this._renderer)
-        //this._composer.addPass(new RenderPass(this._scene, this._camera))
+        this._renderPass = new RenderPass(this._scene, this._controlsCamera)
+        this._composer.addPass(this._renderPass)
+        if (this._root.CONSTANTS.studioConfig.composerAddPass) {
+            if (this._root.CONSTANTS.studioConfig.composerAddPass === 'Saturate') {
+                this._composer.addPass(new ShaderPass(Saturate))
+            }  
+        } 
 
 
 
+        /** toggle view camera to debug by orbitControls */
+        const vec3 = new THREE.Vector3()
+        let isPlayerView = true 
+        emitter.subscribe('keyEvent')(data => {
+            if (!data['o']) {
+                return;
+            }
 
+            if (isPlayerView) {
+                isPlayerView = false
+                this._renderPass.camera = this._controlsCamera
+                this._playerCamera.getWorldPosition(vec3)
+                this._controlsCamera.position.x = vec3.x + 100
+                this._controlsCamera.position.y = vec3.y + 100
+                this._controlsCamera.position.z = vec3.z
+                controls.target.set(vec3.x, vec3.y, vec3.z)
+                controls.update()
+            } else {
+                isPlayerView = true 
+                this._renderPass.camera = this._playerCamera
+            }
+        })
+    
+        
 
         const resize = () => {
             const size = { width: window.innerWidth, height: window.innerHeight }
@@ -70,8 +100,12 @@ export class Studio {
 
 
         this.addToScene = this._scene.add.bind(this._scene)
+        this.removeFromScene = this._scene.remove.bind(this._scene)
+
+
+
         const drawFrame = () => {
-            this._camera && this._composer.render(this._scene, this._camera)
+            this._composer.render(this._scene, this._controlsCamera)
         }
         emitter.subscribe('frameUpdate')(drawFrame)
 
@@ -84,21 +118,15 @@ export class Studio {
         emitter.subscribe('changeSceneEnvironment')(sceneEnvironment => {
             console.log('deprecated!!', 'studio', 'changeSceneEnvironment', sceneEnvironment)
         })
-    
     }
 
 
     /** PUBLIC ****************************************/
 
     setCamera (cam) {
-        this._camera = cam
-        this._composer.addPass(new RenderPass(this._scene, this._camera))
-        
-        if (!this._root.CONSTANTS.studioConfig.composerAddPass) return; 
-        
-        if (this._root.CONSTANTS.studioConfig.composerAddPass === 'Saturate') {
-            this._composer.addPass(new ShaderPass(Saturate))
-        }  
+        this._playerCamera = cam
+        this._renderPass.camera = this._playerCamera
+        //this._composer.addPass(new RenderPass(this._scene, this._camera))
     }
 
     changeEnvironment (sceneEnvironment) {

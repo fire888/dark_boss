@@ -13,21 +13,16 @@ export class system_PlayerMoveOnLevel {
             CONSTANTS,
             player,
             level,
+            assets,
+            studio,
         } = root
 
 
 
-
-        /** set items to collisions */
+        let currentArea = 0
         const collisionsWalls = new helper_CollisionsItems_v02()
-        for (let key in level.allMeshes) {
-            if (key.includes('road_wall')) {
-                level.allMeshes[key].userData['isWallWalking'] = true
-            }
-
-            collisionsWalls.setItemToCollision(level.allMeshes[key])
-        }
-
+        const updateLevel = changerAreaLevel(currentArea, assets.areas, studio, collisionsWalls)
+        updateLevel(currentArea)
 
 
         const {
@@ -48,7 +43,7 @@ export class system_PlayerMoveOnLevel {
         const UP_VECTOR = new THREE.Vector3(0, 1, 0)
         const OFFSET_FROM_PLANES = 17
         const OFFSET_FROM_PLANES_TO_DROP = 17.2
-        const OFFSET_FROM_PLANES_TO_STAIR = 16.5
+        //const OFFSET_FROM_PLANES_TO_STAIR = 16.5
 
 
 
@@ -88,6 +83,14 @@ export class system_PlayerMoveOnLevel {
         const checkBottomAndDropDownPlayer = data => {
             const [isCollision, collision] = collisionsWalls.checkCollisions(player.mesh, player.bottomObj, OFFSET_FROM_PLANES_TO_DROP)
 
+            /** update level new area */
+            if (isCollision) {
+                if (collision.object.userData.area !== currentArea) {
+                    currentArea = collision.object.userData.area
+                    updateLevel(currentArea)
+                }
+            }
+
 
             /** move player to top if on stairs */
             if (isCollision && OFFSET_FROM_PLANES > collision.distance) {
@@ -121,6 +124,14 @@ export class system_PlayerMoveOnLevel {
 
         const checkAndMoveFront = data => {
             const [isCollision, collision] = collisionsWalls.checkCollisions(player.mesh, player.frontObj, OFFSET_FROM_PLANES)
+
+            /** update level new area */
+            if (isCollision) {
+                if (collision.object.userData.area !== currentArea) {
+                    currentArea = collision.object.userData.area
+                    updateLevel(currentArea)
+                }
+            }
 
             if (!isCollision) {
                 player.mesh.translateZ(-speed * data.count)
@@ -185,5 +196,44 @@ const helper_rotate = (mesh, quat1, quat2) => {
 
         update()
     })
+}
+
+
+
+
+const changerAreaLevel = (areas, studio, collisionsWalls) => {
+
+    const changeArea = (ind, action) => {
+        if (!areas[ind]) { 
+            return;
+        }
+
+        for (let i = 0; i < areas[ind].length; ++i) {
+            const mesh = areas[ind][i]
+            if (action === 'remove') {
+                studio.removeFromScene(mesh) 
+                collisionsWalls.removeItemFromCollision(mesh)
+            }
+            if (action === 'add') {
+                studio.addToScene(mesh) 
+                collisionsWalls.setItemToCollision(mesh)
+            }
+        }                    
+    } 
+
+
+    const updateLevel = index => {
+        changeArea(index - 4, 'remove')
+        changeArea(index - 3, 'remove')
+        changeArea(index - 2, 'add')
+        changeArea(index - 1, 'add')
+        changeArea(index, 'add')
+        changeArea(index + 1, 'add')
+        changeArea(index + 2, 'add')
+        changeArea(index + 3, 'add')
+    }
+
+
+    return updateLevel
 }
 

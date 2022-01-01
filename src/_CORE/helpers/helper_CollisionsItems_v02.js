@@ -12,6 +12,11 @@ export class helper_CollisionsItems_v02 {
     }
 
     setItemToCollision (mesh) {
+        for (let i = 0; i < this._arrMeshes.length; ++i) {
+            if (this._arrMeshes[i] === mesh) {
+                return;
+            }
+        }
         this._arrMeshes.push(mesh)
     }
 

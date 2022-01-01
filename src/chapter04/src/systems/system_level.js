@@ -9,17 +9,14 @@ export class Level {
             studio, 
             assets, 
             materials, 
-            systemCollisionFloor, 
-            systemCollisionItems 
         } = root
 
-        const { allMeshes } = createLevelMeshes(assets, materials)
+        const { allMeshes, areas } = createLevelMeshes(assets, materials)
+        root.assets.areas = areas
 
-        for (let key in allMeshes) {
-            studio.addToScene(allMeshes[key])
-            //systemCollisionFloor.setItemToCollision({ mesh: allMeshes[key] })
-            //systemCollisionItems.setItemToCollision({ mesh: allMeshes[key] })
-        }
+        //for (let key in allMeshes) {
+            //studio.addToScene(allMeshes[key])
+        //}
 
 
         this.allMeshes = allMeshes
@@ -31,55 +28,45 @@ export class Level {
 
 const createLevelMeshes = (assets, materials) => {
     const allMeshes = {}
-    const rooms = {}
-    const collisionsBotsRooms = {}
+    const areas = {}
 
     assets['level-rooms'].traverse(child => {
+        let mesh = null
+        
         if (child.name.includes("level")) {
-            const mesh = new THREE.Mesh(child.geometry, materials.wall)
+            mesh = new THREE.Mesh(child.geometry, materials.wall)
             mesh.name = child.name
             allMeshes[child.name] = mesh
         }
 
-        if (child.name.includes("road_wall")) {
-            const mesh = new THREE.Mesh(child.geometry, materials.road)
+        if (child.name.includes("roadwall")) {
+            mesh = new THREE.Mesh(child.geometry, materials.road)
             mesh.name = child.name
+            mesh.userData['isWallWalking'] = true
+            //console.log(child.name)
             allMeshes[child.name] = mesh
         }
 
 
-        // if (child.name.includes("room_")) {
-        //     const mesh = new THREE.Mesh(child.geometry, materials.wall)
-        //     rooms[child.name] = mesh
-        //     mesh.name = child.name
-        //     allMeshes[child.name] = mesh
-        // }
-        // if (child.name.includes("collision_")) {
-        //     const mesh = new THREE.Mesh(child.geometry)
-        //     collisionsBotsRooms[child.name] = mesh
-        //     mesh.name = child.name
-        //     allMeshes[child.name] = mesh
-        // }
-        // if (child.name.includes("outer_walls")) {
-        //     const mesh = new THREE.Mesh(child.geometry, materials.wall)
-        //     mesh.name = child.name
-        //     allMeshes[child.name] = mesh
-        // }
-        // if (child.name.includes("outer_road")) {
-        //     const mesh = new THREE.Mesh(child.geometry, materials.green)
-        //     mesh.name = child.name
-        //     allMeshes[child.name] = mesh
-        // }
-        // if (child.name.includes("outer_floor")) {
-        //     const mesh = new THREE.Mesh(child.geometry, materials.road)
-        //     mesh.name = child.name
-        //     allMeshes[child.name] = mesh
-        // }
+        if (child.name.includes("level") || child.name.includes("roadwall")) {
+            const strArr = child.name.split('_')
+
+            if (strArr[1] && mesh) {
+                if (!areas[+strArr[1]]) {
+                    areas[+strArr[1]] = [] 
+                }
+                mesh.userData.area = +strArr[1]
+                areas[+strArr[1]].push(mesh)   
+            }
+        }
+
     })
 
+
+    console.log(areas)
+
     return {
-        rooms,
         allMeshes,
-        collisionsBotsRooms,
+        areas
     }
 }
