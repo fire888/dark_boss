@@ -25,7 +25,7 @@ export const MATERIALS_CONFIG = {
             emissive: 0x9997777,
             map: 'mapFloorOuter',
             bumpMap: 'mapFloorOuter',
-            bumpScale: 0.7,
+            bumpScale: 1,
             envMap: 'skyBox',
             reflectivity: 0.3,
             shininess: 60,
