@@ -19,9 +19,44 @@ export class system_PlayerMoveOnLevel {
 
 
 
-        let currentArea = 0
+        //let currentArea = 0
+        
+        //let currentArea = 2
+        //player.mesh.position.fromArray([-391.47230276827037, 96.9911994934082, 126.61507891095785])
+
+        //let currentArea = 4
+        //player.mesh.position.fromArray([-531.9216580366183, 62.97990036010742, 198.1976467682245])
+
+        //let currentArea = 7
+        //player.mesh.position.fromArray([-506.33066941797745, 256.5167414826704, 235.8623405780516])
+
+        // let currentArea = 9
+        // player.mesh.position.fromArray([-193.95366264741457, 428.9707048705274, 103.59071280180837])
+
+        //let currentArea = 11
+        //player.mesh.position.fromArray([-393.33123400867925, 1379.4075343917937, 152.5554868722273])
+
+        //let currentArea = 14
+        //player.mesh.position.fromArray([-1101.0757771933072, 1588.5806076412039, -234.70318375594866])
+
+        let currentArea = 15
+        player.mesh.position.fromArray([-1634.3476768016508, 1466.6480712890625, 233.90984799762464])
+
+        //this.mesh.position.fromArray([0, 25, 0]) //
+        //this.mesh.position.fromArray([-359.5509120346753, -19.249698816167083, -19.280099775221846]) // layer 0002
+        //this.mesh.position.fromArray([-705.4687564820642, 200.96628564538472, 79.73976473321487]) // layer 0006
+        //this.mesh.position.fromArray([-754.9745654011924, 186.53239310383614, 46.935836090143646])
+        //this.mesh.position.fromArray([-632.6617733125263, 284.5924616087458, 245.47023525719305])
+        //this.mesh.position.fromArray([-410.58781451337603, 363.14256112515284, 20.043236034992436])
+        //this.mesh.position.fromArray([-402.05421551152745, 375.9501037597656, -159.53997292059094])
+        //this.mesh.position.fromArray([-169.69877773209788, 428.8786926269531, 168.6512904794757]) // tonnel
+        //this.mesh.position.fromArray([-217.41046151342093, 1257.141357421875, 58.82571687990493]) // top of tonnel
+        //this.mesh.position.fromArray([-430.16459972629053, 1379.8583905157225, 92.38318881974737]) // before big
+        //this.mesh.position.fromArray([-986.3739983699634, 1537.8077397877962, -104.223302507236])
+        //player.mesh.position.fromArray([-1611.94580078125, 1862.1438506176992,]) 
+
         const collisionsWalls = new helper_CollisionsItems_v02()
-        const updateLevel = changerAreaLevel(currentArea, assets.areas, studio, collisionsWalls)
+        const updateLevel = changerAreaLevel(assets.areas, studio, collisionsWalls)
         updateLevel(currentArea)
 
 
@@ -162,7 +197,7 @@ export class system_PlayerMoveOnLevel {
             checkBottomAndDropDownPlayer(data)
             keys['up'] && checkAndMoveFront(data)
             keys['down'] && checkAndMoveBack(data)
-            keys['p'] && console.log(`this.mesh.position.fromArray([${player.mesh.position.x}, ${player.mesh.position.y + 25}, ${player.mesh.position.z}])`)
+            keys['p'] && console.log(`player.mesh.position.fromArray([${player.mesh.position.x}, ${player.mesh.position.y + 25}, ${player.mesh.position.z}])`)
         }
     
 
@@ -203,34 +238,44 @@ const helper_rotate = (mesh, quat1, quat2) => {
 
 const changerAreaLevel = (areas, studio, collisionsWalls) => {
 
-    const changeArea = (ind, action) => {
-        if (!areas[ind]) { 
-            return;
-        }
+    const changeViewLevel = (ind, action) => {
+        if (!areas[ind]) return;
 
         for (let i = 0; i < areas[ind].length; ++i) {
             const mesh = areas[ind][i]
-            if (action === 'remove') {
-                studio.removeFromScene(mesh) 
-                collisionsWalls.removeItemFromCollision(mesh)
-            }
-            if (action === 'add') {
-                studio.addToScene(mesh) 
-                collisionsWalls.setItemToCollision(mesh)
-            }
-        }                    
+            if (action === 'remove') studio.removeFromScene(mesh) 
+            if (action === 'add') studio.addToScene(mesh) 
+        } 
+    } 
+
+    const changeCollisionLevel = (ind, action) => {
+        if (!areas[ind]) return;
+
+        for (let i = 0; i < areas[ind].length; ++i) {
+            const mesh = areas[ind][i]
+            if (action === 'remove') collisionsWalls.removeItemFromCollision(mesh)
+            if (action === 'add') collisionsWalls.setItemToCollision(mesh)
+        } 
     } 
 
 
     const updateLevel = index => {
-        changeArea(index - 4, 'remove')
-        changeArea(index - 3, 'remove')
-        changeArea(index - 2, 'add')
-        changeArea(index - 1, 'add')
-        changeArea(index, 'add')
-        changeArea(index + 1, 'add')
-        changeArea(index + 2, 'add')
-        changeArea(index + 3, 'add')
+        console.log(index)
+        changeViewLevel(index - 4, 'remove')
+        changeViewLevel(index - 3, 'remove')
+        changeViewLevel(index - 2, 'add')
+        changeViewLevel(index - 1, 'add')
+        changeViewLevel(index, 'add')
+        changeViewLevel(index + 1, 'add')
+        changeViewLevel(index + 2, 'add')
+        changeViewLevel(index + 3, 'add')
+
+        changeCollisionLevel(index - 3, 'remove')
+        changeCollisionLevel(index - 2, 'remove')
+        changeCollisionLevel(index - 1, 'add')
+        changeCollisionLevel(index, 'add')
+        changeCollisionLevel(index + 1, 'add')
+        changeCollisionLevel(index + 2, 'add')
     }
 
 

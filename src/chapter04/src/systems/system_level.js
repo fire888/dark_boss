@@ -14,12 +14,8 @@ export class Level {
         const { allMeshes, areas } = createLevelMeshes(assets, materials)
         root.assets.areas = areas
 
-        //for (let key in allMeshes) {
-            //studio.addToScene(allMeshes[key])
-        //}
 
-
-        this.allMeshes = allMeshes
+        //this.allMeshes = allMeshes
     }
 }
 
@@ -43,7 +39,6 @@ const createLevelMeshes = (assets, materials) => {
             mesh = new THREE.Mesh(child.geometry, materials.road)
             mesh.name = child.name
             mesh.userData['isWallWalking'] = true
-            //console.log(child.name)
             allMeshes[child.name] = mesh
         }
 
@@ -62,8 +57,6 @@ const createLevelMeshes = (assets, materials) => {
 
     })
 
-
-    console.log(areas)
 
     return {
         allMeshes,
