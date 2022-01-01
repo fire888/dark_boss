@@ -30,7 +30,11 @@ const createLevelMeshes = (assets, materials) => {
         let mesh = null
         
         if (child.name.includes("level")) {
-            mesh = new THREE.Mesh(child.geometry, materials.wall)
+            if (child.name === 'level_020_001') {
+                mesh = new THREE.Mesh(child.geometry, materials.groundTop)
+            } else {
+                mesh = new THREE.Mesh(child.geometry, materials.wall)
+            }
             mesh.name = child.name
             allMeshes[child.name] = mesh
         }

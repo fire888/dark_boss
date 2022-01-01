@@ -34,18 +34,18 @@ export const MATERIALS_CONFIG = {
     },
 
 
-    // 'green': {
-    //     mat: 'MeshPhongMaterial',
-    //     props: {
-    //         color: 0x004466,
-    //         emissive: 0xffffff,
-    //         map: 'mapFloorOuter',
-    //         bumpMap: 'mapFloorOuter',
-    //         bumpScale: 1,
-    //         envMap: 'skyBox',
-    //         reflectivity: 0.5,
-    //     },
-    // },
+    'groundTop': {
+        mat: 'MeshPhongMaterial',
+        props: {
+            color: 0x111630,
+            emissive: 0x999999,
+            //map: 'mapFloorOuter',
+            //bumpMap: 'mapFloorOuter',
+            //bumpScale: 1,
+            //envMap: 'skyBox',
+            //reflectivity: 0.5,
+        },
+    },
 
     'road': {
         mat: 'MeshPhongMaterial',

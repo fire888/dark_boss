@@ -39,21 +39,14 @@ export class system_PlayerMoveOnLevel {
         //let currentArea = 14
         //player.mesh.position.fromArray([-1101.0757771933072, 1588.5806076412039, -234.70318375594866])
 
-        let currentArea = 15
-        player.mesh.position.fromArray([-1634.3476768016508, 1466.6480712890625, 233.90984799762464])
+        //let currentArea = 15
+        //player.mesh.position.fromArray([-1634.3476768016508, 1466.6480712890625, 233.90984799762464])
 
-        //this.mesh.position.fromArray([0, 25, 0]) //
-        //this.mesh.position.fromArray([-359.5509120346753, -19.249698816167083, -19.280099775221846]) // layer 0002
-        //this.mesh.position.fromArray([-705.4687564820642, 200.96628564538472, 79.73976473321487]) // layer 0006
-        //this.mesh.position.fromArray([-754.9745654011924, 186.53239310383614, 46.935836090143646])
-        //this.mesh.position.fromArray([-632.6617733125263, 284.5924616087458, 245.47023525719305])
-        //this.mesh.position.fromArray([-410.58781451337603, 363.14256112515284, 20.043236034992436])
-        //this.mesh.position.fromArray([-402.05421551152745, 375.9501037597656, -159.53997292059094])
-        //this.mesh.position.fromArray([-169.69877773209788, 428.8786926269531, 168.6512904794757]) // tonnel
-        //this.mesh.position.fromArray([-217.41046151342093, 1257.141357421875, 58.82571687990493]) // top of tonnel
-        //this.mesh.position.fromArray([-430.16459972629053, 1379.8583905157225, 92.38318881974737]) // before big
-        //this.mesh.position.fromArray([-986.3739983699634, 1537.8077397877962, -104.223302507236])
-        //player.mesh.position.fromArray([-1611.94580078125, 1862.1438506176992,]) 
+        let currentArea = 17
+        player.mesh.position.fromArray([-1642.4763817147712, 1906.31640625, 195.94152733218263])
+
+
+
 
         const collisionsWalls = new helper_CollisionsItems_v02()
         const updateLevel = changerAreaLevel(assets.areas, studio, collisionsWalls)
@@ -238,6 +231,8 @@ const helper_rotate = (mesh, quat1, quat2) => {
 
 const changerAreaLevel = (areas, studio, collisionsWalls) => {
 
+    let oldIndex = null
+
     const changeViewLevel = (ind, action) => {
         if (!areas[ind]) return;
 
@@ -260,7 +255,14 @@ const changerAreaLevel = (areas, studio, collisionsWalls) => {
 
 
     const updateLevel = index => {
+        if (oldIndex !== index) {
+            oldIndex = index
+            index === 20 && studio.changeEnvironment({ fogNear: 20, fogFar: 800, color: 0x112200, backgroundImgKey: null })
+        }
+
         console.log(index)
+
+
         changeViewLevel(index - 4, 'remove')
         changeViewLevel(index - 3, 'remove')
         changeViewLevel(index - 2, 'add')
@@ -269,6 +271,7 @@ const changerAreaLevel = (areas, studio, collisionsWalls) => {
         changeViewLevel(index + 1, 'add')
         changeViewLevel(index + 2, 'add')
         changeViewLevel(index + 3, 'add')
+
 
         changeCollisionLevel(index - 3, 'remove')
         changeCollisionLevel(index - 2, 'remove')
