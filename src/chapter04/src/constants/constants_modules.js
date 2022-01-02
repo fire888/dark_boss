@@ -16,12 +16,20 @@ import { Level } from '../systems/system_level'
 import levelRoomsSrc from '../../../assets/level_chapter04/level02.obj'
 import mapFloorOuter from '../../../assets/level_chapter04/floor_outer_map3.jpg'
 import mapFloorOuter2 from '../../../assets/level_chapter04/floor_outer_map2.jpg'
+import mapTop from '../../../assets/floor_outer_map.jpg'
 import pxjpg from '../../../assets/sky3/px.jpg'
 import nxjpg from '../../../assets/sky3/nx.jpg'
 import pyjpg from '../../../assets/sky3/py.jpg'
 import nyjpg from '../../../assets/sky3/ny.jpg'
 import pzjpg from '../../../assets/sky3/pz.jpg'
 import nzjpg from '../../../assets/sky3/nz.jpg'
+
+import px2jpg from '../../../assets/sky2/px.jpg'
+import nx2jpg from '../../../assets/sky2/nx.jpg'
+import py2jpg from '../../../assets/sky2/py.jpg'
+import ny2jpg from '../../../assets/sky2/ny.jpg'
+import pz2jpg from '../../../assets/sky2/pz.jpg'
+import nz2jpg from '../../../assets/sky2/nz.jpg'
 
 
 import { system_PlayerMoveOnLevel } from '../systems/system_PlayerMoveOnLevel' 
@@ -101,8 +109,10 @@ export const GAME_MODULES = [
         assetsToLoad: [
             { type: 'obj', path: levelRoomsSrc, key: 'level-rooms' },
             { type: 'cubeTextures', path: [ pxjpg, nxjpg, pyjpg, nyjpg, pzjpg, nzjpg, ], key: 'skyBox' },
+            { type: 'cubeTextures', path: [ px2jpg, nx2jpg, py2jpg, ny2jpg, pz2jpg, nz2jpg, ], key: 'skyBox2' },
             { type: 'img', path: mapFloorOuter, key: 'mapFloorOuter', wrap: true },
             { type: 'img', path: mapFloorOuter2, key: 'mapFloorOuter2', wrap: true },
+            { type: 'img', path: mapTop, key: 'mapTop', wrap: true },
         ],
     },
     {

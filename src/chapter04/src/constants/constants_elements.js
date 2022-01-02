@@ -37,13 +37,14 @@ export const MATERIALS_CONFIG = {
     'groundTop': {
         mat: 'MeshPhongMaterial',
         props: {
-            color: 0x111630,
-            emissive: 0x999999,
-            //map: 'mapFloorOuter',
-            //bumpMap: 'mapFloorOuter',
-            //bumpScale: 1,
-            //envMap: 'skyBox',
-            //reflectivity: 0.5,
+            color: 0xaa6666,
+            emissive: 0xaa6666,
+            map: 'mapTop',
+            bumpMap: 'mapTop',
+            bumpScale: 1,
+            envMap: 'skyBox2',
+            reflectivity: 0.5,
+            specular: 0x222222,
         },
     },
 
@@ -76,7 +77,7 @@ export const studioConfig = {
         fogNear: 20,
         fogFar: 500,
         color: 0x4a0a45,
-        backgroundImgKey: null,
+        backgroundImgKey: 'skyBox2',
     },
     composerAddPass: 'Saturate',
 }

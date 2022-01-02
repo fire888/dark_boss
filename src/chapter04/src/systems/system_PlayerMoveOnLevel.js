@@ -19,7 +19,7 @@ export class system_PlayerMoveOnLevel {
 
 
 
-        //let currentArea = 0
+        let currentArea = 0
         
         //let currentArea = 2
         //player.mesh.position.fromArray([-391.47230276827037, 96.9911994934082, 126.61507891095785])
@@ -42,9 +42,14 @@ export class system_PlayerMoveOnLevel {
         //let currentArea = 15
         //player.mesh.position.fromArray([-1634.3476768016508, 1466.6480712890625, 233.90984799762464])
 
-        let currentArea = 17
-        player.mesh.position.fromArray([-1642.4763817147712, 1906.31640625, 195.94152733218263])
+        //let currentArea = 17
+        //player.mesh.position.fromArray([-1642.4763817147712, 1906.31640625, 195.94152733218263])
 
+        //let currentArea = 18
+        //player.mesh.position.fromArray([-1522.2961716632083, 1906.31640625, 24.29171378679233])
+
+        //let currentArea = 20
+        //player.mesh.position.fromArray([-1855.9946632526953, 2158.171875, -21.24875096163542])
 
 
 
@@ -231,7 +236,7 @@ const helper_rotate = (mesh, quat1, quat2) => {
 
 const changerAreaLevel = (areas, studio, collisionsWalls) => {
 
-    let oldIndex = null
+    let isFinalEnv = false
 
     const changeViewLevel = (ind, action) => {
         if (!areas[ind]) return;
@@ -255,9 +260,10 @@ const changerAreaLevel = (areas, studio, collisionsWalls) => {
 
 
     const updateLevel = index => {
-        if (oldIndex !== index) {
-            oldIndex = index
-            index === 20 && studio.changeEnvironment({ fogNear: 20, fogFar: 800, color: 0x112200, backgroundImgKey: null })
+        if (index === 20 && !isFinalEnv) {
+            isFinalEnv = true
+            //studio.changeEnvironment({ fogNear: 40, fogFar: 400, color: 0x18257d })
+            //studio._changeBackground({fogNear: 20, fogFar: 500, color: 1582461, backgroundImgKey: 'skyBox'})
         }
 
         console.log(index)

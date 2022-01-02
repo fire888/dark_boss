@@ -26,6 +26,8 @@ export class Studio {
 
         {
             const { color, fogNear, fogFar, backgroundImgKey } = root.CONSTANTS.studioConfig.sceneEnvironment
+
+
             this._scene.background = assets[backgroundImgKey] || null
             this._scene.fog = new THREE.Fog(color, fogNear, fogFar)
         }
@@ -88,9 +90,13 @@ export class Studio {
             const size = { width: window.innerWidth, height: window.innerHeight }
             this._renderer.setSize(size.width, size.height)
             this._composer.setSize(size.width, size.height)
-            if (this._camera) {
-                this._camera.aspect = size.width/size.height
-                this._camera.updateProjectionMatrix()
+            if (this._controlsCamera) {
+                this._controlsCamera.aspect = size.width/size.height
+                this._controlsCamera.updateProjectionMatrix()
+            }
+            if (this._playerCamera) {
+                this._playerCamera.aspect = size.width/size.height
+                this._playerCamera.updateProjectionMatrix()
             }
         }
         window.addEventListener('resize', resize)
@@ -111,7 +117,7 @@ export class Studio {
 
 
 
-        this._backgroundImgKey = root.CONSTANTS.studioConfig.sceneEnvironment.backgroundImgKey
+        //this._backgroundImgKey = root.CONSTANTS.studioConfig.sceneEnvironment.backgroundImgKey
 
 
 
@@ -131,7 +137,7 @@ export class Studio {
 
     changeEnvironment (sceneEnvironment) {
         this._changeFog(sceneEnvironment)
-        this._changeBackground(sceneEnvironment)
+        //this._changeBackground(sceneEnvironment)
     }
 
 

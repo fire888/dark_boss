@@ -1,12 +1,9 @@
 import * as THREE from 'three'
-import { Object3D } from 'three'
 
 
 export class Player {
     constructor (root) {
         const { studio, CONSTANTS } = root
-
-        studio._changeBackground({fogNear: 20, fogFar: 500, color: 1582461, backgroundImgKey: 'skyBox'})
 
         const {
             startPos,
