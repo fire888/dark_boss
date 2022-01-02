@@ -64,6 +64,11 @@ export const MATERIALS_CONFIG = {
 
 
 
+
+
+export const START_ENV_CONFIG = { fogNear: 20, fogFar: 500, color: 0x4a0a45, backgroundImgKey: 'skyBox2' }
+// sceneEnvironment: { fogNear: 20, fogFar: 500, color: 0x4a0a45, backgroundImgKey: 'skyBox2' },
+
 export const studioConfig = {
     canId: 'webgl-canvas',
     rendererCon: {
@@ -73,14 +78,12 @@ export const studioConfig = {
         color: 0xa5ecc5,
         strength: 0.8,
     },
-    sceneEnvironment: {
-        fogNear: 20,
-        fogFar: 500,
-        color: 0x4a0a45,
-        backgroundImgKey: 'skyBox2',
-    },
+    sceneEnvironment: { fogNear: -20, fogFar: 0, color: 0x4a0a45, backgroundImgKey: 'skyBox2' },
+    //sceneEnvironment: { fogNear: 20, fogFar: 500, color: 0x4a0a45, backgroundImgKey: 'skyBox2' },
     composerAddPass: 'Saturate',
 }
+
+
 
 
 export const playerConfig = {

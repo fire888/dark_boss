@@ -117,10 +117,7 @@ export class Studio {
 
 
 
-        //this._backgroundImgKey = root.CONSTANTS.studioConfig.sceneEnvironment.backgroundImgKey
-
-
-
+        this._backgroundImgKey = root.CONSTANTS.studioConfig.sceneEnvironment.backgroundImgKey
         emitter.subscribe('changeSceneEnvironment')(sceneEnvironment => {
             console.log('deprecated!!', 'studio', 'changeSceneEnvironment', sceneEnvironment)
         })
@@ -132,18 +129,18 @@ export class Studio {
     setCamera (cam) {
         this._playerCamera = cam
         this._renderPass.camera = this._playerCamera
-        //this._composer.addPass(new RenderPass(this._scene, this._camera))
     }
 
-    changeEnvironment (sceneEnvironment) {
-        this._changeFog(sceneEnvironment)
-        //this._changeBackground(sceneEnvironment)
+
+    changeEnvironment (sceneEnvironment, conf = null) {
+        this._changeFog(sceneEnvironment, conf)
+        this._changeBackground(sceneEnvironment, conf)
     }
 
 
     /** INTERNAL ****************************************/
 
-    _changeFog (sceneEnvironment) {
+    _changeFog (sceneEnvironment, conf) {
         const { fogNear, fogFar, color } = sceneEnvironment
         if (
             this._scene.fog.near !== fogNear ||
@@ -167,7 +164,11 @@ export class Studio {
                     this._scene.fog.color = startData.color
                     this._scene.fog.near = startData.near
                     this._scene.fog.far = startData.far
-                    this._lightA.color = startData.color
+                    if (conf) { 
+                        if (conf.updateAmb) this._lightA.color = startData.color
+                    } else {
+                        this._lightA.color = startData.color
+                    }
                     this._renderer.setClearColor(startData.color)
                 })
                 .start()

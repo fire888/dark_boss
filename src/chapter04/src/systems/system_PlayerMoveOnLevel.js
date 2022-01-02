@@ -260,12 +260,6 @@ const changerAreaLevel = (areas, studio, collisionsWalls) => {
 
 
     const updateLevel = index => {
-        if (index === 20 && !isFinalEnv) {
-            isFinalEnv = true
-            //studio.changeEnvironment({ fogNear: 40, fogFar: 400, color: 0x18257d })
-            //studio._changeBackground({fogNear: 20, fogFar: 500, color: 1582461, backgroundImgKey: 'skyBox'})
-        }
-
         console.log(index)
 
 
