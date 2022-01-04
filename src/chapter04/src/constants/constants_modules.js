@@ -13,9 +13,9 @@ import { Helper_MaterialsLib } from '../../../_CORE/helpers/helper_MaterialsLib'
 
 
 import { Level } from '../systems/system_level'
-import levelRoomsSrc from '../../../assets/level_chapter04/level02.obj'
-import mapFloorOuter from '../../../assets/level_chapter04/floor_outer_map3.jpg'
-import mapFloorOuter2 from '../../../assets/level_chapter04/floor_outer_map2.jpg'
+import levelRoomsSrc from '../../../assets/chapter04/level02.obj'
+import mapFloorOuter from '../../../assets/chapter04/floor_outer_map3.jpg'
+import mapFloorOuter2 from '../../../assets/chapter04/floor_outer_map2.jpg'
 import mapTop from '../../../assets/floor_outer_map.jpg'
 import pxjpg from '../../../assets/sky3/px.jpg'
 import nxjpg from '../../../assets/sky3/nx.jpg'
@@ -33,6 +33,13 @@ import nz2jpg from '../../../assets/sky2/nz.jpg'
 
 
 import { system_PlayerMoveOnLevel } from '../systems/system_PlayerMoveOnLevel' 
+
+
+import { system_Monsters } from '../systems/system_Monsters'
+import monsterSrc from '../../../assets/chapter04/monster.obj'
+import monsterSkinSrc from '../../../assets/chapter04/skin.jpg'
+
+
 import { StarterPlay } from '../actions/StarterPlay'
 
 
@@ -87,16 +94,6 @@ export const GAME_MODULES = [
         constr: Player,
         initStateKey: 'beforeStartPlay',
     },
-    // {
-    //     key: 'systemCollisionFloor',
-    //     constr: SystemCollisionWithItems,
-    //     initStateKey: 'beforeStartPlay',
-    // },
-    // {
-    //     key: 'systemCollisionItems',
-    //     constr: SystemCollisionWithItems,
-    //     initStateKey: 'beforeStartPlay',
-    // },
     {
         key: 'materialsLib',
         constr: Helper_MaterialsLib,
@@ -119,6 +116,15 @@ export const GAME_MODULES = [
         key: 'system_PlayerMoveOnLevel',
         constr: system_PlayerMoveOnLevel,
         initStateKey: 'beforeStartPlay',
+    },
+    {
+        key: 'system_Monsters',
+        constr: system_Monsters,
+        initStateKey: 'beforeStartPlay',
+        assetsToLoad: [
+            { type: 'obj', path: monsterSrc, key: 'monster' },
+            { type: 'img', path: monsterSkinSrc, key: 'skin', wrap: true },
+        ]
     },
     {
         key: 'starterPlay',

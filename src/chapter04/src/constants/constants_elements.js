@@ -2,21 +2,21 @@
 
 export const MATERIALS_CONFIG = {
 
-    'iron': {
-        mat: 'MeshPhongMaterial',
-        props: {
-            color: 0xffffff,
-            emissive: 0x003388,
-            specular: 0xffffff,
-            shininess: 60,
-            bumpMap: 'botMap',
-            bumpScale: 0.1,
-            envMap: 'ironEnv',
-            reflectivity: 0.5,
-            map: 'botMap',
-            skinning: true,
-        },
-    },
+    // 'iron': {
+    //     mat: 'MeshPhongMaterial',
+    //     props: {
+    //         color: 0xffffff,
+    //         emissive: 0x003388,
+    //         specular: 0xffffff,
+    //         shininess: 60,
+    //         bumpMap: 'botMap',
+    //         bumpScale: 0.1,
+    //         envMap: 'ironEnv',
+    //         reflectivity: 0.5,
+    //         map: 'botMap',
+    //         skinning: true,
+    //     },
+    // },
 
     'wall': {
         mat: 'MeshPhongMaterial',
@@ -59,6 +59,22 @@ export const MATERIALS_CONFIG = {
             envMap: 'skyBox',
             reflectivity: 0.3,
         },
+    },
+
+    'skin': {
+        mat: 'MeshPhongMaterial',
+        props: {
+            color: 0xffffff,
+            emissive: 0x555555,
+            specular: 0xffffff,
+            shininess: 12,
+            bumpMap: 'skin',
+            bumpScale: 0.8,
+            envMap: 'skyBox',
+            reflectivity: 0.5,
+            map: 'skin',
+            skinning: true,
+        },        
     }
 }
 

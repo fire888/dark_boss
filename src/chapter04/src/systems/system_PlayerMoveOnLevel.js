@@ -19,7 +19,7 @@ export class system_PlayerMoveOnLevel {
 
 
 
-        let currentArea = 0
+        //let currentArea = 0
         
         //let currentArea = 2
         //player.mesh.position.fromArray([-391.47230276827037, 96.9911994934082, 126.61507891095785])
@@ -48,9 +48,9 @@ export class system_PlayerMoveOnLevel {
         //let currentArea = 18
         //player.mesh.position.fromArray([-1522.2961716632083, 1906.31640625, 24.29171378679233])
 
-        //let currentArea = 20
+        let currentArea = 20
         //player.mesh.position.fromArray([-1855.9946632526953, 2158.171875, -21.24875096163542])
-
+        player.mesh.position.fromArray([-1855.9946632526953, 2178.171875, -21.24875096163542])
 
 
         const collisionsWalls = new helper_CollisionsItems_v02()

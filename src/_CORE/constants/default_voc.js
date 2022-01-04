@@ -4,6 +4,7 @@ export const INFO_VOC = {
         'Factory': 'Фабрика',
         'Brige': 'Мост',
         'Cube': 'Куб',
+        'Endways': 'Напрямик',
         'in production': 'скоро..',
         ' (current)': ' (тут)',
         'Author: ': 'от: ',

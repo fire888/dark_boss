@@ -8,6 +8,7 @@ export const startDefaultStoreData = {
             { text: 'Factory', href: 'http://js.otrisovano.ru/factory/' },
             { text: 'Brige', href: 'http://js.otrisovano.ru/bridge/' },
             { text: 'Cube', href: 'http://js.otrisovano.ru/levels/' },
+            { text: 'Endways', href: 'http://js.otrisovano.ru/endways/' },
             { text: 'in production' },
         ],
         currentChapterIndex: null,
