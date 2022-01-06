@@ -16,8 +16,8 @@ export class Player {
 
 
         this._camera = null
-        this._isBlocked = true
-
+        this.isBlocked = true
+        this.isFreeze = true
         
         this.mesh = new THREE.Object3D()
         this.mesh.rotation.fromArray([0, 0, 0])
@@ -55,8 +55,12 @@ export class Player {
         studio.addToScene(this.mesh)
     }
 
-    toggleBlocked (val) {
-        this._isBlocked = val
+    // toggleBlocked (val) {
+    //     this.isFeeze = val
+    // }
+
+    toggleFeeze (val) {
+        this.isFeeze = val
     }
 
     toggleCanMove(key, val) {

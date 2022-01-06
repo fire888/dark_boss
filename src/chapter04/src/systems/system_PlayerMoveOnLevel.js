@@ -19,42 +19,24 @@ export class system_PlayerMoveOnLevel {
 
 
 
-        //let currentArea = 0
-        
-        //let currentArea = 2
-        //player.mesh.position.fromArray([-391.47230276827037, 96.9911994934082, 126.61507891095785])
+        let currentArea = 0
+        player.mesh.position.fromArray([0, -40, 0])
 
         //let currentArea = 4
         //player.mesh.position.fromArray([-531.9216580366183, 62.97990036010742, 198.1976467682245])
 
-        //let currentArea = 7
-        //player.mesh.position.fromArray([-506.33066941797745, 256.5167414826704, 235.8623405780516])
-
-        // let currentArea = 9
-        // player.mesh.position.fromArray([-193.95366264741457, 428.9707048705274, 103.59071280180837])
-
         //let currentArea = 11
-        //player.mesh.position.fromArray([-393.33123400867925, 1379.4075343917937, 152.5554868722273])
-
-        //let currentArea = 14
-        //player.mesh.position.fromArray([-1101.0757771933072, 1588.5806076412039, -234.70318375594866])
-
-        //let currentArea = 15
-        //player.mesh.position.fromArray([-1634.3476768016508, 1466.6480712890625, 233.90984799762464])
-
-        //let currentArea = 17
-        //player.mesh.position.fromArray([-1642.4763817147712, 1906.31640625, 195.94152733218263])
+        //player.mesh.position.fromArray([-574.1384065002559, 1379.6997473405822, 159.23052507760912])
 
         //let currentArea = 18
-        //player.mesh.position.fromArray([-1522.2961716632083, 1906.31640625, 24.29171378679233])
+        //player.mesh.position.fromArray([-1656.0663386897618, 1906.31640625, 28.162585622834097])
 
-        let currentArea = 20
-        //player.mesh.position.fromArray([-1855.9946632526953, 2158.171875, -21.24875096163542])
-        player.mesh.position.fromArray([-1855.9946632526953, 2178.171875, -21.24875096163542])
+
+
 
 
         const collisionsWalls = new helper_CollisionsItems_v02()
-        const updateLevel = changerAreaLevel(assets.areas, studio, collisionsWalls)
+        const updateLevel = changerAreaLevel(assets.areas, studio, collisionsWalls, emitter)
         updateLevel(currentArea)
 
 
@@ -64,7 +46,7 @@ export class system_PlayerMoveOnLevel {
             speedRot,
         } = CONSTANTS.playerConfig
 
-        let isBlocked = false
+        let isBlocked = true
         player.toggleBlocked = val => isBlocked = val
 
         let isButtonsDisabled = false
@@ -185,6 +167,7 @@ export class system_PlayerMoveOnLevel {
 
 
         const update = data => {
+            //if (player.isFreeze) return;
             if (isButtonsDisabled) return;
 
             keys['left'] && player.mesh.rotateY(speedRot * data.count)
@@ -234,10 +217,7 @@ const helper_rotate = (mesh, quat1, quat2) => {
 
 
 
-const changerAreaLevel = (areas, studio, collisionsWalls) => {
-
-    let isFinalEnv = false
-
+const changerAreaLevel = (areas, studio, collisionsWalls, emitter) => {
     const changeViewLevel = (ind, action) => {
         if (!areas[ind]) return;
 
@@ -260,6 +240,7 @@ const changerAreaLevel = (areas, studio, collisionsWalls) => {
 
 
     const updateLevel = index => {
+        emitter.emit('levelChanged')(index)
         console.log(index)
 
 

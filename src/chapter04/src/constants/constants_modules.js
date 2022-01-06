@@ -36,7 +36,7 @@ import { system_PlayerMoveOnLevel } from '../systems/system_PlayerMoveOnLevel'
 
 
 import { system_Monsters } from '../systems/system_Monsters'
-import botSrc from '../../../assets/chapter04/monster.glb'
+import botSrc from '../../../assets/chapter04/botWalk.gltf'
 import monsterSkinSrc from '../../../assets/chapter04/skin.jpg'
 
 
@@ -123,7 +123,6 @@ export const GAME_MODULES = [
         initStateKey: 'beforeStartPlay',
         assetsToLoad: [
             { type: 'glb', path: botSrc, key: 'bot' },
-            //{ type: 'obj', path: monsterSrc, key: 'monster' },
             { type: 'img', path: monsterSkinSrc, key: 'skin', wrap: true },
         ]
     },

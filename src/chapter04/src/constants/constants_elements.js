@@ -1,23 +1,6 @@
 
 
 export const MATERIALS_CONFIG = {
-
-    // 'iron': {
-    //     mat: 'MeshPhongMaterial',
-    //     props: {
-    //         color: 0xffffff,
-    //         emissive: 0x003388,
-    //         specular: 0xffffff,
-    //         shininess: 60,
-    //         bumpMap: 'botMap',
-    //         bumpScale: 0.1,
-    //         envMap: 'ironEnv',
-    //         reflectivity: 0.5,
-    //         map: 'botMap',
-    //         skinning: true,
-    //     },
-    // },
-
     'wall': {
         mat: 'MeshPhongMaterial',
         props: {
@@ -80,10 +63,10 @@ export const MATERIALS_CONFIG = {
 
 
 
+export const START_ENV_CONFIG = { fogNear: -10, fogFar: 20, color: 0x4a0a45, backgroundImgKey: 'skyBox2' }
+export const START_ENV_CONFIG_2 = { fogNear: -10, fogFar: 0, color: 0x4a0a45, backgroundImgKey: 'skyBox2' }
+export const START_ENV_CONFIG_3 = { fogNear: 20, fogFar: 500, color: 0x4a0a45, backgroundImgKey: 'skyBox2' }
 
-
-export const START_ENV_CONFIG = { fogNear: 20, fogFar: 500, color: 0x4a0a45, backgroundImgKey: 'skyBox2' }
-// sceneEnvironment: { fogNear: 20, fogFar: 500, color: 0x4a0a45, backgroundImgKey: 'skyBox2' },
 
 export const studioConfig = {
     canId: 'webgl-canvas',
@@ -95,7 +78,6 @@ export const studioConfig = {
         strength: 0.8,
     },
     sceneEnvironment: { fogNear: -20, fogFar: 0, color: 0x4a0a45, backgroundImgKey: 'skyBox2' },
-    //sceneEnvironment: { fogNear: 20, fogFar: 500, color: 0x4a0a45, backgroundImgKey: 'skyBox2' },
     composerAddPass: 'Saturate',
 }
 

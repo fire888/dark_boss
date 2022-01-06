@@ -159,7 +159,7 @@ export class Studio {
             }
 
             new TWEEN.Tween(startData)
-                .to(endData, 3000)
+                .to(endData, (conf && conf.time) || 3000)
                 .onUpdate(() => {
                     this._scene.fog.color = startData.color
                     this._scene.fog.near = startData.near
