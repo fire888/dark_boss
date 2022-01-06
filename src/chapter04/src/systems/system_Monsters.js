@@ -29,13 +29,13 @@ export class system_Monsters {
 
         this._animations = assets.bot.animations
         this._mixer = new THREE.AnimationMixer(bot)
-        this._walkAction = this._mixer.clipAction(this._animations[0])
+        this._walkAction = this._mixer.clipAction(this._animations[1])
         this._walkAction.play()
-        this._walkAction.timeScale = 1.5
+        this._walkAction.timeScale = 3
 
         emitter.subscribe('frameUpdate')(data => {
             this._mixer.update(data.delta)
-            bot.position.z += 0.05
+            bot.position.z += 0.13
         })
         
     }
