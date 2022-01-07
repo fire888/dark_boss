@@ -3,6 +3,15 @@
 }
 
 
+button.dialog-button-toggle {
+    font-size: 19px;
+    height: 40px;
+    min-width: 300px;
+    max-width: 90vw;
+    flex: 0 0 auto;
+}
+
+
 .dialog-wrapper {
     position: absolute;
     left: 8rem;
@@ -18,7 +27,7 @@
 .dialog-content {
     min-width: 300px;
     width: 40vw;
-    max-width: 30rem;
+    max-width: 90vw;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;

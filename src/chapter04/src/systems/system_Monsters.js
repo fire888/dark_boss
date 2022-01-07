@@ -171,9 +171,15 @@ const createAnimations = assetsBot => {
         stay,
     }
 
+    let currentAction = null
+
     return {
         update: data => mixer.update(data.delta),
         play: key => {
+            if (currentAction === key) return;
+
+            currentAction = key
+
             mixer.stopAllAction()
             actions[key].play()
         },
@@ -299,7 +305,7 @@ const createCollisionWithItems = () => {
 
             vecDir.sub(vecStart)
 
-            const intersects = rayCaster.intersectObjects(arrMeshes)
+            const intersects = rayCaster.intersectObjects(arrMeshes, true)
 
             if (intersects[0]) {
                 return intersects[0].distance
@@ -310,14 +316,3 @@ const createCollisionWithItems = () => {
     }
 }
 
-
-
-
-/*** TRESH */
-
-/*
-        // this._frontObj = new THREE.Mesh(
-        //     new THREE.BoxGeometry(3, 3, 3),
-        //     new THREE.MeshBasicMaterial({ color: 0xff0000 })
-        // )
- */

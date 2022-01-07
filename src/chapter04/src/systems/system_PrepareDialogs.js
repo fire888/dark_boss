@@ -5,8 +5,6 @@ import * as THREE from 'three'
 export class system_PrepareDialogs {
     constructor (root) {
 
-        console.log(root)
-
         const {
             emitter,
             player,
@@ -47,7 +45,7 @@ export class system_PrepareDialogs {
 
             if (dir === 'forward') {
 
-                if (vecFront.distanceTo(bot.position) < 30 && !isBlocked[dir]) {
+                if (vecFront.distanceTo(bot.position) < 20 && !isBlocked[dir]) {
                     isBlocked[dir] = true
                     player.toggleCanMove(dir, false)
                     system_Monsters.startDialog(player.mesh.position)
