@@ -25,7 +25,7 @@ const MONSTERS_DATA = {
     },
     '20': {
         pos: [-2145.4767672182593, 2118.171875, 4.885100091204412],
-        rot: [0, Math.PI / 2, 0],
+        rot: [0, Math.PI, 0],
         walkData: null,
         defaultAnimation: 'stay',
     },

@@ -24,6 +24,12 @@ export function prepareStore(root) {
                 }
             })
         }
+        if (action.type === "TOGGLE_CONTROLS") {
+            return ({
+                ...state,
+                isShowControls: action.is,
+            })
+        }
         return ({ ...state })
     }
     

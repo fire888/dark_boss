@@ -80,14 +80,25 @@ button.dialog-button-toggle {
 
 
 
-.final-message {
+/* .final-message {
     text-align: center;
     background: none;
-}
+} */
 
 
-.final-message p {
+/* .final-message p {
     font-size: 14px;
     font-weight: bold;
+} */
+
+.final-mess {
+    font-size: 19px;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 25vh;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.753);
 }
 

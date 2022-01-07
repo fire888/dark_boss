@@ -24,7 +24,7 @@ function CustomReactComponent(props) {
 
     return (
         <>
-            {(props.isButtonDialog || props.isShowPalleteDialog) && (
+            {(!props.isShowFinalMessage && props.isButtonDialog || props.isShowPalleteDialog) && (
                 <div className="dialog-wrapper">
                     <div className="dialog-content">
 
@@ -44,11 +44,8 @@ function CustomReactComponent(props) {
 
 
             {props.isShowFinalMessage && (
-                <div className="info">
-                    <div className="info-inner final-message">
-                        <p>{t('Level completed')}</p>
-                    </div>
-                </div>)}
+                    <div className='final-mess'>{t('To be continued')}</div>
+                )}
         </>
     )
 }

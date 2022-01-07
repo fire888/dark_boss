@@ -1,39 +1,47 @@
+import { START_ENV_CONFIG_4 } from '../constants/constants_elements'
+
+
 const DIALOGS_DATA = {
     '4': [
         {
-            q: 'Hello there!',
-            a: 'Good day, carbon-based life form.',
-            event: 'nextReply',
-        }, {
             q: 'What is this place ?',
-            a: 'This is an entrance to the entropic hyper-maze.',
+            a: "It's a great way up!",
             event: 'nextReply',
         }, {
-            q: 'And what happens if I enter it ?',
-            a: 'This place is waiting.',
+            q: 'Who are you?',
+            a: 'I help the creator.',
+            event: 'nextReply',
+        }, {
+            q: 'What are you doing?',
+            a: "Don't distract, I have to dig a tunnel.",
             event: 'close',
         },
     ],
     '13': [
         {
-            q: 'Say, where do these corridors lead ?',
-            a: 'They will lead you to the end.',
+            q: 'Such large dungeons ...',
+            a: 'The Creator gave the order to dig.',
             event: 'nextReply',
         }, {
-            q: 'Ooook, I\'m heading in then.',
-            a: 'We will meet again.',
+            q: 'How long have you been digging?',
+            a: 'Time does not matter, the goal is important.',
             event: 'close',
         },
     ],
     '20': [
         {
             q: 'What do you do here ?',
-            a: 'Collecting the energy of the night.',
+            a: 'Long ago, the Creator fell under the ground. He created us and gave us an assignment to dig.',
             event: 'nextReply',
         },
         {
-            q: 'Can you tell me which way is out of here ?',
-            a: 'It is about the journey, not the destination',
+            q: "But here's the way out ...",
+            a: 'When we dug a path, the creator went through it.',
+            event: 'nextReply',
+        },
+        {
+            q: "And...",
+            a: 'We are made to dig. And we keep on doing it. We believe that he will return to us.',
             event: 'close',
         },
     ],
@@ -47,6 +55,7 @@ export const uiState = {
     isShowControls: true,
     isButtonDialog: false,
     isShowPalleteDialog: false,
+    isShowFinalMessage: false,
 
     currentBot: null,
     phraseIndex: 0,
@@ -85,6 +94,20 @@ export const createCustomStore = root => {
             }
 
             if (event === 'close') {
+
+                if (state.currentBot === 20) {
+                    setTimeout(() => {
+                        root.dispatcher.dispatch({ type: 'TOGGLE_BUTTON', isButtonDialog: false })
+                        root.dispatcher.dispatch({ type: 'TOGGLE_DIALOG', isShowPalleteDialog: false })
+                        root.studio.changeEnvironment(START_ENV_CONFIG_4, { updateAmb: false, time: 1500 }) 
+                        root.player.toggleBlocked(true)
+                        setTimeout(() => {
+                            root.dispatcher.dispatch({ type: 'SHOW_FINAL_MESSAGE' })
+                        }, 3000)
+                    }, 20000)
+                    
+                }
+
                 return ({
                     ...state,
                     userReplicies: [],
@@ -131,6 +154,14 @@ export const createCustomStore = root => {
                 isButtonDialog: action.isButtonDialog,
                 isDialogComplete,
                 botAnswers,
+            })
+        }
+
+
+        if (action.type === 'SHOW_FINAL_MESSAGE') {
+            return ({
+                ...state,
+                isShowFinalMessage: true,
             })
         }
 
