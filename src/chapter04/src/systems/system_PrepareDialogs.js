@@ -5,10 +5,13 @@ import * as THREE from 'three'
 export class system_PrepareDialogs {
     constructor (root) {
 
+        console.log(root)
+
         const {
             emitter,
             player,
             system_Monsters,
+            dispatcher,
         } = root
 
         const bot = system_Monsters.getBot()
@@ -20,9 +23,30 @@ export class system_PrepareDialogs {
 
         const vecFront = new THREE.Vector3()
 
+
+        let isButtonDialog = false
+
+
         emitter.subscribe('playerMove')(dir => {
+            player.frontObj.getWorldPosition(vecFront)
+
+            if (vecFront.distanceTo(bot.position) > 50) {
+                if (isButtonDialog) {
+                    isButtonDialog = false
+                    dispatcher.dispatch({ type: 'TOGGLE_BUTTON', isButtonDialog: false })
+                    system_Monsters.stopDialog()
+                }
+                return;
+            } else {
+                if (!isButtonDialog) {
+                    isButtonDialog = true
+                    dispatcher.dispatch({ type: 'TOGGLE_BUTTON', isButtonDialog: true, currentBot: system_Monsters.getCurrentArea() })
+                    system_Monsters.startDialog(player.mesh.position)
+                }
+            }
+
             if (dir === 'forward') {
-                player.frontObj.getWorldPosition(vecFront)
+
                 if (vecFront.distanceTo(bot.position) < 30 && !isBlocked[dir]) {
                     isBlocked[dir] = true
                     player.toggleCanMove(dir, false)

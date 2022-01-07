@@ -126,6 +126,10 @@ export class system_Monsters {
         return this._bot
     }
 
+    getCurrentArea () {
+        return this._currentArea
+    }
+
     startDialog (playerPos) {
         this._freeWalk.stop()
         this._animations.play('dialog')

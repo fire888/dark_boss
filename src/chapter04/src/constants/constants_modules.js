@@ -41,6 +41,7 @@ import monsterSkinSrc from '../../../assets/chapter04/skin.jpg'
 
 import { system_PrepareDialogs } from '../systems/system_PrepareDialogs'
 import { StarterPlay } from '../actions/StarterPlay'
+import { Ui } from "../ui/Ui";
 
 
 
@@ -51,11 +52,11 @@ export const GAME_MODULES = [
         constr: EventEmitter,
         initStateKey: 'pageLoaded',
     },
-    {
-        key: 'ui',
-        constr: UI,
-        initStateKey: 'pageLoaded',
-    },
+    // {
+    //     key: 'ui',
+    //     constr: UI,
+    //     initStateKey: 'pageLoaded',
+    // },
     {
         key: 'deviceResizer',
         constr: DeviceResizer,
@@ -130,6 +131,11 @@ export const GAME_MODULES = [
         key: 'system_PrepareDialogs',
         constr: system_PrepareDialogs,
         initStateKey: 'beforeStartPlay',
+    },
+    {
+        key: 'customUi',
+        constr: Ui,
+        initStateKey: 'pageLoaded',
     },
     {
         key: 'starterPlay',

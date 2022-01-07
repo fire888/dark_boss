@@ -22,14 +22,14 @@ export class system_PlayerMoveOnLevel {
         //let currentArea = 0
         //player.mesh.position.fromArray([0, -40, 0])
 
-        //let currentArea = 4
-        //player.mesh.position.fromArray([-531.9216580366183, 62.97990036010742, 198.1976467682245])
+        let currentArea = 4
+        player.mesh.position.fromArray([-531.9216580366183, 62.97990036010742, 198.1976467682245])
 
         //let currentArea = 11
         //player.mesh.position.fromArray([-574.1384065002559, 1379.6997473405822, 159.23052507760912])
 
-        let currentArea = 18
-        player.mesh.position.fromArray([-1656.0663386897618, 1906.31640625, 28.162585622834097])
+        //let currentArea = 18
+        //player.mesh.position.fromArray([-1656.0663386897618, 1906.31640625, 28.162585622834097])
 
 
 
