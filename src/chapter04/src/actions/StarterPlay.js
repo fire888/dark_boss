@@ -38,6 +38,7 @@ export class StarterPlay {
                     }, 1500)
                 }, 4000)
             } else {
+                system_Monsters.setBotTo(4)
                 studio.changeEnvironment(START_ENV_CONFIG_3, { updateAmb: false, time: 1500 }) 
                 player.toggleBlocked(false)
             }

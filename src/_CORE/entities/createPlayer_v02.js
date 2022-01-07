@@ -64,7 +64,7 @@ export class Player {
     }
 
     toggleCanMove(key, val) {
-        this._isCanMove[key] = val
+        //this._isCanMove[key] = val
     }
 
     getObj () {

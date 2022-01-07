@@ -19,8 +19,8 @@ export class system_PlayerMoveOnLevel {
 
 
 
-        let currentArea = 0
-        player.mesh.position.fromArray([0, -40, 0])
+        //let currentArea = 0
+        //player.mesh.position.fromArray([0, -40, 0])
 
         //let currentArea = 4
         //player.mesh.position.fromArray([-531.9216580366183, 62.97990036010742, 198.1976467682245])
@@ -28,8 +28,8 @@ export class system_PlayerMoveOnLevel {
         //let currentArea = 11
         //player.mesh.position.fromArray([-574.1384065002559, 1379.6997473405822, 159.23052507760912])
 
-        //let currentArea = 18
-        //player.mesh.position.fromArray([-1656.0663386897618, 1906.31640625, 28.162585622834097])
+        let currentArea = 18
+        player.mesh.position.fromArray([-1656.0663386897618, 1906.31640625, 28.162585622834097])
 
 
 
@@ -49,6 +49,13 @@ export class system_PlayerMoveOnLevel {
         let isBlocked = true
         player.toggleBlocked = val => isBlocked = val
 
+        this.isCanMove = {
+            'forward': true,
+            'back': true,
+        }
+        player.toggleCanMove = (dir, val) => this.isCanMove[dir] = val
+
+
         let isButtonsDisabled = false
         let keys = {}
     
@@ -58,7 +65,6 @@ export class system_PlayerMoveOnLevel {
         const UP_VECTOR = new THREE.Vector3(0, 1, 0)
         const OFFSET_FROM_PLANES = 17
         const OFFSET_FROM_PLANES_TO_DROP = 17.2
-        //const OFFSET_FROM_PLANES_TO_STAIR = 16.5
 
 
 
@@ -150,6 +156,7 @@ export class system_PlayerMoveOnLevel {
 
             if (!isCollision) {
                 player.mesh.translateZ(-speed * data.count)
+                emitter.emit('playerMove')('forward')
             } else if (collision.object.userData['isWallWalking']) {
                 rotatePlayerToCollisionTarget(collision)
             }
@@ -162,12 +169,12 @@ export class system_PlayerMoveOnLevel {
             if (isCollision) return;
                 
             player.mesh.translateZ(speed * data.count)
+            emitter.emit('playerMove')('back')
         }
 
 
 
         const update = data => {
-            //if (player.isFreeze) return;
             if (isButtonsDisabled) return;
 
             keys['left'] && player.mesh.rotateY(speedRot * data.count)
@@ -176,8 +183,8 @@ export class system_PlayerMoveOnLevel {
             if (isBlocked) return;
 
             checkBottomAndDropDownPlayer(data)
-            keys['up'] && checkAndMoveFront(data)
-            keys['down'] && checkAndMoveBack(data)
+            keys['up'] && this.isCanMove['forward'] && checkAndMoveFront(data)
+            keys['down'] && this.isCanMove['back'] && checkAndMoveBack(data)
             keys['p'] && console.log(`player.mesh.position.fromArray([${player.mesh.position.x}, ${player.mesh.position.y + 25}, ${player.mesh.position.z}])`)
         }
     
@@ -185,7 +192,6 @@ export class system_PlayerMoveOnLevel {
 
         emitter.subscribe('keyEvent')(data => keys = data)
         emitter.subscribe('frameUpdate')(update)
-        emitter.subscribe('toggleDialog')(val => isButtonsDisabled = val.isOpen)
     }
 } 
 
@@ -240,8 +246,8 @@ const changerAreaLevel = (areas, studio, collisionsWalls, emitter) => {
 
 
     const updateLevel = index => {
-        emitter.emit('levelChanged')(index)
         console.log(index)
+        emitter.emit('levelChanged')(index)
 
 
         changeViewLevel(index - 4, 'remove')

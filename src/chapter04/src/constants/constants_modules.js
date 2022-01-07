@@ -39,7 +39,7 @@ import { system_Monsters } from '../systems/system_Monsters'
 import botSrc from '../../../assets/chapter04/botWalk.gltf'
 import monsterSkinSrc from '../../../assets/chapter04/skin.jpg'
 
-
+import { system_PrepareDialogs } from '../systems/system_PrepareDialogs'
 import { StarterPlay } from '../actions/StarterPlay'
 
 
@@ -125,6 +125,11 @@ export const GAME_MODULES = [
             { type: 'glb', path: botSrc, key: 'bot' },
             { type: 'img', path: monsterSkinSrc, key: 'skin', wrap: true },
         ]
+    },
+    {
+        key: 'system_PrepareDialogs',
+        constr: system_PrepareDialogs,
+        initStateKey: 'beforeStartPlay',
     },
     {
         key: 'starterPlay',
