@@ -11,8 +11,8 @@ About
 3d Quest.  
   
   
-![pic](https://raw.githubusercontent.com/fire888/levels/master/public/start-img.png)
+![pic](https://github.com/fire888/dark_boss/blob/master/src/chapter04/public/start-img.png)
 
 Play
 ------------ 
-[Let's play](http://js.otrisovano.ru/levels/)
+[Let's play](http://js.otrisovano.ru/endways/)
