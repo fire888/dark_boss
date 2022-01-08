@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "./static/css/main.0c95b812.chunk.css",
-    "main.js": "./static/js/main.30ee3c49.chunk.js",
-    "main.js.map": "./static/js/main.30ee3c49.chunk.js.map",
+    "main.css": "./static/css/main.29b3a84c.chunk.css",
+    "main.js": "./static/js/main.7e266f6a.chunk.js",
+    "main.js.map": "./static/js/main.7e266f6a.chunk.js.map",
     "runtime-main.js": "./static/js/runtime-main.2134470b.js",
     "runtime-main.js.map": "./static/js/runtime-main.2134470b.js.map",
-    "static/js/2.c8034c30.chunk.js": "./static/js/2.c8034c30.chunk.js",
-    "static/js/2.c8034c30.chunk.js.map": "./static/js/2.c8034c30.chunk.js.map",
+    "static/js/2.465b86b1.chunk.js": "./static/js/2.465b86b1.chunk.js",
+    "static/js/2.465b86b1.chunk.js.map": "./static/js/2.465b86b1.chunk.js.map",
     "index.html": "./index.html",
-    "static/css/main.0c95b812.chunk.css.map": "./static/css/main.0c95b812.chunk.css.map",
-    "static/js/2.c8034c30.chunk.js.LICENSE.txt": "./static/js/2.c8034c30.chunk.js.LICENSE.txt",
-    "static/media/botWalk.01f990cb.gltf": "./static/media/botWalk.01f990cb.gltf",
+    "static/css/main.29b3a84c.chunk.css.map": "./static/css/main.29b3a84c.chunk.css.map",
+    "static/js/2.465b86b1.chunk.js.LICENSE.txt": "./static/js/2.465b86b1.chunk.js.LICENSE.txt",
+    "static/media/botWalk.4572b94b.gltf": "./static/media/botWalk.4572b94b.gltf",
     "static/media/floor_outer_map.35e50f6e.jpg": "./static/media/floor_outer_map.35e50f6e.jpg",
     "static/media/floor_outer_map2.2bd99ce1.jpg": "./static/media/floor_outer_map2.2bd99ce1.jpg",
     "static/media/floor_outer_map3.558e9646.jpg": "./static/media/floor_outer_map3.558e9646.jpg",
-    "static/media/level02.46579f34.obj": "./static/media/level02.46579f34.obj",
+    "static/media/level02.e54f4bde.obj": "./static/media/level02.e54f4bde.obj",
     "static/media/nx.04390d21.jpg": "./static/media/nx.04390d21.jpg",
     "static/media/nx.8cbf039d.jpg": "./static/media/nx.8cbf039d.jpg",
     "static/media/ny.09051a4e.jpg": "./static/media/ny.09051a4e.jpg",
@@ -31,8 +31,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.2134470b.js",
-    "static/js/2.c8034c30.chunk.js",
-    "static/css/main.0c95b812.chunk.css",
-    "static/js/main.30ee3c49.chunk.js"
+    "static/js/2.465b86b1.chunk.js",
+    "static/css/main.29b3a84c.chunk.css",
+    "static/js/main.7e266f6a.chunk.js"
   ]
 }

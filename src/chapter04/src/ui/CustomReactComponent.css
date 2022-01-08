@@ -16,12 +16,19 @@ button.dialog-button-toggle {
     position: absolute;
     left: 8rem;
     right: 8rem;
-    bottom: 8rem;
+    bottom: 10rem;
     top: 7rem;
     display: flex;
     flex-direction: row;
     justify-content: center; 
     align-items: stretch;
+}
+
+@media screen and (min-width: 610px) {
+    .dialog-wrapper {
+        top: 2rem;
+        bottom: 2rem;
+    }
 }
 
 .dialog-content {
@@ -101,4 +108,6 @@ button.dialog-button-toggle {
     text-align: center;
     color: rgba(255, 255, 255, 0.753);
 }
+
+
 
