@@ -19,11 +19,11 @@ export class system_PlayerMoveOnLevel {
 
 
 
-        //let currentArea = 0
-        //player.mesh.position.fromArray([0, -40, 0])
+        let currentArea = 0
+        player.mesh.position.fromArray([0, -40, 0])
 
-        let currentArea = 4
-        player.mesh.position.fromArray([-531.9216580366183, 62.97990036010742, 198.1976467682245])
+        //let currentArea = 4
+        //player.mesh.position.fromArray([-531.9216580366183, 62.97990036010742, 198.1976467682245])
 
         //let currentArea = 11
         //player.mesh.position.fromArray([-574.1384065002559, 1379.6997473405822, 159.23052507760912])
