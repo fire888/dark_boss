@@ -1,5 +1,7 @@
 export const startDefaultStoreData = {
     isShowControls: true,
+    isShowControlSound: false,
+    isMute: false, 
     isInfo: false,
     infoPanelData: {
         title: 'Discovery of small android',

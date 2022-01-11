@@ -30,6 +30,18 @@ export function prepareStore(root) {
                 isShowControls: action.is,
             })
         }
+        if (action.type === 'ENABLE_CONTROL_SOUND') {
+            return ({
+                ...state,
+                isShowControlSound: true,
+            })
+        }
+        if (action.type === 'TOGGLE_MUTE') {
+            return ({
+                ...state,
+                isMute: action.is,
+            })
+        }
         return ({ ...state })
     }
     

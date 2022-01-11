@@ -11,6 +11,8 @@ export default connect(
     state => ({
             isInfo: state.controls.isInfo,
             isShowControls: state.controls.isShowControls, 
+            isShowControlSound: state.controls.isShowControlSound,
+            isMute: state.controls.isMute,
     })
 )(
     function(props) {
@@ -24,6 +26,19 @@ export default connect(
 
     return (
         <div className='ui-controls'>
+            {props.isShowControls && props.isShowControlSound && <button
+                className="butt-sound control"
+                onMouseUp={() => { 
+                    props.gameContext.emitter.emit('toggleSound')(!props.isMute) 
+                    props.dispatch({ type: 'TOGGLE_MUTE', is: !props.isMute })
+                }}
+                onTouchEnd={() => { 
+                    props.gameContext.emitter.emit('toggleSound')(!props.isMute) 
+                    props.dispatch({ type: 'TOGGLE_MUTE', is: !props.isMute })
+                }}
+            >
+                {props.isMute ? <>&#10236;</> : <>&#10239;</>}
+            </button>}
 
             {props.isShowControls && <button
                 className="butt-left control"

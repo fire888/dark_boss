@@ -43,6 +43,9 @@ import { system_PrepareDialogs } from '../systems/system_PrepareDialogs'
 import { StarterPlay } from '../actions/StarterPlay'
 import { Ui } from "../ui/Ui";
 
+import { system_Sound } from '../systems/system_Sound'
+import soundAmbientSrc from '../../../assets/sound/ambient.mp3'
+
 
 
 
@@ -131,6 +134,14 @@ export const GAME_MODULES = [
         key: 'system_PrepareDialogs',
         constr: system_PrepareDialogs,
         initStateKey: 'beforeStartPlay',
+    },
+    {
+        key: 'system_Sound',
+        constr: system_Sound,
+        initStateKey: 'beforeStartPlay',
+        assetsToLoad: [
+            { type: 'soundMp3', path: soundAmbientSrc, key: 'soundAmbient' },
+        ]
     },
     {
         key: 'customUi',

@@ -9,7 +9,9 @@ const createLoaders = () => {
     let objLoader = null,
         textureLoader = null,
         gltfLoader = null,
-        cubeTextureLoader = null
+        cubeTextureLoader = null,
+        soundLoader = null
+
 
     const getterLoader = type => {
         if (type === 'obj')
@@ -20,6 +22,9 @@ const createLoaders = () => {
             return textureLoader = (textureLoader || new THREE.TextureLoader())
         if (type === 'cubeTextures') {
             return cubeTextureLoader = (cubeTextureLoader || new THREE.CubeTextureLoader())
+        }
+        if (type === 'soundMp3') {
+            return soundLoader = (soundLoader || new THREE.AudioLoader())
         }
 
     }
