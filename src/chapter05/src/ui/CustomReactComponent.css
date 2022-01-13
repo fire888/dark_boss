@@ -1,0 +1,113 @@
+.marTop-small {
+    margin-top: 2rem;
+}
+
+
+button.dialog-button-toggle {
+    font-size: 19px;
+    height: 40px;
+    min-width: 300px;
+    max-width: 90vw;
+    flex: 0 0 auto;
+}
+
+
+.dialog-wrapper {
+    position: absolute;
+    left: 8rem;
+    right: 8rem;
+    bottom: 10rem;
+    top: 7rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center; 
+    align-items: stretch;
+}
+
+@media screen and (min-width: 610px) {
+    .dialog-wrapper {
+        top: 2rem;
+        bottom: 2rem;
+    }
+}
+
+.dialog-content {
+    min-width: 300px;
+    width: 40vw;
+    max-width: 90vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-content: stretch;
+}
+
+.messages-wrapper {
+    flex: 2 0 auto;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    background: #000033aa;
+    border: 5px solid #ffffff;
+}
+
+.messages {
+    flex: 2 2 auto; 
+    font-size: 18px;
+    color: #fff;
+    padding: 20px;
+} 
+
+.messages .player,
+.messages .q
+{
+    color: rgb(154, 212, 127);
+    font-size: 14px;
+    margin-top: 1rem;
+    font-weight: bold;
+}
+
+.dialog-wrapper .dialog-button-toggle {
+    margin: .5rem 0;
+}
+
+
+.replicies {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: stretch;
+}
+
+
+.replicies button {
+    font-size: 18px;
+    height: 40px;
+    margin: .2rem;
+} 
+
+
+
+/* .final-message {
+    text-align: center;
+    background: none;
+} */
+
+
+/* .final-message p {
+    font-size: 14px;
+    font-weight: bold;
+} */
+
+.final-mess {
+    font-size: 19px;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 25vh;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.753);
+}
+
+
+
