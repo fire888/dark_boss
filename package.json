@@ -31,18 +31,13 @@
     
     "start04": "set FOLDER=chapter04 && react-app-rewired start",
     "build04": "set FOLDER=chapter04 && react-app-rewired build",
-<<<<<<< HEAD
+
+    "start05": "set FOLDER=chapter05 && react-app-rewired start",
+    "build05": "set FOLDER=chapter05 && react-app-rewired build",
 
     "startContinued": "set FOLDER=chapterContinued && react-app-rewired start",
     "buildContinued": "set FOLDER=chapterContinued && react-app-rewired build",
-=======
-    
-    "start05": "set FOLDER=chapter05 && react-app-rewired start",
-    "build05": "set FOLDER=chapter05 && react-app-rewired build",
-    
-    "startTemple": "set FOLDER=chapterTemple && react-app-rewired start",
-    "buildTemple": "set FOLDER=chapterTemple && react-app-rewired build",
->>>>>>> 03eacd08bebbcc7e87e3f3d603f11513ab52429b
+
 
     "test": "react-scripts test",
     "eject": "react-scripts eject"
