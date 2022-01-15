@@ -110,4 +110,22 @@ button.dialog-button-toggle {
 }
 
 
+.final-mess {
+    text-align: center;
+    background: none;
+    padding: 5px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+
+
+.final-mess button {
+    font-size: 19px;
+    padding: 0 10px;
+    width: 35vw;
+}
+
+
 

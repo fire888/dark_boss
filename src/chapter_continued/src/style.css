@@ -1,0 +1,35 @@
+.app-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #889ea0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.container > * {
+    margin: 10px;
+}
+
+ul {
+    list-style-type: none;
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+ul > * {
+    margin: 2px;
+}
+
+hr {
+    border: solid #889ea0 1px;
+}
+
+a {
+    color: #889ea0;
+}

@@ -107,19 +107,6 @@ button.butt-toggleDialog {
 
 
 
-.final-message {
-    text-align: center;
-    background: none;
-}
-
-
-
-.final-message p {
-    font-size: 3rem;
-}
-
-
-
 .butt-infoClose {
     position: absolute;
     right: 3px;
