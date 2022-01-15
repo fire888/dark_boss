@@ -13,7 +13,7 @@ import { Helper_MaterialsLib } from '../../../_CORE/helpers/helper_MaterialsLib'
 
 
 import { Level } from '../systems/system_level'
-import levelRoomsSrc from '../../../assets/chapter04/level02.obj'
+import levelRoomsSrc from '../../../assets/chapter05/level.obj'
 import mapFloorOuter from '../../../assets/chapter04/floor_outer_map3.jpg'
 import mapFloorOuter2 from '../../../assets/chapter04/floor_outer_map2.jpg'
 import mapTop from '../../../assets/floor_outer_map.jpg'
@@ -35,9 +35,11 @@ import nz2jpg from '../../../assets/sky2/nz.jpg'
 import { system_PlayerMoveOnLevel } from '../systems/system_PlayerMoveOnLevel' 
 
 
-import { system_Monsters } from '../systems/system_Monsters'
-import botSrc from '../../../assets/chapter04/botWalk.gltf'
-import monsterSkinSrc from '../../../assets/chapter04/skin.jpg'
+//import { system_Monsters } from '../systems/system_Monsters'
+//import botSrc from '../../../assets/chapter04/botWalk.gltf'
+//import monsterSkinSrc from '../../../assets/chapter04/skin.jpg'
+
+import { system_Columns } from '../systems/system_Columns'
 
 import { system_PrepareDialogs } from '../systems/system_PrepareDialogs'
 import { StarterPlay } from '../actions/StarterPlay'
@@ -122,14 +124,19 @@ export const GAME_MODULES = [
         initStateKey: 'beforeStartPlay',
     },
     {
-        key: 'system_Monsters',
-        constr: system_Monsters,
+        key: 'system_Columns',
+        constr: system_Columns,
         initStateKey: 'beforeStartPlay',
-        assetsToLoad: [
-            { type: 'glb', path: botSrc, key: 'bot' },
-            { type: 'img', path: monsterSkinSrc, key: 'skin', wrap: true },
-        ]
     },
+    // {
+    //     key: 'system_Monsters',
+    //     constr: system_Monsters,
+    //     initStateKey: 'beforeStartPlay',
+    //     assetsToLoad: [
+    //         { type: 'glb', path: botSrc, key: 'bot' },
+    //         { type: 'img', path: monsterSkinSrc, key: 'skin', wrap: true },
+    //     ]
+    // },
     {
         key: 'system_PrepareDialogs',
         constr: system_PrepareDialogs,

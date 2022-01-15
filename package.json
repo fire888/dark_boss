@@ -22,15 +22,27 @@
   "scripts": {
     "start01": "set FOLDER=chapter01 && react-app-rewired start",
     "build01": "set FOLDER=chapter01 && react-app-rewired build",
+
     "start02": "set FOLDER=chapter02 && react-app-rewired start",
     "build02": "set FOLDER=chapter02 && react-app-rewired build",
+    
     "start03": "set FOLDER=chapter03 && react-app-rewired start",
     "build03": "set FOLDER=chapter03 && react-app-rewired build",
+    
     "start04": "set FOLDER=chapter04 && react-app-rewired start",
     "build04": "set FOLDER=chapter04 && react-app-rewired build",
+<<<<<<< HEAD
 
     "startContinued": "set FOLDER=chapterContinued && react-app-rewired start",
     "buildContinued": "set FOLDER=chapterContinued && react-app-rewired build",
+=======
+    
+    "start05": "set FOLDER=chapter05 && react-app-rewired start",
+    "build05": "set FOLDER=chapter05 && react-app-rewired build",
+    
+    "startTemple": "set FOLDER=chapterTemple && react-app-rewired start",
+    "buildTemple": "set FOLDER=chapterTemple && react-app-rewired build",
+>>>>>>> 03eacd08bebbcc7e87e3f3d603f11513ab52429b
 
     "test": "react-scripts test",
     "eject": "react-scripts eject"
