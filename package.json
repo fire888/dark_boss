@@ -28,9 +28,9 @@
     "build03": "set FOLDER=chapter03 && react-app-rewired build",
     "start04": "set FOLDER=chapter04 && react-app-rewired start",
     "build04": "set FOLDER=chapter04 && react-app-rewired build",
-    
-    "startTemple": "set FOLDER=chapterTemple && react-app-rewired start",
-    "buildTemple": "set FOLDER=chapterTemple && react-app-rewired build",
+
+    "startContinued": "set FOLDER=chapterContinued && react-app-rewired start",
+    "buildContinued": "set FOLDER=chapterContinued && react-app-rewired build",
 
     "test": "react-scripts test",
     "eject": "react-scripts eject"
