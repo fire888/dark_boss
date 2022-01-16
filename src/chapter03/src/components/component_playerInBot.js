@@ -1,16 +1,20 @@
 import * as THREE from 'three'
+import { CompressedTextureLoader } from 'three';
 import { SystemCheckerNearItem } from "../../../_CORE/systems/SystemCheckerNearItem";
 
 
 const MAX_DIALOG_DIST_TO_BOT = 30
+const MIN_DIST_TO_BOT = 12
 
 
 export class Component_PlayerInBot {
     constructor(root) {
+        console.log('!!!')
         const {
             bots,
             emitter,
             dispatcher,
+            player,
         } = root
 
 
@@ -21,6 +25,42 @@ export class Component_PlayerInBot {
 
 
         const botWorldPos = new THREE.Vector3()
+
+
+        const isPlayerCanMove = {
+            'up': true,
+            'down': false,
+        }
+        let blockBot = null
+
+
+
+        const togglePlayerMove = (data, distance, indexBot) => {
+            if (
+                data.dir === 'up' && 
+                isPlayerCanMove['up'] &&
+                blockBot === null && 
+                distance < MIN_DIST_TO_BOT
+            ) {
+                bots.arrBots[indexBot].prepareToSay(data.pos)
+                blockBot = indexBot 
+                isPlayerCanMove['up'] = false
+                player.toggleCanMove('up', false)
+            }
+
+
+            if (
+                !isPlayerCanMove['up'] &&
+                blockBot === indexBot && 
+                distance > MIN_DIST_TO_BOT
+            ) {
+                blockBot = null
+                isPlayerCanMove['up'] = true
+                player.toggleCanMove('up', true)
+            }
+        }
+
+
 
 
         emitter.subscribe('playerMove')(data => {
@@ -48,6 +88,8 @@ export class Component_PlayerInBot {
                         isButtonDialog: true,
                     })
                 }
+
+                togglePlayerMove(data, distance, i)
             }
         })
     }

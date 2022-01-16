@@ -470,6 +470,8 @@ export const createCustomStore = root => {
 
         if (action.type === 'TOGGLE_DIALOG') {
 
+            root.player.toggleBlocked(action.isShowPalleteDialog)
+
             let isNewBot = false
             const { oldDialogPlayerQuadrant, newQuadrant } = state.playerQuadrant
             if (
