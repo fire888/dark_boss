@@ -9,7 +9,6 @@ const MIN_DIST_TO_BOT = 12
 
 export class Component_PlayerInBot {
     constructor(root) {
-        console.log('!!!')
         const {
             bots,
             emitter,

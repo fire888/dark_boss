@@ -69,8 +69,6 @@ export class Level {
     }
 
     changeQuadrant (data) {
-        console.log(data)
-
         const {
             systemCollisionFloor,
             systemCollisionItems,

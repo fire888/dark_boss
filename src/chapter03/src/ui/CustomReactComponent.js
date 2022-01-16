@@ -37,16 +37,20 @@ function CustomReactComponent(props) {
                             {props.isShowPalleteDialog ? t('close dialog') : t('open dialog') }
                         </button>}
                     </div>
-                </div>)}
-
+                </div>
+            )}
 
 
             {props.isShowFinalMessage && (
-                <div className="info">
-                    <div className="info-inner final-message">
-                        <p>{t('Level completed')}</p>
-                    </div>
-                </div>)}
+                <div className='final-mess'>
+                        <button
+                            onClick={() => {
+                                window.location.replace('./../chapter04')
+                            }}>
+                            {t('Continue')}
+                        </button>
+                </div>
+            )}
         </>
     )
 }

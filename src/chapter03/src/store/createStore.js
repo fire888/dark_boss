@@ -24,7 +24,8 @@ const DIALOGS_DATA = [
              levelEvent: null,
          },
      ]
-}, {
+}, 
+{
      phrases: [
          {
              q: 'Say, where do these corridors lead ?',
@@ -38,7 +39,8 @@ const DIALOGS_DATA = [
              levelEvent: null,
          },
      ]
-}, {
+}, 
+{
      phrases: [
          {
              q: 'What do you do here ?',
@@ -53,7 +55,8 @@ const DIALOGS_DATA = [
              levelEvent: null,
          },
      ]
-}, {
+}, 
+{
      phrases: [
          {
              q: 'Hey, it looks like I\'m walking in circles.',
@@ -83,7 +86,8 @@ const DIALOGS_DATA = [
              levelEvent: null,
          },
      ]
-}, {
+},
+{
          phrases: [
              {
                  q: 'Soooo, is that you again ?',
@@ -97,7 +101,8 @@ const DIALOGS_DATA = [
                  levelEvent: null,
              },
          ]
-}, {
+}, 
+{
          phrases: [
              {
                  q: 'Am I there yet?',
@@ -111,7 +116,8 @@ const DIALOGS_DATA = [
                  levelEvent: null,
              },
          ]
- }, {
+ }, 
+ {
          phrases: [
              {
                  q: 'That\'s the same exact corridor with you again.',
@@ -137,7 +143,8 @@ const DIALOGS_DATA = [
                  levelEvent: null,
              },
          ]
-}, {
+}, 
+{
           phrases: [
              {
                  q: 'So how\'s your way btw ?',
@@ -356,6 +363,7 @@ export const uiState = {
     isShowPalleteDialog: false,
 
     botIndex: -1,
+    //botIndex: 15,
     phraseIndex: 0,
     phrasesData: DIALOGS_DATA,
 }

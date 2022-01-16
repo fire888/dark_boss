@@ -64,12 +64,16 @@ export class Studio {
         /** toggle view camera to debug by orbitControls */
         const vec3 = new THREE.Vector3()
         let isPlayerView = true 
+        let saveFogData = null
         emitter.subscribe('keyEvent')(data => {
             if (!data['o']) {
                 return;
             }
 
             if (isPlayerView) {
+                saveFogData = { ...this._scene.fog }
+                this._scene.fog.near = 1000
+                this._scene.fog.far = 2000
                 isPlayerView = false
                 this._renderPass.camera = this._controlsCamera
                 this._playerCamera.getWorldPosition(vec3)
@@ -79,6 +83,8 @@ export class Studio {
                 controls.target.set(vec3.x, vec3.y, vec3.z)
                 controls.update()
             } else {
+                this._scene.fog.near = saveFogData.near
+                this._scene.fog.far = saveFogData.far
                 isPlayerView = true 
                 this._renderPass.camera = this._playerCamera
             }

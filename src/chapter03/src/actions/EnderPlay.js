@@ -31,7 +31,12 @@ export class EnderPlay {
             if (oldY > playerObj.position.y) {
                 ++countDropped
                 oldY = playerObj.position.y
-            } else {
+                //console.log('drop', countDropped, 'old', oldY, 'plY', playerObj.position.y)
+            } 
+            
+            if (oldY < playerObj.position.y) {
+                //console.log('reset', countDropped, 'old', oldY, 'plY', playerObj.position.y)
+                oldY = playerObj.position.y
                 countDropped = 0
             }
             
