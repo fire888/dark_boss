@@ -20,9 +20,5 @@ export class AdderActions {
 
         dispatcher.dispatch({ type: 'CHANGE_INFO_CHAPTER', currentChapterIndex: CURRENT_CHAPTER })
         ui.showStartButton(() => player.toggleBlocked(false))
-
-        // emitter.subscribe('nearTerminal')(({ isNearTerminal, terminalKey }) => {
-        //     dispatcher.dispatch({ type: 'BUTTON_DIALOG_TOGGLE', isButtonDialog: isNearBot, currentBotKey: terminalKey })
-        // })
     }
 }
