@@ -86,9 +86,14 @@ export class Player {
                 if (!isBlockedByItem) {
                     this._mainObj.position.y += speedDown
                 } else {
+                    // if (offset < (offsetFromFloor - offsetFromFloorFactor))  {
+                    //     this._mainObj.position.y = point.y + offsetFromFloor
+                    // }
                     if (offset < (offsetFromFloor - offsetFromFloorFactor))  {
-                        this._mainObj.position.y = point.y + offsetFromFloor
-                    }                        
+                        console.log('offset', offset, 'offsetfromfloor', offsetFromFloor )
+                        //this._mainObj.position.y = point.y + offsetFromFloor - .05
+                        this._mainObj.translateY(offsetFromFloor - offset - .05)
+                    }
                 }
             }
 

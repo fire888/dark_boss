@@ -38,7 +38,8 @@ export const studioConfig = {
 }
 
 
-const speedDown = -0.45
+//const speedDown = -0.45
+const speedDown = -0.65
 export const playerConfig = {
     //speed: 0.35,
     speed: 0.8,
@@ -50,10 +51,10 @@ export const playerConfig = {
     offsetWallCollision: 3.5,
     level: -13,
     startRot: [0, 0, 0],
-    startPos: [0, 0, 190],
-        // positions on platforms for debugging
+    //startPos: [0, 0, 190],
+        //positions on platforms for debugging
     //startPos: [-5.614908553125407, -50.81650161743164, -54.48311129133365],
-    //startPos: [2.354103517969214, 6.5, -107.29721568841998],
+    startPos: [2.354103517969214, 6.5, -107.29721568841998],
     //startPos: [-24.948354188041503, 72.5, 93.69116998603509 ],
     //startPos: [18.357669772732198, 72.5, -104.50015863788533],
     //startPos: [110.99286970990862, 123.5, 19.3252595736 ],
