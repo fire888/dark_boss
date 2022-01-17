@@ -32,28 +32,28 @@ export class SystemLevel {
 
 
         assets['level-rooms'].traverse(child => {
-            child.name === "wall_collision" 
-                && systemCollisionItems
-                    && systemCollisionItems.setItemToCollision({
-                            mesh: new THREE.Mesh(child.geometry, materials.easyMaterial),
-                            dist: 5,
-                            isStopUnits: true
-                        })
-            child.name === "room_"
-                && systemCollisionFloor     
-                    && systemCollisionFloor.setItemToCollision({ 
-                        mesh: new THREE.Mesh(child.geometry, materials.easyMaterial), 
-                        dist: offsetFromFloor,
-                        isStopUnits: true,
-                    })
+            if (child.name === "room_") {
+                systemCollisionItems.setItemToCollision({
+                    mesh: new THREE.Mesh(child.geometry, materials.easyMaterial),
+                    dist: 5,
+                    isStopUnits: true
+                })
+
+                systemCollisionFloor.setItemToCollision({
+                    mesh: new THREE.Mesh(child.geometry, materials.easyMaterial),
+                    dist: offsetFromFloor,
+                    isStopUnits: true,
+                })
+            }
+
+
 
             if (child.name.includes("topworld_")) {
-                systemCollisionFloor     
-                    && systemCollisionFloor.setItemToCollision({ 
-                        mesh: new THREE.Mesh(child.geometry, materials.easyMaterial), 
-                        dist: offsetFromFloor,
-                        isStopUnits: true,
-                    })
+                systemCollisionFloor.setItemToCollision({
+                    mesh: new THREE.Mesh(child.geometry, materials.easyMaterial),
+                    dist: offsetFromFloor,
+                    isStopUnits: true,
+                })
             }        
         })
     }
