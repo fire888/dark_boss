@@ -23,7 +23,7 @@ const mapStateToProps = state => {
 function CustomReactComponent(props) {
     return (
       <>
-        {(props.isButtonDialog || props.isShowPalleteDialog) && <div className="dialog-wrapper">
+        {(!props.isShowFinalMessage) && (props.isButtonDialog || props.isShowPalleteDialog) && <div className="dialog-wrapper">
             <div className="dialog-content">           
               {props.isShowPalleteDialog && <DialogPallete />}
               {(props.isButtonDialog || props.isShowPalleteDialog) && 

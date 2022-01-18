@@ -100,7 +100,8 @@ export const createCustomStore = root => {
                         setTimeout(() => {
                             root.player.toggleBlocked(true)
                             root.studio.changeEnvironment(END_ENV, { updateAmb: false, time: 1500 }) 
-                            root.dispatcher.dispatch({ type: 'SHOW_FINAL_MESSAGE' })                                        
+
+                            setTimeout(() => { root.dispatcher.dispatch({ type: 'SHOW_FINAL_MESSAGE' }) }, 3000)                                     
                         }, 5000)
                         return {
                             ...store,
@@ -126,6 +127,8 @@ export const createCustomStore = root => {
         if (action.type === 'SHOW_FINAL_MESSAGE') {
             return ({
                 ...store,
+                isButtonDialog: false,
+                isShowPalleteDialog: false,
                 isShowFinalMessage: true,
             })
         }
