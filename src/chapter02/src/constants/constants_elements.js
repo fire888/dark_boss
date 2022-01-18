@@ -38,7 +38,7 @@ export const studioConfig = {
 }
 
 
-//const speedDown = -0.45
+// const speedDown = -0.45
 const speedDown = -0.65
 export const playerConfig = {
     //speed: 0.35,
@@ -47,12 +47,12 @@ export const playerConfig = {
     speedDown,
     //offsetFromFloor: 5.0,
     offsetFromFloor: 7.0,
-    offsetFromFloorFactor: speedDown * (-1) + .1,
+    offsetFromFloorFactor: 1,//speedDown * (-1) + .1,
     offsetWallCollision: 3.5,
     level: -13,
     startRot: [0, 0, 0],
     //startPos: [0, 0, 190],
-        //positions on platforms for debugging
+    //positions on platforms for debugging
     //startPos: [-5.614908553125407, -50.81650161743164, -54.48311129133365],
     startPos: [2.354103517969214, 6.5, -107.29721568841998],
     //startPos: [-24.948354188041503, 72.5, 93.69116998603509 ],
@@ -102,17 +102,21 @@ export const TERMINALS_CONFIG = [
 export const LAST_TERMINAL_CONFIG = { terminalKey: 'TERMINAL_LAST', r: 350, angle: PI + 0.5, y: 277 }
 
 
+
 export const BRIDGE_START_STATE =
-{time: 3000,count: 34,twist: 3.141592653589793,strengthTwist: 1,radius: 0,height: 0,rotate: 3.05840734641021,width: 0,floor: 0,x: 0,y: 0,z: 58,}
+//{time: 3000,count: 34,twist: 3.141592653589793,strengthTwist: 1,radius: 0,height: 0,rotate: 3.05840734641021,width: 0,floor: 0,x: 0,y: 0,z: 58,}
 // states bridge for debugging
 //{time: '3000', count: 60,twist: 11.6840734641021,strengthTwist: 1,radius: 10,height: 78,rotate: 0.858407346410207,width: 0,floor: 0,x: 0,y: -15,z: 0,}
 //{time: '3000', count: 100, twist: 1.53407346410207, strengthTwist: 0, radius: 100, height: 2, rotate: 0, width: 10, floor: 17, x: 0, y: 0, z: 0,}
-//{time: 1000, count: 100, twist: 0,strengthTwist: 0,radius: 85,height: -73,rotate: PI * 2 + 0.25,width: 12,floor: 30,x: 0,y: 67,z: 0,}
+{time: 1000, count: 100, twist: 0,strengthTwist: 0,radius: 85,height: -73,rotate: PI * 2 + 0.25,width: 12,floor: 30,x: 0,y: 67,z: 0,}
 //{time: 3000, count: 100, twist: -2.81592653589793, strengthTwist: 1, radius: 96, height: 0, rotate: -0.341592653589793, width: 8, floor: 18, x: 0, y: 65, z: 0, }
 //{ time: 3000,count: 100, twist: 13.7340734641021, strengthTwist: 0.351, radius: 126, height: 52, rotate: -2.84159265358979, width: 10, floor: 17, x: 42, y: 69, z: 0, }
 //{ time: 3000,count: 100, twist: -7.21592653589793, strengthTwist: 1, radius: 114, height: 40, rotate: 1.25840734641021, width: 10, floor: 17, x: 0, y: 113, z: 0, }
 //{ time: 1500,count: 192, twist: -18.3159265358979, strengthTwist: 1, radius: 40, height: 98, rotate: 0, width: 9, floor: 16.2, x: 8, y: 146, z: 73, }
 //{ time: 1000,count: 100, twist: 3.14, strengthTwist: 0.424, radius: 200, height: 40, rotate: 0.6584, width: 7, floor: 90, x: -75, y: 240, z: -10, }
+
+
+
 
 export const PROGRAMS = {
     'PROGRAM_NONE': [
@@ -185,3 +189,4 @@ export const PROGRAMS = {
         {time: 1500, count: 200, twist: -30, strengthTwist: 1,radius: -40,height: 190,rotate: -50,width: 0,floor: 0,x: -20,y: 249,z: -192,},
     ],
 }
+
