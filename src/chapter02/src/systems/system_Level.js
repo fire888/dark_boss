@@ -27,6 +27,7 @@ export class SystemLevel {
 
             if (child.name.includes("topworld_")) {
                 this._topLevel = new THREE.Mesh(child.geometry, materials.wall)
+                //studio.addToScene(new THREE.Mesh(child.geometry, materials.wall)) // todo remove
             }
         })
 

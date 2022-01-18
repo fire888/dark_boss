@@ -1,5 +1,7 @@
 import { CURRENT_CHAPTER } from '../constants/constants_elements'
 
+
+
 export const toggleOpenDialog = (dispatch, isToOpen) => {
     const time = isToOpen ? 1300 : 0
     dispatch({
@@ -14,6 +16,9 @@ export const toggleOpenDialog = (dispatch, isToOpen) => {
     }, time)
 }
 
+
+
+
 export class AdderActions {
     constructor (_root) {
         const { player, ui, dispatcher, emitter } = _root
@@ -22,3 +27,4 @@ export class AdderActions {
         ui.showStartButton(() => player.toggleBlocked(false))
     }
 }
+
