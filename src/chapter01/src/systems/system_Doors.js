@@ -22,6 +22,7 @@ export class SystemDoors {
                 this._doors[key]['mesh'] = new THREE.Mesh(child.geometry, materials.door)
                 this._doors[key]['state'] = 'closed'
                 this._doors[key]['access'] = 'denied' //'confirm' // ||'denied' || 'confirm'
+                //this._doors[key]['access'] = 'confirm'
                 this._doors[key]['mesh']['userData'] = {
                     part: 'mesh',
                     type: 'door',

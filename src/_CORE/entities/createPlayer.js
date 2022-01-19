@@ -123,6 +123,10 @@ export class Player {
                 this._mainObj.translateZ(speed * data.count)
                 emitter.emit('playerMove')({ pos: this._mainObj.position, dir: 'down' })
             }
+
+            if (keys['p']) {
+                console.log(this._mainObj.position)
+            }
         }
 
 

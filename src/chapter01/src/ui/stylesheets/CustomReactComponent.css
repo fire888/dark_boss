@@ -63,5 +63,35 @@
     font-size: 18px;
     height: 40px;
     margin: .2rem;
-} 
+}
+
+
+.final-mess {
+    font-size: 19px;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 25vh;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.753);
+}
+
+
+.final-mess {
+    text-align: center;
+    background: none;
+    padding: 5px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+
+
+.final-mess button {
+    font-size: 19px;
+    padding: 0 10px;
+    width: 35vw;
+}
 

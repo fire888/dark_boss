@@ -54,6 +54,7 @@ export const MATERIALS_CONFIG = {
 }
 
 
+export const END_ENV = { fogNear: -10, fogFar: 0, color: 0x0e2535, backgroundImgKey: null }
 export const studioConfig = {
     canId: 'webgl-canvas',
     rendererCon: {
@@ -83,8 +84,8 @@ export const playerConfig = {
     offsetWallCollision: 3.5,
     level: -13,
     startRot: [0, 0, 0],
+    //startPos: [-42.580326256838035, 22.917001342773393, 143.03375162223674 ],
     startPos: [48, 28, 10],
-    //startPos: [-200, 28, 10],
     cameraData: {
         fov: 90,
         ratio: window.innerWidth / window.innerHeight,

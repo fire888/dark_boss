@@ -1,4 +1,4 @@
-
+import { END_ENV } from '../constants/constants_elements'
 
 const storeStartState = {
     replicies: {
@@ -164,6 +164,7 @@ const storeStartState = {
     isCloseisButtonDialog: false,
     isButtonDialog: false,
     isShowPalleteDialog: false,
+    isShowFinalMessage: false,
     currentBotKey: null,
     currentLanguage: 'en',
 } 
@@ -197,6 +198,17 @@ export const createCustomStore = root => {
             /** emit event */
             if (replicies[action.currentBotKey].messages[action.phraseIndex].event) {
                 const { type, data } = replicies[action.currentBotKey].messages[action.phraseIndex].event
+                console.log(type, data)
+
+                if (type === 'blockDoor' && data.idDoor && data.idDoor.length && data.idDoor[0] ===  "toWorld") {
+                    setTimeout(() => {
+                        root.player.toggleBlocked(true)
+                        root.studio.changeEnvironment(END_ENV, { updateAmb: false, time: 1500 }) 
+
+                        setTimeout(() => root.dispatcher.dispatch({ type: 'SHOW_FINAL_MESSAGE' }), 3000)
+                    }, 20000)
+                }    
+
                 root.emitter.emit(type)(data) 
             }
 
@@ -212,6 +224,15 @@ export const createCustomStore = root => {
                 isCloseisButtonDialog: isBotDone,
             })
         }
+
+
+        if (action.type === 'SHOW_FINAL_MESSAGE') {
+            return ({
+                ...store,
+                isShowFinalMessage: true,
+            })
+        }
+
 
         return store
     }
