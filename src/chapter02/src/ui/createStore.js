@@ -108,8 +108,6 @@ export const createCustomStore = root => {
                             currentPhraseIndex: 0,
                         }
                     }
-
-
                 }
 
                 return {
