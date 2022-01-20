@@ -1,72 +1,72 @@
-import * as THREE from 'three'
+// import * as THREE from 'three'
 
 
 
-export class system_PrepareDialogs {
-    constructor (root) {
+// export class system_PrepareDialogs {
+//     constructor (root) {
 
-        const {
-            emitter,
-            player,
-            system_Monsters,
-            dispatcher,
-        } = root
+//         const {
+//             emitter,
+//             player,
+//             system_Monsters,
+//             dispatcher,
+//         } = root
 
-        // const bot = system_Monsters.getBot()
+//         // const bot = system_Monsters.getBot()
 
-        // let isBlocked = {
-        //     'forward': false,
-        //     'back': false,
-        // }
+//         // let isBlocked = {
+//         //     'forward': false,
+//         //     'back': false,
+//         // }
 
-        // const vecFront = new THREE.Vector3()
-
-
-        // let isButtonDialog = false
+//         // const vecFront = new THREE.Vector3()
 
 
-        // emitter.subscribe('playerMove')(dir => {
-        //     player.frontObj.getWorldPosition(vecFront)
+//         // let isButtonDialog = false
 
-        //     if (vecFront.distanceTo(bot.position) > 50) {
-        //         if (isButtonDialog) {
-        //             isButtonDialog = false
-        //             dispatcher.dispatch({ type: 'TOGGLE_BUTTON', isButtonDialog: false })
-        //             system_Monsters.stopDialog()
-        //         }
-        //         return;
-        //     } else {
-        //         if (!isButtonDialog) {
-        //             isButtonDialog = true
-        //             dispatcher.dispatch({ type: 'TOGGLE_BUTTON', isButtonDialog: true, currentBot: system_Monsters.getCurrentArea() })
-        //             system_Monsters.startDialog(player.mesh.position)
-        //         }
-        //     }
 
-        //     if (dir === 'forward') {
+//         // emitter.subscribe('playerMove')(dir => {
+//         //     player.frontObj.getWorldPosition(vecFront)
 
-        //         if (vecFront.distanceTo(bot.position) < 20 && !isBlocked[dir]) {
-        //             isBlocked[dir] = true
-        //             player.toggleCanMove(dir, false)
-        //             system_Monsters.startDialog(player.mesh.position)
-        //         }
-        //     }
+//         //     if (vecFront.distanceTo(bot.position) > 50) {
+//         //         if (isButtonDialog) {
+//         //             isButtonDialog = false
+//         //             dispatcher.dispatch({ type: 'TOGGLE_BUTTON', isButtonDialog: false })
+//         //             system_Monsters.stopDialog()
+//         //         }
+//         //         return;
+//         //     } else {
+//         //         if (!isButtonDialog) {
+//         //             isButtonDialog = true
+//         //             dispatcher.dispatch({ type: 'TOGGLE_BUTTON', isButtonDialog: true, currentBot: system_Monsters.getCurrentArea() })
+//         //             system_Monsters.startDialog(player.mesh.position)
+//         //         }
+//         //     }
 
-        //     if (isBlocked['forward']) {
-        //         isBlocked['back'] = false
-        //         player.toggleCanMove('back', true)
-        //     }
-        // })
+//         //     if (dir === 'forward') {
 
-        // emitter.subscribe('frameUpdate')(() => {
-        //     if (player.mesh.position.distanceTo(bot.position) > 30 && (isBlocked['forward'] || isBlocked['back'])) {
-        //         isBlocked['forward'] = false
-        //         isBlocked['back'] = false
-        //         player.toggleCanMove('forward', true)
-        //         player.toggleCanMove('back', true)
-        //         system_Monsters.stopDialog()
-        //     }
-        // })
+//         //         if (vecFront.distanceTo(bot.position) < 20 && !isBlocked[dir]) {
+//         //             isBlocked[dir] = true
+//         //             player.toggleCanMove(dir, false)
+//         //             system_Monsters.startDialog(player.mesh.position)
+//         //         }
+//         //     }
 
-    }
-}
+//         //     if (isBlocked['forward']) {
+//         //         isBlocked['back'] = false
+//         //         player.toggleCanMove('back', true)
+//         //     }
+//         // })
+
+//         // emitter.subscribe('frameUpdate')(() => {
+//         //     if (player.mesh.position.distanceTo(bot.position) > 30 && (isBlocked['forward'] || isBlocked['back'])) {
+//         //         isBlocked['forward'] = false
+//         //         isBlocked['back'] = false
+//         //         player.toggleCanMove('forward', true)
+//         //         player.toggleCanMove('back', true)
+//         //         system_Monsters.stopDialog()
+//         //     }
+//         // })
+
+//     }
+// }

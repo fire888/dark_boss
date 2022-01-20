@@ -41,12 +41,12 @@ import { system_PlayerMoveOnLevel } from '../systems/system_PlayerMoveOnLevel'
 
 import { system_Columns } from '../systems/system_Columns'
 
-import { system_PrepareDialogs } from '../systems/system_PrepareDialogs'
+//import { system_PrepareDialogs } from '../systems/system_PrepareDialogs'
 import { StarterPlay } from '../actions/StarterPlay'
 import { Ui } from "../ui/Ui";
 
-import { system_Sound } from '../systems/system_Sound'
-import soundAmbientSrc from '../../../assets/sound/ambient.mp3'
+//import { system_Sound } from '../systems/system_Sound'
+//import soundAmbientSrc from '../../../assets/sound/ambient.mp3'
 
 
 
@@ -57,11 +57,6 @@ export const GAME_MODULES = [
         constr: EventEmitter,
         initStateKey: 'pageLoaded',
     },
-    // {
-    //     key: 'ui',
-    //     constr: UI,
-    //     initStateKey: 'pageLoaded',
-    // },
     {
         key: 'deviceResizer',
         constr: DeviceResizer,
@@ -137,19 +132,19 @@ export const GAME_MODULES = [
     //         { type: 'img', path: monsterSkinSrc, key: 'skin', wrap: true },
     //     ]
     // },
-    {
-        key: 'system_PrepareDialogs',
-        constr: system_PrepareDialogs,
-        initStateKey: 'beforeStartPlay',
-    },
-    {
-        key: 'system_Sound',
-        constr: system_Sound,
-        initStateKey: 'beforeStartPlay',
-        assetsToLoad: [
-            { type: 'soundMp3', path: soundAmbientSrc, key: 'soundAmbient' },
-        ]
-    },
+    // {
+    //     key: 'system_PrepareDialogs',
+    //     constr: system_PrepareDialogs,
+    //     initStateKey: 'beforeStartPlay',
+    // },
+    // {
+    //     key: 'system_Sound',
+    //     constr: system_Sound,
+    //     initStateKey: 'beforeStartPlay',
+    //     assetsToLoad: [
+    //         { type: 'soundMp3', path: soundAmbientSrc, key: 'soundAmbient' },
+    //     ]
+    // },
     {
         key: 'customUi',
         constr: Ui,

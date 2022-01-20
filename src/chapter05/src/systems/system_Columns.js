@@ -19,11 +19,13 @@ export class system_Columns {
 
         const box = new THREE.Mesh(
             createGeometry(),
-            //new THREE.BoxGeometry(20, 20, 20),
-            new THREE.MeshPhongMaterial({ color: 0xff0000 })
+            new THREE.MeshBasicMaterial({ color: 0xff0000 })
         )
         box.position.set(0, -40, -40)
         studio.addToScene(box)
+
+
+        root.emitter.subscribe('frameUpdate')(() => box.rotation.x += 0.01)
     }
 }
 

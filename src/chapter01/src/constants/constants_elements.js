@@ -58,7 +58,7 @@ export const END_ENV = { fogNear: -10, fogFar: 0, color: 0x0e2535, backgroundImg
 export const studioConfig = {
     canId: 'webgl-canvas',
     rendererCon: {
-        antialias: true
+        antialias: true,
     },
     amb: {
         color: 0xccccff,
@@ -76,7 +76,7 @@ export const studioConfig = {
 
 export const playerConfig = {
     //speed: 0.35,
-    speed: 0.8,
+    speed: 0.6,
     speedRot: 0.02,
     speedDown: -0.45,
     offsetFromFloor: 5.0,
