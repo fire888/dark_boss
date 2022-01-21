@@ -11,6 +11,16 @@ export const createGeometry = () => {
 
     const hH = 10
     const hL = 5
+
+
+
+    const topSQ = [
+        
+    ]
+
+
+
+
     arr.push(
         //topSq
         -hL, hH, hL,
