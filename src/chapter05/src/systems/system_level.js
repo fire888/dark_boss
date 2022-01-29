@@ -15,6 +15,8 @@ export class Level {
         root.assets.areas = areas
 
 
+        assets.car.position.set(0, -50, -100) 
+        studio.addToScene(assets.car)
         //this.allMeshes = allMeshes
     }
 }
