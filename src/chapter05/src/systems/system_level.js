@@ -5,19 +5,60 @@ import * as THREE from 'three'
 
 export class Level {
     constructor(root) {
+        this._root = root
+
         const { 
             studio, 
             assets, 
-            materials, 
+            materials,
+            CONSTANTS,
         } = root
+
+        console.log(CONSTANTS.CONFIG_FOR_INIT)
 
         const { allMeshes, areas } = createLevelMeshes(assets, materials)
         root.assets.areas = areas
 
+        console.log(areas)
 
-        assets.car.position.set(0, -50, -100) 
-        studio.addToScene(assets.car)
-        //this.allMeshes = allMeshes
+
+        console.log(areas)
+
+        if (CONSTANTS.CONFIG_FOR_INIT.currentSceneConfig) {
+            const { carProps, bodyProps, isInVirtual, isPlayerInCar, } = CONSTANTS.CONFIG_FOR_INIT.currentSceneConfig
+
+            if (!isInVirtual) {
+                setTimeout(() => {
+                    this._addToLevel(carProps)
+                    this._addToLevel(bodyProps)
+                },300)
+            }
+        }
+    }
+
+
+    _addToLevel (props) {
+        const { keyMesh, keyCollide, position, rotation } = props
+
+
+        if (!keyMesh || !this._root.assets[keyMesh]) {
+            return;
+        }
+
+
+        this._root.studio.addToScene(this._root.assets[keyMesh])
+        this._root.assets[keyMesh].position.fromArray(position)
+        this._root.assets[keyMesh].rotation.fromArray(rotation)
+
+
+        if (keyCollide && this._root.assets[keyCollide]) {
+            this._root.assets[keyCollide].visible = false
+            this._root.assets[keyCollide].position.fromArray(position)
+            this._root.assets[keyCollide].rotation.fromArray(rotation)
+
+            this._root.studio.addToScene(this._root.assets[keyCollide])
+            this._root.system_PlayerMoveOnLevel.addItemToPlayerCollision(this._root.assets[keyCollide].children[0])
+        }
     }
 }
 

@@ -32,6 +32,8 @@ import pz2jpg from '../../../assets/sky2/pz.jpg'
 import nz2jpg from '../../../assets/sky2/nz.jpg'
 
 import carSrc from '../../../assets/chapter05/car.obj'
+import carCollisionSrc from '../../../assets/chapter05/car_collision.obj'
+import bodySrc from '../../../assets/chapter05/body.obj'
 
 
 import { system_PlayerMoveOnLevel } from '../systems/system_PlayerMoveOnLevel' 
@@ -109,6 +111,8 @@ export const GAME_MODULES = [
         assetsToLoad: [
             { type: 'obj', path: levelRoomsSrc, key: 'level-rooms' },
             { type: 'obj', path: carSrc, key: 'car' },
+            { type: 'obj', path: carCollisionSrc, key: 'carCollision' },
+            { type: 'obj', path: bodySrc, key: 'body' },
             { type: 'cubeTextures', path: [ pxjpg, nxjpg, pyjpg, nyjpg, pzjpg, nzjpg, ], key: 'skyBox' },
             { type: 'cubeTextures', path: [ px2jpg, nx2jpg, py2jpg, ny2jpg, pz2jpg, nz2jpg, ], key: 'skyBox2' },
             { type: 'img', path: mapFloorOuter, key: 'mapFloorOuter', wrap: true },
@@ -121,11 +125,11 @@ export const GAME_MODULES = [
         constr: system_PlayerMoveOnLevel,
         initStateKey: 'beforeStartPlay',
     },
-    {
-        key: 'system_Columns',
-        constr: system_Columns,
-        initStateKey: 'beforeStartPlay',
-    },
+    // {
+    //     key: 'system_Columns',
+    //     constr: system_Columns,
+    //     initStateKey: 'beforeStartPlay',
+    // },
     // {
     //     key: 'system_Monsters',
     //     constr: system_Monsters,

@@ -5,6 +5,7 @@ import * as THREE from 'three'
 
 export class system_PlayerMoveOnLevel {
     constructor (root) {
+        console.log('!!!!!')
 
 
 
@@ -105,12 +106,12 @@ export class system_PlayerMoveOnLevel {
             const [isCollision, collision] = collisionsWalls.checkCollisions(player.mesh, player.bottomObj, OFFSET_FROM_PLANES_TO_DROP)
 
             /** update level new area */
-            if (isCollision) {
-                if (collision.object.userData.area !== currentArea) {
-                    currentArea = collision.object.userData.area
-                    updateLevel(currentArea)
-                }
-            }
+            // if (isCollision) {
+            //     if (collision.object.userData.area !== currentArea) {
+            //         currentArea = collision.object.userData.area
+            //         updateLevel(currentArea)
+            //     }
+            // }
 
 
             /** move player to top if on stairs */
@@ -192,6 +193,14 @@ export class system_PlayerMoveOnLevel {
 
         emitter.subscribe('keyEvent')(data => keys = data)
         emitter.subscribe('frameUpdate')(update)
+
+
+        this._collisionsWalls = collisionsWalls
+    }
+
+
+    addItemToPlayerCollision (item) {
+        this._collisionsWalls.setItemToCollision(item)
     }
 } 
 
@@ -229,10 +238,10 @@ const changerAreaLevel = (areas, studio, collisionsWalls, emitter) => {
 
         for (let i = 0; i < areas[ind].length; ++i) {
             const mesh = areas[ind][i]
-            if (action === 'remove') studio.removeFromScene(mesh) 
-            if (action === 'add') studio.addToScene(mesh) 
-        } 
-    } 
+            if (action === 'remove') studio.removeFromScene(mesh)
+            if (action === 'add') studio.addToScene(mesh)
+        }
+    }
 
     const changeCollisionLevel = (ind, action) => {
         if (!areas[ind]) return;
@@ -241,8 +250,8 @@ const changerAreaLevel = (areas, studio, collisionsWalls, emitter) => {
             const mesh = areas[ind][i]
             if (action === 'remove') collisionsWalls.removeItemFromCollision(mesh)
             if (action === 'add') collisionsWalls.setItemToCollision(mesh)
-        } 
-    } 
+        }
+    }
 
 
     const updateLevel = index => {

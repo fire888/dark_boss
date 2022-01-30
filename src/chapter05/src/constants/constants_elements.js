@@ -1,3 +1,23 @@
+export const CONFIG_FOR_INIT = {
+    isInCar: false,
+    currentSceneConfig: {
+        isInVirtual: false,
+        isPlayerInCar: false,
+        carProps: {
+            keyMesh: 'car',
+            keyCollide: 'carCollision',
+            position: [0, -50, -100],
+            rotation: [0, 2, 0],
+        },
+        bodyProps: {
+            keyMesh: 'body',
+            position: [-20, -60, -50],
+            rotation: [0, 2, 0],
+        },
+    },
+}
+
+
 
 
 export const MATERIALS_CONFIG = {
