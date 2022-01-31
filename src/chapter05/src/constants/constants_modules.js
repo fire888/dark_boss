@@ -33,6 +33,7 @@ import nz2jpg from '../../../assets/sky2/nz.jpg'
 
 import carSrc from '../../../assets/chapter05/car.obj'
 import carCollisionSrc from '../../../assets/chapter05/car_collision.obj'
+import carCollisionStartSrc from '../../../assets/chapter05/car_collision_start.obj'
 import bodySrc from '../../../assets/chapter05/body.obj'
 
 
@@ -112,6 +113,7 @@ export const GAME_MODULES = [
             { type: 'obj', path: levelRoomsSrc, key: 'level-rooms' },
             { type: 'obj', path: carSrc, key: 'car' },
             { type: 'obj', path: carCollisionSrc, key: 'carCollision' },
+            { type: 'obj', path: carCollisionStartSrc, key: 'carCollisionStart' },
             { type: 'obj', path: bodySrc, key: 'body' },
             { type: 'cubeTextures', path: [ pxjpg, nxjpg, pyjpg, nyjpg, pzjpg, nzjpg, ], key: 'skyBox' },
             { type: 'cubeTextures', path: [ px2jpg, nx2jpg, py2jpg, ny2jpg, pz2jpg, nz2jpg, ], key: 'skyBox2' },

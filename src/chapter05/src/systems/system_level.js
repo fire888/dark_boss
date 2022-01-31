@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import { Car } from '../Entities/Car'
 
 
 
@@ -19,37 +20,51 @@ export class Level {
         const { allMeshes, areas } = createLevelMeshes(assets, materials)
         root.assets.areas = areas
 
-        console.log(areas)
 
+        this._car = new Car(root)
 
-        console.log(areas)
 
         if (CONSTANTS.CONFIG_FOR_INIT.currentSceneConfig) {
-            const { carProps, bodyProps, isInVirtual, isPlayerInCar, } = CONSTANTS.CONFIG_FOR_INIT.currentSceneConfig
+            const { isInVirtual, isPlayerInCar, } = CONSTANTS.CONFIG_FOR_INIT.currentSceneConfig
 
             if (!isInVirtual) {
-                setTimeout(() => {
-                    this._addToLevel(carProps)
-                    this._addToLevel(bodyProps)
-                },300)
+                setTimeout(() => { this._createRealLevel()}, 300)
             }
         }
+    }
+
+
+    _createRealLevel () {
+        const { 
+            studio, 
+            assets, 
+            materials,
+            CONSTANTS,
+            system_PlayerMoveOnLevel
+        } = this._root
+
+        const { carProps, bodyProps, isInVirtual, isPlayerInCar, } = CONSTANTS.CONFIG_FOR_INIT.currentSceneConfig
+
+        studio.addToScene(this._car.getModel())
+        studio.addToScene(this._car.getCollision())
+        system_PlayerMoveOnLevel.addItemToPlayerCollision(this._car.getCollision())
+        studio.addToScene(this._car.getStart())
+        system_PlayerMoveOnLevel.addItemToPlayerCollision(this._car.getStart())
+
+        this._addToLevel(bodyProps)
     }
 
 
     _addToLevel (props) {
         const { keyMesh, keyCollide, position, rotation } = props
 
-
         if (!keyMesh || !this._root.assets[keyMesh]) {
             return;
         }
 
-
         this._root.studio.addToScene(this._root.assets[keyMesh])
         this._root.assets[keyMesh].position.fromArray(position)
         this._root.assets[keyMesh].rotation.fromArray(rotation)
-
 
         if (keyCollide && this._root.assets[keyCollide]) {
             this._root.assets[keyCollide].visible = false

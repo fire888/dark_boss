@@ -153,6 +153,10 @@ export class system_PlayerMoveOnLevel {
                     currentArea = collision.object.userData.area
                     updateLevel(currentArea)
                 }
+
+                if (collision.object.userData.type && collision.object.userData.type === 'alert') {
+                    console.log(collision.object.userData.event)
+                }
             }
 
             if (!isCollision) {
