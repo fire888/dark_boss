@@ -47,7 +47,8 @@ import { system_PlayerMoveOnLevel } from '../systems/system_PlayerMoveOnLevel'
 import { system_Columns } from '../systems/system_Columns'
 
 //import { system_PrepareDialogs } from '../systems/system_PrepareDialogs'
-import { StarterPlay } from '../actions/StarterPlay'
+
+import { system_ChangerGame } from '../systems/system_ChangerGame'
 import { Ui } from "../ui/Ui";
 
 //import { system_Sound } from '../systems/system_Sound'
@@ -106,7 +107,7 @@ export const GAME_MODULES = [
         initStateKey: 'beforeStartPlay',
     },
     {
-        key: 'level',
+        key: 'system_Level',
         constr: Level,
         initStateKey: 'beforeStartPlay',
         assetsToLoad: [
@@ -160,8 +161,8 @@ export const GAME_MODULES = [
         initStateKey: 'pageLoaded',
     },
     {
-        key: 'starterPlay',
-        constr: StarterPlay,
+        key: 'system_ChangerGame',
+        constr: system_ChangerGame,
         initStateKey: 'beforeStartPlay',
     },
 ]

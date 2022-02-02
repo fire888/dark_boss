@@ -20,21 +20,11 @@ export class Level {
         const { allMeshes, areas } = createLevelMeshes(assets, materials)
         root.assets.areas = areas
 
-
         this._car = new Car(root)
-
-
-        if (CONSTANTS.CONFIG_FOR_INIT.currentSceneConfig) {
-            const { isInVirtual, isPlayerInCar, } = CONSTANTS.CONFIG_FOR_INIT.currentSceneConfig
-
-            if (!isInVirtual) {
-                setTimeout(() => { this._createRealLevel()}, 300)
-            }
-        }
     }
 
 
-    _createRealLevel () {
+    prepareNormalLevel () {
         const { 
             studio, 
             assets, 

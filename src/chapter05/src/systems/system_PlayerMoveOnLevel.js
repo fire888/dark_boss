@@ -5,15 +5,12 @@ import * as THREE from 'three'
 
 export class system_PlayerMoveOnLevel {
     constructor (root) {
-        console.log('!!!!!')
-
 
 
         const { 
             emitter, 
             CONSTANTS,
             player,
-            level,
             assets,
             studio,
         } = root
@@ -22,17 +19,6 @@ export class system_PlayerMoveOnLevel {
 
         let currentArea = 0
         player.mesh.position.fromArray([0, -40, 0])
-
-        //let currentArea = 4
-        //player.mesh.position.fromArray([-531.9216580366183, 62.97990036010742, 198.1976467682245])
-
-        //let currentArea = 11
-        //player.mesh.position.fromArray([-574.1384065002559, 1379.6997473405822, 159.23052507760912])
-
-        //let currentArea = 18
-        //player.mesh.position.fromArray([-1656.0663386897618, 1906.31640625, 28.162585622834097])
-
-
 
 
 
@@ -105,15 +91,6 @@ export class system_PlayerMoveOnLevel {
         const checkBottomAndDropDownPlayer = data => {
             const [isCollision, collision] = collisionsWalls.checkCollisions(player.mesh, player.bottomObj, OFFSET_FROM_PLANES_TO_DROP)
 
-            /** update level new area */
-            // if (isCollision) {
-            //     if (collision.object.userData.area !== currentArea) {
-            //         currentArea = collision.object.userData.area
-            //         updateLevel(currentArea)
-            //     }
-            // }
-
-
             /** move player to top if on stairs */
             if (isCollision && OFFSET_FROM_PLANES > collision.distance) {
                 player.mesh.translateY(OFFSET_FROM_PLANES - collision.distance)
@@ -143,7 +120,6 @@ export class system_PlayerMoveOnLevel {
         }
 
 
-
         const checkAndMoveFront = data => {
             const [isCollision, collision] = collisionsWalls.checkCollisions(player.mesh, player.frontObj, OFFSET_FROM_PLANES)
 
@@ -155,7 +131,8 @@ export class system_PlayerMoveOnLevel {
                 }
 
                 if (collision.object.userData.type && collision.object.userData.type === 'alert') {
-                    console.log(collision.object.userData.event)
+                    emitter.emit('collision')(collision.object.userData.event)                        
+                    //console.log(collision.object.userData.event)
                 }
             }
 
