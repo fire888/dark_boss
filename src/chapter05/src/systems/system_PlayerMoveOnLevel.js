@@ -16,16 +16,11 @@ export class system_PlayerMoveOnLevel {
         } = root
 
 
-
-        let currentArea = 0
-        player.mesh.position.fromArray([0, -40, 0])
-
+        //player.mesh.position.fromArray([0, -40, 0])
+        player.mesh.position.fromArray([0, 0, 0])
 
 
         const collisionsWalls = new helper_CollisionsItems_v02()
-        const updateLevel = changerAreaLevel(assets.areas, studio, collisionsWalls, emitter)
-        updateLevel(currentArea)
-
 
         const {
             speed,
@@ -43,48 +38,14 @@ export class system_PlayerMoveOnLevel {
         player.toggleCanMove = (dir, val) => this.isCanMove[dir] = val
 
 
-        let isButtonsDisabled = false
+        this.isFreeze = false
         let keys = {}
-    
-        const quaternionOld = new THREE.Quaternion()
-        const quaternionNew = new THREE.Quaternion()
 
-        const UP_VECTOR = new THREE.Vector3(0, 1, 0)
         const OFFSET_FROM_PLANES = 17
         const OFFSET_FROM_PLANES_TO_DROP = 17.2
 
 
 
-        const rotatePlayerToTop = () => {
-            quaternionOld.copy(player.mesh.quaternion)
-            quaternionNew.setFromAxisAngle(UP_VECTOR, Math.random() * Math.PI * 2)
-
-            isBlocked = true
-            helper_rotate(player.mesh, quaternionOld, quaternionNew)
-                .then(() => {
-                    player.mesh.up.copy(UP_VECTOR)
-                    isBlocked = false
-                })
-        }
-
-
-
-        const rotatePlayerToCollisionTarget = collision => {
-            quaternionOld.copy(player.mesh.quaternion)
-            const la = new THREE.Vector3().addVectors(player.mesh.position, collision.face.normal)
-            player.mesh.lookAt(la)
-            player.mesh.up.copy(collision.face.normal)
-            player.mesh.rotateX(Math.PI / 2)
-            quaternionNew.copy(player.mesh.quaternion)
-
-            player.mesh.setRotationFromQuaternion(quaternionOld)
-
-            isBlocked = true
-            helper_rotate(player.mesh, quaternionOld, quaternionNew)
-                .then(() => {
-                    isBlocked = false
-                })
-        } 
 
 
 
@@ -102,21 +63,9 @@ export class system_PlayerMoveOnLevel {
             /** free down without intercepts */
             if (!isCollision) {
                 /** if player not up - rotated to up */
-                !player.mesh.up.equals(UP_VECTOR) && rotatePlayerToTop()
                 player.mesh.position.y += (speedDown * data.count)
-
-                return;
             }
 
-            /** check is player in wall and must down - rotate to top */
-            if (
-                !collision.object.userData['isWallWalking'] &&
-                !player.mesh.up.equals(UP_VECTOR)
-            ) {
-                rotatePlayerToTop()
-                
-                return;
-            }
         }
 
 
@@ -125,22 +74,14 @@ export class system_PlayerMoveOnLevel {
 
             /** update level new area */
             if (isCollision) {
-                if (collision.object.userData.area !== currentArea) {
-                    currentArea = collision.object.userData.area
-                    updateLevel(currentArea)
-                }
-
                 if (collision.object.userData.type && collision.object.userData.type === 'alert') {
-                    emitter.emit('collision')(collision.object.userData.event)                        
-                    //console.log(collision.object.userData.event)
+                    emitter.emit('collision')(collision.object.userData.event)
                 }
             }
 
             if (!isCollision) {
                 player.mesh.translateZ(-speed * data.count)
                 emitter.emit('playerMove')('forward')
-            } else if (collision.object.userData['isWallWalking']) {
-                rotatePlayerToCollisionTarget(collision)
             }
         }
         
@@ -157,7 +98,10 @@ export class system_PlayerMoveOnLevel {
 
 
         const update = data => {
-            if (isButtonsDisabled) return;
+            if (this.isFreeze) {
+                return;
+            }
+            //if (isButtonsDisabled) return;
 
             keys['left'] && player.mesh.rotateY(speedRot * data.count)
             keys['right'] && player.mesh.rotateY(-speedRot * data.count)
@@ -167,7 +111,7 @@ export class system_PlayerMoveOnLevel {
             checkBottomAndDropDownPlayer(data)
             keys['up'] && this.isCanMove['forward'] && checkAndMoveFront(data)
             keys['down'] && this.isCanMove['back'] && checkAndMoveBack(data)
-            keys['p'] && console.log(`player.mesh.position.fromArray([${player.mesh.position.x}, ${player.mesh.position.y + 25}, ${player.mesh.position.z}])`)
+            keys['p'] && console.log(`player.mesh.position.fromArray([${player.mesh.position.x}, ${player.mesh.position.y}, ${player.mesh.position.z}])`)
         }
     
 
@@ -183,82 +127,14 @@ export class system_PlayerMoveOnLevel {
     addItemToPlayerCollision (item) {
         this._collisionsWalls.setItemToCollision(item)
     }
-} 
 
+    removeItemFromPlayerCollision (item) {
+        this._collisionsWalls.removeItemFromCollision(item)
+    }
 
-
-
-
-const helper_rotate = (mesh, quat1, quat2) => {
-    return new Promise(resolve => {
-        let n = 0
-
-        const update = () => {
-            n += 0.03
-            n > 1 && (n = 1)
-
-            mesh.quaternion.slerpQuaternions(quat1, quat2, n)
-
-            if (n === 1) {
-                return resolve()
-            }
-
-            setTimeout(update, 15)
-        }
-
-        update()
-    })
+    toggleFreeze (val = !this.isFreeze) {
+        this.isFreeze = val
+    }
 }
 
-
-
-
-const changerAreaLevel = (areas, studio, collisionsWalls, emitter) => {
-    const changeViewLevel = (ind, action) => {
-        if (!areas[ind]) return;
-
-        for (let i = 0; i < areas[ind].length; ++i) {
-            const mesh = areas[ind][i]
-            if (action === 'remove') studio.removeFromScene(mesh)
-            if (action === 'add') studio.addToScene(mesh)
-        }
-    }
-
-    const changeCollisionLevel = (ind, action) => {
-        if (!areas[ind]) return;
-
-        for (let i = 0; i < areas[ind].length; ++i) {
-            const mesh = areas[ind][i]
-            if (action === 'remove') collisionsWalls.removeItemFromCollision(mesh)
-            if (action === 'add') collisionsWalls.setItemToCollision(mesh)
-        }
-    }
-
-
-    const updateLevel = index => {
-        console.log(index)
-        emitter.emit('levelChanged')(index)
-
-
-        changeViewLevel(index - 4, 'remove')
-        changeViewLevel(index - 3, 'remove')
-        changeViewLevel(index - 2, 'add')
-        changeViewLevel(index - 1, 'add')
-        changeViewLevel(index, 'add')
-        changeViewLevel(index + 1, 'add')
-        changeViewLevel(index + 2, 'add')
-        changeViewLevel(index + 3, 'add')
-
-
-        changeCollisionLevel(index - 3, 'remove')
-        changeCollisionLevel(index - 2, 'remove')
-        changeCollisionLevel(index - 1, 'add')
-        changeCollisionLevel(index, 'add')
-        changeCollisionLevel(index + 1, 'add')
-        changeCollisionLevel(index + 2, 'add')
-    }
-
-
-    return updateLevel
-}
 

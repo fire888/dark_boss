@@ -23,15 +23,10 @@ export class system_ChangerGame {
         this._isInVirtual = false
 
 
-        emitter.subscribe('collision')(data => {
-            if (!this._isInVirtual && data === 'drawCar') {
-                this._isInVirtual = true
-                studio.changeEnvironment(START_ENV_CONFIG_2) //
-                setTimeout(() => {
-                    studio.changeEnvironment(START_ENV_CONFIG_3) //
-                }, 5000)
-                console.log(data)
-            } 
+        emitter.subscribe('checkNear')( data => {
+            if (data.item === 'nearStarterDrawCar') {
+                root.dispatcher.dispatch({ type: 'TOGGLE_BUTTON_DRAW_CAR', is: data.is })
+            }
         })
 
 
@@ -42,12 +37,41 @@ export class system_ChangerGame {
             if (!isInVirtual) {
                 system_Level.prepareNormalLevel()
             } else {
+                system_Level.prepareVirtualLevel()
                 this._isInVirtual = true
             }
         }
 
 
         this._startPlay()
+    }
+
+
+
+    clickMachineDraw () {
+        const { studio, system_Level, system_PlayerMoveOnLevel, car, player  } = this._root
+
+        system_PlayerMoveOnLevel.toggleFreeze(true)
+        car.toggleFreeze(false)
+        studio.setCamera(car.getCamera())
+
+        if (!this._isInVirtual) {
+            this._isInVirtual = true
+            studio.changeEnvironment(START_ENV_CONFIG_2)
+            setTimeout(() => {
+                system_Level.prepareVirtualLevel()
+                studio.changeEnvironment(START_ENV_CONFIG_3)
+            }, 5000)
+        }
+    }
+
+    clickMachineExit () {
+        const { system_PlayerMoveOnLevel, player, studio, car  } = this._root
+
+        studio.setCamera(player.getCamera())
+        car.toggleFreeze(true)
+
+        system_PlayerMoveOnLevel.toggleFreeze(false)
     }
 
 

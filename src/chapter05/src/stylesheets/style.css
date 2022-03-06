@@ -136,3 +136,15 @@ button.butt-toggleDialog {
     cursor: pointer;
     max-width: 360px;
 }
+
+.draw-car-button {
+    bottom: 7rem;
+    max-width: 30vw;
+    min-width: 30vw;
+    left: 35vw;
+    font-size: 1.1rem;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

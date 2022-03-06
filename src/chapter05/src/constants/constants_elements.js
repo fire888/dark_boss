@@ -36,6 +36,22 @@ export const MATERIALS_CONFIG = {
         },
     },
 
+    'wallVirtual': {
+        mat: 'MeshPhongMaterial',
+        props: {
+            color: 0x333333,
+            emissive: 0x999999,
+            map: 'mapVirtual',
+            bumpMap: 'mapVirtual',
+            bumpScale: 1,
+            envMap: 'skyBox',
+            reflectivity: 0.3,
+            shininess: 60,
+            specular: 0x222222,
+        },
+    },
+
+
 
     'groundTop': {
         mat: 'MeshPhongMaterial',
@@ -85,7 +101,7 @@ export const MATERIALS_CONFIG = {
 
 export const START_ENV_CONFIG = { fogNear: -10, fogFar: 20, color: 0x4a0a45, backgroundImgKey: 'skyBox2' }
 export const START_ENV_CONFIG_2 = { fogNear: -10, fogFar: 0, color: 0x4a0a45, backgroundImgKey: 'skyBox2' }
-export const START_ENV_CONFIG_3 = { fogNear: 20, fogFar: 1500, color: 0x4a0a45, backgroundImgKey: 'skyBox2' }
+export const START_ENV_CONFIG_3 = { fogNear: 20, fogFar: 1500, color: 0x334455, backgroundImgKey: 'skyBox2' }
 export const START_ENV_CONFIG_4 = { fogNear: -10, fogFar: 0, color: 0x4a0a45, backgroundImgKey: null }
 
 

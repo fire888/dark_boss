@@ -8,41 +8,85 @@ export class Level {
     constructor(root) {
         this._root = root
 
-        const { 
-            studio, 
+        const {
             assets, 
             materials,
             CONSTANTS,
+            system_PlayerNearLevelItems,
+            car,
         } = root
 
-        console.log(CONSTANTS.CONFIG_FOR_INIT)
+        const { levelReal, levelVirtual } = createLevelMeshes(assets, materials)
+        root.assets.level = { levelReal, levelVirtual }
 
-        const { allMeshes, areas } = createLevelMeshes(assets, materials)
-        root.assets.areas = areas
-
-        this._car = new Car(root)
+        system_PlayerNearLevelItems.setItemToCheck(car.getModel(), 'nearStarterDrawCar', 28)
     }
 
 
     prepareNormalLevel () {
         const { 
             studio, 
-            assets, 
-            materials,
+            assets,
             CONSTANTS,
-            system_PlayerMoveOnLevel
+            system_PlayerMoveOnLevel,
+            system_PlayerNearLevelItems,
+            car,
         } = this._root
 
-        const { carProps, bodyProps, isInVirtual, isPlayerInCar, } = CONSTANTS.CONFIG_FOR_INIT.currentSceneConfig
+        const { bodyProps } = CONSTANTS.CONFIG_FOR_INIT.currentSceneConfig
 
-        studio.addToScene(this._car.getModel())
-        studio.addToScene(this._car.getCollision())
-        system_PlayerMoveOnLevel.addItemToPlayerCollision(this._car.getCollision())
-        studio.addToScene(this._car.getStart())
-        system_PlayerMoveOnLevel.addItemToPlayerCollision(this._car.getStart())
+        for (let i = 0; i < assets.level.levelVirtual.length; ++i) {
+            const item = assets.level.levelVirtual[i]
+            studio.removeFromScene(item)
+            system_PlayerMoveOnLevel.removeItemFromPlayerCollision(item)
+        }
+
+
+        for (let i = 0; i < assets.level.levelReal.length; ++i) {
+            const item = assets.level.levelReal[i]
+            studio.addToScene(item)
+            system_PlayerMoveOnLevel.addItemToPlayerCollision(item)
+        }
+
+        studio.addToScene(car.getModel())
+        system_PlayerMoveOnLevel.addItemToPlayerCollision(car.getCollision())
 
         this._addToLevel(bodyProps)
     }
+
+
+    prepareVirtualLevel () {
+        const {
+            studio,
+            assets,
+            materials,
+            CONSTANTS,
+            system_PlayerMoveOnLevel,
+            car,
+        } = this._root
+
+        for (let i = 0; i < assets.level.levelReal.length; ++i) {
+            const item = assets.level.levelReal[i]
+            studio.removeFromScene(item)
+            system_PlayerMoveOnLevel.removeItemFromPlayerCollision(item)
+        }
+
+        const { bodyProps } = CONSTANTS.CONFIG_FOR_INIT.currentSceneConfig
+        this._removeFromLevel(bodyProps)
+
+
+        studio.addToScene(car.getModel())
+        system_PlayerMoveOnLevel.addItemToPlayerCollision(car.getCollision())
+
+
+        for (let i = 0; i < assets.level.levelVirtual.length; ++i) {
+            const item = assets.level.levelVirtual[i]
+            studio.addToScene(item)
+            system_PlayerMoveOnLevel.addItemToPlayerCollision(item)
+        }
+    }
+
+
 
 
     _addToLevel (props) {
@@ -65,53 +109,50 @@ export class Level {
             this._root.system_PlayerMoveOnLevel.addItemToPlayerCollision(this._root.assets[keyCollide].children[0])
         }
     }
+
+
+    _removeFromLevel (props) {
+        const { keyMesh, keyCollide, position, rotation } = props
+
+        if (!keyMesh || !this._root.assets[keyMesh]) {
+            return;
+        }
+
+        this._root.studio.removeFromScene(this._root.assets[keyMesh])
+
+        if (keyCollide && this._root.assets[keyCollide]) {
+            this._root.studio.removeFromScene(this._root.assets[keyCollide])
+            this._root.system_PlayerMoveOnLevel.removeItemFromCollision(this._root.assets[keyCollide].children[0])
+        }
+    }
 }
 
 
 
 
 const createLevelMeshes = (assets, materials) => {
-    const allMeshes = {}
-    const areas = {}
+    const levelReal = []
+    const levelVirtual = []
 
     assets['level-rooms'].traverse(child => {
         let mesh = null
         
         if (child.name.includes("level")) {
-            if (child.name === 'level_020_001') {
-                mesh = new THREE.Mesh(child.geometry, materials.groundTop)
-            } else {
+            if (child.name === 'level_000_000') {
                 mesh = new THREE.Mesh(child.geometry, materials.wall)
+                levelReal.push(mesh)
             }
-            mesh.name = child.name
-            allMeshes[child.name] = mesh
-        }
 
-        if (child.name.includes("roadwall")) {
-            mesh = new THREE.Mesh(child.geometry, materials.road)
-            mesh.name = child.name
-            mesh.userData['isWallWalking'] = true
-            allMeshes[child.name] = mesh
-        }
-
-
-        if (child.name.includes("level") || child.name.includes("roadwall")) {
-            const strArr = child.name.split('_')
-
-            if (strArr[1] && mesh) {
-                if (!areas[+strArr[1]]) {
-                    areas[+strArr[1]] = [] 
-                }
-                mesh.userData.area = +strArr[1]
-                areas[+strArr[1]].push(mesh)   
+            if (child.name === 'level_001_000') {
+                mesh = new THREE.Mesh(child.geometry, materials.wallVirtual)
+                levelVirtual.push(mesh)
             }
         }
-
     })
 
 
     return {
-        allMeshes,
-        areas
+        levelReal,
+        levelVirtual,
     }
 }
