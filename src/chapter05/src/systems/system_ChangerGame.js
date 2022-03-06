@@ -26,7 +26,10 @@ export class system_ChangerGame {
         emitter.subscribe('collision')(data => {
             if (!this._isInVirtual && data === 'drawCar') {
                 this._isInVirtual = true
-                studio.prepareVirtualLevel()
+                studio.changeEnvironment(START_ENV_CONFIG_2) //
+                setTimeout(() => {
+                    studio.changeEnvironment(START_ENV_CONFIG_3) //
+                }, 5000)
                 console.log(data)
             } 
         })
