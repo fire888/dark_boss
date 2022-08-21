@@ -12,7 +12,7 @@ export class Car {
 
         this._model = assets.car.children[0]
 
-        this._camera = new THREE.PerspectiveCamera(80, window.innerWidth/window.innerHeight, .5, 1000)
+        this._camera = new THREE.PerspectiveCamera(80, window.innerWidth/window.innerHeight, .5, 10000)
         this._camera.position.y = 28
         this._model.add(this._camera)
 

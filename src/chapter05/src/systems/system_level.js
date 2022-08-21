@@ -1,7 +1,4 @@
 import * as THREE from 'three'
-import { Car } from '../Entities/Car'
-
-
 
 
 export class Level {
@@ -14,10 +11,15 @@ export class Level {
             CONSTANTS,
             system_PlayerNearLevelItems,
             car,
+            studio,
         } = root
 
-        const { levelReal, levelVirtual } = createLevelMeshes(assets, materials)
+        const { levelReal, levelVirtual, items } = createLevelMeshes(assets, materials)
         root.assets.level = { levelReal, levelVirtual }
+
+        console.log(items)
+        this._items = items
+
 
         system_PlayerNearLevelItems.setItemToCheck(car.getModel(), 'nearStarterDrawCar', 28)
     }
@@ -32,6 +34,8 @@ export class Level {
             system_PlayerNearLevelItems,
             car,
         } = this._root
+
+
 
         const { bodyProps } = CONSTANTS.CONFIG_FOR_INIT.currentSceneConfig
 
@@ -50,6 +54,10 @@ export class Level {
 
         studio.addToScene(car.getModel())
         system_PlayerMoveOnLevel.addItemToPlayerCollision(car.getCollision())
+        studio.addToScene(this._items['location01'])
+        system_PlayerMoveOnLevel.addItemToPlayerCollision(this._items['location01'])
+        studio.addToScene(this._items['location02'])
+        system_PlayerMoveOnLevel.addItemToPlayerCollision(this._items['location02'])
 
         this._addToLevel(bodyProps)
     }
@@ -133,9 +141,15 @@ export class Level {
 const createLevelMeshes = (assets, materials) => {
     const levelReal = []
     const levelVirtual = []
+    const items = {}
 
     assets['level-rooms'].traverse(child => {
         let mesh = null
+
+        if (child.geometry) {
+            items[child.name] = child
+            child.material = materials.wallVirtual
+        }
         
         if (child.name.includes("level")) {
             if (child.name === 'level_000_000') {
@@ -154,5 +168,6 @@ const createLevelMeshes = (assets, materials) => {
     return {
         levelReal,
         levelVirtual,
+        items,
     }
 }

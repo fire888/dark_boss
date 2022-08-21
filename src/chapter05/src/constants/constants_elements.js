@@ -135,7 +135,7 @@ export const playerConfig = {
         fov: 90,
         ratio: window.innerWidth / window.innerHeight,
         near: 0.1,
-        far: 1000,
+        far: 10000,
         pos: [0, 2, -0.5],
     },
     frontObjPos: [0, 0, -1],
