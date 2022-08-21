@@ -13,6 +13,7 @@ export class Car {
         this._model = assets.car.children[0]
 
         this._camera = new THREE.PerspectiveCamera(80, window.innerWidth/window.innerHeight, .5, 1000)
+        this._camera.position.y = 28
         this._model.add(this._camera)
 
         this._model.position.fromArray(position)
@@ -24,45 +25,27 @@ export class Car {
         this._model.add(this._collision)
 
 
-
-        this.isCanMove = {
-            'forward': true,
-            'back': true,
-        }
-
         this._isFreeze = true
 
         let keys = {}
 
+        this._onChangeStateIsStay = () => {}
 
 
 
-
-        const checkAndMoveFront = data => {
-            //const [isCollision, collision] = collisionsWalls.checkCollisions(player.mesh, player.frontObj, OFFSET_FROM_PLANES)
-
-            // /** update level new area */
-            // if (isCollision) {
-            //     if (collision.object.userData.type && collision.object.userData.type === 'alert') {
-            //         emitter.emit('collision')(collision.object.userData.event)
-            //     }
-            // }
-
-            //if (!isCollision) {
-                this._model.translateZ(-10 * data.count)
-
-
+        const checkCollision = () => {
+            return false;
         }
 
 
+        this._spd = 0
+        this._acc = 0.1
+        this._deceleration = 0.02
+        this._maxSpdFront = -6
+        this._maxSpdBack = 1
+        this._spdRot = 0.03
 
-        // const checkAndMoveBack = data => {
-        //     const [isCollision] = collisionsWalls.checkCollisions(player.mesh, player.backObj, OFFSET_FROM_PLANES)
-        //     if (isCollision) return;
-        //
-        //     player.mesh.translateZ(speed * data.count)
-        //     emitter.emit('playerMove')('back')
-        // }
+        this._isCarStay = false
 
 
 
@@ -71,20 +54,70 @@ export class Car {
                 return;
             }
 
-            //if (this.isFreeze) {
-            //    return;
-            //}
-            //if (isButtonsDisabled) return;
+            /** move car *************/
+            if (!checkCollision(data)) {
+                this._model.translateZ(this._spd * data.count)
+            } else {
+                this._spd = 0
+            }
 
-            //keys['left'] && player.mesh.rotateY(speedRot * data.count)
-            //keys['right'] && player.mesh.rotateY(-speedRot * data.count)
 
-            //if (isBlocked) return;
+            /** acceleration update speed *********/
+            if (keys['up']) {
+                this._spd -= this._acc
+            }
+            if (keys['down']) {
+                this._spd += this._acc
+            }
 
-            //checkBottomAndDropDownPlayer(data)
-            keys['up'] && this.isCanMove['forward'] && checkAndMoveFront(data)
-            //keys['down'] && this.isCanMove['back'] && checkAndMoveBack(data)
-            //keys['p'] && console.log(`player.mesh.position.fromArray([${player.mesh.position.x}, ${player.mesh.position.y}, ${player.mesh.position.z}])`)
+
+            /** slowdown update speed *********/
+            if (Math.abs(this._spd) > 0.001) {
+                if (this._spd > 0) {
+                    this._spd -= this._deceleration
+                    if (this._spd < 0) {
+                        this._spd = 0
+                    }
+                }
+                if (this._spd < 0) {
+                    this._spd += this._deceleration
+                    if (this._spd > 0) {
+                        this._spd = 0
+                    }
+                }
+                this._spd = Math.min(this._maxSpdBack, Math.max(this._maxSpdFront, this._spd))
+
+                /** update car rotation ***********/
+                const rotBySpeed = Math.min(1, Math.max(0, Math.abs(this._spd)))
+                if (keys['left']) {
+                    if (this._spd < 0) {
+                        this._model.rotation.y += (this._spdRot * rotBySpeed)
+                    }
+                    if (this._spd > 0) {
+                        this._model.rotation.y -= (this._spdRot * rotBySpeed)
+                    }
+
+                }
+                if (keys['right']) {
+                    if (this._spd < 0) {
+                        this._model.rotation.y -= (this._spdRot * rotBySpeed)
+                    }
+                    if (this._spd > 0) {
+                        this._model.rotation.y += (this._spdRot * rotBySpeed)
+                    }
+                }
+            } else {
+                this._spd = 0
+            }
+
+            if (this._isCarStay && this._spd !== 0) {
+                this._isCarStay = false
+                this._onChangeStateIsStay('carStart')
+            }
+            if (!this._isCarStay && this._spd === 0) {
+                this._isCarStay = true
+                this._onChangeStateIsStay('carStop')
+            }
         }
 
 
@@ -109,5 +142,17 @@ export class Car {
 
     toggleFreeze (val) {
         this._isFreeze = val
+    }
+
+    onChangeCarStateMove (fn) {
+        this._onChangeStateIsStay = fn
+    }
+
+    getPosition () {
+        return this._model.position
+    }
+
+    getQuaternion () {
+        return this._model.quaternion
     }
 }

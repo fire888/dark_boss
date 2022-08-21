@@ -17,10 +17,22 @@ export class system_ChangerGame {
             system_Level,
             CONSTANTS,
             emitter,
+            car,
         } = this._root
+
+        console.log(root)
 
 
         this._isInVirtual = false
+
+        car.onChangeCarStateMove(e => {
+            if (e === 'carStart') {
+                root.dispatcher.dispatch({ type: 'TOGGLE_BUTTON_DRAW_CAR', is: false })
+            }
+            if (e === 'carStop') {
+                root.dispatcher.dispatch({ type: 'TOGGLE_BUTTON_DRAW_CAR', is: true })
+            }
+        })
 
 
         emitter.subscribe('checkNear')( data => {
@@ -57,21 +69,27 @@ export class system_ChangerGame {
 
         if (!this._isInVirtual) {
             this._isInVirtual = true
-            studio.changeEnvironment(START_ENV_CONFIG_2)
-            setTimeout(() => {
-                system_Level.prepareVirtualLevel()
-                studio.changeEnvironment(START_ENV_CONFIG_3)
-            }, 5000)
+           // studio.changeEnvironment(START_ENV_CONFIG_2)
+            //setTimeout(() => {
+            //    system_Level.prepareVirtualLevel()
+                //studio.changeEnvironment(START_ENV_CONFIG_3)
+            //}, 5000)
         }
     }
 
     clickMachineExit () {
         const { system_PlayerMoveOnLevel, player, studio, car  } = this._root
 
+        const pos = car.getPosition()
+        const q = car.getQuaternion()
+
         studio.setCamera(player.getCamera())
         car.toggleFreeze(true)
 
         system_PlayerMoveOnLevel.toggleFreeze(false)
+
+        player.setToPos(pos.x, player.mesh.position.y, pos.z)
+        player.mesh.setRotationFromQuaternion(q)
     }
 
 
