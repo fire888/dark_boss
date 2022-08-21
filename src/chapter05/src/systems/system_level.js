@@ -58,6 +58,9 @@ export class Level {
         system_PlayerMoveOnLevel.addItemToPlayerCollision(this._items['location01'])
         studio.addToScene(this._items['location02'])
         system_PlayerMoveOnLevel.addItemToPlayerCollision(this._items['location02'])
+        studio.addToScene(this._items['location03'])
+        system_PlayerMoveOnLevel.addItemToPlayerCollision(this._items['location03'])
+
 
         this._addToLevel(bodyProps)
     }
