@@ -6,11 +6,13 @@ export class Car {
             assets,
             CONSTANTS,
             emitter,
+            materials,
         } = root
 
         const { position, rotation } = CONSTANTS.CONFIG_FOR_INIT.currentSceneConfig.carProps
 
         this._model = assets.car.children[0]
+        this._model.material = materials.car
 
         this._camera = new THREE.PerspectiveCamera(80, window.innerWidth/window.innerHeight, .5, 10000)
         this._camera.position.y = 28

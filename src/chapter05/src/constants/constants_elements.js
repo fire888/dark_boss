@@ -21,89 +21,84 @@ export const CONFIG_FOR_INIT = {
 
 
 export const MATERIALS_CONFIG = {
-    'wall': {
-        mat: 'MeshPhongMaterial',
-        props: {
-            color: 0x338877,
-            emissive: 0x9997777,
-            map: 'mapFloorOuter',
-            bumpMap: 'mapFloorOuter',
-            bumpScale: 1,
-            envMap: 'skyBox',
-            reflectivity: 0.3,
-            shininess: 60,
-            specular: 0x222222,
-        },
-    },
+    // 'wall': {
+    //     mat: 'MeshPhongMaterial',
+    //     props: {
+    //         color: 0xffffff,
+    //         emissive: 0x000000,
+    //         map: 'mapFloorOuter',
+    //         bumpMap: 'mapFloorOuter',
+    //         bumpScale: 1,
+    //         envMap: 'skyBox',
+    //         reflectivity: 0.3,
+    //         shininess: 60,
+    //         specular: 0x222222,
+    //     },
+    // },
 
     'wallVirtual': {
         mat: 'MeshPhongMaterial',
         props: {
-            color: 0x333333,
-            emissive: 0x999999,
+            //color: 0xffd4a8,
+            color: 0xfff39f,
+            //color: 0x999999,
+            emissive: 0x000000,
             map: 'mapVirtual',
             bumpMap: 'mapVirtual',
-            bumpScale: 1,
+            bumpScale: 3,
             envMap: 'skyBox',
-            reflectivity: 0.3,
-            shininess: 60,
-            specular: 0x222222,
-        },
-    },
-
-
-
-    'groundTop': {
-        mat: 'MeshPhongMaterial',
-        props: {
-            color: 0xaa6666,
-            emissive: 0xaa6666,
-            map: 'mapTop',
-            bumpMap: 'mapTop',
-            bumpScale: 1,
-            envMap: 'skyBox2',
-            reflectivity: 0.5,
-            specular: 0x222222,
-        },
-    },
-
-    'road': {
-        mat: 'MeshPhongMaterial',
-        props: {
-            color: 0xffffff,
-            emissive: 0x666666,
-            map: 'mapFloorOuter2',
-            bumpMap: 'mapFloorOuter2',
-            bumpScale: 1,
-            envMap: 'skyBox',
-            reflectivity: 0.3,
-        },
-    },
-
-    'skin': {
-        mat: 'MeshPhongMaterial',
-        props: {
-            color: 0xffffff,
-            emissive: 0x555555,
+            reflectivity: .5,
+            shininess: .5,
             specular: 0xffffff,
-            shininess: 12,
-            bumpMap: 'skin',
-            bumpScale: 0.8,
+        },
+    },
+
+    'car': {
+        mat: 'MeshPhongMaterial',
+        props: {
+            //color: 0xffd4a8,
+            color: 0x000000,
+            //color: 0x999999,
+            emissive: 0x000000,
+            //map: 'mapVirtual',
+            //bumpMap: 'mapVirtual',
+            //bumpScale: 3,
             envMap: 'skyBox',
-            reflectivity: 0.5,
-            map: 'skin',
-            skinning: true,
-        },        
-    }
+            reflectivity: .5,
+            shininess: .5,
+            specular: 0xffffff,
+        },
+    },
+
+
+    // 'skin': {
+    //     mat: 'MeshPhongMaterial',
+    //     props: {
+    //         color: 0xffffff,
+    //         emissive: 0x000000,
+    //         specular: 0xffffff,
+    //         shininess: 12,
+    //         bumpMap: 'skin',
+    //         bumpScale: 0.8,
+    //         envMap: 'skyBox',
+    //         reflectivity: 0.5,
+    //         map: 'skin',
+    //         skinning: true,
+    //     },
+    // }
 }
 
 
 
-export const START_ENV_CONFIG = { fogNear: -10, fogFar: 20, color: 0x4a0a45, backgroundImgKey: 'skyBox2' }
-export const START_ENV_CONFIG_2 = { fogNear: -10, fogFar: 0, color: 0x4a0a45, backgroundImgKey: 'skyBox2' }
-export const START_ENV_CONFIG_3 = { fogNear: 20, fogFar: 1500, color: 0x334455, backgroundImgKey: 'skyBox2' }
-export const START_ENV_CONFIG_4 = { fogNear: -10, fogFar: 0, color: 0x4a0a45, backgroundImgKey: null }
+//export const START_ENV_CONFIG = { fogNear: -10, fogFar: 20, color: 0x4a0a45, backgroundImgKey: 'skyBox2' }
+//export const START_ENV_CONFIG_2 = { fogNear: -10, fogFar: 0, color: 0x4a0a45, backgroundImgKey: 'skyBox2' }
+//export const START_ENV_CONFIG_3 = { fogNear: 20, fogFar: 1500, color: 0x334455, backgroundImgKey: 'skyBox2' }
+//export const START_ENV_CONFIG_4 = { fogNear: -10, fogFar: 0, color: 0x4a0a45, backgroundImgKey: null }
 
+export const START_ENV_CONFIG = { fogNear: -10, fogFar: 20, color: 0xffd4a8, backgroundImgKey: 'skyBox' }
+export const START_ENV_CONFIG_2 = { fogNear: -10, fogFar: 0, color: 0xffd4a8, backgroundImgKey: 'skyBox' }
+export const START_ENV_CONFIG_3 = { fogNear: 20, fogFar: 1500, color: 0xffd4a8, backgroundImgKey: 'skyBox' }
+export const START_ENV_CONFIG_4 = { fogNear: -10, fogFar: 0, color: 0xffffff, backgroundImgKey: null }
 
 export const studioConfig = {
     canId: 'webgl-canvas',
@@ -111,11 +106,12 @@ export const studioConfig = {
         antialias: true
     },
     amb: {
-        color: 0xa5ecc5,
-        strength: 0.8,
+        color: 0xffd4a8,
+        strength: 1,
     },
-    sceneEnvironment: { fogNear: -20, fogFar: 0, color: 0x4a0a45, backgroundImgKey: 'skyBox2' },
-    composerAddPass: 'Saturate',
+    sceneEnvironment: { fogNear: -20, fogFar: 0, color: 0xffffff, backgroundImgKey: 'skyBox2' },
+    //composerAddPass: 'Saturate',
+    composerAddPass: 'Saturate2',
 }
 
 

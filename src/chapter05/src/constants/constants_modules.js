@@ -18,12 +18,13 @@ import mapFloorOuter from '../../../assets/chapter04/floor_outer_map3.jpg'
 import mapFloorOuter2 from '../../../assets/chapter04/floor_outer_map2.jpg'
 import mapVirt from '../../../assets/chapter05/map01.jpg'
 import mapTop from '../../../assets/floor_outer_map.jpg'
-import pxjpg from '../../../assets/sky3/px.jpg'
-import nxjpg from '../../../assets/sky3/nx.jpg'
-import pyjpg from '../../../assets/sky3/py.jpg'
-import nyjpg from '../../../assets/sky3/ny.jpg'
-import pzjpg from '../../../assets/sky3/pz.jpg'
-import nzjpg from '../../../assets/sky3/nz.jpg'
+
+import pxjpg from '../../../assets/sky4/px.jpg'
+import nxjpg from '../../../assets/sky4/nx.jpg'
+import pyjpg from '../../../assets/sky4/py.jpg'
+import nyjpg from '../../../assets/sky4/ny.jpg'
+import pzjpg from '../../../assets/sky4/pz.jpg'
+import nzjpg from '../../../assets/sky4/nz.jpg'
 
 import px2jpg from '../../../assets/sky2/px.jpg'
 import nx2jpg from '../../../assets/sky2/nx.jpg'
@@ -104,15 +105,6 @@ export const GAME_MODULES = [
         initStateKey: 'beforeStartPlay',
     },
     {
-        key: 'car',
-        constr: Car,
-        initStateKey: 'beforeStartPlay',
-        assetsToLoad: [
-            { type: 'obj', path: carSrc, key: 'car' },
-            { type: 'obj', path: carCollisionSrc, key: 'carCollision' },
-        ],
-    },
-    {
         key: 'system_PlayerNearLevelItems',
         constr: system_PlayerNearLevelItems,
         initStateKey: 'beforeStartPlay',
@@ -121,6 +113,15 @@ export const GAME_MODULES = [
         key: 'materialsLib',
         constr: Helper_MaterialsLib,
         initStateKey: 'beforeStartPlay',
+    },
+    {
+        key: 'car',
+        constr: Car,
+        initStateKey: 'beforeStartPlay',
+        assetsToLoad: [
+            { type: 'obj', path: carSrc, key: 'car' },
+            { type: 'obj', path: carCollisionSrc, key: 'carCollision' },
+        ],
     },
     {
         key: 'system_Level',
@@ -132,7 +133,7 @@ export const GAME_MODULES = [
             { type: 'cubeTextures', path: [ pxjpg, nxjpg, pyjpg, nyjpg, pzjpg, nzjpg, ], key: 'skyBox' },
             { type: 'cubeTextures', path: [ px2jpg, nx2jpg, py2jpg, ny2jpg, pz2jpg, nz2jpg, ], key: 'skyBox2' },
             { type: 'img', path: mapFloorOuter, key: 'mapFloorOuter', wrap: true },
-            { type: 'img', path: mapFloorOuter2, key: 'mapFloorOuter2', wrap: true },
+            //{ type: 'img', path: mapFloorOuter2, key: 'mapFloorOuter2', wrap: true },
             { type: 'img', path: mapTop, key: 'mapTop', wrap: true },
             { type: 'img', path: mapVirt, key: 'mapVirtual', wrap: true },
         ],

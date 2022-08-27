@@ -4,6 +4,7 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import { Saturate } from '../shaders/saturate'
+import { Saturate2 } from '../shaders/saturate2'
 
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
@@ -18,6 +19,7 @@ export class Studio {
         rendererCon.canvas = document.getElementById(canId)
 
         this._renderer = new THREE.WebGLRenderer(rendererCon)
+        console.log(clearColor)
         this._renderer.setClearColor(clearColor)
         this._renderer.setPixelRatio(window.devicePixelRatio)
         this._renderer.setSize(window.innerWidth, window.innerHeight)
@@ -26,7 +28,7 @@ export class Studio {
 
         {
             const { color, fogNear, fogFar, backgroundImgKey } = root.CONSTANTS.studioConfig.sceneEnvironment
-
+            console.log(color)
 
             this._scene.background = assets[backgroundImgKey] || null
             this._scene.fog = new THREE.Fog(color, fogNear, fogFar)
@@ -36,6 +38,7 @@ export class Studio {
         this._lightA = null
         {
             const { color, strength } = amb
+            console.log(color)
             this._lightA = new THREE.AmbientLight( color, strength )
             this._scene.add( this._lightA )
         }
@@ -56,7 +59,10 @@ export class Studio {
         if (this._root.CONSTANTS.studioConfig.composerAddPass) {
             if (this._root.CONSTANTS.studioConfig.composerAddPass === 'Saturate') {
                 this._composer.addPass(new ShaderPass(Saturate))
-            }  
+            }
+            if (this._root.CONSTANTS.studioConfig.composerAddPass === 'Saturate2') {
+                this._composer.addPass(new ShaderPass(Saturate2))
+            }
         } 
 
 
