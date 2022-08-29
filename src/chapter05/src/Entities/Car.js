@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { helper_CollisionsItems_v02 } from '../../../_CORE/helpers/helper_CollisionsItems_v02'
 
 export class Car {
     constructor (root) {
@@ -26,18 +27,28 @@ export class Car {
 
         this._model.add(this._collision)
 
+        this._frontObj = new THREE.Object3D()
+        this._frontObj.position.set(0, 0, -.5)
+        this._model.add(this._frontObj)
+
+        this._backObj = new THREE.Object3D()
+        this._backObj.position.set(0, 0, .5)
+        this._model.add(this._backObj)
+
+
+
+        this._collisionsWalls = new helper_CollisionsItems_v02()
+        const checkCollision = (obj, d) => {
+            const [is] = this._collisionsWalls.checkCollisions(this._model, obj, d)
+            return is;
+        }
+
 
         this._isFreeze = true
 
         let keys = {}
 
         this._onChangeStateIsStay = () => {}
-
-
-
-        const checkCollision = () => {
-            return false;
-        }
 
 
         this._spd = 0
@@ -57,10 +68,19 @@ export class Car {
             }
 
             /** move car *************/
-            if (!checkCollision(data)) {
-                this._model.translateZ(this._spd * data.count)
-            } else {
-                this._spd = 0
+            if (this._spd < 0) {
+                if (!checkCollision(this._frontObj, 30)) {
+                    this._model.translateZ(this._spd * data.count)
+                } else {
+                    this._spd = 0
+                }
+            }
+            if (this._spd > 0) {
+                if (!checkCollision(this._backObj, 30)) {
+                    this._model.translateZ(this._spd * data.count)
+                } else {
+                    this._spd = 0
+                }
             }
 
 
@@ -112,6 +132,7 @@ export class Car {
                 this._spd = 0
             }
 
+            /** callback change state stay or move *****/
             if (this._isCarStay && this._spd !== 0) {
                 this._isCarStay = false
                 this._onChangeStateIsStay('carStart')
@@ -128,6 +149,10 @@ export class Car {
         emitter.subscribe('frameUpdate')(update)
 
 
+    }
+
+    setCollisionsForDraw (mesh) {
+        this._collisionsWalls.setItemToCollision(mesh)
     }
 
     getModel () {

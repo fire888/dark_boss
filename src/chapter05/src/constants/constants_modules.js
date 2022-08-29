@@ -51,7 +51,7 @@ import { system_Columns } from '../systems/system_Columns'
 
 //import { system_PrepareDialogs } from '../systems/system_PrepareDialogs'
 
-import { system_ChangerGame } from '../systems/system_ChangerGame'
+import { actions } from '../actions/actions'
 import { Ui } from "../ui/Ui";
 
 //import { system_Sound } from '../systems/system_Sound'
@@ -177,8 +177,8 @@ export const GAME_MODULES = [
         initStateKey: 'pageLoaded',
     },
     {
-        key: 'system_ChangerGame',
-        constr: system_ChangerGame,
+        key: 'actions',
+        constr: actions,
         initStateKey: 'beforeStartPlay',
     },
 ]

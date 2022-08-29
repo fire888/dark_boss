@@ -32,6 +32,7 @@ export class helper_CollisionsItems_v02 {
 
         this._vecDir.sub(this._vecStart)
 
+        //console.log(this._arrMeshes)
         const intersects = this._rayCaster.intersectObjects(this._arrMeshes)
 
         if (intersects[0] && intersects[0].distance < dist) {

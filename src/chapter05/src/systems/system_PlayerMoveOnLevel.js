@@ -77,12 +77,11 @@ export class system_PlayerMoveOnLevel {
                 if (collision.object.userData.type && collision.object.userData.type === 'alert') {
                     emitter.emit('collision')(collision.object.userData.event)
                 }
+                return;
             }
 
-            if (!isCollision) {
-                player.mesh.translateZ(-speed * data.count)
-                emitter.emit('playerMove')('forward')
-            }
+            player.mesh.translateZ(-speed * data.count)
+            emitter.emit('playerMove')('forward')
         }
         
         

@@ -21,21 +21,6 @@ export const CONFIG_FOR_INIT = {
 
 
 export const MATERIALS_CONFIG = {
-    // 'wall': {
-    //     mat: 'MeshPhongMaterial',
-    //     props: {
-    //         color: 0xffffff,
-    //         emissive: 0x000000,
-    //         map: 'mapFloorOuter',
-    //         bumpMap: 'mapFloorOuter',
-    //         bumpScale: 1,
-    //         envMap: 'skyBox',
-    //         reflectivity: 0.3,
-    //         shininess: 60,
-    //         specular: 0x222222,
-    //     },
-    // },
-
     'wallVirtual': {
         mat: 'MeshPhongMaterial',
         props: {
@@ -69,23 +54,6 @@ export const MATERIALS_CONFIG = {
             specular: 0xffffff,
         },
     },
-
-
-    // 'skin': {
-    //     mat: 'MeshPhongMaterial',
-    //     props: {
-    //         color: 0xffffff,
-    //         emissive: 0x000000,
-    //         specular: 0xffffff,
-    //         shininess: 12,
-    //         bumpMap: 'skin',
-    //         bumpScale: 0.8,
-    //         envMap: 'skyBox',
-    //         reflectivity: 0.5,
-    //         map: 'skin',
-    //         skinning: true,
-    //     },
-    // }
 }
 
 
