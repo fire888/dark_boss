@@ -2,10 +2,9 @@ import * as R from 'ramda'
 
 
 export class FrameUpdater {
-    constructor (gameContext) {
-        const { emitter } = gameContext
+    constructor () {
+        this._subscribers = []
 
-        const emitFrameUpdate = emitter.emit('frameUpdate')
 
         let data = {
             time: 0,
@@ -34,10 +33,10 @@ export class FrameUpdater {
             return data
         }
 
-        const emit = data => {
-            emitFrameUpdate(data)
-            return data
-        }
+        // const emit = data => {
+        //     emitFrameUpdate(data)
+        //     return data
+        // }
 
         const updateOldTime = data => {
             data.oldTime = data.time
@@ -49,12 +48,19 @@ export class FrameUpdater {
             return data
         }
 
+        const updateSubscribers = data => {
+            for (let i = 0; i < this._subscribers.length; ++i) {
+                this._subscribers[i]({...data })
+            }
+            return data;
+        }
+
         const update = R.pipe(
             getDataFromGlobalVar,
             updateTime,
             updateDelta,
             updateCount,
-            emit,
+            updateSubscribers,
             updateOldTime,
             saveDataInGlobalVar
         )
@@ -63,7 +69,13 @@ export class FrameUpdater {
             requestAnimationFrame(animate)
             update(data)
         }
-
         animate()
+    }
+
+    on (fn) {
+        this._subscribers.push(fn)
+        return () => {
+            this._subscribers = this._subscribers.filter(item => item !== fn)
+        }
     }
 }

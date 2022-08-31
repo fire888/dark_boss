@@ -2,9 +2,10 @@ import { LoaderAssets } from '../../../_CORE/helpers/helper_LoadAssets'
 import { EventEmitter } from "../../../_CORE/helpers/helper_Emitter"
 import { UI } from '../../../_CORE/ui/UI'
 import { DeviceResizer } from "../../../_CORE/helpers/helper_DeviceResizer"
-import { FrameUpdater } from "../../../_CORE/helpers/helper_FrameUpater"
+//import { FrameUpdater } from "../../../_CORE/helpers/helper_FrameUpater"
+import { FrameUpdater } from "../../../_CORE/helpers/helper_FrameUpdater_02"
 import { Helper_TweenUpdater } from "../../../_CORE/helpers/helper_TweenUpdater"
-import { Studio } from '../../../_CORE/entities/createStudio'
+import { Studio } from '../../../_CORE/entities/createStudio_02'
 import { KeyBoard } from "../../../_CORE/helpers/helper_KeyBoard"
 import { Player } from '../../../_CORE/entities/createPlayer_v02'
 

@@ -63,7 +63,8 @@ export const MATERIALS_CONFIG = {
 //export const START_ENV_CONFIG_3 = { fogNear: 20, fogFar: 1500, color: 0x334455, backgroundImgKey: 'skyBox2' }
 //export const START_ENV_CONFIG_4 = { fogNear: -10, fogFar: 0, color: 0x4a0a45, backgroundImgKey: null }
 
-export const START_ENV_CONFIG = { fogNear: -10, fogFar: 20, color: 0xffd4a8, backgroundImgKey: 'skyBox' }
+//export const START_ENV_CONFIG = { fogNear: -10, fogFar: 20, color: 0xffd4a8, backgroundImgKey: 'skyBox' }
+export const START_ENV_CONFIG = { fogNear: 20, fogFar: 1500, color: 0xffd4a8, backgroundImgKey: 'skyBox' }
 export const START_ENV_CONFIG_2 = { fogNear: -10, fogFar: 0, color: 0xffd4a8, backgroundImgKey: 'skyBox' }
 export const START_ENV_CONFIG_3 = { fogNear: 20, fogFar: 1500, color: 0xffd4a8, backgroundImgKey: 'skyBox' }
 export const START_ENV_CONFIG_4 = { fogNear: -10, fogFar: 0, color: 0xffffff, backgroundImgKey: null }
@@ -77,7 +78,7 @@ export const studioConfig = {
         color: 0xffd4a8,
         strength: 1,
     },
-    sceneEnvironment: { fogNear: -20, fogFar: 0, color: 0xffffff, backgroundImgKey: 'skyBox2' },
+    sceneEnvironment: START_ENV_CONFIG,
     //composerAddPass: 'Saturate',
     composerAddPass: 'Saturate2',
 }

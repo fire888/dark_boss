@@ -44,7 +44,7 @@ export class Car {
         }
 
 
-        this._isFreeze = true
+        this.isFreeze = true
 
         let keys = {}
 
@@ -62,8 +62,8 @@ export class Car {
 
 
 
-        const update = data => {
-            if (this._isFreeze) {
+        this.update = data => {
+            if (this.isFreeze) {
                 return;
             }
 
@@ -142,13 +142,9 @@ export class Car {
                 this._onChangeStateIsStay('carStop')
             }
         }
-
-
-
+        
         emitter.subscribe('keyEvent')(data => keys = data)
-        emitter.subscribe('frameUpdate')(update)
-
-
+        //emitter.subscribe('frameUpdate')(update)
     }
 
     setCollisionForDraw (mesh) {
@@ -172,7 +168,8 @@ export class Car {
     }
 
     toggleFreeze (val) {
-        this._isFreeze = val
+        console.log('freeze')
+        this.isFreeze = val
     }
 
     onChangeCarStateMove (fn) {

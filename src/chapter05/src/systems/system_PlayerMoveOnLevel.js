@@ -96,7 +96,7 @@ export class system_PlayerMoveOnLevel {
 
 
 
-        const update = data => {
+        this.update = data => {
             if (this.isFreeze) {
                 return;
             }
@@ -116,7 +116,7 @@ export class system_PlayerMoveOnLevel {
 
 
         emitter.subscribe('keyEvent')(data => keys = data)
-        emitter.subscribe('frameUpdate')(update)
+        //emitter.subscribe('frameUpdate')(update)
 
 
         this._collisionsWalls = collisionsWalls

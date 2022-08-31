@@ -3,6 +3,7 @@ import {
     START_ENV_CONFIG_2,
     START_ENV_CONFIG_3,
 } from '../constants/constants_elements';
+import { createCheckerChangeLocationKey } from '../components/checkerChangeLocationKey'
 
 
 export class actions {
@@ -12,10 +13,25 @@ export class actions {
         const {
             emitter,
             car,
+            dispatcher,
+            frameUpdater,
+            studio,
+            player,
+            system_PlayerMoveOnLevel,
         } = this._root
 
+        /** prepare ui ******/
+        dispatcher.dispatch({
+            type: 'CHANGE_INFO_CHAPTER',
+            currentChapterIndex: 4,
+        })
+        dispatcher.dispatch({
+            type: 'ENABLE_CONTROL_SOUND',
+        })
 
 
+
+        /** toggle button in sit car */
         car.onChangeCarStateMove(e => {
             if (e === 'carStart') {
                 root.dispatcher.dispatch({ type: 'TOGGLE_BUTTON_DRAW_CAR', is: false })
@@ -30,6 +46,19 @@ export class actions {
             if (data.item === 'nearStarterDrawCar') {
                 root.dispatcher.dispatch({ type: 'TOGGLE_BUTTON_DRAW_CAR', is: data.is })
             }
+        })
+
+
+        const checkerChangeLocation = createCheckerChangeLocationKey()
+
+        frameUpdater.on(data => {
+            system_PlayerMoveOnLevel.update(data)
+            if (!car.isFreeze) {
+                car.update(data)
+                const l = checkerChangeLocation.checkChanged(car._model.position.x, car._model.position.y)
+                console.log(l)
+            }
+            studio.drawFrame()
         })
 
 
@@ -68,21 +97,13 @@ export class actions {
             player,
             ui,
             studio,
-            dispatcher,
             car,
             system_Level,
             system_PlayerMoveOnLevel,
             system_PlayerNearLevelItems,
         } = this._root
 
-        dispatcher.dispatch({
-            type: 'CHANGE_INFO_CHAPTER',
-            currentChapterIndex: 4,
-        })
 
-        dispatcher.dispatch({
-            type: 'ENABLE_CONTROL_SOUND',
-        })
 
 
         /** car ****************************/
