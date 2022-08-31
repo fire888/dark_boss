@@ -11,15 +11,31 @@ export class Level {
         } = root
 
         const { items } = createLevelMeshes(assets, materials)
-
         this._items = items
         console.log('system_level_items', this._items)
 
         items.body.material = materials.car
 
+
         this._items['locatioin_collision_01'].visible = false
         this._items['locatioin_collision_02'].visible = false
         this._items['location_collision_03'].visible = false
+
+
+        this.locations = {
+            location01: {
+                mesh: this._items['location01'],
+                carCollision:  this._items['locatioin_collision_01'],
+            },
+            location02: {
+                mesh: this._items['location02'],
+                carCollision:  this._items['locatioin_collision_02'],
+            },
+            location03: {
+                mesh: this._items['location03'],
+                carCollision:  this._items['location_collision_03'],
+            },
+        }
     }
 }
 

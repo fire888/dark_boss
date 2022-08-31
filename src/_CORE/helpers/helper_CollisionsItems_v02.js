@@ -21,7 +21,7 @@ export class helper_CollisionsItems_v02 {
     }
 
 
-    removeItemFromCollision(mesh) {
+    removeItemFromCollision (mesh) {
         this._arrMeshes = this._arrMeshes.filter(item => item !== mesh)
     }
 

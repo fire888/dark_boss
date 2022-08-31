@@ -102,21 +102,42 @@ export class actions {
         system_PlayerMoveOnLevel.addItemToPlayerCollision(system_Level._items['level_000_000'])
 
 
-        /** add locations ****************/
-        studio.addToScene(system_Level._items['location01'])
-        system_PlayerMoveOnLevel.addItemToPlayerCollision(system_Level._items['location01'])
-        studio.addToScene(system_Level._items['locatioin_collision_01'])
-        car.setCollisionsForDraw(system_Level._items['locatioin_collision_01'])
+        /** add/remove locations by key */
+        const addLocationToScene = keyLocation => {
+            const { mesh, carCollision } = system_Level.locations[keyLocation]
+            studio.addToScene(mesh)
+            system_PlayerMoveOnLevel.addItemToPlayerCollision(mesh)
+            studio.addToScene(carCollision)
+            car.setCollisionForDraw(carCollision)
+        }
 
-        studio.addToScene(system_Level._items['location02'])
-        system_PlayerMoveOnLevel.addItemToPlayerCollision(system_Level._items['location02'])
-        studio.addToScene(system_Level._items['locatioin_collision_02'])
-        car.setCollisionsForDraw(system_Level._items['location_collision_03'])
+        const removeLocationFromScene = keyLocation => {
+            const { mesh, carCollision } = system_Level.locations[keyLocation]
+            studio.removeFromScene(mesh)
+            system_PlayerMoveOnLevel.removeItemFromPlayerCollision(mesh)
+            studio.removeFromScene(carCollision)
+            car.removeCollisionForDraw(carCollision)
+        }
 
-        studio.addToScene(system_Level._items['location03'])
-        system_PlayerMoveOnLevel.addItemToPlayerCollision(system_Level._items['location03'])
-        studio.addToScene(system_Level._items['location_collision_03'])
-        car.setCollisionsForDraw(system_Level._items['locatioin_collision_02'])
+
+        /** ----------------------------------- */
+        const iterate = i => {
+            if (i > 3) {
+                i = 1
+            }
+            setTimeout(() => {
+                let oldI = i - 1
+                if (oldI < 1) {
+                    oldI = 3
+                }
+
+                removeLocationFromScene('location0' + oldI)
+                addLocationToScene('location0' + i)
+                iterate(++i)
+            }, 5000)
+        }
+        iterate(1)
+        /** ----------------------------------- */
 
 
         ui.showStartButton(() => {

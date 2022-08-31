@@ -151,8 +151,12 @@ export class Car {
 
     }
 
-    setCollisionsForDraw (mesh) {
+    setCollisionForDraw (mesh) {
         this._collisionsWalls.setItemToCollision(mesh)
+    }
+
+    removeCollisionForDraw (mesh) {
+        this._collisionsWalls.removeItemFromCollision(mesh)
     }
 
     getModel () {
