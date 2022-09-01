@@ -2,6 +2,8 @@ import {
     START_ENV_CONFIG,
     START_ENV_CONFIG_2,
     START_ENV_CONFIG_3,
+    LOCATIONS_QUADRANTS,
+    SIZE_QUADRANT,
 } from '../constants/constants_elements';
 import { createCheckerChangeLocationKey } from '../components/checkerChangeLocationKey'
 
@@ -49,14 +51,40 @@ export class actions {
         })
 
 
-        const checkerChangeLocation = createCheckerChangeLocationKey()
 
+
+
+
+
+        const checkerChangeLocation = createCheckerChangeLocationKey(SIZE_QUADRANT, car._model.position.x, car._model.position.z)
+        let currentQuadrantKey = checkerChangeLocation.getCurrent()
+        this._changerLocations = createChangerLocations(this._root)
+
+
+
+
+        /** update every frame ***************/
         frameUpdater.on(data => {
             system_PlayerMoveOnLevel.update(data)
             if (!car.isFreeze) {
                 car.update(data)
-                const l = checkerChangeLocation.checkChanged(car._model.position.x, car._model.position.y)
-                console.log(l)
+                const l = checkerChangeLocation.checkChanged(car._model.position.x, car._model.position.z)
+                if (l) {
+                    console.log(l)
+                    if (LOCATIONS_QUADRANTS[l.oldKey]) {
+                        console.log('remove', l.oldKey)
+                        this._changerLocations.removeLocationFromScene(LOCATIONS_QUADRANTS[l.oldKey])
+                    }
+                    if (LOCATIONS_QUADRANTS[l.newKey]) {
+                        console.log('add', l.newKey)
+                        const strArr = l.newKey.split('_')
+                        const locationX = +strArr[0] * SIZE_QUADRANT + SIZE_QUADRANT / 2
+                        const locationZ = +strArr[1] * SIZE_QUADRANT + SIZE_QUADRANT / 2
+                        this._changerLocations.addLocationToScene(LOCATIONS_QUADRANTS[l.newKey], locationX, locationZ)
+                    }
+
+                }
+
             }
             studio.drawFrame()
         })
@@ -123,47 +151,69 @@ export class actions {
         system_PlayerMoveOnLevel.addItemToPlayerCollision(system_Level._items['level_000_000'])
 
 
-        /** add/remove locations by key */
-        const addLocationToScene = keyLocation => {
-            const { mesh, carCollision } = system_Level.locations[keyLocation]
-            studio.addToScene(mesh)
-            system_PlayerMoveOnLevel.addItemToPlayerCollision(mesh)
-            studio.addToScene(carCollision)
-            car.setCollisionForDraw(carCollision)
-        }
 
-        const removeLocationFromScene = keyLocation => {
-            const { mesh, carCollision } = system_Level.locations[keyLocation]
-            studio.removeFromScene(mesh)
-            system_PlayerMoveOnLevel.removeItemFromPlayerCollision(mesh)
-            studio.removeFromScene(carCollision)
-            car.removeCollisionForDraw(carCollision)
-        }
-
-
-        /** ----------------------------------- */
-        const iterate = i => {
-            if (i > 3) {
-                i = 1
-            }
-            setTimeout(() => {
-                let oldI = i - 1
-                if (oldI < 1) {
-                    oldI = 3
-                }
-
-                removeLocationFromScene('location0' + oldI)
-                addLocationToScene('location0' + i)
-                iterate(++i)
-            }, 5000)
-        }
-        iterate(1)
-        /** ----------------------------------- */
+        // /** ----------------------------------- */
+        // const iterate = i => {
+        //     if (i > 3) {
+        //         i = 1
+        //     }
+        //     setTimeout(() => {
+        //         let oldI = i - 1
+        //         if (oldI < 1) {
+        //             oldI = 3
+        //         }
+        //
+        //         removeLocationFromScene('location0' + oldI)
+        //         addLocationToScene('location0' + i)
+        //         iterate(++i)
+        //     }, 5000)
+        // }
+        // iterate(1)
+        // /** ----------------------------------- */
 
 
         ui.showStartButton(() => {
             studio.changeEnvironment(START_ENV_CONFIG_3, { updateAmb: false, time: 1500 })
             player.toggleBlocked(false)
         })
+    }
+}
+
+
+
+const createChangerLocations = root => {
+    const {
+        studio,
+        car,
+        system_Level,
+        system_PlayerMoveOnLevel,
+        system_PlayerNearLevelItems,
+    } = root
+
+    /** add/remove locations by key */
+    const addLocationToScene = (keyLocation, x, z) => {
+        console.log('add!!!', keyLocation, x, z)
+        const { mesh, carCollision } = system_Level.locations[keyLocation]
+        mesh.position.set(x, 0, z)
+        studio.addToScene(mesh)
+        system_PlayerMoveOnLevel.addItemToPlayerCollision(mesh)
+        carCollision.position.set(x, 0, z)
+        studio.addToScene(carCollision)
+        car.setCollisionForDraw(carCollision)
+    }
+
+    const removeLocationFromScene = keyLocation => {
+        console.log('remove!!!', keyLocation)
+        const { mesh, carCollision } = system_Level.locations[keyLocation]
+        studio.removeFromScene(mesh)
+        system_PlayerMoveOnLevel.removeItemFromPlayerCollision(mesh)
+        studio.removeFromScene(carCollision)
+        car.removeCollisionForDraw(carCollision)
+    }
+
+
+    return {
+        removeLocationFromScene,
+        addLocationToScene,
     }
 }

@@ -1,3 +1,15 @@
+export const SIZE_QUADRANT = 500
+export const LOCATIONS_QUADRANTS = {
+    '-4_-1': 'location01',
+    '-6_-1': 'location02',
+    '-8_-1': 'location03',
+}
+
+
+
+
+
+
 export const CONFIG_FOR_INIT = {
     isInCar: false,
     currentSceneConfig: {

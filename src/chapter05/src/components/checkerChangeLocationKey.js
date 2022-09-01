@@ -1,12 +1,13 @@
-const SIZE = 100
+export const createCheckerChangeLocationKey = (SIZE = 100, x = 0, z = 0) => {
+    const keyX = Math.floor(x / SIZE)
+    const keyZ = Math.floor(z / SIZE)
 
-export const createCheckerChangeLocationKey = () => {
-    let oldKey = '0_0'
+    let oldKey = keyX + '_' + keyZ
 
     return {
         checkChanged: (x, z) => {
-            const keyX = Math.floor(x / 100)
-            const keyZ = Math.floor(z / 100)
+            const keyX = Math.floor(x / SIZE)
+            const keyZ = Math.floor(z / SIZE)
 
             const newKey = keyX + '_' + keyZ
             if (newKey === oldKey) {
@@ -19,6 +20,7 @@ export const createCheckerChangeLocationKey = () => {
                 oldKey: saveOldKey,
                 newKey,
             }
-        }
+        },
+        getCurrent: () => oldKey,
     }
 }
