@@ -4,6 +4,9 @@ export const createCheckerChangeLocationKey = (SIZE = 100, x = 0, z = 0) => {
 
     let oldKey = keyX + '_' + keyZ
 
+
+    let currentEnv = generateEnvByQ(keyX, keyZ)
+
     return {
         checkChanged: (x, z) => {
             const keyX = Math.floor(x / SIZE)
@@ -16,11 +19,78 @@ export const createCheckerChangeLocationKey = (SIZE = 100, x = 0, z = 0) => {
 
             const saveOldKey = oldKey
             oldKey = newKey
+
+
+            const oldEnv = currentEnv
+            currentEnv = generateEnvByQ(keyX, keyZ)
+
+            const addedQs = getArrNotInFirst(currentEnv, oldEnv)
+            const removedQs = getArrNotInFirst(oldEnv, currentEnv)
+            // const removedQs = []
+            // for (let i = 0; i < oldEnv.length; ++i) {
+            //     let isIn = false
+            //     for (let j = 0; j < currentEnv.length; ++j) {
+            //         if (oldEnv[i] === currentEnv[j]) {
+            //             isIn = true
+            //         }
+            //     }
+            //     if (!isIn) {
+            //         removedQs.push(oldEnv[i])
+            //     }
+            // }
+            //
+            // const addedQs = []
+            // for (let i = 0; i < currentEnv.length; ++i) {
+            //     let isIn = false
+            //     for (let j = 0; j < oldEnv.length; ++j) {
+            //         if (oldEnv[i] === currentEnv[j]) {
+            //             isIn = true
+            //         }
+            //     }
+            //     if (!isIn) {
+            //         addedQs.push(currentEnv[i])
+            //     }
+            // }
+
+
             return {
                 oldKey: saveOldKey,
                 newKey,
+                newEnv: currentEnv,
+                removedQs,
+                addedQs,
             }
         },
-        getCurrent: () => oldKey,
+        getCurrent: () => ({
+            loc: oldKey,
+            currentEnv,
+        }),
     }
+}
+
+
+const generateEnvByQ = (qX, qZ) => {
+    const arr = []
+    for (let i = qX - 1; i < qX + 2; ++i) {
+        for (let j = qZ - 1; j < qZ + 2; ++j) {
+            arr.push(i + '_' + j)
+        }
+    }
+    return arr
+}
+
+const getArrNotInFirst = (arr1, arr2) => {
+    const arr = []
+    for (let i = 0; i < arr1.length; ++i) {
+        let isIn = false
+        for (let j = 0; j < arr2.length; ++j) {
+            if (arr1[i] === arr2[j]) {
+                isIn = true
+            }
+        }
+        if (!isIn) {
+            arr.push(arr1[i])
+        }
+    }
+    return arr
 }

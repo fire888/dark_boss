@@ -1,3 +1,4 @@
+import * as THREE from 'three'
 import {
     START_ENV_CONFIG,
     START_ENV_CONFIG_2,
@@ -59,6 +60,26 @@ export class actions {
         const checkerChangeLocation = createCheckerChangeLocationKey(SIZE_QUADRANT, car._model.position.x, car._model.position.z)
         let currentQuadrantKey = checkerChangeLocation.getCurrent()
         this._changerLocations = createChangerLocations(this._root)
+        this._changerLevelTresh = createManagerLevelTrash(this._root)
+
+        this._changerLevelTresh.createTresh(currentQuadrantKey.currentEnv)
+
+
+        /** TEST *************************/
+        for (let key in LOCATIONS_QUADRANTS) {
+            const b = new THREE.Mesh(
+                new THREE.BoxGeometry(55, 100000, 55),
+                new THREE.MeshBasicMaterial({ color: 0xff0000 })
+            )
+
+            const p = key.split('_')
+            b.position.set(
+                +p[0] * SIZE_QUADRANT + SIZE_QUADRANT / 2,
+                0,
+                +p[1] * SIZE_QUADRANT + SIZE_QUADRANT / 2,
+            )
+            studio.addToScene(b)
+        }
 
 
 
@@ -70,7 +91,11 @@ export class actions {
                 car.update(data)
                 const l = checkerChangeLocation.checkChanged(car._model.position.x, car._model.position.z)
                 if (l) {
-                    console.log(l)
+                    console.log('quadrants data', l)
+                    /** arr/remove level tresh **********************/
+                    this._changerLevelTresh.updateTrash(l.removedQs, l.addedQs)
+
+                    /** add/remove  locations ************************/
                     if (LOCATIONS_QUADRANTS[l.oldKey]) {
                         console.log('remove', l.oldKey)
                         this._changerLocations.removeLocationFromScene(LOCATIONS_QUADRANTS[l.oldKey])
@@ -152,26 +177,6 @@ export class actions {
 
 
 
-        // /** ----------------------------------- */
-        // const iterate = i => {
-        //     if (i > 3) {
-        //         i = 1
-        //     }
-        //     setTimeout(() => {
-        //         let oldI = i - 1
-        //         if (oldI < 1) {
-        //             oldI = 3
-        //         }
-        //
-        //         removeLocationFromScene('location0' + oldI)
-        //         addLocationToScene('location0' + i)
-        //         iterate(++i)
-        //     }, 5000)
-        // }
-        // iterate(1)
-        // /** ----------------------------------- */
-
-
         ui.showStartButton(() => {
             studio.changeEnvironment(START_ENV_CONFIG_3, { updateAmb: false, time: 1500 })
             player.toggleBlocked(false)
@@ -192,7 +197,6 @@ const createChangerLocations = root => {
 
     /** add/remove locations by key */
     const addLocationToScene = (keyLocation, x, z) => {
-        console.log('add!!!', keyLocation, x, z)
         const { mesh, carCollision } = system_Level.locations[keyLocation]
         mesh.position.set(x, 0, z)
         studio.addToScene(mesh)
@@ -203,7 +207,6 @@ const createChangerLocations = root => {
     }
 
     const removeLocationFromScene = keyLocation => {
-        console.log('remove!!!', keyLocation)
         const { mesh, carCollision } = system_Level.locations[keyLocation]
         studio.removeFromScene(mesh)
         system_PlayerMoveOnLevel.removeItemFromPlayerCollision(mesh)
@@ -215,5 +218,67 @@ const createChangerLocations = root => {
     return {
         removeLocationFromScene,
         addLocationToScene,
+    }
+}
+
+
+
+const createManagerLevelTrash = root => {
+    const {
+        studio,
+    } = root
+
+    const arrTrash = []
+
+    return {
+        updateTrash: (removeArr, addArr) => {
+            for (let i = 0; i < removeArr.length; ++i) {
+                for (let j = 0; j < arrTrash.length; ++j) {
+                    if (arrTrash[j].keyLocation === removeArr[i]) {
+                        studio.removeFromScene(arrTrash[j].mesh)
+                    }
+                }
+            }
+
+            for (let i = 0; i < addArr.length; ++i) {
+                const rCount = Math.floor(Math.random() * 10)
+                for (let j = 0; j < rCount; ++j) {
+                    const b = new THREE.Mesh(
+                        new THREE.BoxGeometry(30, 50, 30),
+                        new THREE.MeshBasicMaterial({ color: 0x00ff00 })
+                    )
+
+                    const p = addArr[i].split('_')
+                    b.position.set(
+                        +p[0] * SIZE_QUADRANT + Math.random() * SIZE_QUADRANT,
+                        -50,
+                        +p[1] * SIZE_QUADRANT + Math.random() * SIZE_QUADRANT,
+                    )
+                    studio.addToScene(b)
+                    arrTrash.push({ mesh: b, keyLocation: addArr[i]})
+                }
+            }
+
+        },
+        createTresh: (arr) => {
+            for (let i = 0; i < arr.length; ++i) {
+                const rCount = Math.floor(Math.random() * 10)
+                for (let j = 0; j < rCount; ++j) {
+                    const b = new THREE.Mesh(
+                        new THREE.BoxGeometry(30, 50, 30),
+                        new THREE.MeshBasicMaterial({ color: 0x00ff00 })
+                    )
+
+                    const p = arr[i].split('_')
+                    b.position.set(
+                        +p[0] * SIZE_QUADRANT + Math.random() * SIZE_QUADRANT,
+                        -50,
+                        +p[1] * SIZE_QUADRANT + Math.random() * SIZE_QUADRANT,
+                    )
+                    studio.addToScene(b)
+                    arrTrash.push({ mesh: b, keyLocation: arr[i]})
+                }
+            }
+        },
     }
 }
