@@ -68,14 +68,14 @@ export class actions {
         /** TEST *************************/
         for (let key in LOCATIONS_QUADRANTS) {
             const b = new THREE.Mesh(
-                new THREE.BoxGeometry(55, 100000, 55),
+                new THREE.BoxGeometry(55, 1000, 55),
                 new THREE.MeshBasicMaterial({ color: 0xff0000 })
             )
 
             const p = key.split('_')
             b.position.set(
                 +p[0] * SIZE_QUADRANT + SIZE_QUADRANT / 2,
-                0,
+                1100,
                 +p[1] * SIZE_QUADRANT + SIZE_QUADRANT / 2,
             )
             studio.addToScene(b)
@@ -226,59 +226,78 @@ const createChangerLocations = root => {
 const createManagerLevelTrash = root => {
     const {
         studio,
+        car,
+        system_PlayerMoveOnLevel,
+        materials,
     } = root
 
     const arrTrash = []
 
+    const trashGeom = new THREE.BoxGeometry(30, 50, 30)  
+    const trashCollisionGeom = new THREE.BoxGeometry(45, 50, 45)  
+    const trashMat = materials.wallVirtual
+
+
+    const addItems = arr => {
+        for (let i = 0; i < arr.length; ++i) {
+            const rCount = Math.floor(Math.random() * 10)
+            for (let j = 0; j < rCount; ++j) {
+                const p = arr[i].split('_')
+                
+                const b = new THREE.Mesh(
+                    trashGeom,
+                    trashMat,
+                )
+                b.position.set(
+                    +p[0] * SIZE_QUADRANT + Math.random() * SIZE_QUADRANT,
+                    -50,
+                    +p[1] * SIZE_QUADRANT + Math.random() * SIZE_QUADRANT,
+                )
+                studio.addToScene(b)
+                system_PlayerMoveOnLevel.addItemToPlayerCollision(b)
+                
+                const c = new THREE.Mesh(
+                    trashCollisionGeom,
+                    trashMat,
+                )
+                c.visible = false
+                c.position.copy(b.position)
+                studio.addToScene(c)
+                car.setCollisionForDraw(c)
+                
+            
+                arrTrash.push({ 
+                    mesh: b,
+                    meshCollision: c, 
+                    keyLocation: arr[i]
+                })
+            }
+        }
+    } 
+
+
+    const removeItems = arr => {
+        for (let i = 0; i < arrTrash.length; ++i) {
+            for (let j = 0; j < arr.length; ++j) {
+                if (arrTrash[j].keyLocation === arr[i]) {
+                    studio.removeFromScene(arrTrash[j].mesh)
+                    studio.removeFromScene(arrTrash[j].meshCollision)
+                    system_PlayerMoveOnLevel.removeItemFromPlayerCollision(arrTrash[j].mesh)
+                    car.removeCollisionForDraw(arrTrash[j].meshCollision)
+                }
+            }
+        }
+    }
+
+
+
     return {
         updateTrash: (removeArr, addArr) => {
-            for (let i = 0; i < removeArr.length; ++i) {
-                for (let j = 0; j < arrTrash.length; ++j) {
-                    if (arrTrash[j].keyLocation === removeArr[i]) {
-                        studio.removeFromScene(arrTrash[j].mesh)
-                    }
-                }
-            }
-
-            for (let i = 0; i < addArr.length; ++i) {
-                const rCount = Math.floor(Math.random() * 10)
-                for (let j = 0; j < rCount; ++j) {
-                    const b = new THREE.Mesh(
-                        new THREE.BoxGeometry(30, 50, 30),
-                        new THREE.MeshBasicMaterial({ color: 0x00ff00 })
-                    )
-
-                    const p = addArr[i].split('_')
-                    b.position.set(
-                        +p[0] * SIZE_QUADRANT + Math.random() * SIZE_QUADRANT,
-                        -50,
-                        +p[1] * SIZE_QUADRANT + Math.random() * SIZE_QUADRANT,
-                    )
-                    studio.addToScene(b)
-                    arrTrash.push({ mesh: b, keyLocation: addArr[i]})
-                }
-            }
-
+            removeItems(removeArr)
+            addItems(addArr)                
         },
         createTresh: (arr) => {
-            for (let i = 0; i < arr.length; ++i) {
-                const rCount = Math.floor(Math.random() * 10)
-                for (let j = 0; j < rCount; ++j) {
-                    const b = new THREE.Mesh(
-                        new THREE.BoxGeometry(30, 50, 30),
-                        new THREE.MeshBasicMaterial({ color: 0x00ff00 })
-                    )
-
-                    const p = arr[i].split('_')
-                    b.position.set(
-                        +p[0] * SIZE_QUADRANT + Math.random() * SIZE_QUADRANT,
-                        -50,
-                        +p[1] * SIZE_QUADRANT + Math.random() * SIZE_QUADRANT,
-                    )
-                    studio.addToScene(b)
-                    arrTrash.push({ mesh: b, keyLocation: arr[i]})
-                }
-            }
+            addItems(arr)                
         },
     }
 }

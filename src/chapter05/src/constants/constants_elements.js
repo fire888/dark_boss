@@ -1,8 +1,8 @@
 export const SIZE_QUADRANT = 2000
 export const LOCATIONS_QUADRANTS = {
     '-4_-1': 'location01',
-    '-6_-1': 'location02',
-    '-8_-1': 'location03',
+    '0_-3': 'location02',
+    '3_-1': 'location03',
 }
 
 

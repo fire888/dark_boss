@@ -8,6 +8,7 @@ export class Car {
             CONSTANTS,
             emitter,
             materials,
+            system_Level
         } = root
 
         const { position, rotation } = CONSTANTS.CONFIG_FOR_INIT.currentSceneConfig.carProps
@@ -34,6 +35,19 @@ export class Car {
         this._backObj = new THREE.Object3D()
         this._backObj.position.set(0, 0, .5)
         this._model.add(this._backObj)
+
+
+
+        let arrow
+        setTimeout(() => {
+            console.log(assets)
+            arrow = root.system_Level._items.arrow
+            arrow.position.set(0, 23, -11.5)
+            arrow.rotation.x = Math.PI / 2
+            arrow.scale.set(2, 2, 2) 
+            this._model.add(arrow)
+        })
+
 
 
 
@@ -71,6 +85,7 @@ export class Car {
             if (this._spd < 0) {
                 if (!checkCollision(this._frontObj, 30)) {
                     this._model.translateZ(this._spd * data.count)
+                    arrow.rotation.y += 0.01
                 } else {
                     this._spd = 0
                 }
@@ -78,6 +93,7 @@ export class Car {
             if (this._spd > 0) {
                 if (!checkCollision(this._backObj, 30)) {
                     this._model.translateZ(this._spd * data.count)
+                    arrow.rotation.y -= 0.01
                 } else {
                     this._spd = 0
                 }
