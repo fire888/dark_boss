@@ -85,7 +85,7 @@ export class Car {
             if (this._spd < 0) {
                 if (!checkCollision(this._frontObj, 30)) {
                     this._model.translateZ(this._spd * data.count)
-                    arrow.rotation.y += 0.01
+                    arrow.rotation.y = -this._model.rotation.y
                 } else {
                     this._spd = 0
                 }
@@ -93,7 +93,7 @@ export class Car {
             if (this._spd > 0) {
                 if (!checkCollision(this._backObj, 30)) {
                     this._model.translateZ(this._spd * data.count)
-                    arrow.rotation.y -= 0.01
+                    arrow.rotation.y = -this._model.rotation.y
                 } else {
                     this._spd = 0
                 }
