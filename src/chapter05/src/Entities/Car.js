@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { helper_CollisionsItems_v02 } from '../../../_CORE/helpers/helper_CollisionsItems_v02'
+import { createCarCompas } from './CarCompas'
 
 export class Car {
     constructor (root) {
@@ -36,17 +37,18 @@ export class Car {
         this._backObj.position.set(0, 0, .5)
         this._model.add(this._backObj)
 
+        this._fnsOnMove = []
+
 
 
         let arrow
         setTimeout(() => {
-            console.log(assets)
-            arrow = root.system_Level._items.arrow
-            arrow.position.set(0, 23, -11.5)
-            arrow.rotation.x = Math.PI / 2
-            arrow.scale.set(2, 2, 2) 
-            this._model.add(arrow)
-        })
+            arrow = createCarCompas(root)
+            //this._model.add(arrow.getModel())
+            arrow.addToParent(this._model)     
+            arrow.setArrowPosition(0, 23, -11.5)    //arrow.position.set(0, 23, -11.5)    
+            this.setTargetPosition = arrow.setTargetPosition       
+        }) 
 
 
 
@@ -85,7 +87,8 @@ export class Car {
             if (this._spd < 0) {
                 if (!checkCollision(this._frontObj, 30)) {
                     this._model.translateZ(this._spd * data.count)
-                    arrow.rotation.y = -this._model.rotation.y
+                    arrow.update()
+                    //arrow.rotation.y = -this._model.rotation.y
                 } else {
                     this._spd = 0
                 }
@@ -93,7 +96,8 @@ export class Car {
             if (this._spd > 0) {
                 if (!checkCollision(this._backObj, 30)) {
                     this._model.translateZ(this._spd * data.count)
-                    arrow.rotation.y = -this._model.rotation.y
+                    arrow.update()
+                    //arrow.rotation.y = -this._model.rotation.y
                 } else {
                     this._spd = 0
                 }
@@ -198,5 +202,9 @@ export class Car {
 
     getQuaternion () {
         return this._model.quaternion
+    }
+
+    subscribeOnMove () {
+
     }
 }

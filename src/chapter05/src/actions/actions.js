@@ -59,10 +59,11 @@ export class actions {
 
         const checkerChangeLocation = createCheckerChangeLocationKey(SIZE_QUADRANT, car._model.position.x, car._model.position.z)
         let currentQuadrantKey = checkerChangeLocation.getCurrent()
+        
         this._changerLocations = createChangerLocations(this._root)
         this._changerLevelTresh = createManagerLevelTrash(this._root)
-
         this._changerLevelTresh.createTresh(currentQuadrantKey.currentEnv)
+        
 
 
         /** TEST *************************/
@@ -163,6 +164,11 @@ export class actions {
         system_PlayerNearLevelItems.setItemToCheck(car.getModel(), 'nearStarterDrawCar', 28)
         studio.addToScene(car.getModel())
         system_PlayerMoveOnLevel.addItemToPlayerCollision(car.getCollision())
+
+                //-4_-1
+        setTimeout(() => {
+            car.setTargetPosition(-4 * 2000 + 1000, 0, -1 * 2000 + 1000)
+        }, 500)        
 
 
         /** body **************************/
