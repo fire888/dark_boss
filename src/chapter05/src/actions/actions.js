@@ -167,8 +167,8 @@ export class actions {
 
                 //-4_-1
         setTimeout(() => {
-            car.setTargetPosition(-4 * 2000 + 1000, 0, -1 * 2000 + 1000)
-        }, 500)        
+            car.setTargetPosition(new THREE.Vector3(-4 * 2000 + 1000, 0, -1 * 2000 + 1000))
+        }, 500)
 
 
         /** body **************************/

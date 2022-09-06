@@ -8,9 +8,22 @@ export const createCarCompas = root => {
 
     const arrow = root.system_Level._items.arrow
 
-    const target = new THREE.Object3D()
-    target.position.set(0, 0, 0)
+    //const target = new THREE.Object3D()
+    const target = new THREE.Mesh(
+        new THREE.BoxGeometry(10, 10, 10),
+        new THREE.MeshBasicMaterial({ color: 0xff0000 })
+    )
+    target.position.set(-500, -30, -500)
     studio.addToScene(target)
+
+    const src = new THREE.Mesh(
+        new THREE.BoxGeometry(10, 10, 10),
+        new THREE.MeshBasicMaterial({ color: 0xff0000 })
+    )
+    src.position.set(0, 0, 0)
+    studio.addToScene(target)
+
+    const v = new THREE.Vector3()
 
     return {
         addToParent: parent => { 
@@ -19,18 +32,18 @@ export const createCarCompas = root => {
         setArrowPosition: (x, y, z) => {
             arrow.position.set(x, y, z)
         },
-        setTargetPosition: (x, y, z) => {
-            console.log(x, y, z)
-            target.position.x = x
-            //const worldPosSrc = arrow.getWorldPosition()
-            //target.position.y = worldPosSrc.y
-            target.position.z = z 
+        setTargetPosition: pos => {
+            target.position.copy(pos)
         },
         update: () => {
-            //arrow.lookAt(arrow.worldToLocal(target.matrixWorld.getPosition()))
-            const v = new THREE.Vector3()
-            v.setFromMatrixPosition(target.matrixWorld)
-            arrow.lookAt(arrow.worldToLocal(v))
+            src.position.copy(arrow.parent.position)
+            src.lookAt(target.position)
+            if (arrow.parent.position.z < target.position.z) {
+                arrow.rotation.y = -arrow.parent.rotation.y + src.rotation.y
+            }
+            else {
+                arrow.rotation.y = -arrow.parent.rotation.y - src.rotation.y + Math.PI
+            }
         }
     }
 }
