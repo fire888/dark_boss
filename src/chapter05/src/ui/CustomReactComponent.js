@@ -16,6 +16,10 @@ const mapStateToProps = state => {
         isShowPalleteDialog: state.ui.isShowPalleteDialog,
         isShowButtonDrawCar: state.ui.isShowButtonDrawCar,
         valButtonDrawCar:  state.ui.valButtonDrawCar,
+        //isShowButtonToggleOpenLocationsList: state.ui.isShowButtonToggleOpenLocationsList,
+        isShowButtonToggleOpenLocationsList: true,//state.ui.isShowButtonToggleOpenLocationsList,
+        isLocationListOpened: state.ui.isLocationListOpened,
+        currentLocation: state.ui.currentLocation,
     })
 }
 
@@ -53,6 +57,12 @@ function CustomReactComponent(props) {
                         </button>
                     </div>
                 </div>)}
+
+            {props.isShowButtonToggleOpenLocationsList &&  <button
+                className="open-locations-car-button"
+                onClick={() => props.dispatch({ type: 'OPEN_LOCATIONS_LIST' })}>
+                {t('targets list')}
+            </button>}
 
             {props.isShowFinalMessage && (
                     <div className='final-mess'>{t('To be continued')}</div>

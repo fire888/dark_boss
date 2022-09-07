@@ -17,6 +17,9 @@ export const uiState = {
     phraseIndex: 0,
     isDialogComplete: false,
     //phrasesData: DIALOGS_DATA,
+    isShowButtonToggleOpenLocationsList: false,
+    isLocationListOpened: false,
+    currentLocation: 'location01',
 }
 
 

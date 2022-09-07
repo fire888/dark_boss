@@ -66,24 +66,6 @@ export class actions {
         
 
 
-        /** TEST *************************/
-        for (let key in LOCATIONS_QUADRANTS) {
-            const b = new THREE.Mesh(
-                new THREE.BoxGeometry(55, 1000, 55),
-                new THREE.MeshBasicMaterial({ color: 0xff0000 })
-            )
-
-            const p = key.split('_')
-            b.position.set(
-                +p[0] * SIZE_QUADRANT + SIZE_QUADRANT / 2,
-                1100,
-                +p[1] * SIZE_QUADRANT + SIZE_QUADRANT / 2,
-            )
-            studio.addToScene(b)
-        }
-
-
-
 
         /** update every frame ***************/
         frameUpdater.on(data => {
@@ -178,8 +160,8 @@ export class actions {
 
 
         /** add floor to player ********/
-        studio.addToScene(system_Level._items['level_000_000'])
-        system_PlayerMoveOnLevel.addItemToPlayerCollision(system_Level._items['level_000_000'])
+        //studio.addToScene(system_Level._items['level_000_000'])
+        //system_PlayerMoveOnLevel.addItemToPlayerCollision(system_Level._items['level_000_000'])
 
 
 
@@ -201,11 +183,42 @@ const createChangerLocations = root => {
         system_PlayerNearLevelItems,
     } = root
 
+    /** TEST *************************/
+    for (let key in LOCATIONS_QUADRANTS) {
+        const b = new THREE.Mesh(
+            new THREE.BoxGeometry(55, 1000, 55),
+            new THREE.MeshBasicMaterial({ color: 0xff0000 })
+        )
+
+        const p = key.split('_')
+        b.position.set(
+            +p[0] * SIZE_QUADRANT + SIZE_QUADRANT / 2,
+            4100,
+            +p[1] * SIZE_QUADRANT + SIZE_QUADRANT / 2,
+        )
+        studio.addToScene(b)
+    }
+
+    setTimeout(() => {
+        for (let key in LOCATIONS_QUADRANTS) {
+            const p = key.split('_')
+            const x = +p[0] * SIZE_QUADRANT  + SIZE_QUADRANT / 2
+            const z =  +p[1] * SIZE_QUADRANT  + SIZE_QUADRANT / 2
+            const y =  0
+            system_Level.locations[LOCATIONS_QUADRANTS[key]].mesh.position.set(x, y, z)
+            studio.addToScene(system_Level.locations[LOCATIONS_QUADRANTS[key]].mesh)
+        }
+    }, 500)
+
+
+
+
+
     /** add/remove locations by key */
     const addLocationToScene = (keyLocation, x, z) => {
         const { mesh, carCollision } = system_Level.locations[keyLocation]
         mesh.position.set(x, 0, z)
-        studio.addToScene(mesh)
+        //studio.addToScene(mesh)
         system_PlayerMoveOnLevel.addItemToPlayerCollision(mesh)
         carCollision.position.set(x, 0, z)
         studio.addToScene(carCollision)
@@ -214,7 +227,7 @@ const createChangerLocations = root => {
 
     const removeLocationFromScene = keyLocation => {
         const { mesh, carCollision } = system_Level.locations[keyLocation]
-        studio.removeFromScene(mesh)
+        //studio.removeFromScene(mesh)
         system_PlayerMoveOnLevel.removeItemFromPlayerCollision(mesh)
         studio.removeFromScene(carCollision)
         car.removeCollisionForDraw(carCollision)
@@ -243,21 +256,45 @@ const createManagerLevelTrash = root => {
     const trashCollisionGeom = new THREE.BoxGeometry(45, 50, 45)  
     const trashMat = materials.wallVirtual
 
+    /** add floor to player ********/
+    //studio.addToScene(system_Level._items['level_000_000'])
+    // system_PlayerMoveOnLevel.addItemToPlayerCollision(system_Level._items['level_000_000'])
+    const floorGeom = new THREE.PlaneGeometry(SIZE_QUADRANT, SIZE_QUADRANT)
+
 
     const addItems = arr => {
         for (let i = 0; i < arr.length; ++i) {
+
+
+            const p = arr[i].split('_')
+            const x = +p[0] * SIZE_QUADRANT
+            const z =  +p[1] * SIZE_QUADRANT
+            const y =  -50
+            const floor = new THREE.Mesh(floorGeom, trashMat)
+            floor.rotation.x = -Math.PI / 2
+            floor.position.set(x, y - 12, z)
+            studio.addToScene(floor)
+            arrTrash.push({
+                mesh: floor,
+                meshCollision: floor,
+                keyLocation: arr[i]
+            })
+            system_PlayerMoveOnLevel.addItemToPlayerCollision(floor)
+
+
+
             const rCount = Math.floor(Math.random() * 10)
             for (let j = 0; j < rCount; ++j) {
-                const p = arr[i].split('_')
+
                 
                 const b = new THREE.Mesh(
                     trashGeom,
                     trashMat,
                 )
                 b.position.set(
-                    +p[0] * SIZE_QUADRANT + Math.random() * SIZE_QUADRANT,
-                    -50,
-                    +p[1] * SIZE_QUADRANT + Math.random() * SIZE_QUADRANT,
+                    x + Math.random() * SIZE_QUADRANT,
+                    y,
+                    z + Math.random() * SIZE_QUADRANT,
                 )
                 studio.addToScene(b)
                 system_PlayerMoveOnLevel.addItemToPlayerCollision(b)
@@ -286,10 +323,14 @@ const createManagerLevelTrash = root => {
         for (let i = 0; i < arrTrash.length; ++i) {
             for (let j = 0; j < arr.length; ++j) {
                 if (arrTrash[j].keyLocation === arr[i]) {
-                    studio.removeFromScene(arrTrash[j].mesh)
-                    studio.removeFromScene(arrTrash[j].meshCollision)
+                    const { mesh, meshCollision } = arrTrash[j]
+
+                    studio.removeFromScene(mesh)
                     system_PlayerMoveOnLevel.removeItemFromPlayerCollision(arrTrash[j].mesh)
-                    car.removeCollisionForDraw(arrTrash[j].meshCollision)
+                    if (meshCollision) {
+                        studio.removeFromScene(meshCollision)
+                        car.removeCollisionForDraw(meshCollision)
+                    }
                 }
             }
         }

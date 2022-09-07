@@ -66,7 +66,7 @@ export class Car {
         this._spd = 0
         this._acc = 0.1
         this._deceleration = 0.02
-        this._maxSpdFront = -6
+        this._maxSpdFront = -10
         this._maxSpdBack = 1
         this._spdRot = 0.03
 

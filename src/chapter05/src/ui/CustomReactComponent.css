@@ -24,6 +24,12 @@ button.dialog-button-toggle {
     align-items: stretch;
 }
 
+.open-locations-car-button {
+    position: absolute;
+    right: 8rem;
+    bottom: 10rem;
+}
+
 @media screen and (min-width: 610px) {
     .dialog-wrapper {
         top: 2rem;
