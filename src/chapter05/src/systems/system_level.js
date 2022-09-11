@@ -21,7 +21,6 @@ export class Level {
         this._items['location_collision_02'].visible = false
         this._items['location_collision_03'].visible = false
 
-
         this.locations = {
             location01: {
                 mesh: this._items['location01'],

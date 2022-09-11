@@ -14,10 +14,10 @@ export class system_PlayerNearLevelItems {
         this._itemsToCheck = []
 
         emitter.subscribe('playerMove')(() => {
-            console.log('1111', this._itemsToCheck)
+            //console.log('1111', this._itemsToCheck)
             for (let i = 0; i < this._itemsToCheck.length; ++i) {
                 const dist = player.mesh.position.distanceTo(this._itemsToCheck[i].position)
-                console.log(dist)
+                //console.log(dist)
 
                 if (!this._itemsToCheck[i].userData.nearPlayerIsNearPlayer && dist < this._itemsToCheck[i].userData.nearPlayerItemNear) {
                     this._itemsToCheck[i].userData.nearPlayerIsNearPlayer = true
@@ -40,7 +40,7 @@ export class system_PlayerNearLevelItems {
                 return;
             }
         }
-        console.log(item, itemKey, near, far)
+        //console.log(item, itemKey, near, far)
         itemKey && (item.userData.nearPlayerItemKey = itemKey)
         near && (item.userData.nearPlayerItemNear = near)
         far && (item.userData.nearPlayerItemFar = far)

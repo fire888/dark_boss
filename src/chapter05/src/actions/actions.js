@@ -46,12 +46,12 @@ export class actions {
 
 
         emitter.subscribe('checkNear')(data => {
-            console.log(data)
+            console.log('checkNear', data)
             if (data.item === 'nearStarterDrawCar') {
                 root.dispatcher.dispatch({ type: 'TOGGLE_BUTTON_DRAW_CAR', is: data.is })
             }
             if (data.item === 'nearPerson') {
-                console.log('!!!!!!', data)
+                console.log('checkNear nearPerson !!!!!!', data)
             }
         })
 
@@ -84,11 +84,11 @@ export class actions {
 
                     /** add/remove  locations ************************/
                     if (LOCATIONS_QUADRANTS[l.oldKey]) {
-                        console.log('remove', l.oldKey)
+                        //console.log('remove', l.oldKey)
                         this._changerLocations.removeLocationFromScene(LOCATIONS_QUADRANTS[l.oldKey])
                     }
                     if (LOCATIONS_QUADRANTS[l.newKey]) {
-                        console.log('add', l.newKey)
+                        //console.log('add', l.newKey)
                         const strArr = l.newKey.split('_')
                         const locationX = +strArr[0] * SIZE_QUADRANT + SIZE_QUADRANT / 2
                         const locationZ = +strArr[1] * SIZE_QUADRANT + SIZE_QUADRANT / 2
@@ -241,8 +241,6 @@ const createChangerLocations = root => {
 
 
 
-
-
     /** add/remove locations by key */
     const addLocationToScene = (keyLocation, x, z) => {
         const { mesh, carCollision, person } = system_Level.locations[keyLocation]
@@ -256,10 +254,22 @@ const createChangerLocations = root => {
         car.setCollisionForDraw(carCollision)
 
         person.position.set(x, 0, z)
-        system_PlayerNearLevelItems.setItemToCheck(person, 'nearPerson', 28)
-        studio.addToScene(person)
+        person.geometry.computeBoundingSphere()
+
+        /** TODO must remove from scene ***************** */
+        const m = new THREE.Mesh(
+            new THREE.BoxGeometry(15, 15, 15),
+            new THREE.MeshBasicMaterial({ color: 0xffff00 })
+        )
+        m.position.x = person.geometry.boundingSphere.center.x + x
+        m.position.y = person.geometry.boundingSphere.center.y
+        m.position.z = person.geometry.boundingSphere.center.z + z
+        studio.addToScene(m)
+        /** ********************************************* */
 
 
+        system_PlayerNearLevelItems.setItemToCheck(m, 'nearPerson', 28)
+        //studio.addToScene(person)
     }
 
     const removeLocationFromScene = keyLocation => {
