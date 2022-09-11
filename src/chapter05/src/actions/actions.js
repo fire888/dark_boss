@@ -45,9 +45,13 @@ export class actions {
         })
 
 
-        emitter.subscribe('checkNear')( data => {
+        emitter.subscribe('checkNear')(data => {
+            console.log(data)
             if (data.item === 'nearStarterDrawCar') {
                 root.dispatcher.dispatch({ type: 'TOGGLE_BUTTON_DRAW_CAR', is: data.is })
+            }
+            if (data.item === 'nearPerson') {
+                console.log('!!!!!!', data)
             }
         })
 
@@ -127,6 +131,24 @@ export class actions {
     }
 
 
+    changeTargetLocation ({ key }) {
+        let keyXZ = null
+        for (let k in LOCATIONS_QUADRANTS) {
+            if (LOCATIONS_QUADRANTS[k] === key) {
+                keyXZ = k
+            }
+        }
+        if (keyXZ) {
+            const p = keyXZ.split('_')
+            const x = +p[0] * SIZE_QUADRANT  + SIZE_QUADRANT / 2
+            const z =  +p[1] * SIZE_QUADRANT  + SIZE_QUADRANT / 2
+            const y =  0
+            const { car } = this._root
+            car.setTargetPosition(new THREE.Vector3(x, y, z))
+        }
+    }
+
+
 
     _startPlay () {
         const {
@@ -147,9 +169,22 @@ export class actions {
         studio.addToScene(car.getModel())
         system_PlayerMoveOnLevel.addItemToPlayerCollision(car.getCollision())
 
-                //-4_-1
+
         setTimeout(() => {
-            car.setTargetPosition(new THREE.Vector3(-4 * 2000 + 1000, 0, -1 * 2000 + 1000))
+            let i = 0
+            let key = null
+            for (let k in LOCATIONS_QUADRANTS) {
+                if (i === 0) {
+                    key = k
+                }
+                ++i
+            }
+            const p = key.split('_')
+            const x = +p[0] * SIZE_QUADRANT  + SIZE_QUADRANT / 2
+            const z = +p[1] * SIZE_QUADRANT  + SIZE_QUADRANT / 2
+            const y = 0
+
+            car.setTargetPosition(new THREE.Vector3(x, y, z))
         }, 500)
 
 
@@ -157,12 +192,6 @@ export class actions {
         system_Level._items['body'].position.fromArray([-20, -60, -50])
         system_Level._items['body'].rotation.fromArray([0, 2, 0])
         studio.addToScene(system_Level._items['body'])
-
-
-        /** add floor to player ********/
-        //studio.addToScene(system_Level._items['level_000_000'])
-        //system_PlayerMoveOnLevel.addItemToPlayerCollision(system_Level._items['level_000_000'])
-
 
 
         ui.showStartButton(() => {
@@ -203,8 +232,8 @@ const createChangerLocations = root => {
         for (let key in LOCATIONS_QUADRANTS) {
             const p = key.split('_')
             const x = +p[0] * SIZE_QUADRANT  + SIZE_QUADRANT / 2
-            const z =  +p[1] * SIZE_QUADRANT  + SIZE_QUADRANT / 2
-            const y =  0
+            const z = +p[1] * SIZE_QUADRANT  + SIZE_QUADRANT / 2
+            const y = 0
             system_Level.locations[LOCATIONS_QUADRANTS[key]].mesh.position.set(x, y, z)
             studio.addToScene(system_Level.locations[LOCATIONS_QUADRANTS[key]].mesh)
         }
@@ -216,21 +245,34 @@ const createChangerLocations = root => {
 
     /** add/remove locations by key */
     const addLocationToScene = (keyLocation, x, z) => {
-        const { mesh, carCollision } = system_Level.locations[keyLocation]
+        const { mesh, carCollision, person } = system_Level.locations[keyLocation]
+
         mesh.position.set(x, 0, z)
         //studio.addToScene(mesh)
+
         system_PlayerMoveOnLevel.addItemToPlayerCollision(mesh)
         carCollision.position.set(x, 0, z)
         studio.addToScene(carCollision)
         car.setCollisionForDraw(carCollision)
+
+        person.position.set(x, 0, z)
+        system_PlayerNearLevelItems.setItemToCheck(person, 'nearPerson', 28)
+        studio.addToScene(person)
+
+
     }
 
     const removeLocationFromScene = keyLocation => {
-        const { mesh, carCollision } = system_Level.locations[keyLocation]
+        const { mesh, carCollision, person } = system_Level.locations[keyLocation]
+
         //studio.removeFromScene(mesh)
         system_PlayerMoveOnLevel.removeItemFromPlayerCollision(mesh)
+
         studio.removeFromScene(carCollision)
         car.removeCollisionForDraw(carCollision)
+
+        studio.removeFromScene(person)
+        system_PlayerNearLevelItems.removeItemFromCheck(person)
     }
 
 
@@ -293,7 +335,7 @@ const createManagerLevelTrash = root => {
                 
                 const meshCollision = new THREE.Mesh(trashCollisionGeom, trashMat)
                 meshCollision.visible = false
-                meshCollision.position.copy(meshCollision.position)
+                meshCollision.position.copy(mesh.position)
                 studio.addToScene(meshCollision)
                 car.setCollisionForDraw(meshCollision)
                 arrTrash.push({ mesh, meshCollision, keyLocation: arr[i], type: 'trash' })

@@ -20,11 +20,39 @@ export const uiState = {
     isShowButtonToggleOpenLocationsList: false,
     isLocationListOpened: false,
     currentLocation: 'location01',
+    locationsList: [
+        'location01',
+        'location02',
+        'location03',
+    ],
 }
 
 
 export const createCustomStore = root => {
     const ui = (state = uiState, action) => {
+        if (action.type === 'OPEN_LOCATIONS_LIST') {
+            return ({
+                ...state,
+                isLocationListOpened: true,
+            })
+        }
+
+        if (action.type === 'CLOSE_LOCATIONS_LIST') {
+            return ({
+                ...state,
+                isLocationListOpened: false,
+            })
+        }
+
+        if (action.type === 'SELECT_LOCATION') {
+            root.actions.changeTargetLocation({ key: action.location })
+            return ({
+                ...state,
+                currentLocation: action.location,
+            })
+        }
+
+
 
         if (action.type === 'CLICK_PHRASE') {
             return ({

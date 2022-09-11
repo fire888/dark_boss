@@ -38,12 +38,15 @@ export class Car {
         this._model.add(this._backObj)
 
 
-        let compass
+        this._compass = null
         setTimeout(() => {
-            compass = createCarCompas(root)
-            compass.addToParent(this._model)
-            compass.setArrowPosition(0, 23, -11.5)
-            this.setTargetPosition = compass.setTargetPosition
+            this._compass = createCarCompas(root)
+            this._compass.addToParent(this._model)
+            this._compass.setArrowPosition(0, 23, -11.5)
+            this.setTargetPosition = (val) => {
+                this._compass.setTargetPosition(val)
+                this._compass.update()
+            }
         }) 
 
 
@@ -84,7 +87,7 @@ export class Car {
             if (this._spd < 0) {
                 if (!checkCollision(this._frontObj, 30)) {
                     this._model.translateZ(this._spd * data.count)
-                    compass.update()
+                    this._compass.update()
                 } else {
                     this._spd = 0
                 }
@@ -92,7 +95,7 @@ export class Car {
             if (this._spd > 0) {
                 if (!checkCollision(this._backObj, 30)) {
                     this._model.translateZ(this._spd * data.count)
-                    compass.update()
+                    this._compass.update()
                 } else {
                     this._spd = 0
                 }
