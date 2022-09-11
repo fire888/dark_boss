@@ -17,7 +17,7 @@ export class Car {
         this._model = assets.car.children[0]
         this._model.material = materials.car
 
-        this._camera = new THREE.PerspectiveCamera(80, window.innerWidth/window.innerHeight, .5, 10000)
+        this._camera = new THREE.PerspectiveCamera(80, window.innerWidth/window.innerHeight, .5, 100000)
         this._camera.position.y = 28
         this._model.add(this._camera)
 
@@ -67,7 +67,8 @@ export class Car {
         this._acc = 0.1
         this._deceleration = 0.02
         this._maxSpdFront = -10
-        this._maxSpdBack = 1
+        //this._maxSpdBack = 1
+        this._maxSpdBack = 10
         this._spdRot = 0.03
 
         this._isCarStay = false
