@@ -37,17 +37,18 @@ export const createCustomStore = root => {
             })
         }
 
-        if (action.type === 'CLOSE_LOCATIONS_LIST') {
-            return ({
-                ...state,
-                isLocationListOpened: false,
-            })
-        }
+        // if (action.type === 'CLOSE_LOCATIONS_LIST') {
+        //     return ({
+        //         ...state,
+        //         isLocationListOpened: false,
+        //     })
+        // }
 
         if (action.type === 'SELECT_LOCATION') {
             root.actions.changeTargetLocation({ key: action.location })
             return ({
                 ...state,
+                isLocationListOpened: false,
                 currentLocation: action.location,
             })
         }

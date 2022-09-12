@@ -59,18 +59,20 @@ function CustomReactComponent(props) {
                     </div>
                 </div>)}
 
+
             {props.isShowButtonToggleOpenLocationsList && !props.isLocationListOpened && <button
                 className="open-locations-car-button"
                 onClick={() => props.dispatch({ type: 'OPEN_LOCATIONS_LIST' })}>
-                {t('targets list')}
+                {props.currentLocation}
             </button>}
+
 
             {props.isLocationListOpened && (
                 <div className='list-locations'>
-                    <button
-                        onClick={() => props.dispatch({ type: 'CLOSE_LOCATIONS_LIST' })}>
-                        _x_
-                    </button>
+                    {/*<button*/}
+                    {/*    onClick={() => props.dispatch({ type: 'CLOSE_LOCATIONS_LIST' })}>*/}
+                    {/*    _x_*/}
+                    {/*</button>*/}
                     <div>
                         {props.locationsList.map(item =>
                             (<button

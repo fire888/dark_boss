@@ -22,6 +22,7 @@ export class Level {
         this._items['location_collision_03'].visible = false
 
 
+        /** locations persons ******* */
         const personCollision = new THREE.Mesh(
             new THREE.BoxGeometry(15, 15, 15),
             new THREE.MeshBasicMaterial({ color: 0xffff00 })
@@ -49,11 +50,7 @@ export class Level {
         ]
 
 
-        //m.position.x = person.geometry.boundingSphere.center.x + x
-        //m.position.y = person.geometry.boundingSphere.center.y
-        //m.position.z = person.geometry.boundingSphere.center.z + z
-        //studio.addToScene(m)
-
+        /** locations data *********** */
         this.locations = {
             location01: {
                 mesh: this._items['location01'],
