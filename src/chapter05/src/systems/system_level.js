@@ -21,21 +21,57 @@ export class Level {
         this._items['location_collision_02'].visible = false
         this._items['location_collision_03'].visible = false
 
+
+        const personCollision = new THREE.Mesh(
+            new THREE.BoxGeometry(15, 15, 15),
+            new THREE.MeshBasicMaterial({ color: 0xffff00 })
+        )
+
+        this._items['location01_person'].geometry.computeBoundingSphere()
+        const offsetP01 = [
+            this._items['location01_person'].geometry.boundingSphere.center.x,
+            this._items['location01_person'].geometry.boundingSphere.center.y,
+            this._items['location01_person'].geometry.boundingSphere.center.z,
+        ]
+
+        this._items['location02_person'].geometry.computeBoundingSphere()
+        const offsetP02 = [
+            this._items['location02_person'].geometry.boundingSphere.center.x,
+            this._items['location02_person'].geometry.boundingSphere.center.y,
+            this._items['location02_person'].geometry.boundingSphere.center.z,
+        ]
+
+        this._items['location03_person'].geometry.computeBoundingSphere()
+        const offsetP03 = [
+            this._items['location03_person'].geometry.boundingSphere.center.x,
+            this._items['location03_person'].geometry.boundingSphere.center.y,
+            this._items['location03_person'].geometry.boundingSphere.center.z,
+        ]
+
+
+        //m.position.x = person.geometry.boundingSphere.center.x + x
+        //m.position.y = person.geometry.boundingSphere.center.y
+        //m.position.z = person.geometry.boundingSphere.center.z + z
+        //studio.addToScene(m)
+
         this.locations = {
             location01: {
                 mesh: this._items['location01'],
                 carCollision: this._items['location_collision_01'],
-                person: this._items['location01_person'],
+                personOffset: offsetP01,
+                personCollision,
             },
             location02: {
                 mesh: this._items['location02'],
                 carCollision: this._items['location_collision_02'],
-                person: this._items['location02_person'],
+                personOffset: offsetP02,
+                personCollision,
             },
             location03: {
                 mesh: this._items['location03'],
                 carCollision: this._items['location_collision_03'],
-                person: this._items['location03_person'],
+                personOffset: offsetP03,
+                personCollision,
             },
         }
     }

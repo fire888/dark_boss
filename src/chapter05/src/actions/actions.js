@@ -101,7 +101,6 @@ export class actions {
             studio.drawFrame()
         })
 
-
         this._startPlay()
     }
 
@@ -243,46 +242,36 @@ const createChangerLocations = root => {
 
     /** add/remove locations by key */
     const addLocationToScene = (keyLocation, x, z) => {
-        const { mesh, carCollision, person } = system_Level.locations[keyLocation]
+        const { mesh, carCollision, personOffset, personCollision } = system_Level.locations[keyLocation]
 
         mesh.position.set(x, 0, z)
-        //studio.addToScene(mesh)
+        /**
+        *studio.addToScene(mesh)
+        */
 
         system_PlayerMoveOnLevel.addItemToPlayerCollision(mesh)
         carCollision.position.set(x, 0, z)
         studio.addToScene(carCollision)
         car.setCollisionForDraw(carCollision)
 
-        person.position.set(x, 0, z)
-        person.geometry.computeBoundingSphere()
-
-        /** TODO must remove from scene ***************** */
-        const m = new THREE.Mesh(
-            new THREE.BoxGeometry(15, 15, 15),
-            new THREE.MeshBasicMaterial({ color: 0xffff00 })
-        )
-        m.position.x = person.geometry.boundingSphere.center.x + x
-        m.position.y = person.geometry.boundingSphere.center.y
-        m.position.z = person.geometry.boundingSphere.center.z + z
-        studio.addToScene(m)
-        /** ********************************************* */
-
-
-        system_PlayerNearLevelItems.setItemToCheck(m, 'nearPerson', 28)
-        //studio.addToScene(person)
+        personCollision.position.set(personOffset[0] + x, personOffset[1], personOffset[2] + z)
+        studio.addToScene(personCollision)
+        system_PlayerNearLevelItems.setItemToCheck(personCollision, 'nearPerson_' + keyLocation, 28)
     }
 
     const removeLocationFromScene = keyLocation => {
-        const { mesh, carCollision, person } = system_Level.locations[keyLocation]
+        const { mesh, carCollision, personCollision} = system_Level.locations[keyLocation]
 
-        //studio.removeFromScene(mesh)
+        /**
+        * studio.removeFromScene(mesh)
+        */
         system_PlayerMoveOnLevel.removeItemFromPlayerCollision(mesh)
 
         studio.removeFromScene(carCollision)
         car.removeCollisionForDraw(carCollision)
 
-        studio.removeFromScene(person)
-        system_PlayerNearLevelItems.removeItemFromCheck(person)
+        studio.removeFromScene(personCollision)
+        system_PlayerNearLevelItems.removeItemFromCheck(personCollision)
     }
 
 
