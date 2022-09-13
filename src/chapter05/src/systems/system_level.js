@@ -50,7 +50,7 @@ export class Level {
         ]
 
 
-        /** locations data *********** */
+        /** locations data ***********wd */
         this.locations = {
             location01: {
                 mesh: this._items['location01'],

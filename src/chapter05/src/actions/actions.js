@@ -8,6 +8,8 @@ import {
 } from '../constants/constants_elements';
 import { createCheckerChangeLocationKey } from '../components/checkerChangeLocationKey'
 
+import { createBoxPentagram } from '../Entities/paramElems/pentagramm'
+
 
 export class actions {
     constructor (root) {
@@ -67,12 +69,17 @@ export class actions {
         this._changerLocations = createChangerLocations(this._root)
         this._changerLevelTresh = createManagerLevelTrash(this._root)
         this._changerLevelTresh.createTresh(currentQuadrantKey.currentEnv)
-        
 
 
+        /** testPentagram ******************/
+        const p = createBoxPentagram()
+        p.position.set(0, -50, -20)
+        studio.addToScene(p)
 
         /** update every frame ***************/
         frameUpdater.on(data => {
+            p.rotation.y += 0.01
+            //p.rotation.x += 0.05
             system_PlayerMoveOnLevel.update(data)
             if (!car.isFreeze) {
                 car.update(data)
@@ -159,6 +166,8 @@ export class actions {
             system_PlayerMoveOnLevel,
             system_PlayerNearLevelItems,
         } = this._root
+
+
 
 
 
