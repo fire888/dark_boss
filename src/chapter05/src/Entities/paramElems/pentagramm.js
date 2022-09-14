@@ -85,8 +85,17 @@ const createGeom = () => {
         -S, S * 2, -S,
 
         ///////////////////////
+        S - T, T, -S + T,
+        S - T, T, S,
+        S - T, S * 2, S,
 
+        S - T, T, -S + T,
+        S - T, S * 2, S,
+        S - T, S * 2, -S + T,
+    ]
 
+    const TOP = [
+        S - T,
     ]
 
 
@@ -94,6 +103,7 @@ const createGeom = () => {
     const vertices = new Float32Array( [
         ...FRONT,
         ...LEFT,
+        ...TOP,
         // // /* ******************/
         // S - T, T, S,
         // S - T, S * 2, S,
@@ -108,6 +118,7 @@ const createGeom = () => {
 
 
     const colors = new Float32Array( [
+        ...FRONT_COLORS,
         ...FRONT_COLORS,
         ...FRONT_COLORS,
     ])
