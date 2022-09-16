@@ -72,13 +72,17 @@ export class actions {
 
 
         /** testPentagram ******************/
-        const p = createBoxPentagram()
-        p.position.set(0, -50, -20)
-        studio.addToScene(p)
+        for (let i = 0; i < 15; ++i) {
+            const p = createBoxPentagram(this._root)
+            p.rotation.y = Math.random() * Math.PI * 2
+            p.position.set(40 * i, -60, -20)
+            studio.addToScene(p)
+        }
+
 
         /** update every frame ***************/
         frameUpdater.on(data => {
-            p.rotation.y += 0.01
+            //p.rotation.y += 0.01
             //p.rotation.x += 0.05
             system_PlayerMoveOnLevel.update(data)
             if (!car.isFreeze) {

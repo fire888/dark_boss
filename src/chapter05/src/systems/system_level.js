@@ -10,9 +10,12 @@ export class Level {
             materials,
         } = root
 
+
         const { items } = createLevelMeshes(assets, materials)
         this._items = items
         console.log('system_level_items', this._items)
+
+
 
         items.body.material = materials.car
 

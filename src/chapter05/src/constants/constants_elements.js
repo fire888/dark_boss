@@ -50,6 +50,23 @@ export const MATERIALS_CONFIG = {
             specular: 0xffffff,
         },
     },
+    'wallVirtualColor': {
+        mat: 'MeshPhongMaterial',
+        props: {
+            //color: 0xffd4a8,
+            color: 0xfff39f,
+            //color: 0x999999,
+            emissive: 0x000000,
+            map: 'mapVirtual',
+            bumpMap: 'mapVirtual',
+            bumpScale: 3,
+            envMap: 'skyBox',
+            reflectivity: .5,
+            shininess: .5,
+            specular: 0xffffff,
+            vertexColors: true,
+        },
+    },
 
     'car': {
         mat: 'MeshPhongMaterial',
