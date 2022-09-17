@@ -74,8 +74,9 @@ export class actions {
         /** testPentagram ******************/
         //for (let i = 0; i < 15; ++i) {
             const p = createBoxPentagram(this._root)
-            p.rotation.y = Math.random() * Math.PI * 2
+            //p.rotation.y = Math.random() * Math.PI * 2
             p.position.set(0, -60, -20)
+            console.log('---------------', p)
             studio.addToScene(p)
         //}
 
@@ -307,7 +308,6 @@ const createManagerLevelTrash = root => {
     let arrTrash = []
 
     const trashGeom = new THREE.BoxGeometry(30, 50, 30)
-    console.log('!!!', trashGeom)
     const trashCollisionGeom = new THREE.BoxGeometry(45, 50, 45)  
     const trashMat = materials.wallVirtual
     const floorGeom = new THREE.PlaneGeometry(SIZE_QUADRANT, SIZE_QUADRANT)

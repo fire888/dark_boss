@@ -22,15 +22,7 @@ const transformArr = (arr, x = 0, y = 0, z = 0, r = 0) => {
 }
 
 const createFace = (v1, v2, v3, v4) => [...v1, ...v2, ...v3, ...v1, ...v3, ...v4]
-const createUv = () => [
-    0, .5,
-    .5, .5,
-    .5, 0,
-
-    0, .5,
-    .5, 0,
-    0, 0,
-]
+const createUv = (v1, v2, v3, v4) => [...v1, ...v2, ...v3, ...v1, ...v3, ...v4]
 const fillColorFace = c => [...c, ...c, ...c, ...c, ...c, ...c]
 
 const createFaceWithSquare = (v1, v2, v3, v4) => {
@@ -103,6 +95,7 @@ const createTrunk = ({
 
     const vert = []
     const col = []
+    const uv = []
 
 
 
@@ -116,6 +109,12 @@ const createTrunk = ({
             )
         )
         col.push(...fillColorFace(color1))
+        uv.push(...createUv(
+            [0, .5],
+            [.5, .5],
+            [.5, 1],
+            [0, 1],
+        ))
     } else {
         for (let i = 0; i < arrDividers.length; ++i) {
             /** column ***/
@@ -128,6 +127,38 @@ const createTrunk = ({
                 )
             )
             col.push(...fillColorFaceWithSquare(color1, color2))
+            uv.push(
+                ...createUv(
+                    [.5, .5],
+                    [1, .5],
+                    [1, 1],
+                    [.5, 1],
+                ), 
+                ...createUv(
+                    [0, .5],
+                    [.5, .5],
+                    [.5, 1],
+                    [0, 1],
+                ), 
+                ...createUv(
+                    [0, .5],
+                    [.5, .5],
+                    [.5, 1],
+                    [0, 1],
+                ), 
+                ...createUv(
+                    [0, .5],
+                    [.5, .5],
+                    [.5, 1],
+                    [0, 1],
+                ), 
+                ...createUv(
+                    [0, .5],
+                    [.5, .5],
+                    [.5, 1],
+                    [0, 1],
+                )
+            )
             /** column -> divider */
             vert.push(
                 ...createFace(
@@ -138,6 +169,12 @@ const createTrunk = ({
                 )
             )
             col.push(...fillColorFace(color2))
+            uv.push(...createUv(
+                [0, .5],
+                [.5, .5],
+                [.5, 1],
+                [0, 1],
+            ))
             /** divider */
             vert.push(
                 ...createFace(
@@ -148,6 +185,12 @@ const createTrunk = ({
                 )
             )
             col.push(...fillColorFace(color1))
+            uv.push(...createUv(
+                [0, .5],
+                [.5, .5],
+                [.5, 1],
+                [0, 1],
+            ))
             /** divider -> column */
             vert.push(
                 ...createFace(
@@ -158,6 +201,12 @@ const createTrunk = ({
                 )
             )
             col.push(...fillColorFace(color2))
+            uv.push(...createUv(
+                [0, .5],
+                [.5, .5],
+                [.5, 1],
+                [0, 1],
+            ))
         }
 
         /** last segment */
@@ -170,9 +219,41 @@ const createTrunk = ({
             )
         )
         col.push(...fillColorFaceWithSquare(color2, color1))
+        uv.push(
+            ...createUv(
+                [0, .5],
+                [.5, .5],
+                [.5, 1],
+                [0, 1],
+            ), 
+            ...createUv(
+                [0, .5],
+                [.5, .5],
+                [.5, 1],
+                [0, 1],
+            ), 
+            ...createUv(
+                [0, .5],
+                [.5, .5],
+                [.5, 1],
+                [0, 1],
+            ), 
+            ...createUv(
+                [0, .5],
+                [.5, .5],
+                [.5, 1],
+                [0, 1],
+            ), 
+            ...createUv(
+                [0, .5],
+                [.5, .5],
+                [.5, 1],
+                [0, 1],
+            )
+        )
     }
 
-    return { vert, col  }
+    return { vert, col, uv }
 }
 
 
@@ -187,10 +268,10 @@ const createColumn = ({
 
     hTrunk = 30,
     rTrunk = 3,
-    color1 = [0, 0, 1],
-    color2 = [0, 1, 1],
+    color1 = [.2, .2, .2],
+    color2 = [1, 1, 1],
 }) => {
-    /** base **************/
+    /** BASE **************/
     const base = [...createFace(
         [-rBase, 0, rBase,],
         [rBase, 0, rBase],
@@ -198,6 +279,12 @@ const createColumn = ({
         [-rBase, hBase, rBase],
     )]
     const colorBase = [...fillColorFace(color1)]
+    const uv1 = createUv(
+        [.5, 0],
+        [1, 0],
+        [1, .5],
+        [.5, .5],
+    )
 
 
     const baseToTrunk = [...createFace(
@@ -207,19 +294,25 @@ const createColumn = ({
         [-rTrunk, hBase + hBaseToTrunk, rTrunk],
     )]
     const colorBaseToTrunk = [...fillColorFace(color2)]
-
+    const uvBT = createUv(
+        [0, 0],
+        [.5, 0],
+        [.5, .5],
+        [0, .5],
+    )
 
 
     /** TRUNK ************************/
     let h = hBase + hBaseToTrunk
-    const { vert, col } = createTrunk({
+    const { vert, col, uv } = createTrunk({
         h: hBase + hBaseToTrunk,
         h2: hTrunk + hBase + hBaseToTrunk,
         r: rTrunk,
     })
+    const uvT = uv
 
 
-    /** TRUNK TO CAPITAL **************/
+    /** CAPITAL **************/
     h = h + hTrunk
     const trunkToCapital = [...createFace(
         [-rTrunk, h, rTrunk],
@@ -227,8 +320,6 @@ const createColumn = ({
         [rCapital, h + hTrunkToCapital, rCapital],
         [-rCapital, h + hTrunkToCapital, rCapital],
     )]
-
-    /** CAPITAL *********************/
     h = h + hTrunkToCapital
     const capital = [...createFace(
         [-rCapital, h, rCapital],
@@ -236,6 +327,12 @@ const createColumn = ({
         [rCapital, h + hCapital, rCapital],
         [-rCapital, h + hCapital, rCapital],
     )]
+    const uvC = createUv(
+        [.5, .5],
+        [1, .5],
+        [1, 0],
+        [.5, 0],
+    )
 
 
     const frontVert = [
@@ -252,12 +349,14 @@ const createColumn = ({
         ...colorBaseToTrunk,
         ...colorBase,
     ]
-    const uv = [
-        ...createUv(),
-        ...createUv(),
-        ...createUv(),
-        ...createUv(),
-        ...createUv(),
+
+    console.log(uvT.length / 2, vert.length / 3)
+    const frontUV = [
+        ...uv1,
+        ...uvBT,
+        ...uvT,
+        ...uv1,
+        ...uvC,
     ]
 
     /** left ************************/
@@ -285,10 +384,10 @@ const createColumn = ({
         ...frontColors,
     ]
     const uvResult = [
-        ...uv,
-        ...uv,
-        ...uv,
-        ...uv,
+        ...frontUV,
+        ...frontUV,
+        ...frontUV,
+        ...frontUV,
     ]
 
     return {

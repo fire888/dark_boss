@@ -1,5 +1,4 @@
 import { m4 } from '../../helpers/m4'
-console.log(m4)
 
 
 const createColumn = ({

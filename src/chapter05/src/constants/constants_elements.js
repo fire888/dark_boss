@@ -58,7 +58,7 @@ export const MATERIALS_CONFIG = {
             //color: 0x999999,
             emissive: 0x000000,
             map: 'mapParams',
-            bumpMap: 'mapVirtual',
+            bumpMap: 'mapParams',
             bumpScale: 3,
             envMap: 'skyBox',
             reflectivity: .5,

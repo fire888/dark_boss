@@ -19,7 +19,6 @@ export class Studio {
         rendererCon.canvas = document.getElementById(canId)
 
         this._renderer = new THREE.WebGLRenderer(rendererCon)
-        console.log(clearColor)
         this._renderer.setClearColor(clearColor)
         this._renderer.setPixelRatio(window.devicePixelRatio)
         this._renderer.setSize(window.innerWidth, window.innerHeight)
@@ -28,8 +27,6 @@ export class Studio {
 
         {
             const { color, fogNear, fogFar, backgroundImgKey } = root.CONSTANTS.studioConfig.sceneEnvironment
-            console.log(color)
-
             //this._scene.background = assets[backgroundImgKey] || null
             //this._scene.fog = new THREE.Fog(color, fogNear, fogFar)
         }
@@ -38,7 +35,6 @@ export class Studio {
         this._lightA = null
         {
             const { color, strength } = amb
-            console.log(color)
             this._lightA = new THREE.AmbientLight( color, strength )
             this._scene.add( this._lightA )
         }
