@@ -72,12 +72,12 @@ export class actions {
 
 
         /** testPentagram ******************/
-        for (let i = 0; i < 15; ++i) {
+        //for (let i = 0; i < 15; ++i) {
             const p = createBoxPentagram(this._root)
             p.rotation.y = Math.random() * Math.PI * 2
-            p.position.set(40 * i, -60, -20)
+            p.position.set(0, -60, -20)
             studio.addToScene(p)
-        }
+        //}
 
 
         /** update every frame ***************/
