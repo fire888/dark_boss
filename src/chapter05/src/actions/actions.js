@@ -306,7 +306,8 @@ const createManagerLevelTrash = root => {
 
     let arrTrash = []
 
-    const trashGeom = new THREE.BoxGeometry(30, 50, 30)  
+    const trashGeom = new THREE.BoxGeometry(30, 50, 30)
+    console.log('!!!', trashGeom)
     const trashCollisionGeom = new THREE.BoxGeometry(45, 50, 45)  
     const trashMat = materials.wallVirtual
     const floorGeom = new THREE.PlaneGeometry(SIZE_QUADRANT, SIZE_QUADRANT)

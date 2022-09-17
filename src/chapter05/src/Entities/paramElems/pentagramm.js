@@ -20,9 +20,11 @@ const createGeom = () => {
     const data = [s, h, t, C1, C2]
 
     //const { vertices, colors } = boxGeom(...data)
-    const { vertices, colors } = createGeomGallery({})
+    const { vertices, colors, uv } = createGeomGallery({})
     geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
     geometry.setAttribute( 'color', new THREE.BufferAttribute( colors, 3 ) );
+    uv && geometry.setAttribute( 'uv', new THREE.BufferAttribute( uv, 2 ) );
+    console.log(geometry)
     geometry.computeVertexNormals()
     return geometry;
 }

@@ -22,25 +22,52 @@ const transformArr = (arr, x = 0, y = 0, z = 0, r = 0) => {
 }
 
 const createFace = (v1, v2, v3, v4) => [...v1, ...v2, ...v3, ...v1, ...v3, ...v4]
+const createUv = () => [
+    0, .5,
+    .5, .5,
+    .5, 0,
+
+    0, .5,
+    .5, 0,
+    0, 0,
+]
+const fillColorFace = c => [...c, ...c, ...c, ...c, ...c, ...c]
+
 const createFaceWithSquare = (v1, v2, v3, v4) => {
     const maxW = v2[0] - v1[0]
-    const maxH = v3[2] - v1[2]
+    const maxH = v3[1] - v1[1]
 
-    const innerW = ran(maxW * 0.1, maxW * 0.9)
-    const innerH = ran(maxH * 0.1, maxH * 0.9)
+    const innerW = ran(maxW * 0.3, maxW * 0.7)
+    const innerH = ran(maxH * 0.3, maxH * 0.7)
 
     const x1 = v1[0] + (maxW - innerW) / 2
     const x2 = v2[0] - (maxW - innerW) / 2
     const y1 = v1[1] + (maxH - innerH) / 2
     const y2 = v3[1] - (maxH - innerH) / 2
 
+    const v1_i = [x1, y1, v1[2]]
+    const v2_i = [x2, y1, v1[2]]
+    const v3_i = [x2, y2, v1[2]]
+    const v4_i = [x1, y2, v1[2]]
+
     const arr = []
     arr.push(
-        ...createFace(v1, v2, [x2, y1, v2[0]], [x1, y1, v2[0]])
+        ...createFace(v1_i, v2_i, v3_i, v4_i),
+        ...createFace(v1, v2, v2_i, v1_i),
+        ...createFace(v2_i, v2, v3, v3_i),
+        ...createFace(v4_i, v3_i, v3, v4),
+        ...createFace(v1, v1_i, v4_i, v4),
     )
-
     return arr
 }
+const fillColorFaceWithSquare = (c1, c2) => [
+    ...fillColorFace(c1),
+    ...fillColorFace(c2),
+    ...fillColorFace(c2),
+    ...fillColorFace(c2),
+    ...fillColorFace(c2),
+]
+
 
 
 const createTrunk = ({
@@ -60,7 +87,7 @@ const createTrunk = ({
         const h04 = ran(0.5, .2, 4)
         const fullH = h01 + h02 + h03 + h04
         leftH -= fullH
-        if (leftH > 0) {
+        if (leftH > 5) {
             arrDividers.push({
                 h0: currentH,
                 h01: currentH + h01,
@@ -88,39 +115,19 @@ const createTrunk = ({
                 [-r, h2, r],
             )
         )
-        col.push(
-            ...color1,
-            ...color1,
-            ...color1,
-            ...color1,
-            ...color1,
-            ...color1,
-        )
+        col.push(...fillColorFace(color1))
     } else {
         for (let i = 0; i < arrDividers.length; ++i) {
             /** column ***/
             vert.push(
-                // ...createFaceWithSquare(
-                //     [-r, arrDividers[i].h0, r],
-                //     [r, arrDividers[i].h0, r],
-                //     [r, arrDividers[i].h01, r],
-                //     [-r, arrDividers[i].h01, r],
-                // )
-                ...createFace(
+                ...createFaceWithSquare(
                     [-r, arrDividers[i].h0, r],
                     [r, arrDividers[i].h0, r],
                     [r, arrDividers[i].h01, r],
                     [-r, arrDividers[i].h01, r],
                 )
             )
-            col.push(
-                ...color2,
-                ...color2,
-                ...color2,
-                ...color2,
-                ...color2,
-                ...color2,
-            )
+            col.push(...fillColorFaceWithSquare(color1, color2))
             /** column -> divider */
             vert.push(
                 ...createFace(
@@ -130,14 +137,7 @@ const createTrunk = ({
                     [-arrDividers[i].r, arrDividers[i].h02, arrDividers[i].r],
                 )
             )
-            col.push(
-                ...color2,
-                ...color2,
-                ...color2,
-                ...color2,
-                ...color2,
-                ...color2,
-            )
+            col.push(...fillColorFace(color2))
             /** divider */
             vert.push(
                 ...createFace(
@@ -147,14 +147,7 @@ const createTrunk = ({
                     [-arrDividers[i].r, arrDividers[i].h03, arrDividers[i].r],
                 )
             )
-            col.push(
-                ...color1,
-                ...color1,
-                ...color1,
-                ...color1,
-                ...color1,
-                ...color1,
-            )
+            col.push(...fillColorFace(color1))
             /** divider -> column */
             vert.push(
                 ...createFace(
@@ -164,44 +157,26 @@ const createTrunk = ({
                     [-r, arrDividers[i].h04, r],
                 )
             )
-            col.push(
-                ...color2,
-                ...color2,
-                ...color2,
-                ...color2,
-                ...color2,
-                ...color2,
-            )
+            col.push(...fillColorFace(color2))
         }
 
         /** last segment */
         vert.push(
-            ...createFace(
+            ...createFaceWithSquare(
                 [-r, arrDividers[arrDividers.length - 1].h04, r],
                 [r, arrDividers[arrDividers.length - 1].h04, r],
                 [r, h2, r],
                 [-r, h2, r],
             )
         )
-        col.push(
-            ...color1,
-            ...color1,
-            ...color1,
-            ...color1,
-            ...color1,
-            ...color1,
-        )
+        col.push(...fillColorFaceWithSquare(color2, color1))
     }
-
-    console.log(vert.length, col.length)
-
 
     return { vert, col  }
 }
 
 
 const createColumn = ({
-    // resolution = 4,
     rBase = 5,
     hBase = 5,
     hBaseToTrunk = 1,
@@ -212,42 +187,27 @@ const createColumn = ({
 
     hTrunk = 30,
     rTrunk = 3,
-    dividersCountTrunk = 3,
-    hDividersTrunk = 1,
-    hTrunkToDividers = .5,
-
     color1 = [0, 0, 1],
     color2 = [0, 1, 1],
 }) => {
     /** base **************/
-    const base = [
-        -rBase, 0, rBase,
-        rBase, 0, rBase,
-        rBase, hBase, rBase,
+    const base = [...createFace(
+        [-rBase, 0, rBase,],
+        [rBase, 0, rBase],
+        [rBase, hBase, rBase],
+        [-rBase, hBase, rBase],
+    )]
+    const colorBase = [...fillColorFace(color1)]
 
-        -rBase, 0, rBase,
-        rBase, hBase, rBase,
-        -rBase, hBase, rBase,
-    ]
-    const colorBase = [
-        ...color1, ...color1, ...color1,
-        ...color1, ...color1, ...color1,
-    ]
 
-    const baseToTrunk = [
-        -rBase, hBase, rBase,
-        rBase, hBase, rBase,
-        rTrunk, hBase + hBaseToTrunk, rTrunk,
+    const baseToTrunk = [...createFace(
+        [-rBase, hBase, rBase],
+        [rBase, hBase, rBase],
+        [rTrunk, hBase + hBaseToTrunk, rTrunk],
+        [-rTrunk, hBase + hBaseToTrunk, rTrunk],
+    )]
+    const colorBaseToTrunk = [...fillColorFace(color2)]
 
-        -rBase, hBase, rBase,
-        rTrunk, hBase + hBaseToTrunk, rTrunk,
-        -rTrunk, hBase + hBaseToTrunk, rTrunk,
-    ]
-
-    const colorBaseToTrunk = [
-        ...color2, ...color2, ...color2,
-        ...color2, ...color2, ...color2,
-    ]
 
 
     /** TRUNK ************************/
@@ -260,29 +220,22 @@ const createColumn = ({
 
 
     /** TRUNK TO CAPITAL **************/
-
     h = h + hTrunk
-    const trunkToCapital = [
-        -rTrunk, h, rTrunk,
-        rTrunk, h, rTrunk,
-        rCapital, h + hTrunkToCapital, rCapital,
-
-        -rTrunk, h, rTrunk,
-        rCapital, h + hTrunkToCapital, rCapital,
-        -rCapital, h + hTrunkToCapital, rCapital,
-    ]
+    const trunkToCapital = [...createFace(
+        [-rTrunk, h, rTrunk],
+        [rTrunk, h, rTrunk],
+        [rCapital, h + hTrunkToCapital, rCapital],
+        [-rCapital, h + hTrunkToCapital, rCapital],
+    )]
 
     /** CAPITAL *********************/
     h = h + hTrunkToCapital
-    const capital = [
-        -rCapital, h, rCapital,
-        rCapital, h, rCapital,
-        rCapital, h + hCapital, rCapital,
-
-        -rCapital, h, rCapital,
-        rCapital, h + hCapital, rCapital,
-        -rCapital, h + hCapital, rCapital,
-    ]
+    const capital = [...createFace(
+        [-rCapital, h, rCapital],
+        [rCapital, h, rCapital],
+        [rCapital, h + hCapital, rCapital],
+        [-rCapital, h + hCapital, rCapital],
+    )]
 
 
     const frontVert = [
@@ -298,6 +251,13 @@ const createColumn = ({
         ...col,
         ...colorBaseToTrunk,
         ...colorBase,
+    ]
+    const uv = [
+        ...createUv(),
+        ...createUv(),
+        ...createUv(),
+        ...createUv(),
+        ...createUv(),
     ]
 
     /** left ************************/
@@ -324,10 +284,17 @@ const createColumn = ({
         ...frontColors,
         ...frontColors,
     ]
+    const uvResult = [
+        ...uv,
+        ...uv,
+        ...uv,
+        ...uv,
+    ]
 
     return {
         vResult,
         cResult,
+        uvResult,
     }
 }
 
@@ -336,13 +303,8 @@ const createColumn = ({
 export const createGeomGallery = ({}) => {
      const arrV = []
      const arrC = []
+     const arrUV = []
 
-    // for (let i = 0; i < 20; ++i) {
-    //     const { vResult, cResult } = createColumn({})
-    //     transformArr(vResult, i * 20, 0, 0, 0)
-    //     arrV.push(...vResult)
-    //     arrC.push(...cResult)
-    // }
 
     const rOffset = 50
     const count = 20
@@ -350,19 +312,22 @@ export const createGeomGallery = ({}) => {
         const ph = (i / count) * (PI * 2)
         const x = sin(ph) * rOffset
         const z = cos(ph) * rOffset
-        const { vResult, cResult } = createColumn({})
-        transformArr(vResult, x, 0, z, 0)
+        const { vResult, cResult, uvResult } = createColumn({})
+        transformArr(vResult, x, 0, z,1)
         arrV.push(...vResult)
         arrC.push(...cResult)
+        arrUV.push(...uvResult)
     }
 
 
     /** main ************/
     const vertices = new Float32Array(arrV)
     const colors =  new Float32Array(arrC)
+    const uv = new Float32Array(arrUV)
 
     return {
         vertices,
         colors,
+        uv,
     }
 }

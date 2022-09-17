@@ -19,6 +19,7 @@ import mapFloorOuter from '../../../assets/chapter04/floor_outer_map3.jpg'
 import mapFloorOuter2 from '../../../assets/chapter04/floor_outer_map2.jpg'
 import mapVirt from '../../../assets/chapter05/map01.jpg'
 import mapTop from '../../../assets/floor_outer_map.jpg'
+import mapTxt from '../../../assets/chapter05/txt1.jpg'
 
 import pxjpg from '../../../assets/sky4/px.jpg'
 import nxjpg from '../../../assets/sky4/nx.jpg'
@@ -137,6 +138,7 @@ export const GAME_MODULES = [
             //{ type: 'img', path: mapFloorOuter2, key: 'mapFloorOuter2', wrap: true },
             { type: 'img', path: mapTop, key: 'mapTop', wrap: true },
             { type: 'img', path: mapVirt, key: 'mapVirtual', wrap: true },
+            { type: 'img', path: mapTxt, key: 'mapParams' },
         ],
     },
     {
