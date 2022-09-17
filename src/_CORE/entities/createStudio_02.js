@@ -26,7 +26,7 @@ export class Studio {
         this._scene = new THREE.Scene()
 
         {
-            const { color, fogNear, fogFar, backgroundImgKey } = root.CONSTANTS.studioConfig.sceneEnvironment
+            //const { color, fogNear, fogFar, backgroundImgKey } = root.CONSTANTS.studioConfig.sceneEnvironment
             //this._scene.background = assets[backgroundImgKey] || null
             //this._scene.fog = new THREE.Fog(color, fogNear, fogFar)
         }
@@ -35,7 +35,7 @@ export class Studio {
         this._lightA = null
         {
             const { color, strength } = amb
-            this._lightA = new THREE.AmbientLight( color, strength )
+            this._lightA = new THREE.AmbientLight(color, strength)
             this._scene.add( this._lightA )
         }
 
@@ -125,7 +125,7 @@ export class Studio {
 
 
 
-        this._backgroundImgKey = root.CONSTANTS.studioConfig.sceneEnvironment.backgroundImgKey
+        //this._backgroundImgKey = root.CONSTANTS.studioConfig.sceneEnvironment.backgroundImgKey
         emitter.subscribe('changeSceneEnvironment')(sceneEnvironment => {
             console.log('deprecated!!', 'studio', 'changeSceneEnvironment', sceneEnvironment)
         })

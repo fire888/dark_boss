@@ -1,4 +1,4 @@
-import { START_ENV_CONFIG_4 } from '../constants/constants_elements'
+//import { START_ENV_CONFIG_4 } from '../constants/constants_elements'
 
 
 
@@ -87,7 +87,7 @@ export const createCustomStore = root => {
                     setTimeout(() => {
                         root.dispatcher.dispatch({ type: 'TOGGLE_BUTTON', isButtonDialog: false })
                         root.dispatcher.dispatch({ type: 'TOGGLE_DIALOG', isShowPalleteDialog: false })
-                        root.studio.changeEnvironment(START_ENV_CONFIG_4, { updateAmb: false, time: 1500 }) 
+                        //root.studio.changeEnvironment(START_ENV_CONFIG_4, { updateAmb: false, time: 1500 }) 
                         root.player.toggleBlocked(true)
                         setTimeout(() => {
                             root.dispatcher.dispatch({ type: 'SHOW_FINAL_MESSAGE' })

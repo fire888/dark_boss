@@ -1,8 +1,8 @@
 import * as THREE from 'three'
 import {
-    START_ENV_CONFIG,
-    START_ENV_CONFIG_2,
-    START_ENV_CONFIG_3,
+    //START_ENV_CONFIG,
+    //START_ENV_CONFIG_2,
+    //START_ENV_CONFIG_3,
     LOCATIONS_QUADRANTS,
     SIZE_QUADRANT,
 } from '../constants/constants_elements';
@@ -208,7 +208,7 @@ export class actions {
 
 
         ui.showStartButton(() => {
-            studio.changeEnvironment(START_ENV_CONFIG_3, { updateAmb: false, time: 1500 })
+            //studio.changeEnvironment(START_ENV_CONFIG_3, { updateAmb: false, time: 1500 })
             player.toggleBlocked(false)
         })
     }

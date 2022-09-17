@@ -61,13 +61,16 @@ const fillColorFaceWithSquare = (c1, c2) => [
 ]
 
 
+const color1 = [.2, 0, 0]
+const color2 = [.3, .3, .3]
+
 
 const createTrunk = ({
     h = 2,
     h2 = 30,
     r = 10,
-    color1 = [0, 0, 1],
-    color2 = [0, 1, 1],
+    //color1 = [0, 0, 1],
+    //color2 = [0, 1, 1],
 }) => {
     const arrDividers = []
     let leftH = h2 - h
@@ -268,8 +271,8 @@ const createColumn = ({
 
     hTrunk = 30,
     rTrunk = 3,
-    color1 = [.2, .2, .2],
-    color2 = [1, 1, 1],
+    //color1 = [.2, .2, .2],
+    //color2 = [1, 1, 1],
 }) => {
     /** BASE **************/
     const base = [...createFace(

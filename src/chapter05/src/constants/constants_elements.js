@@ -38,15 +38,15 @@ export const MATERIALS_CONFIG = {
         mat: 'MeshPhongMaterial',
         props: {
             //color: 0xffd4a8,
-            color: 0xfff39f,
+            color: 0x333333,
             //color: 0x999999,
             emissive: 0x000000,
-            map: 'mapVirtual',
-            bumpMap: 'mapVirtual',
-            bumpScale: 3,
-            envMap: 'skyBox',
-            reflectivity: .5,
-            shininess: .5,
+            //map: 'mapVirtual',
+            //bumpMap: 'mapVirtual',
+            //bumpScale: 3,
+            //envMap: 'skyBox',
+            //reflectivity: .5,
+            //shininess: .5,
             specular: 0xffffff,
         },
     },
@@ -54,16 +54,16 @@ export const MATERIALS_CONFIG = {
         mat: 'MeshPhongMaterial',
         props: {
             //color: 0xffd4a8,
-            color: 0xfff39f,
+            color: 0x777777,
             //color: 0x999999,
             emissive: 0x000000,
             map: 'mapParams',
             bumpMap: 'mapParams',
-            bumpScale: 3,
-            envMap: 'skyBox',
-            reflectivity: .5,
-            shininess: .5,
-            specular: 0xffffff,
+            bumpScale: .1,
+            //envMap: 'skyBox',
+            //reflectivity: .5,
+            //shininess: .5,
+            specular: 0x888888,
             vertexColors: true,
         },
     },
@@ -94,10 +94,10 @@ export const MATERIALS_CONFIG = {
 //export const START_ENV_CONFIG_4 = { fogNear: -10, fogFar: 0, color: 0x4a0a45, backgroundImgKey: null }
 
 //export const START_ENV_CONFIG = { fogNear: -10, fogFar: 20, color: 0xffd4a8, backgroundImgKey: 'skyBox' }
-export const START_ENV_CONFIG = { fogNear: 20, fogFar: 1500, color: 0xffd4a8, backgroundImgKey: 'skyBox' }
-export const START_ENV_CONFIG_2 = { fogNear: -10, fogFar: 0, color: 0xffd4a8, backgroundImgKey: 'skyBox' }
-export const START_ENV_CONFIG_3 = { fogNear: 20, fogFar: 1500, color: 0xffd4a8, backgroundImgKey: 'skyBox' }
-export const START_ENV_CONFIG_4 = { fogNear: -10, fogFar: 0, color: 0xffffff, backgroundImgKey: null }
+//export const START_ENV_CONFIG = { fogNear: 20, fogFar: 1500, color: 0x888888, backgroundImgKey: 'skyBox' }
+//export const START_ENV_CONFIG_2 = { fogNear: -10, fogFar: 0, color: 0x888888, backgroundImgKey: 'skyBox' }
+//export const START_ENV_CONFIG_3 = { fogNear: 20, fogFar: 1500, color: 0x888888, backgroundImgKey: 'skyBox' }
+//export const START_ENV_CONFIG_4 = { fogNear: -10, fogFar: 0, color: 0x888888, backgroundImgKey: null }
 
 export const studioConfig = {
     canId: 'webgl-canvas',
@@ -105,10 +105,10 @@ export const studioConfig = {
         antialias: true
     },
     amb: {
-        color: 0xffd4a8,
+        color: 0xffffff,
         strength: 1,
     },
-    sceneEnvironment: START_ENV_CONFIG,
+    //sceneEnvironment: START_ENV_CONFIG,
     //composerAddPass: 'Saturate',
     composerAddPass: 'Saturate2',
 }
@@ -136,8 +136,8 @@ export const playerConfig = {
     frontObjPos: [0, 0, -1],
     backObjPos: [0, 0, 1],
     lightDataOne: {
-        color: 0x555555,
-        strength: 0,
-        pos: [0, 400, 5],
+        color: 0xffffff,
+        strength: .5,
+        pos: [0, 0, 0],
     },
 }
