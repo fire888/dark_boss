@@ -19,7 +19,7 @@ const {
 
 
 
-const color1 = [.8, .3, .3]
+const color1 = [.2, .1, .1]
 const color2 = [1, 1, 1]
 
 

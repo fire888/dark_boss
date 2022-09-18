@@ -1,5 +1,6 @@
 
 import { createDataSideColumn } from './dataSideColumn'
+import { createDataSideArc } from "./dataSideArc";
 import {
     transformArr,
     translateArr,
@@ -17,7 +18,18 @@ const {
 
 
 
-const createColumn = ({ h = 30 }) => {
+const createColumn = ({ h = 30, arc = false }) => {
+    let vArcRes = []
+    let cArcRes = []
+    let uvArcRes = []
+    if (arc) {
+        //console.log('!!!!', arc)
+        const { vArc, cArc, uvArc } = createDataSideArc({ hStart: h + 7.5, ...arc })
+        vArcRes = vArc
+        cArcRes = cArc
+        uvArcRes = uvArc
+    }
+
     const {
         frontVert,
         frontColors,
@@ -38,18 +50,24 @@ const createColumn = ({ h = 30 }) => {
         ...leftVert,
         ...rightVert,
         ...backVert,
+
+        ...vArcRes,
     ]
     const cResult = [
         ...frontColors,
         ...frontColors,
         ...frontColors,
         ...frontColors,
+
+        ...cArcRes,
     ]
     const uvResult = [
         ...frontUV,
         ...frontUV,
         ...frontUV,
         ...frontUV,
+
+        ...uvArcRes,
     ]
 
     return {
@@ -70,11 +88,17 @@ export const createGeomGallery = ({}) => {
 
     const h = Math.random() * 50 + 10
     for (let i = 0; i < scheme.length; ++i) {
-        const { x, z, angle } = scheme[i]
+        const { x, z, angle, arc } = scheme[i]
 
-        const { vResult, cResult, uvResult } = createColumn({ h })
+        let { vResult, cResult, uvResult } = createColumn({ h, arc })
+        //let vResult = [], cResult = [], uvResult = []
+
+
+
         rotateArr(vResult, angle)
         translateArr(vResult, x, 0, z, angle)
+
+
         arrV.push(...vResult)
         arrC.push(...cResult)
         arrUV.push(...uvResult)

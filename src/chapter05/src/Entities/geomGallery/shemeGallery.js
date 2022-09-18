@@ -26,6 +26,9 @@ export const createScheme = () => {
                     z: Math.cos( i / count * Math.PI * 2) * r,
                     angle: (i / count) * (Math.PI * 2),
                     h: 0,
+                    arc: {
+                        w: r,
+                    }
                 })
             }
         }
