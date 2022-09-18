@@ -1,59 +1,22 @@
 export const createScheme = () => {
     const arr = []
 
-
-    // const iterate = (ii) => {
-    //     if (ii > 1) {
-    //         return;
-    //     }
-
-
-    //     if (ii === 0) {
-
-    //     } else {
-    //         const r = Math.random() * 100 * ii + 15
-    //         let count = Math.floor(Math.random() * 10) + 5
-    //         for (let i = 0; i < count; ++i) {
-    //             arr.push({
-    //                 id: Math.floor(Math.random() * 1000),
-    //                 x: Math.sin(i / count * Math.PI * 2) * r,
-    //                 z: Math.cos( i / count * Math.PI * 2) * r,
-    //                 angle: (i / count) * (Math.PI * 2),
-    //                 h: 0,
-    //                 arc: {
-    //                     w: r,
-    //                 }
-    //             })
-    //         }
-    //     }
-    //     iterate(++ii)
-    // }
-
-
-    /** center */
-    arr.push({
-        id: Math.floor(Math.random() * 1000),
-        x: 0,
-        z: 0,
-        angle: 0,
-        h0: 0,
-    })
-
-
     /** add gallery from center*/
     const iterate = ({
         angle,
         offsetStart,
         h0,
+        h1,
         h2,           
     }) => {
-        const d = Math.random() * 50 + 10
+        const d = Math.random() * 120 + 30
         arr.push({
             id: Math.floor(Math.random() * 1000),
             x: Math.sin(angle) * (offsetStart + d),
             z: Math.cos(angle) * (offsetStart + d),
             angle,
             h0,
+            h1,
             h2, 
             arc: { w: d },
         })
@@ -61,7 +24,8 @@ export const createScheme = () => {
             iterate({
                 angle,
                 offsetStart: offsetStart + d,
-                h0: 0,
+                h0,
+                h1,
                 h2,   
             }) 
         }
@@ -69,18 +33,49 @@ export const createScheme = () => {
 
 
     const num = Math.floor(Math.random() * 20) + 3
-    const h2 = Math.random() * 30 + 15
+    const h0 = 0
+    const h2 = Math.random() * 80 + 80
+    const h1 = (Math.random() * .4 + .5)  * h2
+
+    /** center */
+    arr.push({
+        id: Math.floor(Math.random() * 1000),
+        x: 0,
+        z: 0,
+        angle: 0,
+        h0,
+        h1,
+        h2,
+    })
+
+
+
     for (let i = 0; i < num; ++i) {
         if (Math.random() > 0.3) {
             iterate({
                 angle: (i / num) * (Math.PI * 2),
                 offsetStart: 0,
-                h0: 0,
+                h0,
+                h1,
                 h2,   
             })
         }
     }
 
 
+    for (let i = 0; i < 3; ++i) {
+        const l = arr.length
+        const _h0 = arr[l - 1].h2
+        const _h2 = _h0 + Math.random() * 80 + 30
+        const _h1 = _h0 + (Math.random() * .4 + .5) * (_h2 - _h0)
+        for (let j = 0; j < l; ++j) {
+            arr.push({
+                ...arr[j],
+                h0: _h0,
+                h1: _h1,
+                h2: _h2,
+            })
+        }
+    }
     return arr
 }

@@ -299,9 +299,7 @@ const createManagerLevelTrash = root => {
     let arrTrash = []
 
     const p = createMeshGallery(root)
-    console.log('!!!', p)
-    //p.rotation.y = Math.random() * Math.PI * 2
-    p.position.set(0, -60, -40)
+    p.position.set(0, -63, -40)
     studio.addToScene(p)
 
 
@@ -316,8 +314,8 @@ const createManagerLevelTrash = root => {
             /** add floor */
             const p = arr[i].split('_')
             const x = +p[0] * SIZE_QUADRANT
-            const z =  +p[1] * SIZE_QUADRANT
-            const y =  -50
+            const z = +p[1] * SIZE_QUADRANT
+            const y = -50
             const floor = new THREE.Mesh(floorGeom, trashMat)
             floor.rotation.x = -Math.PI / 2
             floor.position.set(x, y - 12, z)
@@ -333,7 +331,7 @@ const createManagerLevelTrash = root => {
 
             /** add trash ******************/
             //const rCount = Math.floor(Math.random() * 10)
-            const rCount = Math.floor(Math.random() * 10)
+            const rCount = Math.floor(Math.random() * 3)
             for (let j = 0; j < rCount; ++j) {
                 console.log('!!!!!!!!!!!!!!!!! new tresh')
 
@@ -341,7 +339,7 @@ const createManagerLevelTrash = root => {
                 const mesh = createMeshGallery(root)
                 mesh.position.set(
                     x + Math.random() * SIZE_QUADRANT,
-                    -60,
+                    -63,
                     z + Math.random() * SIZE_QUADRANT,
                 )
                 studio.addToScene(mesh)

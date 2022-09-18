@@ -217,6 +217,9 @@ const createTrunk = ({
 
 
 export const createDataSideColumn = ({
+    //hTrunk = 300,
+    h0,
+    h1,
      color1 = [.2, .1, .1],
      color2 = [1, 1, 1],
     rBase = 5,
@@ -227,15 +230,17 @@ export const createDataSideColumn = ({
     rCapital = 6,
     hTrunkToCapital = 1,
 
-    hTrunk = 300,
+
     rTrunk = 3,
 }) => {
+    let _h0 = h0
+    let _h1 = h0 + hBase 
     /** BASE **************/
     const base = [...createFace(
-        [-rBase, 0, rBase,],
-        [rBase, 0, rBase],
-        [rBase, hBase, rBase],
-        [-rBase, hBase, rBase],
+        [-rBase, _h0, rBase,],
+        [rBase, _h0, rBase],
+        [rBase, _h1, rBase],
+        [-rBase, _h1, rBase],
     )]
     const colorBase = [...fillColorFace(color1)]
     const uv1 = createUv(
@@ -246,11 +251,13 @@ export const createDataSideColumn = ({
     )
 
 
+    _h0 = _h1
+    _h1 = _h0 + hBaseToTrunk
     const baseToTrunk = [...createFace(
-        [-rBase, hBase, rBase],
-        [rBase, hBase, rBase],
-        [rTrunk, hBase + hBaseToTrunk, rTrunk],
-        [-rTrunk, hBase + hBaseToTrunk, rTrunk],
+        [-rBase, _h0, rBase],
+        [rBase, _h0, rBase],
+        [rTrunk, _h1, rTrunk],
+        [-rTrunk, _h1, rTrunk],
     )]
     const colorBaseToTrunk = [...fillColorFace(color2)]
     const uvBT = createUv(
@@ -262,30 +269,38 @@ export const createDataSideColumn = ({
 
 
     /** TRUNK ************************/
+    
+    
     let h = hBase + hBaseToTrunk
+
+    _h0 = _h1
+    _h1 = h1 - hCapital - hTrunkToCapital
+
     const { vert, col, uv } = createTrunk({
         color1, color2,
-        h: hBase + hBaseToTrunk,
-        h2: hTrunk + hBase + hBaseToTrunk,
+        h: _h0,
+        h2: _h1,
         r: rTrunk,
     })
     const uvT = uv
 
 
     /** CAPITAL **************/
-    h = h + hTrunk
+    _h0 = _h1
+    _h1 = h1 - hCapital 
     const trunkToCapital = [...createFace(
-        [-rTrunk, h, rTrunk],
-        [rTrunk, h, rTrunk],
-        [rCapital, h + hTrunkToCapital, rCapital],
-        [-rCapital, h + hTrunkToCapital, rCapital],
+        [-rTrunk, _h0, rTrunk],
+        [rTrunk, _h0, rTrunk],
+        [rCapital, _h1, rCapital],
+        [-rCapital, _h1, rCapital],
     )]
-    h = h + hTrunkToCapital
+    _h0 = _h1
+    _h1 = h1
     const capital = [...createFace(
-        [-rCapital, h, rCapital],
-        [rCapital, h, rCapital],
-        [rCapital, h + hCapital, rCapital],
-        [-rCapital, h + hCapital, rCapital],
+        [-rCapital, _h0, rCapital],
+        [rCapital, _h0, rCapital],
+        [rCapital, _h1, rCapital],
+        [-rCapital, _h1, rCapital],
     )]
     const uvC = createUv(
         [.5, .5],

@@ -23,6 +23,8 @@ const {
 
 
 export const createDataSideArc = ({
+    h1,
+    h2,
     color1 = [.2, .1, .1],
     color2 = [1, 1, 1],
     hStart = 5,
@@ -34,14 +36,14 @@ export const createDataSideArc = ({
 }) => {
     const lBridge = w - (r * 2)
 
-    let h = hStart
-    let h2 = hStart + fullH
+    let _h1 = h1
+    let _h2 = h2
     /** front **************/
     const columnF = [...createFace(
-        [-wCol, h, r,],
-        [wCol, h, r],
-        [wCol, h2, r],
-        [-wCol, h2, r],
+        [-wCol, _h1, r,],
+        [wCol, _h1, r],
+        [wCol, _h2, r],
+        [-wCol, _h2, r],
     )]
     const colorFill2 = [...fillColorFace(color2)]
     const colorFill1 = [...fillColorFace(color1)]
@@ -55,32 +57,26 @@ export const createDataSideArc = ({
     /** left / right *****************/
     const column = [
         ...createFace(
-            [-wCol, h, -r,],
-            [-wCol, h, r],
-            [-wCol, h2, r],
-            [-wCol, h2, -r],
+            [-wCol, _h1, -r,],
+            [-wCol, _h1, r],
+            [-wCol, _h2, r],
+            [-wCol, _h2, -r],
         ),
         ...createFace(
-            [wCol, h, r,],
-            [wCol, h, -r],
-            [wCol, h2, -r],
-            [wCol, h2, r],
+            [wCol, _h1, r,],
+            [wCol, _h1, -r],
+            [wCol, _h2, -r],
+            [wCol, _h2, r],
         )
     ]
     /** back Column *********/
     const columnB = [
         ...createFace(
-            [-wCol + 2, h, -r,],
-            [-wCol, h, -r],
-            [-wCol, h2, -r],
-            [-wCol + 2, h2, -r],
+            [wCol, _h1, -r,],
+            [-wCol, _h1, -r],
+            [-wCol, _h2, -r],
+            [wCol, _h2, -r],
         ),
-        ...createFace(
-            [wCol, h, -r,],
-            [wCol - 2, h, -r],
-            [wCol - 2, h2, -r],
-            [wCol, h2, -r],
-        )
     ]
     /** arc ******************/
     const arc = []
@@ -90,11 +86,13 @@ export const createDataSideArc = ({
     const x2 = wCol - 2
     const resolution = 10
     const step = lBridge / resolution
-    const offsetArcTop = 6
+    const diff = _h2 - _h1
+    const offsetArcTop = diff * 0.15
+
 
     for (let i = 0; i < resolution; ++i) {
-        const hI1 = (1 - Math.sin((i + 1) / resolution * Math.PI)) * fullH * .7 + offsetArcTop
-        const hI2 = (1 - Math.sin(i / resolution * Math.PI)) * fullH * .7 + offsetArcTop
+        const hI1 = (1 - Math.sin((i + 1) / resolution * Math.PI)) * (diff - offsetArcTop) + offsetArcTop
+        const hI2 = (1 - Math.sin(i / resolution * Math.PI)) * (diff - offsetArcTop) + offsetArcTop
         let tZ = -r
         if (i + 1 > resolution / 2) {
             tZ = -r - lBridge
@@ -103,7 +101,7 @@ export const createDataSideArc = ({
         arc.push(
             x,   h2 - hI1,    -r - ((i + 1) * step),
             x,   h2 - hI2,    -r - (i * step),
-            x,   h2,              tZ,
+            x,   h2,          tZ,
         )
         cA.push(
             ...color1,
@@ -119,7 +117,7 @@ export const createDataSideArc = ({
         arc.push(
             x2,   h2 - hI2,    -r - (i * step),
             x2,   h2 - hI1,    -r - ((i + 1) * step),
-            x2,   h2,              tZ,
+            x2,   h2,          tZ,
         )
         cA.push(
             ...color1,
@@ -144,9 +142,9 @@ export const createDataSideArc = ({
     }
 
     arc.push(
-        x,   h2 - offsetArcTop,    -r - step * resolution / 2,
-        x,   h2,        -r,
-        x,   h2,        -r - step * resolution,
+        x,   h2 - offsetArcTop,     -r - step * resolution / 2,
+        x,   h2,                    -r,
+        x,   h2,                    -r - step * resolution,
     )
     cA.push(
         ...color1,
@@ -161,8 +159,8 @@ export const createDataSideArc = ({
 
     arc.push(
         x2,   h2 - offsetArcTop,    -r - step * resolution / 2,
-        x2,   h2,        -r - step * resolution,
-        x2,   h2,        -r,
+        x2,   h2,                   -r - step * resolution,
+        x2,   h2,                   -r,
     )
     cA.push(
         ...color1,
@@ -190,7 +188,7 @@ export const createDataSideArc = ({
         ...colorFill2,
         ...colorFill2,
         ...colorFill2,
-        ...colorFill2,
+        //...colorFill2,
         ...cA,
     ]
     const uvArc = [
@@ -198,7 +196,7 @@ export const createDataSideArc = ({
         ...uv1,
         ...uv1,
         ...uv1,
-        ...uv1,
+        //...uv1,
         ...uvA
     ]
 
