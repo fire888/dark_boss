@@ -1,4 +1,13 @@
-import { m4 } from '../../helpers/m4'
+import {
+    createFace,
+    createUv,
+    createFaceWithSquare,
+    fillColorFace,
+    fillColorFaceWithSquare
+} from './helpers'
+
+import { ran } from './helpers'
+
 const {
     floor,
     random,
@@ -6,71 +15,18 @@ const {
     sin,
     cos,
 } = Math
-const ranN = (start, end) => start + floor(random() * (end - start))
-const ran = (start, end) => start + random() * (end - start)
-
-const transformArr = (arr, x = 0, y = 0, z = 0, r = 0) => {
-    let matrix = m4.yRotation(r);
-    matrix = m4.translate(matrix, x, y, z);
-
-    for (let ii = 0; ii < arr.length; ii += 3) {
-        const vector = m4.transformPoint(matrix, [arr[ii + 0], arr[ii + 1], arr[ii + 2], 1]);
-        arr[ii + 0] = vector[0];
-        arr[ii + 1] = vector[1];
-        arr[ii + 2] = vector[2];
-    }
-}
-
-const createFace = (v1, v2, v3, v4) => [...v1, ...v2, ...v3, ...v1, ...v3, ...v4]
-const createUv = (v1, v2, v3, v4) => [...v1, ...v2, ...v3, ...v1, ...v3, ...v4]
-const fillColorFace = c => [...c, ...c, ...c, ...c, ...c, ...c]
-
-const createFaceWithSquare = (v1, v2, v3, v4) => {
-    const maxW = v2[0] - v1[0]
-    const maxH = v3[1] - v1[1]
-
-    const innerW = ran(maxW * 0.3, maxW * 0.7)
-    const innerH = ran(maxH * 0.3, maxH * 0.7)
-
-    const x1 = v1[0] + (maxW - innerW) / 2
-    const x2 = v2[0] - (maxW - innerW) / 2
-    const y1 = v1[1] + (maxH - innerH) / 2
-    const y2 = v3[1] - (maxH - innerH) / 2
-
-    const v1_i = [x1, y1, v1[2]]
-    const v2_i = [x2, y1, v1[2]]
-    const v3_i = [x2, y2, v1[2]]
-    const v4_i = [x1, y2, v1[2]]
-
-    const arr = []
-    arr.push(
-        ...createFace(v1_i, v2_i, v3_i, v4_i),
-        ...createFace(v1, v2, v2_i, v1_i),
-        ...createFace(v2_i, v2, v3, v3_i),
-        ...createFace(v4_i, v3_i, v3, v4),
-        ...createFace(v1, v1_i, v4_i, v4),
-    )
-    return arr
-}
-const fillColorFaceWithSquare = (c1, c2) => [
-    ...fillColorFace(c1),
-    ...fillColorFace(c2),
-    ...fillColorFace(c2),
-    ...fillColorFace(c2),
-    ...fillColorFace(c2),
-]
 
 
-const color1 = [.2, 0, 0]
-const color2 = [.3, .3, .3]
+
+
+const color1 = [.8, .3, .3]
+const color2 = [1, 1, 1]
 
 
 const createTrunk = ({
-    h = 2,
-    h2 = 30,
-    r = 10,
-    //color1 = [0, 0, 1],
-    //color2 = [0, 1, 1],
+     h = 2,
+     h2 = 30,
+     r = 10,
 }) => {
     const arrDividers = []
     let leftH = h2 - h
@@ -136,25 +92,25 @@ const createTrunk = ({
                     [1, .5],
                     [1, 1],
                     [.5, 1],
-                ), 
+                ),
                 ...createUv(
                     [0, .5],
                     [.5, .5],
                     [.5, 1],
                     [0, 1],
-                ), 
+                ),
                 ...createUv(
                     [0, .5],
                     [.5, .5],
                     [.5, 1],
                     [0, 1],
-                ), 
+                ),
                 ...createUv(
                     [0, .5],
                     [.5, .5],
                     [.5, 1],
                     [0, 1],
-                ), 
+                ),
                 ...createUv(
                     [0, .5],
                     [.5, .5],
@@ -228,25 +184,25 @@ const createTrunk = ({
                 [.5, .5],
                 [.5, 1],
                 [0, 1],
-            ), 
+            ),
             ...createUv(
                 [0, .5],
                 [.5, .5],
                 [.5, 1],
                 [0, 1],
-            ), 
+            ),
             ...createUv(
                 [0, .5],
                 [.5, .5],
                 [.5, 1],
                 [0, 1],
-            ), 
+            ),
             ...createUv(
                 [0, .5],
                 [.5, .5],
                 [.5, 1],
                 [0, 1],
-            ), 
+            ),
             ...createUv(
                 [0, .5],
                 [.5, .5],
@@ -260,7 +216,7 @@ const createTrunk = ({
 }
 
 
-const createColumn = ({
+export const createDataSideColumn = ({
     rBase = 5,
     hBase = 5,
     hBaseToTrunk = 1,
@@ -269,10 +225,8 @@ const createColumn = ({
     rCapital = 6,
     hTrunkToCapital = 1,
 
-    hTrunk = 30,
+    hTrunk = 300,
     rTrunk = 3,
-    //color1 = [.2, .2, .2],
-    //color2 = [1, 1, 1],
 }) => {
     /** BASE **************/
     const base = [...createFace(
@@ -352,8 +306,6 @@ const createColumn = ({
         ...colorBaseToTrunk,
         ...colorBase,
     ]
-
-    console.log(uvT.length / 2, vert.length / 3)
     const frontUV = [
         ...uv1,
         ...uvBT,
@@ -362,74 +314,10 @@ const createColumn = ({
         ...uvC,
     ]
 
-    /** left ************************/
-    const leftVert = [...frontVert]
-    transformArr(leftVert, 0, 0, 0, Math.PI / 2)
-
-    const rightVert = [...frontVert]
-    transformArr(rightVert, 0, 0, 0, -Math.PI / 2)
-
-    const backVert = [...frontVert]
-    transformArr(backVert, 0, 0, 0, Math.PI)
-
-
-
-    const vResult = [
-        ...frontVert,
-        ...leftVert,
-        ...rightVert,
-        ...backVert,
-    ]
-    const cResult = [
-        ...frontColors,
-        ...frontColors,
-        ...frontColors,
-        ...frontColors,
-    ]
-    const uvResult = [
-        ...frontUV,
-        ...frontUV,
-        ...frontUV,
-        ...frontUV,
-    ]
 
     return {
-        vResult,
-        cResult,
-        uvResult,
-    }
-}
-
-
-
-export const createGeomGallery = ({}) => {
-     const arrV = []
-     const arrC = []
-     const arrUV = []
-
-
-    const rOffset = 50
-    const count = 20
-    for (let i = 0; i < count; ++i) {
-        const ph = (i / count) * (PI * 2)
-        const x = sin(ph) * rOffset
-        const z = cos(ph) * rOffset
-        const { vResult, cResult, uvResult } = createColumn({})
-        transformArr(vResult, x, 0, z,1)
-        arrV.push(...vResult)
-        arrC.push(...cResult)
-        arrUV.push(...uvResult)
-    }
-
-
-    /** main ************/
-    const vertices = new Float32Array(arrV)
-    const colors =  new Float32Array(arrC)
-    const uv = new Float32Array(arrUV)
-
-    return {
-        vertices,
-        colors,
-        uv,
+        frontVert,
+        frontColors,
+        frontUV,
     }
 }

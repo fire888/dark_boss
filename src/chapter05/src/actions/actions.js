@@ -8,7 +8,8 @@ import {
 } from '../constants/constants_elements';
 import { createCheckerChangeLocationKey } from '../components/checkerChangeLocationKey'
 
-import { createBoxPentagram } from '../Entities/paramElems/pentagramm'
+import { createMeshGallery } from '../Entities/meshGallery'
+import {createGeomGallery} from "../Entities/geomGallery/geomGallery";
 
 
 export class actions {
@@ -71,20 +72,10 @@ export class actions {
         this._changerLevelTresh.createTresh(currentQuadrantKey.currentEnv)
 
 
-        /** testPentagram ******************/
-        //for (let i = 0; i < 15; ++i) {
-            const p = createBoxPentagram(this._root)
-            //p.rotation.y = Math.random() * Math.PI * 2
-            p.position.set(0, -60, -20)
-            console.log('---------------', p)
-            studio.addToScene(p)
-        //}
 
 
         /** update every frame ***************/
         frameUpdater.on(data => {
-            //p.rotation.y += 0.01
-            //p.rotation.x += 0.05
             system_PlayerMoveOnLevel.update(data)
             if (!car.isFreeze) {
                 car.update(data)
@@ -307,7 +298,14 @@ const createManagerLevelTrash = root => {
 
     let arrTrash = []
 
-    const trashGeom = new THREE.BoxGeometry(30, 50, 30)
+    const p = createMeshGallery(root)
+    console.log('!!!', p)
+    //p.rotation.y = Math.random() * Math.PI * 2
+    p.position.set(0, -60, -40)
+    studio.addToScene(p)
+
+
+    //const trashGeom = new THREE.BoxGeometry(30, 50, 30)
     const trashCollisionGeom = new THREE.BoxGeometry(45, 50, 45)  
     const trashMat = materials.wallVirtual
     const floorGeom = new THREE.PlaneGeometry(SIZE_QUADRANT, SIZE_QUADRANT)
@@ -334,13 +332,16 @@ const createManagerLevelTrash = root => {
 
 
             /** add trash ******************/
+            //const rCount = Math.floor(Math.random() * 10)
             const rCount = Math.floor(Math.random() * 10)
             for (let j = 0; j < rCount; ++j) {
+                console.log('!!!!!!!!!!!!!!!!! new tresh')
 
-                const mesh = new THREE.Mesh(trashGeom, trashMat,)
+                //const mesh = new THREE.Mesh(trashGeom, trashMat,)
+                const mesh = createMeshGallery(root)
                 mesh.position.set(
                     x + Math.random() * SIZE_QUADRANT,
-                    y,
+                    -60,
                     z + Math.random() * SIZE_QUADRANT,
                 )
                 studio.addToScene(mesh)
@@ -384,6 +385,7 @@ const createManagerLevelTrash = root => {
                 studio.removeFromScene(meshCollision)
                 car.removeCollisionForDraw(meshCollision)
             }
+            arrToRemove[i].mesh.geometry.dispose()
             delete arrToRemove[i].mesh
             delete arrToRemove[i].meshCollision
         }

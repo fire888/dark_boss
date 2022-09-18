@@ -19,7 +19,8 @@ export class Studio {
         rendererCon.canvas = document.getElementById(canId)
 
         this._renderer = new THREE.WebGLRenderer(rendererCon)
-        this._renderer.setClearColor(clearColor)
+        //this._renderer.setClearColor(clearColor)
+        this._renderer.setClearColor(0xaaaaaa)
         this._renderer.setPixelRatio(window.devicePixelRatio)
         this._renderer.setSize(window.innerWidth, window.innerHeight)
 
@@ -32,12 +33,23 @@ export class Studio {
         }
 
 
-        this._lightA = null
+        // this._lightA = null
         {
             const { color, strength } = amb
-            this._lightA = new THREE.AmbientLight(color, strength)
+            this._lightA = new THREE.AmbientLight(0xffffff, .2)
             this._scene.add( this._lightA )
         }
+        {
+            const directionalLight = new THREE.DirectionalLight(0xffffff, .5);
+            directionalLight.position.set(1, 1, .5)
+            this._scene.add(directionalLight);
+        }
+        // {
+        //     const directionalLight = new THREE.DirectionalLight(0xffffff, .7);
+        //     directionalLight.position.set(-1, 1, -.4)
+        //     this._scene.add(directionalLight);
+        // }
+
 
         this._playerCamera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 5000)
 

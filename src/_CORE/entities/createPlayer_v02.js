@@ -45,10 +45,12 @@ export class Player {
         }
 
         {
-            const { color, strenth, pos } = lightDataOne
-            const light = new THREE.PointLight(color, strenth)
-            light.position.fromArray(pos)
-            this.mesh.add(light)
+            if (lightDataOne) {
+                const { color, strenth, pos } = lightDataOne
+                const light = new THREE.PointLight(color, strenth)
+                light.position.fromArray(pos)
+                this.mesh.add(light)
+            }
         }
 
         studio.setCamera(this._camera)
