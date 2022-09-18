@@ -88,7 +88,7 @@ export const createGeomGallery = ({}) => {
 
     const h = Math.random() * 50 + 10
     for (let i = 0; i < scheme.length; ++i) {
-        const { x, z, angle, arc } = scheme[i]
+        const { id, x, z, angle, h0, h2, arc } = scheme[i] 
 
         let { vResult, cResult, uvResult } = createColumn({ h, arc })
         //let vResult = [], cResult = [], uvResult = []
