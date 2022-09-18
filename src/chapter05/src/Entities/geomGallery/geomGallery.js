@@ -16,15 +16,15 @@ const {
     cos,
 } = Math
 
-
+const color1 = [1, .1, .1]
+const color2 = [1, 1, 1]
 
 const createColumn = ({ h = 30, arc = false }) => {
     let vArcRes = []
     let cArcRes = []
     let uvArcRes = []
     if (arc) {
-        //console.log('!!!!', arc)
-        const { vArc, cArc, uvArc } = createDataSideArc({ hStart: h + 7.5, ...arc })
+        const { vArc, cArc, uvArc } = createDataSideArc({ hStart: h + 7.5, color1, color2, ...arc })
         vArcRes = vArc
         cArcRes = cArc
         uvArcRes = uvArc
@@ -34,7 +34,7 @@ const createColumn = ({ h = 30, arc = false }) => {
         frontVert,
         frontColors,
         frontUV,
-    } = createDataSideColumn({ hTrunk: h })
+    } = createDataSideColumn({ hTrunk: h, color1, color2 })
 
     const leftVert = [...frontVert]
     transformArr(leftVert, 0, 0, 0, Math.PI / 2)

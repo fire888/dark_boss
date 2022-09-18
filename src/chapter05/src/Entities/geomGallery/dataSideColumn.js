@@ -19,14 +19,14 @@ const {
 
 
 
-const color1 = [.2, .1, .1]
-const color2 = [1, 1, 1]
 
 
 const createTrunk = ({
      h = 2,
      h2 = 30,
      r = 10,
+    color1 = [.2, .1, .1],
+    color2 = [1, 1, 1],
 }) => {
     const arrDividers = []
     let leftH = h2 - h
@@ -217,6 +217,8 @@ const createTrunk = ({
 
 
 export const createDataSideColumn = ({
+     color1 = [.2, .1, .1],
+     color2 = [1, 1, 1],
     rBase = 5,
     hBase = 5,
     hBaseToTrunk = 1,
@@ -262,6 +264,7 @@ export const createDataSideColumn = ({
     /** TRUNK ************************/
     let h = hBase + hBaseToTrunk
     const { vert, col, uv } = createTrunk({
+        color1, color2,
         h: hBase + hBaseToTrunk,
         h2: hTrunk + hBase + hBaseToTrunk,
         r: rTrunk,

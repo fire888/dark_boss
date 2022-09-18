@@ -17,8 +17,8 @@ export const createScheme = () => {
                 h: 0,
             })
         } else {
-            const r = Math.random() * 100 * ii
-            let count = Math.floor(Math.random() * 5) + 5
+            const r = Math.random() * 100 * ii + 15
+            let count = Math.floor(Math.random() * 10) + 5
             for (let i = 0; i < count; ++i) {
                 arr.push({
                     id: Math.floor(Math.random() * 1000),
