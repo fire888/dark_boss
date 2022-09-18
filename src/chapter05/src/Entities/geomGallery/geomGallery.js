@@ -19,10 +19,15 @@ const {
 const color1 = [1, .1, .1]
 const color2 = [1, 1, 1]
 
-const createColumn = ({ h = 30, arc = false }) => {
+const createColumn = ({ h0 = 0, h2 = 30, arc = false }) => {
+    const h = h2 - h0
+    const h1 = h2 - Math.random() * (h / 2) * 0.7 
+
+    
     let vArcRes = []
     let cArcRes = []
     let uvArcRes = []
+    
     if (arc) {
         const { vArc, cArc, uvArc } = createDataSideArc({ hStart: h + 7.5, color1, color2, ...arc })
         vArcRes = vArc
@@ -90,7 +95,7 @@ export const createGeomGallery = ({}) => {
     for (let i = 0; i < scheme.length; ++i) {
         const { id, x, z, angle, h0, h2, arc } = scheme[i] 
 
-        let { vResult, cResult, uvResult } = createColumn({ h, arc })
+        let { vResult, cResult, uvResult } = createColumn({ h0, h2, arc })
         //let vResult = [], cResult = [], uvResult = []
 
 
