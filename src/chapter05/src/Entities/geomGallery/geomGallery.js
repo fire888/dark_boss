@@ -17,7 +17,7 @@ const {
     cos,
 } = Math
 
-const color1 = [1, .1, .1]
+const color1 = [.3, 0, .2]
 const color2 = [1, 1, 1]
 
 const createColumn = ({
