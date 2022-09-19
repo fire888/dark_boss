@@ -34,7 +34,7 @@ export const createScheme = () => {
 
     const num = Math.floor(Math.random() * 20) + 3
     const h0 = 0
-    const h2 = Math.random() * 80 + 80
+    const h2 = Math.random() * 150 + 30
     const h1 = (Math.random() * .4 + .5)  * h2
 
     /** center */
@@ -63,12 +63,12 @@ export const createScheme = () => {
     }
 
 
+    let savedL = arr.length
     for (let i = 0; i < 3; ++i) {
-        const l = arr.length
-        const _h0 = arr[l - 1].h2
-        const _h2 = _h0 + Math.random() * 80 + 30
+        const _h0 = arr[arr.length - 1].h2
+        const _h2 = _h0 + Math.random() * 150 + 30
         const _h1 = _h0 + (Math.random() * .4 + .5) * (_h2 - _h0)
-        for (let j = 0; j < l; ++j) {
+        for (let j = 0; j < savedL; ++j) {
             arr.push({
                 ...arr[j],
                 h0: _h0,

@@ -30,14 +30,21 @@ export const createDataSideArc = ({
     hStart = 5,
     fullH = 25,
     r = 5,
+    rCap = 7,
     wCol = 3,
     zBridge = 3,
     w = 40,
 }) => {
     const lBridge = w - (r * 2)
+    const zArc = - r - lBridge
+
+    const lCapital = Math.min((h2 - h1) * 0.1, 2)
+    const hC = h2 - lCapital
+
+
 
     let _h1 = h1
-    let _h2 = h2
+    let _h2 = hC
     /** front **************/
     const columnF = [...createFace(
         [-wCol, _h1, r,],
@@ -78,6 +85,10 @@ export const createDataSideArc = ({
             [wCol, _h2, -r],
         ),
     ]
+
+
+
+
     /** arc ******************/
     const arc = []
     const cA = []
@@ -99,14 +110,14 @@ export const createDataSideArc = ({
         }
         /** left arc */
         arc.push(
-            x,   h2 - hI1,    -r - ((i + 1) * step),
-            x,   h2 - hI2,    -r - (i * step),
-            x,   h2,          tZ,
+            x,   _h2 - hI1,    -r - ((i + 1) * step),
+            x,   _h2 - hI2,    -r - (i * step),
+            x,   _h2,          tZ,
         )
         cA.push(
-            ...color1,
-            ...color1,
-            ...color1,
+            ...color2,
+            ...color2,
+            ...color2,
         )
         uvA.push(
             0, 0,
@@ -115,14 +126,14 @@ export const createDataSideArc = ({
         )
         /** right arc */
         arc.push(
-            x2,   h2 - hI2,    -r - (i * step),
-            x2,   h2 - hI1,    -r - ((i + 1) * step),
-            x2,   h2,          tZ,
+            x2,   _h2 - hI2,    -r - (i * step),
+            x2,   _h2 - hI1,    -r - ((i + 1) * step),
+            x2,   _h2,          tZ,
         )
         cA.push(
-            ...color1,
-            ...color1,
-            ...color1,
+            ...color2,
+            ...color2,
+            ...color2,
         )
         uvA.push(
             0, 0,
@@ -131,10 +142,10 @@ export const createDataSideArc = ({
         )
         /** bottom arc */
         arc.push(...createFace(
-            [x2, h2 - hI2, -r - (i * step)],
-            [x,  h2 - hI2, -r - (i * step)],
-            [x,  h2 - hI1, -r - ((i + 1) * step)],
-            [x2, h2 - hI1, -r - ((i + 1) * step)],
+            [x2, _h2 - hI2, -r - (i * step)],
+            [x,  _h2 - hI2, -r - (i * step)],
+            [x,  _h2 - hI1, -r - ((i + 1) * step)],
+            [x2, _h2 - hI1, -r - ((i + 1) * step)],
         ))
         cA.push(...colorFill1)
         uvA.push(...createUv([0, 0], [0, 0], [0, 0], [0, 0]))
@@ -142,14 +153,14 @@ export const createDataSideArc = ({
     }
 
     arc.push(
-        x,   h2 - offsetArcTop,     -r - step * resolution / 2,
-        x,   h2,                    -r,
-        x,   h2,                    -r - step * resolution,
+        x,   _h2 - offsetArcTop,     -r - step * resolution / 2,
+        x,   _h2,                    -r,
+        x,   _h2,                    -r - step * resolution,
     )
     cA.push(
-        ...color1,
-        ...color1,
-        ...color1,
+        ...color2,
+        ...color2,
+        ...color2,
     )
     uvA.push(
         0, 0,
@@ -158,14 +169,14 @@ export const createDataSideArc = ({
     )
 
     arc.push(
-        x2,   h2 - offsetArcTop,    -r - step * resolution / 2,
-        x2,   h2,                   -r - step * resolution,
-        x2,   h2,                   -r,
+        x2,   _h2 - offsetArcTop,    -r - step * resolution / 2,
+        x2,   _h2,                   -r - step * resolution,
+        x2,   _h2,                   -r,
     )
     cA.push(
-        ...color1,
-        ...color1,
-        ...color1,
+        ...color2,
+        ...color2,
+        ...color2,
     )
     uvA.push(
         0, 0,
@@ -174,6 +185,63 @@ export const createDataSideArc = ({
     )
 
 
+
+    _h1 = _h2
+    _h2 = h2
+    /** capitel *****************/
+    const cap = [
+        ...createFace(
+            [-rCap, _h1, -rCap,],
+            [rCap, _h1, -rCap],
+            [rCap, _h1, rCap],
+            [-rCap, _h1, rCap],
+        ),
+
+        ...createFace(
+            [-rCap, _h1, rCap,],
+            [rCap, _h1, rCap],
+            [rCap, _h2, rCap],
+            [-rCap, _h2, rCap],
+        ),
+        ...createFace(
+            [-rCap, _h1, -rCap,],
+            [-rCap, _h1, rCap],
+            [-rCap, _h2, rCap],
+            [-rCap, _h2, -rCap],
+        ),
+        ...createFace(
+            [rCap, _h1, rCap,],
+            [rCap, _h1, -rCap],
+            [rCap, _h2, -rCap],
+            [rCap, _h2, rCap],
+        ),
+        ...createFace(
+            [rCap, _h1, -rCap,],
+            [-rCap, _h1, -rCap],
+            [-rCap, _h2, -rCap],
+            [rCap, _h2, -rCap],
+        ),
+        //////
+        ...createFace(
+            [-rCap + 2, _h1, zArc],
+            [rCap - 2, _h1, zArc],
+            [rCap - 2, _h1, -rCap],
+            [-rCap + 2, _h1, -rCap],
+        ),
+        ...createFace(
+            [-rCap + 2, _h1, zArc],
+            [-rCap + 2, _h1, -rCap],
+            [-rCap + 2, _h2, -rCap],
+            [-rCap + 2, _h2, zArc],
+        ),
+        ...createFace(
+            [rCap - 2, _h1, -rCap],
+            [rCap - 2, _h1, zArc],
+            [rCap - 2, _h2, zArc],
+            [rCap - 2, _h2, -rCap],
+        ),
+
+    ]
 
 
 
@@ -182,6 +250,7 @@ export const createDataSideArc = ({
         ...column,
         ...columnB,
         ...arc,
+        ...cap,
     ]
     const cArc = [
         ...colorFill2,
@@ -190,6 +259,16 @@ export const createDataSideArc = ({
         ...colorFill2,
         //...colorFill2,
         ...cA,
+
+
+        ...colorFill1,
+        ...colorFill1,
+        ...colorFill1,
+        ...colorFill1,
+        ...colorFill1,
+        ...colorFill1,
+        ...colorFill1,
+        ...colorFill1,
     ]
     const uvArc = [
         ...uv1,
@@ -197,9 +276,17 @@ export const createDataSideArc = ({
         ...uv1,
         ...uv1,
         //...uv1,
-        ...uvA
-    ]
+        ...uvA,
 
+        ...uv1,
+        ...uv1,
+        ...uv1,
+        ...uv1,
+        ...uv1,
+        ...uv1,
+        ...uv1,
+        ...uv1,
+    ]
 
     return {
         vArc,
