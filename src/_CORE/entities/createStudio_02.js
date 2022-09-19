@@ -40,15 +40,15 @@ export class Studio {
             this._scene.add( this._lightA )
         }
         {
-            const directionalLight = new THREE.DirectionalLight(0xffffff, .5);
+            const directionalLight = new THREE.DirectionalLight(0xffffff, .6);
             directionalLight.position.set(1, 1, .5)
             this._scene.add(directionalLight);
         }
-        // {
-        //     const directionalLight = new THREE.DirectionalLight(0xffffff, .7);
-        //     directionalLight.position.set(-1, 1, -.4)
-        //     this._scene.add(directionalLight);
-        // }
+        {
+            const directionalLight = new THREE.DirectionalLight(0xffffff, .4);
+            directionalLight.position.set(-1, -.1, -.4)
+            this._scene.add(directionalLight);
+        }
 
 
         this._playerCamera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 5000)

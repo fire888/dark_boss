@@ -53,6 +53,8 @@ export class Player {
             }
         }
 
+        ///////////// TEST /////////////
+
         studio.setCamera(this._camera)
         studio.addToScene(this.mesh)
     }

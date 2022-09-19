@@ -121,8 +121,8 @@ export const createDataSideArc = ({
         )
         uvA.push(
             0, 0,
-            0, 0,
-            0, 0,
+            .3, 0,
+            .3, .3,
         )
         /** right arc */
         arc.push(
@@ -137,8 +137,8 @@ export const createDataSideArc = ({
         )
         uvA.push(
             0, 0,
-            0, 0,
-            0, 0,
+            .3, 0,
+            .3, .3,
         )
         /** bottom arc */
         arc.push(...createFace(
@@ -163,9 +163,9 @@ export const createDataSideArc = ({
         ...color2,
     )
     uvA.push(
-        0, 0,
-        0, 0,
-        0, 0,
+        .5, .25,
+        .25, .3,
+        .25, .2,
     )
 
     arc.push(
@@ -179,9 +179,9 @@ export const createDataSideArc = ({
         ...color2,
     )
     uvA.push(
-        0, 0,
-        0, 0,
-        0, 0,
+        .5, .25,
+        .25, .3,
+        .25, .2,
     )
 
 
@@ -221,6 +221,12 @@ export const createDataSideArc = ({
             [-rCap, _h2, -rCap],
             [rCap, _h2, -rCap],
         ),
+        ...createFace(
+            [-rCap, _h2, rCap,],
+            [rCap, _h2, rCap],
+            [rCap, _h2, -rCap],
+            [-rCap, _h2, -rCap],
+        ),
         //////
         ...createFace(
             [-rCap + 2, _h1, zArc],
@@ -239,6 +245,12 @@ export const createDataSideArc = ({
             [rCap - 2, _h1, zArc],
             [rCap - 2, _h2, zArc],
             [rCap - 2, _h2, -rCap],
+        ),
+        ...createFace(
+            [-rCap + 2, _h2, -rCap],
+            [rCap - 2, _h2, -rCap],
+            [rCap - 2, _h2, zArc],
+            [-rCap + 2, _h2, zArc],
         ),
 
     ]
@@ -269,6 +281,8 @@ export const createDataSideArc = ({
         ...colorFill1,
         ...colorFill1,
         ...colorFill1,
+        ...colorFill1,
+        ...colorFill1,
     ]
     const uvArc = [
         ...uv1,
@@ -278,6 +292,8 @@ export const createDataSideArc = ({
         //...uv1,
         ...uvA,
 
+        ...uv1,
+        ...uv1,
         ...uv1,
         ...uv1,
         ...uv1,

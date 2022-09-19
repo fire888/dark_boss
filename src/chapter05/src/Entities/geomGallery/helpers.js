@@ -10,11 +10,15 @@ const {
 const ranN = (start, end) => start + floor(random() * (end - start))
 export const ran = (start, end) => start + random() * (end - start)
 
+
+
 export const createFace = (v1, v2, v3, v4) => [...v1, ...v2, ...v3, ...v1, ...v3, ...v4]
 export const createUv = (v1, v2, v3, v4) => [...v1, ...v2, ...v3, ...v1, ...v3, ...v4]
 export const fillColorFace = c => [...c, ...c, ...c, ...c, ...c, ...c]
 
-export const createFaceWithSquare = (v1, v2, v3, v4) => {
+
+
+export const createFaceWithSquare = (v1, v2, v3, v4, color1, color2) => {
     const maxW = v2[0] - v1[0]
     const maxH = v3[1] - v1[1]
 
@@ -31,16 +35,65 @@ export const createFaceWithSquare = (v1, v2, v3, v4) => {
     const v3_i = [x2, y2, v1[2]]
     const v4_i = [x1, y2, v1[2]]
 
-    const arr = []
-    arr.push(
+    const vArr = []
+    vArr.push(
         ...createFace(v1_i, v2_i, v3_i, v4_i),
         ...createFace(v1, v2, v2_i, v1_i),
         ...createFace(v2_i, v2, v3, v3_i),
         ...createFace(v4_i, v3_i, v3, v4),
         ...createFace(v1, v1_i, v4_i, v4),
     )
-    return arr
+
+    const cArr = fillColorFaceWithSquare(color1, color2)
+
+    const uArr = [
+        ...createUv(
+            [.5, .5],
+            [1, .5],
+            [1, 1],
+            [.5, 1],
+        ),
+
+
+        
+        ...createUv(
+            [0, .5],
+            [.5, .5],
+            //[.5, 1],
+            //[0, 1],
+            [.4, .6],
+            [.1, .6],
+        ),
+        ...createUv(
+            [.4, .6],
+            [.5, .5],
+            [.5, 1],
+            [.4, .9],
+        ),
+        ...createUv(
+            [.1, .9],
+            [.4, .9],
+            [.5, 1],
+            [0, 1],
+        ),
+        ...createUv(
+            [0, .5],
+            [.1, .6],
+            [.1, .9],
+            [0, 1],
+        )
+    ]
+
+
+    return { 
+        vArr,
+        cArr,
+        uArr,
+    }
 }
+
+
+
 export const fillColorFaceWithSquare = (c1, c2) => [
     ...fillColorFace(c1),
     ...fillColorFace(c2),
