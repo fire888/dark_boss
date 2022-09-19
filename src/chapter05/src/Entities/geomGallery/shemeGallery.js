@@ -7,9 +7,13 @@ export const createScheme = () => {
         offsetStart,
         h0,
         h1,
-        h2,           
+        h2,
+        numFromCenter,
     }) => {
         const d = Math.random() * 120 + 30
+        const isAddNext = Math.random() > .5
+
+
         arr.push({
             id: Math.floor(Math.random() * 1000),
             x: Math.sin(angle) * (offsetStart + d),
@@ -19,14 +23,17 @@ export const createScheme = () => {
             h1,
             h2, 
             arc: { w: d },
+            isTopElem: !isAddNext,
+            numFromCenter,
         })
-        if (Math.random() > .5) {
+        if (isAddNext) {
             iterate({
                 angle,
                 offsetStart: offsetStart + d,
                 h0,
                 h1,
-                h2,   
+                h2,
+                numFromCenter: ++numFromCenter,
             }) 
         }
     }
@@ -46,6 +53,8 @@ export const createScheme = () => {
         h0,
         h1,
         h2,
+        numFromCenter: 0,
+        isTopElem: false,
     })
 
 
@@ -57,7 +66,8 @@ export const createScheme = () => {
                 offsetStart: 0,
                 h0,
                 h1,
-                h2,   
+                h2,
+                numFromCenter: 1,
             })
         }
     }
@@ -69,12 +79,15 @@ export const createScheme = () => {
         const _h2 = _h0 + Math.random() * 150 + 30
         const _h1 = _h0 + (Math.random() * .4 + .5) * (_h2 - _h0)
         for (let j = 0; j < savedL; ++j) {
-            arr.push({
-                ...arr[j],
-                h0: _h0,
-                h1: _h1,
-                h2: _h2,
-            })
+            if (!arr[j].isTopElem) {
+                arr.push({
+                    ...arr[j],
+                    h0: _h0,
+                    h1: _h1,
+                    h2: _h2,
+                    isTopElem: i === 2,
+                })
+            }
         }
     }
     return arr
