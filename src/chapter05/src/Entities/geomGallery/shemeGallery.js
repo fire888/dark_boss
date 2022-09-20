@@ -55,6 +55,7 @@ export const createScheme = () => {
         h2,
         numFromCenter: 0,
         isTopElem: false,
+        isColumn: true,
     })
 
 
@@ -86,6 +87,7 @@ export const createScheme = () => {
                     h1: _h1,
                     h2: _h2,
                     isTopElem: i === 2,
+                    //isColumn: arr[j].isColumn
                 })
             }
         }

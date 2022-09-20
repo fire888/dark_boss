@@ -2,6 +2,7 @@
 import { createDataSideColumn } from './dataSideColumn'
 import { createDataSideArc } from "./dataSideArc";
 import { createTopElem } from "./dataTopElem";
+import { createSimpleColumn } from './dataSimpleColumn'
 import {
     transformArr,
     translateArr,
@@ -26,6 +27,7 @@ const createColumn = ({
     h2 = 60,
     arc = false,
     isTopElem = false,
+    isColumn = false
 }) => {
     const h = h2 - h0
     //const h1 = h2 - Math.random() * (h / 2) * 0.7 
@@ -69,6 +71,13 @@ const createColumn = ({
     } = createTopElem({ h2, color1, color2, isTopElem })
 
 
+    const {
+        vertColumn,
+        colorsColumn,
+        uvColumn,
+    } = createSimpleColumn({ isColumn, h1, h2, color1, color2 })
+
+
 
 
     const vResult = [
@@ -79,6 +88,8 @@ const createColumn = ({
 
         ...vArcRes,
         ...vertTopElem,
+        ...vertColumn,
+
     ]
     const cResult = [
         ...frontColors,
@@ -87,7 +98,8 @@ const createColumn = ({
         ...frontColors,
 
         ...cArcRes,
-        ...colorsTopElem
+        ...colorsTopElem,
+        ...colorsColumn,
     ]
     const uvResult = [
         ...frontUV,
@@ -97,6 +109,7 @@ const createColumn = ({
 
         ...uvArcRes,
         ...uvTopElem,
+        ...uvColumn,
     ]
 
 
@@ -118,9 +131,9 @@ export const createGeomGallery = ({}) => {
 
     const h = Math.random() * 50 + 10
     for (let i = 0; i < scheme.length; ++i) {
-        const { id, x, z, angle, h0, h1, h2, arc, isTopElem } = scheme[i]
+        const { id, x, z, angle, h0, h1, h2, arc, isTopElem, isColumn } = scheme[i]
 
-        let { vResult, cResult, uvResult } = createColumn({ h0, h1, h2, arc, isTopElem })
+        let { vResult, cResult, uvResult } = createColumn({ h0, h1, h2, arc, isTopElem, isColumn })
 
 
         rotateArr(vResult, angle)

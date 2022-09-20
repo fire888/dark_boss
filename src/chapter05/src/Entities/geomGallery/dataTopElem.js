@@ -109,6 +109,7 @@ export const createTopElem = ({
         ))
 
 
+
         _h1 = _h2
         _h2 = _h1 + hl5
         _r1 = _r2
@@ -119,6 +120,14 @@ export const createTopElem = ({
             [sin(angle2) * _r1, _h1, cos(angle2) * _r1],
             [sin(angle2) * _r2, _h2, cos(angle2) * _r2],
             [sin(angle1) * _r2, _h2, cos(angle1) * _r2],
+        ))
+
+
+        vertTopElem.push(...createFace(
+            [sin(angle1) * _r2, _h2, cos(angle1) * _r2],
+            [sin(angle2) * _r2, _h2, cos(angle2) * _r2],
+            [sin(angle2) * 2, _h2, cos(angle2) * 2],
+            [sin(angle1) * 2, _h2, cos(angle1) * 2],
         ))
 
         _h1 = _h2
@@ -132,6 +141,7 @@ export const createTopElem = ({
             [sin(angle2) * _r2, _h2, cos(angle2) * _r2],
             [sin(angle1) * _r2, _h2, cos(angle1) * _r2],
         ))
+
 
         _h1 = _h2
         _h2 = _h2 + hl6
@@ -154,12 +164,14 @@ export const createTopElem = ({
             ...fillColorFace(color2),
             ...fillColorFace(color1),
             ...fillColorFace(color1),
+            ...fillColorFace(color1),
             ...color1,
             ...color1,
             ...color1,
         )
 
         uvTopElem.push(
+            ...createUv([0, .5], [.5, .5], [.5, 1], [0, 1],),
             ...createUv([0, .5], [.5, .5], [.5, 1], [0, 1],),
             ...createUv([0, .5], [.5, .5], [.5, 1], [0, 1],),
             ...createUv([0, .5], [.5, .5], [.5, 1], [0, 1],),
