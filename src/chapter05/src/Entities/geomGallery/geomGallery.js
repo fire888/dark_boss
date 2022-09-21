@@ -7,9 +7,12 @@ import {
     transformArr,
     translateArr,
     rotateArr,
+    createFace,
+    createUv,
+    fillColorFace,
 } from './helpers'
 import { createScheme } from './shemeGallery'
-
+import { lCol, lW } from '../../constants/constants_elements' 
 
 
 const {
@@ -18,8 +21,8 @@ const {
     cos,
 } = Math
 
-const color1 = [.5, .0, .0]
-const color2 = [1, 1, 1]
+const color1 = [0, 0, 0]
+const color2 = [0, .7, 0]
 
 const createColumn = ({
     h0 = 0,
@@ -46,12 +49,18 @@ const createColumn = ({
 
 
 
+    const rCapital = 6
+    const rBase = 5
+
+
+
+
 
     const {
         frontVert,
         frontColors,
         frontUV,
-    } = createDataSideColumn({ h0, h1, color1, color2 })
+    } = createDataSideColumn({ h0, h1, color1, color2, rCapital, rBase })
 
     const leftVert = [...frontVert]
     transformArr(leftVert, 0, 0, 0, Math.PI / 2)
@@ -64,12 +73,43 @@ const createColumn = ({
 
 
 
+
+    const vCapColumn = createFace(
+        [-rCapital, h1, rCapital],
+        [rCapital, h1, rCapital],
+        [rCapital, h1, -rCapital],
+        [-rCapital, h1, -rCapital],
+    )
+    const cCapColumn = fillColorFace(color1)
+    const uvCapColumn = createUv(
+        [.5, 0],
+        [1, 0],
+        [1, .5],
+        [.5, .5],
+    ) 
+
+    const vBotLColumn = createFace(
+        [-rBase - lW, h0 - lW, rBase + lW],
+        [rBase + lW, h0 - lW, rBase + lW],
+        [rBase, h0 - lW, -rBase - lW],
+        [-rBase, h0 - lW, -rBase - lW],
+    )
+    const cBotColumn = fillColorFace(lCol)
+    const uvBotColumn = createUv(
+        [0, 1],
+        [0, 1],
+        [0, 1],
+        [0, 1],
+    ) 
+
+
+
+
     const {
         vertTopElem,
         colorsTopElem,
         uvTopElem,
     } = createTopElem({ h2, color1, color2, isTopElem })
-
 
     const {
         vertColumn,
@@ -85,6 +125,8 @@ const createColumn = ({
         ...leftVert,
         ...rightVert,
         ...backVert,
+        ...vBotLColumn,
+        ...vCapColumn,
 
         ...vArcRes,
         ...vertTopElem,
@@ -96,6 +138,9 @@ const createColumn = ({
         ...frontColors,
         ...frontColors,
         ...frontColors,
+        ...cBotColumn,
+        ...cCapColumn,
+
 
         ...cArcRes,
         ...colorsTopElem,
@@ -106,6 +151,9 @@ const createColumn = ({
         ...frontUV,
         ...frontUV,
         ...frontUV,
+        ...uvBotColumn,
+        ...uvCapColumn,
+
 
         ...uvArcRes,
         ...uvTopElem,

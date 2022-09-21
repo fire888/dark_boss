@@ -217,20 +217,20 @@ const createChangerLocations = root => {
     } = root
 
     /** TEST *************************/
-    for (let key in LOCATIONS_QUADRANTS) {
-        const b = new THREE.Mesh(
-            new THREE.BoxGeometry(55, 1000, 55),
-            new THREE.MeshBasicMaterial({ color: 0xff0000 })
-        )
+    // for (let key in LOCATIONS_QUADRANTS) {
+    //     const b = new THREE.Mesh(
+    //         new THREE.BoxGeometry(55, 1000, 55),
+    //         new THREE.MeshBasicMaterial({ color: 0xff0000 })
+    //     )
 
-        const p = key.split('_')
-        b.position.set(
-            +p[0] * SIZE_QUADRANT + SIZE_QUADRANT / 2,
-            4100,
-            +p[1] * SIZE_QUADRANT + SIZE_QUADRANT / 2,
-        )
-        studio.addToScene(b)
-    }
+    //     const p = key.split('_')
+    //     b.position.set(
+    //         +p[0] * SIZE_QUADRANT + SIZE_QUADRANT / 2,
+    //         4100,
+    //         +p[1] * SIZE_QUADRANT + SIZE_QUADRANT / 2,
+    //     )
+    //     studio.addToScene(b)
+    // }
 
     setTimeout(() => {
         for (let key in LOCATIONS_QUADRANTS) {
@@ -299,7 +299,7 @@ const createManagerLevelTrash = root => {
     let arrTrash = []
 
     const p = createMeshGallery(root)
-    p.position.set(0, -63, -40)
+    p.position.set(0, -60, -40)
     studio.addToScene(p)
 
 
@@ -339,7 +339,7 @@ const createManagerLevelTrash = root => {
                 const mesh = createMeshGallery(root)
                 mesh.position.set(
                     x + Math.random() * SIZE_QUADRANT,
-                    -63,
+                    -60,
                     z + Math.random() * SIZE_QUADRANT,
                 )
                 studio.addToScene(mesh)

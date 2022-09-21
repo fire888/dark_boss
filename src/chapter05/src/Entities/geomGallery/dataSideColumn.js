@@ -7,6 +7,8 @@ import {
 } from './helpers'
 
 import { ran } from './helpers'
+import { lCol, lW } from '../../constants/constants_elements' 
+
 
 const {
     floor,
@@ -15,8 +17,6 @@ const {
     sin,
     cos,
 } = Math
-
-
 
 
 
@@ -82,7 +82,7 @@ const createTrunk = ({
                 [r, arrDividers[i].h0, r],
                 [r, arrDividers[i].h01, r],
                 [-r, arrDividers[i].h01, r],
-                color1,
+                color2,
                 color2,
             )
             vert.push(...vArr)
@@ -160,8 +160,8 @@ export const createDataSideColumn = ({
     //hTrunk = 300,
     h0,
     h1,
-     color1 = [.2, .1, .1],
-     color2 = [1, 1, 1],
+    color1 = [.2, .1, .1],
+    color2 = [1, 1, 1],
     rBase = 5,
     hBase = 5,
     hBaseToTrunk = 1,
@@ -176,19 +176,37 @@ export const createDataSideColumn = ({
     let _h0 = h0
     let _h1 = h0 + hBase 
     /** BASE **************/
-    const base = [...createFace(
+    const base = createFace(
         [-rBase, _h0, rBase,],
         [rBase, _h0, rBase],
         [rBase, _h1, rBase],
         [-rBase, _h1, rBase],
-    )]
-    const colorBase = [...fillColorFace(color1)]
+    )
+    const colorBase = fillColorFace(color1)
     const uv1 = createUv(
         [.5, 0],
         [1, 0],
         [1, .5],
         [.5, .5],
     )
+
+    const base1 = createFace(
+        [rBase + lW, _h0 - lW, rBase + lW],
+        [-rBase - lW, _h0 - lW, rBase + lW],
+        [-rBase - lW, _h1, rBase + lW],
+        [rBase + lW, _h1, rBase + lW],
+    )
+    const colorBase1 = fillColorFace(lCol)
+    const uv1_1 = createUv(
+        [0, 1],
+        [0, 1],
+        [0, 1],
+        [0, 1],
+    )
+
+
+
+
 
 
     _h0 = _h1
@@ -254,6 +272,7 @@ export const createDataSideColumn = ({
 
     const frontVert = [
         ...base,
+        ...base1,
         ...baseToTrunk,
         ...vert,
         ...trunkToCapital,
@@ -261,6 +280,7 @@ export const createDataSideColumn = ({
     ]
     const frontColors = [
         ...colorBase,
+        ...colorBase1,
         ...colorBaseToTrunk,
         ...col,
         ...colorBaseToTrunk,
@@ -269,6 +289,7 @@ export const createDataSideColumn = ({
     ]
     const frontUV = [
         ...uv1,
+        ...uv1_1,
         ...uvBT,
         ...uvT,
         ...uvBT,

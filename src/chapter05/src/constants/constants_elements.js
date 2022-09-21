@@ -32,13 +32,15 @@ export const CONFIG_FOR_INIT = {
 
 
 
+export const lCol = [.3, 1, .3]
+export const lW = .2 
 
 export const MATERIALS_CONFIG = {
     'wallVirtual': {
-        mat: 'MeshPhongMaterial',
+        mat: 'MeshStandardMaterial',
         props: {
             //color: 0xffd4a8,
-            color: 0xffffff,
+            color: 0x111111,
             //color: 0x999999,
             emissive: 0x000000,
             //map: 'mapVirtual',
@@ -51,19 +53,20 @@ export const MATERIALS_CONFIG = {
         },
     },
     'wallVirtualColor': {
-        mat: 'MeshPhongMaterial',
+        //mat: 'MeshPhongMaterial',
+        mat: 'MeshBasicMaterial',
         props: {
             //color: 0xffd4a8,
             color: 0xffffff,
             //color: 0x999999,
-            emissive: 0x000000,
+            emissive: 0x001111,
             map: 'mapParams',
             bumpMap: 'mapParams',
             bumpScale: .1,
             //envMap: 'skyBox',
             //reflectivity: .5,
             //shininess: .5,
-            specular: 0x222222,
+            specular: 0x0000ff,
             vertexColors: true,
         },
     },
@@ -88,7 +91,7 @@ export const MATERIALS_CONFIG = {
 
 
 
-//export const START_ENV_CONFIG = { fogNear: -10, fogFar: 20, color: 0x4a0a45, backgroundImgKey: 'skyBox2' }
+export const START_ENV_CONFIG = { fogNear: 500, fogFar: 1500, color: 0x005500, /*backgroundImgKey: 'skyBox2'*/ }
 //export const START_ENV_CONFIG_2 = { fogNear: -10, fogFar: 0, color: 0x4a0a45, backgroundImgKey: 'skyBox2' }
 //export const START_ENV_CONFIG_3 = { fogNear: 20, fogFar: 1500, color: 0x334455, backgroundImgKey: 'skyBox2' }
 //export const START_ENV_CONFIG_4 = { fogNear: -10, fogFar: 0, color: 0x4a0a45, backgroundImgKey: null }
@@ -108,8 +111,8 @@ export const studioConfig = {
         color: 0xffffff,
         strength: 1,
     },
-    //sceneEnvironment: START_ENV_CONFIG,
-    //composerAddPass: 'Saturate',
+    sceneEnvironment: START_ENV_CONFIG,
+    composerAddPass: 'Saturate',
     composerAddPass: 'Saturate2',
 }
 

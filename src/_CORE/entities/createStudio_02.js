@@ -20,16 +20,16 @@ export class Studio {
 
         this._renderer = new THREE.WebGLRenderer(rendererCon)
         //this._renderer.setClearColor(clearColor)
-        this._renderer.setClearColor(0xaaaaaa)
+        this._renderer.setClearColor(0x000000)
         this._renderer.setPixelRatio(window.devicePixelRatio)
         this._renderer.setSize(window.innerWidth, window.innerHeight)
 
         this._scene = new THREE.Scene()
 
         {
-            //const { color, fogNear, fogFar, backgroundImgKey } = root.CONSTANTS.studioConfig.sceneEnvironment
-            //this._scene.background = assets[backgroundImgKey] || null
-            //this._scene.fog = new THREE.Fog(color, fogNear, fogFar)
+             const { color, fogNear, fogFar, backgroundImgKey } = root.CONSTANTS.studioConfig.sceneEnvironment
+             this._scene.background = assets[backgroundImgKey] || null
+             this._scene.fog = new THREE.Fog(color, fogNear, fogFar)
         }
 
 
@@ -97,8 +97,8 @@ export class Studio {
                 controls.target.set(vec3.x, vec3.y, vec3.z)
                 controls.update()
             } else {
-                this._scene.fog.near = saveFogData.near
-                this._scene.fog.far = saveFogData.far
+                // this._scene.fog.near = saveFogData.near
+                // this._scene.fog.far = saveFogData.far
                 isPlayerView = true
                 this._renderPass.camera = this._playerCamera
             }
