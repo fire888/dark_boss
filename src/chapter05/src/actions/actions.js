@@ -9,7 +9,7 @@ import {
 import { createCheckerChangeLocationKey } from '../components/checkerChangeLocationKey'
 
 import { createMeshGallery } from '../Entities/meshGallery'
-import {createGeomGallery} from "../Entities/geomGallery/geomGallery";
+import { createMeshStairs } from "../Entities/meshStairs";
 
 
 export class actions {
@@ -298,7 +298,7 @@ const createManagerLevelTrash = root => {
 
     let arrTrash = []
 
-    const p = createMeshGallery(root)
+    const p = createMeshStairs(root)
     p.position.set(0, -60, -40)
     studio.addToScene(p)
 
