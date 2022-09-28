@@ -13,7 +13,7 @@ export const create = ({}) => {
     } = createWay( { 
         h2: 0,
         color1: [1, 1, 1],
-        color2: [0, 0, 0],
+        color2: [0, .7, 0],
     })
 
 

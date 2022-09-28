@@ -34,47 +34,47 @@ export const createWay = ({
 
     //const hP = 10
     const stepH = 20
-    const r = 10
-    const offset = 30
-    const lBridge = 30 + 30 - r
-    const count = 8
+    const r = 20
+    const offset = 50
+    const count = 25
+    const tickness = 7 
+    const rColumn = 3
+    
+    
+    const lBridge = offset + offset - r - r
+    const hColumn = stepH * 4
 
+    const uvBr = createUv([0, .5], [.5, .5], [.5, 1], [0, 1],)
+    const uvCl = createUv([0, 0], [0, 0], [0, 0], [0, 0],)
 
 
     const scheme = []
     for (let i = 0; i < count; ++i) {
-        let x = -offset
-        if (i % .5) {
+        let x = 0
+        let z = 0
+
+        const p = i % 4
+        if (p < 1) {
+            x = -offset
+            z = -offset
+        } else if (p < 2) {
             x = offset
-        }
-        let z = -offset
-        if ((i + 1) % .5) {
+            z = -offset
+        } else if (p < 3) {
+            x = offset
+            z = offset
+        } else if (p < 4) {
+            x = -offset
             z = offset
         }
 
-        scheme.push(
-            { 
-                h: stepH * i,
-                r,
-                x,
-                z,  
-            }
-        )
+        scheme.push({ h: stepH * i, r, x, z, })
     }
 
 
-
-    //const scheme = [
-    //    { h: 0, r: 10, x: -30, z: -30 },
-    //    { h: 30, r: 10, x: 30, z: -30 },
-    //    { h: 60, r: 10, x: 30, z: 30 },
-    //    { h: 90, r: 10, x: -30, z: 30 },
-    //    { h: 120, r: 10, x: -30, z: -30 },
-    //]
-
     for (let i = 0; i < scheme.length; ++i) {
         const { h, r, x, z } = scheme[i]
-        const hh = h - 3
+        const hh = h - tickness
 
 
         const v = []
@@ -82,6 +82,8 @@ export const createWay = ({
         const u = []
 
         v.push(
+            /** place */    
+
             ...createFace(
                 [-r, h, r],
                 [r, h, r],
@@ -117,12 +119,73 @@ export const createWay = ({
                 [r, h, -r],
             ),
 
+            // bottom
+            ...createFace(
+                [r, hh, -r],
+                [r, hh, r],
+                [-r, hh, r],
+                [-r, hh, -r],
+            ),
+
+            /** connect */
+
             ...createFace(
                 [-r, h, -r],
                 [r, h, -r],
-                [r, h - 30, -r - lBridge],
-                [-r, h - 30, -r - lBridge],
+                [r, h - stepH, -r - lBridge],
+                [-r, h - stepH, -r - lBridge],
             ),
+
+            ...createFace(
+                [-r, hh - stepH, -r - lBridge],
+                [-r, hh, -r],
+                [-r, h, -r],
+                [-r, h - stepH, -r - lBridge],
+            ),
+
+
+            ...createFace(
+                [r, hh, -r],
+                [r, hh - stepH, -r - lBridge],
+                [r, h - stepH, -r - lBridge],
+                [r, h, -r],
+            ),
+
+            ...createFace(
+                [-r, hh - stepH, -r - lBridge],
+                [r, hh - stepH, -r - lBridge],
+                [r, hh, -r],
+                [-r, hh, -r],
+            ),
+
+
+            /** column */
+            ...createFace(
+                [r - rColumn, h - hColumn, r - rColumn],
+                [r - rColumn, h - hColumn, r + rColumn],
+                [r - rColumn, h, r + rColumn],
+                [r - rColumn, h, r - rColumn],
+            ),
+            ...createFace(
+                [r - rColumn, h - hColumn, r + rColumn],
+                [r + rColumn, h - hColumn, r + rColumn],
+                [r + rColumn, h, r + rColumn],
+                [r - rColumn, h, r + rColumn],
+            ),
+            ...createFace(
+                [r + rColumn, h - hColumn, r + rColumn],
+                [r + rColumn, h - hColumn, r - rColumn],
+                [r + rColumn, h, r - rColumn],
+                [r + rColumn, h, r + rColumn],
+            ),
+            ...createFace(
+                [r + rColumn, h - hColumn, r - rColumn],
+                [r - rColumn, h - hColumn, r - rColumn],
+                [r - rColumn, h, r - rColumn],
+                [r + rColumn, h, r - rColumn],
+            ),
+
+
         )
     
         rotateArr(v, Math.PI - ((Math.PI / 2) * (i)))
@@ -131,21 +194,37 @@ export const createWay = ({
         vertP.push(...v)
        
         colorsP.push(
-            ...fillColorFace(color1),
-            ...fillColorFace(color1),
-            ...fillColorFace(color1),
-            ...fillColorFace(color1),
-            ...fillColorFace(color1),
-            ...fillColorFace(color1),
+            ...fillColorFace(color2),
+            ...fillColorFace(color2),
+            ...fillColorFace(color2),
+            ...fillColorFace(color2),
+            ...fillColorFace(color2),
+            ...fillColorFace(color2),
+            ...fillColorFace(color2),
+            ...fillColorFace(color2),
+            ...fillColorFace(color2),
+            ...fillColorFace(color2),
+            ...fillColorFace(color2),
+            ...fillColorFace(color2),
+            ...fillColorFace(color2),
+            ...fillColorFace(color2),
         )
     
         uvTopP.push(
-            ...createUv([0, .5], [.5, .5], [.5, 1], [0, 1],),
-            ...createUv([0, .5], [.5, .5], [.5, 1], [0, 1],),
-            ...createUv([0, .5], [.5, .5], [.5, 1], [0, 1],),
-            ...createUv([0, .5], [.5, .5], [.5, 1], [0, 1],),
-            ...createUv([0, .5], [.5, .5], [.5, 1], [0, 1],),
-            ...createUv([0, .5], [.5, .5], [.5, 1], [0, 1],),
+            ...uvBr,
+            ...uvCl,
+            ...uvCl,
+            ...uvCl,
+            ...uvCl,
+            ...uvBr,
+            ...uvBr,
+            ...uvCl,
+            ...uvCl,
+            ...uvBr,
+            ...uvCl,
+            ...uvCl,
+            ...uvCl,
+            ...uvCl,  
         )
     }
 

@@ -299,7 +299,7 @@ const createManagerLevelTrash = root => {
     let arrTrash = []
 
     const p = createMeshStairs(root)
-    p.position.set(0, 0, -40)
+    p.position.set(0, -42, -40)
     studio.addToScene(p)
 
 
