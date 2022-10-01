@@ -19,37 +19,24 @@ const {
 
 
 
-
-export const createWay = ({
-  color1,
-  color2,
-  h2,
-}) => {
-
-
-    const vertP = []
-    const colorsP = []
-    const uvTopP = []
-
-
-    //const hP = 10
-    const stepH = 20
+const createScheme = () => {
     const r = 20
-    const offset = 50
+    const stepH = 20
     const count = 25
-    const tickness = 7 
-    const rColumn = 3
-    
-    
-    const lBridge = offset + offset - r - r
+    const tickness = 7
     const hColumn = stepH * 4
+    const rColumn = 3
+    const offset = 50
 
-    const uvBr = createUv([0, .5], [.5, .5], [.5, 1], [0, 1],)
-    const uvCl = createUv([0, 0], [0, 0], [0, 0], [0, 0],)
+    const lBridge = offset + offset - r - r
+
 
 
     const scheme = []
     for (let i = 0; i < count; ++i) {
+        const h = stepH * i
+        const hh = h - tickness
+
         let x = 0
         let z = 0
 
@@ -68,14 +55,55 @@ export const createWay = ({
             z = offset
         }
 
-        scheme.push({ h: stepH * i, r, x, z, })
+        scheme.push({
+            offset,
+            h,
+            hh,
+            r,
+            x,
+            z,
+            bridgeMinusH: stepH,
+            bridgeL: lBridge,
+            hColumn,
+            rColumn,
+        })
     }
+
+    return scheme
+}
+
+
+const createSegment = (data) => {
+
+}
+
+
+
+export const createWay = ({
+  color1,
+  color2,
+  h2,
+}) => {
+
+
+    const vertP = []
+    const colorsP = []
+    const uvTopP = []
+
+
+
+
+
+    const uvBr = createUv([0, .5], [.5, .5], [.5, 1], [0, 1],)
+    const uvCl = createUv([0, 0], [0, 0], [0, 0], [0, 0],)
+
+
+    const scheme = createScheme()
+
 
 
     for (let i = 0; i < scheme.length; ++i) {
-        const { h, r, x, z } = scheme[i]
-        const hh = h - tickness
-
+        const { h, hh, r, x, z, bridgeL, bridgeMinusH, hColumn, rColumn } = scheme[i]
 
         const v = []
         const c = []
@@ -132,28 +160,28 @@ export const createWay = ({
             ...createFace(
                 [-r, h, -r],
                 [r, h, -r],
-                [r, h - stepH, -r - lBridge],
-                [-r, h - stepH, -r - lBridge],
+                [r, h - bridgeMinusH, -r - bridgeL],
+                [-r, h - bridgeMinusH, -r - bridgeL],
             ),
 
             ...createFace(
-                [-r, hh - stepH, -r - lBridge],
+                [-r, hh - bridgeMinusH, -r - bridgeL],
                 [-r, hh, -r],
                 [-r, h, -r],
-                [-r, h - stepH, -r - lBridge],
+                [-r, h - bridgeMinusH, -r - bridgeL],
             ),
 
 
             ...createFace(
                 [r, hh, -r],
-                [r, hh - stepH, -r - lBridge],
-                [r, h - stepH, -r - lBridge],
+                [r, hh - bridgeMinusH, -r - bridgeL],
+                [r, h - bridgeMinusH, -r - bridgeL],
                 [r, h, -r],
             ),
 
             ...createFace(
-                [-r, hh - stepH, -r - lBridge],
-                [r, hh - stepH, -r - lBridge],
+                [-r, hh - bridgeMinusH, -r - bridgeL],
+                [r, hh - bridgeMinusH, -r - bridgeL],
                 [r, hh, -r],
                 [-r, hh, -r],
             ),
