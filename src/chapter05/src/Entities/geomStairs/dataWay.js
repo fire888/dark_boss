@@ -323,6 +323,17 @@ const createSegment = (data, color1, color2,) => {
             xSt + (arcL), hh, r,
         )
 
+        v.push(
+            xSt + (i * arcStep), hhArc + (phase0 * hArc), r - 2,
+            xSt + (arcL), hh, r - 2,
+            xSt + ((i + 1) * arcStep), hhArc + (phase1 * hArc), r - 2,
+        )
+
+        c.push(
+            ...color2,
+            ...color2,
+            ...color2,
+        )
         c.push(
             ...color2,
             ...color2,
@@ -330,6 +341,18 @@ const createSegment = (data, color1, color2,) => {
         )
 
         u.push(0, 0, .3, 0, .3, .3)
+        u.push(0, 0, .3, 0, .3, .3)
+
+
+        v.push(...createFace(
+            [xSt + (i * arcStep), hhArc + (phase0 * hArc), r],
+            [xSt + (i * arcStep), hhArc + (phase0 * hArc), r - 2],
+            [xSt + ((i + 1) * arcStep), hhArc + (phase1 * hArc), r - 2],
+            [xSt + ((i + 1) * arcStep), hhArc + (phase1 * hArc), r],
+        ))
+
+        c.push(...fillColorFace(colorB))
+        u.push(...uvCl)
     }
 
     /** top elem **/
