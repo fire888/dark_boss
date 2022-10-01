@@ -7,7 +7,10 @@ import {
     translateArr,
     rotateArr,
 } from '../geomGallery/helpers'
-import { lCol, lW } from '../../constants/constants_elements' 
+import { lCol, lW } from '../../constants/constants_elements'
+
+import { createDataSideColumn } from '../geomGallery/dataSideColumn'
+import { createTopElem } from '../geomGallery/dataTopElem'
 
 const {
     floor,
@@ -17,11 +20,14 @@ const {
     cos,
 } = Math
 
+const hPI = PI / 2
+const colorB = [0, 0, 0]
+
 
 
 const createScheme = () => {
     const r = 20
-    const stepH = 20
+    const stepH = 30
     const count = 25
     const tickness = 7
     const hColumn = stepH * 4
@@ -67,6 +73,7 @@ const createScheme = () => {
             hColumn,
             rColumn,
             i,
+            isTop: count - i < 5,
         })
     }
 
@@ -75,11 +82,15 @@ const createScheme = () => {
 
 
 const createSegment = (data, color1, color2,) => {
-    const { h, hh, r, x, z, bridgeL, bridgeMinusH, hColumn, rColumn, i } = data
+    console.log(data.isTop)
+    const { h, /*hh,*/ r, x, z, bridgeL, bridgeMinusH, hColumn, rColumn, i } = data
+
+    const hh = h - 5
 
     const uvBr = createUv([0, .5], [.5, .5], [.5, 1], [0, 1],)
     const uvCl = createUv([0, 0], [0, 0], [0, 0], [0, 0],)
-    const uvArc = [0, 0, 0, 0, 0, 0]
+
+    const hCol = hColumn * (Math.random() * 0.35 + 0.1)
 
     const v = []
     const c = []
@@ -165,46 +176,106 @@ const createSegment = (data, color1, color2,) => {
 
         /** column */
         ...createFace(
-            [r - rColumn, h - hColumn, r - rColumn],
-            [r - rColumn, h - hColumn, r + rColumn],
-            [r - rColumn, h, r + rColumn],
-            [r - rColumn, h, r - rColumn],
+            [r - rColumn, hh - hCol, r - rColumn],
+            [r - rColumn, hh - hCol, r + rColumn],
+            [r - rColumn, hh, r + rColumn],
+            [r - rColumn, hh, r - rColumn],
         ),
         ...createFace(
-            [r - rColumn, h - hColumn, r + rColumn],
-            [r + rColumn, h - hColumn, r + rColumn],
-            [r + rColumn, h, r + rColumn],
-            [r - rColumn, h, r + rColumn],
+            [r - rColumn, hh - hCol, r + rColumn],
+            [r + rColumn, hh - hCol, r + rColumn],
+            [r + rColumn, hh, r + rColumn],
+            [r - rColumn, hh, r + rColumn],
         ),
         ...createFace(
-            [r + rColumn, h - hColumn, r + rColumn],
-            [r + rColumn, h - hColumn, r - rColumn],
-            [r + rColumn, h, r - rColumn],
-            [r + rColumn, h, r + rColumn],
+            [r + rColumn, hh - hCol, r + rColumn],
+            [r + rColumn, hh - hCol, r - rColumn],
+            [r + rColumn, hh, r - rColumn],
+            [r + rColumn, hh, r + rColumn],
         ),
         ...createFace(
-            [r + rColumn, h - hColumn, r - rColumn],
-            [r - rColumn, h - hColumn, r - rColumn],
-            [r - rColumn, h, r - rColumn],
-            [r + rColumn, h, r - rColumn],
+            [r + rColumn, hh - hCol, r - rColumn],
+            [r - rColumn, hh - hCol, r - rColumn],
+            [r - rColumn, hh, r - rColumn],
+            [r + rColumn, hh, r - rColumn],
         ),
     )
 
+    const f = createDataSideColumn({
+        h0: hh - hColumn - .1,
+        h1: hh - hCol,
+        color1: [0, 0, 0],
+        color2,
+        rBase: 5,
+        hBase: 5,
+        hBaseToTrunk: 1,
+        hCapital: 2,
+        rCapital: 6,
+        hTrunkToCapital: 1,
+        rTrunk:3,
+    })
+
+    const copy1 = [...f.frontVert]
+    translateArr(copy1, r, 0, r)
+    v.push(...copy1)
+
+    const copy2 = [...f.frontVert]
+    rotateArr(copy2, hPI)
+    translateArr(copy2, r, 0, r)
+    v.push(...copy2)
+
+    const copy3 = [...f.frontVert]
+    rotateArr(copy3, PI)
+    translateArr(copy3, r, 0, r)
+    v.push(...copy3)
+
+    rotateArr(f.frontVert, PI + hPI)
+    translateArr(f.frontVert, r, 0, r)
+    v.push(...f.frontVert)
+
+    const rBase = 5
+    v.push(...createFace(
+        [r - rBase, hh - hColumn -.1, r - rBase],
+        [r + rBase, hh - hColumn -.1, r - rBase],
+        [r + rBase, hh - hColumn -.1, r + rBase],
+        [r - rBase, hh - hColumn -.1, r + rBase],
+    ))
+
+    const rCapital = 6
+    v.push(...createFace(
+        [r - rCapital, hh - hCol, r + rCapital],
+        [r + rCapital, hh - hCol, r + rCapital],
+        [r + rCapital, hh - hCol, r - rCapital],
+        [r - rCapital, hh - hCol, r - rCapital],
+    ))
+
+
+
     c.push(
         ...fillColorFace(color2),
+        ...fillColorFace(colorB),
+        ...fillColorFace(colorB),
+        ...fillColorFace(colorB),
+        ...fillColorFace(color2),
+        ...fillColorFace(color2),
+        ...fillColorFace(color2),
+        ...fillColorFace(colorB),
+        ...fillColorFace(colorB),
+        ...fillColorFace(color2),
+
+        /** column **/
         ...fillColorFace(color2),
         ...fillColorFace(color2),
         ...fillColorFace(color2),
         ...fillColorFace(color2),
-        ...fillColorFace(color2),
-        ...fillColorFace(color2),
-        ...fillColorFace(color2),
-        ...fillColorFace(color2),
-        ...fillColorFace(color2),
-        ...fillColorFace(color2),
-        ...fillColorFace(color2),
-        ...fillColorFace(color2),
-        ...fillColorFace(color2)
+
+        ...f.frontColors,
+        ...f.frontColors,
+        ...f.frontColors,
+        ...f.frontColors,
+
+        ...fillColorFace(colorB),
+        ...fillColorFace(colorB),
     )
 
     u.push(
@@ -217,46 +288,70 @@ const createSegment = (data, color1, color2,) => {
         ...uvBr,
         ...uvCl,
         ...uvCl,
+
+        /** col */
         ...uvBr,
-        ...uvCl,
-        ...uvCl,
-        ...uvCl,
-        ...uvCl,
+        ...uvBr,
+        ...uvBr,
+        ...uvBr,
+        ...uvBr,
+
+        ...f.frontUV,
+        ...f.frontUV,
+        ...f.frontUV,
+        ...f.frontUV,
+
+        ...uvBr,
+        ...uvBr,
     )
 
     /** arc */
-    const arcC = 7
-    const arcL = r
+    const arcC = 5
+    const arcL = r * 2 - 2
     const arcStep = arcL / arcC
-    for (let i = arcC; i > 0; --i) {
-        const phase0 = sin((arcC - i) / arcC * (Math.PI / 2))
-        const phase1 = sin((arcC - i + 1) / arcC * (Math.PI / 2))
+    const hArc = hCol
+
+    for (let i = 0; i < arcC; ++i) {
+        const xSt = r - arcL - rColumn
+
+        const phase0 = cos(i / arcC * (hPI))
+        const phase1 = cos((i + 1) / arcC * (hPI))
+        const hhArc = hh - hCol
         v.push(
-            r - ((i) * arcStep) - rColumn, hh - ((arcC - i) * 5), r,
-            r - ((i - 1) * arcStep) - rColumn, hh - ((arcC - i + 1) * 5), r,
-            //r - ((i) * arcStep) - rColumn, hh - phase0 * 10, r,
-            //r - ((i - 1) * arcStep) - rColumn, hh - phase1 * 10, r,
-            r, hh, r,
+            xSt + (i * arcStep), hhArc + (phase0 * hArc), r,
+            xSt + ((i + 1) * arcStep), hhArc + (phase1 * hArc), r,
+            xSt + (arcL), hh, r,
         )
 
         c.push(
-            ...color1,
-            ...color1,
-            ...color1,
+            ...color2,
+            ...color2,
+            ...color2,
         )
 
-        u.push(
-            ...uvArc,
-        )
+        u.push(0, 0, .3, 0, .3, .3)
     }
+
+    /** top elem **/
+    if (data.isTop) {
+        const topElemData = createTopElem({
+            isTopElem: true,
+            color1: [0, 0, 0],
+            color2,
+            h2: hh,
+        })
+        translateArr(topElemData.vertTopElem, r, 0, r)
+        v.push(...topElemData.vertTopElem)
+        c.push(...topElemData.colorsTopElem)
+        u.push(...topElemData.uvTopElem)
+    }
+
 
 
 
 
     rotateArr(v, Math.PI - ((Math.PI / 2) * (i)))
     translateArr(v, x, 0, z)
-
-
 
     return { v, c, u }
 }
@@ -286,3 +381,5 @@ export const createWay = ({
         uvTopP,
     }
 }
+
+
