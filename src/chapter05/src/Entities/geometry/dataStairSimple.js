@@ -18,6 +18,7 @@ export const createDataStairSimple = ({
     const v = []
     const c = []
     const u = []
+    const collision = []
 
 
     const uvBr = createUv([0, .5], [.5, .5], [.5, 1], [0, 1],)
@@ -26,7 +27,6 @@ export const createDataStairSimple = ({
 
     v.push(
         /** place */
-
         ...createFace(
             [-r, h, r],
             [r, h, r],
@@ -102,6 +102,7 @@ export const createDataStairSimple = ({
         ),
     )
 
+
     c.push(
         ...fillColorFace(color2),
         ...fillColorFace(colorB),
@@ -128,7 +129,22 @@ export const createDataStairSimple = ({
         ...uvBr,
     )
 
+    collision.push(
+        ...createFace(
+            [-r, h, r],
+            [r, h, r],
+            [r, h, -r],
+            [-r, h, -r],
+        ),
+        ...createFace(
+            [-r, h, -r],
+            [r, h, -r],
+            [r, h - bridgeMinusH, -r - bridgeL],
+            [-r, h - bridgeMinusH, -r - bridgeL],
+        ),
+    )
 
 
-    return { v, c , u }
+
+    return { v, c , u, collision }
 }

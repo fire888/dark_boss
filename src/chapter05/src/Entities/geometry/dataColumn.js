@@ -9,9 +9,9 @@ import { lCol, lW } from '../../constants/constants_elements'
 
 
 
+
 const color1 = [0, 0, 0]
 const color2 = [0, .7, 0]
-
 
 
 
@@ -63,6 +63,35 @@ export const createDataColumn = ({
     ]
 
 
+    const wL = .6
+    const collision = [
+        ...createFace(
+            [-rBase - wL, h0, rBase + wL],
+            [rBase + wL, h0, rBase + wL],
+            [rBase + wL, h1, rBase + wL],
+            [-rBase - wL, h1, rBase + wL],
+        ),
+        ...createFace(
+            [rBase + wL, h0, rBase + wL],
+            [rBase + wL, h0, -rBase - wL],
+            [rBase + wL, h1, -rBase - wL],
+            [rBase + wL, h1, rBase + wL],
+        ),
+        ...createFace(
+            [rBase + wL, h0, -rBase - wL],
+            [-rBase - wL, h0, -rBase - wL],
+            [-rBase - wL, h1, -rBase - wL],
+            [rBase + wL, h1, -rBase - wL],
+        ),
+        ...createFace(
+            [-rBase - wL, h0, -rBase - wL],
+            [-rBase - wL, h0, rBase + wL],
+            [-rBase - wL, h1, rBase + wL],
+            [-rBase - wL, h1, -rBase - wL],
+        ),
+    ]
+
+
     if (capBottom) {
         v.push(...createFace(
             [-rBase - lW, h0 - lW, rBase + lW],
@@ -96,6 +125,5 @@ export const createDataColumn = ({
     }
 
 
-    return { v, c, u }
-
+    return { v, c, u, collision }
 }

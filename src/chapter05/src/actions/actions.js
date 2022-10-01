@@ -299,8 +299,14 @@ const createManagerLevelTrash = root => {
     let arrTrash = []
 
     const p = createMeshStairs(root)
-    p.position.set(0, -42, -40)
-    studio.addToScene(p)
+    p.mesh.position.set(0, -42, 0)
+    studio.addToScene(p.mesh)
+
+    p.meshCollision.visible = false
+    p.meshCollision.position.copy(p.mesh.position)
+    studio.addToScene(p.meshCollision)
+    system_PlayerMoveOnLevel.addItemToPlayerCollision(p.meshCollision)
+
 
 
     //const trashGeom = new THREE.BoxGeometry(30, 50, 30)
