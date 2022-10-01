@@ -1,24 +1,8 @@
 import {
     createFace,
     createUv,
-    createFaceWithSquare,
     fillColorFace,
-    fillColorFaceWithSquare
 } from './helpers'
-
-import { ran } from './helpers'
-
-const {
-    floor,
-    random,
-    PI,
-    sin,
-    cos,
-} = Math
-
-
-
-
 
 
 
@@ -27,12 +11,9 @@ export const createDataSideArc = ({
     h2,
     color1 = [.2, .1, .1],
     color2 = [1, 1, 1],
-    hStart = 5,
-    fullH = 25,
     r = 5,
     rCap = 7,
     wCol = 3,
-    zBridge = 3,
     w = 40,
 }) => {
     const lBridge = w - (r * 2)
@@ -257,19 +238,18 @@ export const createDataSideArc = ({
 
 
 
-    const vArc = [
+    const v = [
         ...columnF,
         ...column,
         ...columnB,
         ...arc,
         ...cap,
     ]
-    const cArc = [
+    const c = [
         ...colorFill2,
         ...colorFill2,
         ...colorFill2,
         ...colorFill2,
-        //...colorFill2,
         ...cA,
 
 
@@ -284,12 +264,11 @@ export const createDataSideArc = ({
         ...colorFill1,
         ...colorFill1,
     ]
-    const uvArc = [
+    const u = [
         ...uv1,
         ...uv1,
         ...uv1,
         ...uv1,
-        //...uv1,
         ...uvA,
 
         ...uv1,
@@ -304,9 +283,5 @@ export const createDataSideArc = ({
         ...uv1,
     ]
 
-    return {
-        vArc,
-        cArc,
-        uvArc,
-    }
+    return { v, c, u }
 }

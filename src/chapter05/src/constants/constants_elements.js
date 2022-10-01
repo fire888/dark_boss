@@ -113,7 +113,7 @@ export const studioConfig = {
     },
     sceneEnvironment: START_ENV_CONFIG,
     composerAddPass: 'Saturate',
-    composerAddPass: 'Saturate2',
+    //composerAddPass: 'Saturate2',
 }
 
 

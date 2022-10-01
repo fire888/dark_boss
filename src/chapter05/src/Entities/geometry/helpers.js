@@ -3,9 +3,6 @@ import { m4 } from '../../helpers/m4'
 const {
     floor,
     random,
-    PI,
-    sin,
-    cos,
 } = Math
 const ranN = (start, end) => start + floor(random() * (end - start))
 export const ran = (start, end) => start + random() * (end - start)

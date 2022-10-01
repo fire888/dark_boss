@@ -1,16 +1,11 @@
 import {
     createFace,
     createUv,
-    createFaceWithSquare,
     fillColorFace,
-    fillColorFaceWithSquare
 } from './helpers'
 import { lCol, lW } from '../../constants/constants_elements' 
 
 const {
-    floor,
-    random,
-    PI,
     sin,
     cos,
 } = Math
@@ -48,7 +43,7 @@ export const createTopElem = ({
     const hl6 = .1 + Math.random() * 40
 
 
-    const count = 6//Math.floor(Math.random() * 5) + 4
+    const count = 6
     for (let i = 0; i < count; ++i) {
 
         let nextI = i + 1
@@ -231,8 +226,6 @@ export const createTopElem = ({
 
     }
 
-
-    //console.log(vertTopElem)
 
     return {
         vertTopElem,

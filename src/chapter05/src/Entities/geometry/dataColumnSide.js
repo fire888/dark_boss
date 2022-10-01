@@ -3,20 +3,12 @@ import {
     createUv,
     createFaceWithSquare,
     fillColorFace,
-    fillColorFaceWithSquare
 } from './helpers'
 
 import { ran } from './helpers'
 import { lCol, lW } from '../../constants/constants_elements' 
 
 
-const {
-    floor,
-    random,
-    PI,
-    sin,
-    cos,
-} = Math
 
 
 
@@ -157,7 +149,6 @@ const createTrunk = ({
 
 
 export const createDataSideColumn = ({
-    //hTrunk = 300,
     h0,
     h1,
     color1 = [.2, .1, .1],
@@ -285,7 +276,6 @@ export const createDataSideColumn = ({
         ...col,
         ...colorBaseToTrunk,
         ...colorBase,
-        //...colorBase,
     ]
     const frontUV = [
         ...uv1,
@@ -294,7 +284,6 @@ export const createDataSideColumn = ({
         ...uvT,
         ...uvBT,
         ...uvC,
-        //...uvBT,
     ]
 
 

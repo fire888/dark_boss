@@ -1,9 +1,7 @@
 import {
     createFace,
     createUv,
-    createFaceWithSquare,
     fillColorFace,
-    fillColorFaceWithSquare
 } from './helpers'
 
 
