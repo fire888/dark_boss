@@ -66,6 +66,7 @@ const createScheme = () => {
             bridgeL: lBridge,
             hColumn,
             rColumn,
+            i,
         })
     }
 
@@ -73,8 +74,191 @@ const createScheme = () => {
 }
 
 
-const createSegment = (data) => {
+const createSegment = (data, color1, color2,) => {
+    const { h, hh, r, x, z, bridgeL, bridgeMinusH, hColumn, rColumn, i } = data
 
+    const uvBr = createUv([0, .5], [.5, .5], [.5, 1], [0, 1],)
+    const uvCl = createUv([0, 0], [0, 0], [0, 0], [0, 0],)
+    const uvArc = [0, 0, 0, 0, 0, 0]
+
+    const v = []
+    const c = []
+    const u = []
+
+    v.push(
+        /** place */
+
+        ...createFace(
+            [-r, h, r],
+            [r, h, r],
+            [r, h, -r],
+            [-r, h, -r],
+        ),
+
+        ...createFace(
+            [-r, hh, r],
+            [r, hh, r],
+            [r, h, r],
+            [-r, h, r],
+        ),
+
+        ...createFace(
+            [-r, hh, -r],
+            [-r, hh, r],
+            [-r, h, r],
+            [-r, h, -r],
+        ),
+
+        ...createFace(
+            [r, hh, r],
+            [r, hh, -r],
+            [r, h, -r],
+            [r, h, r],
+        ),
+
+        ...createFace(
+            [r, hh, -r],
+            [-r, hh, -r],
+            [-r, h, -r],
+            [r, h, -r],
+        ),
+
+        // bottom
+        ...createFace(
+            [r, hh, -r],
+            [r, hh, r],
+            [-r, hh, r],
+            [-r, hh, -r],
+        ),
+
+        /** connect */
+
+        ...createFace(
+            [-r, h, -r],
+            [r, h, -r],
+            [r, h - bridgeMinusH, -r - bridgeL],
+            [-r, h - bridgeMinusH, -r - bridgeL],
+        ),
+
+        ...createFace(
+            [-r, hh - bridgeMinusH, -r - bridgeL],
+            [-r, hh, -r],
+            [-r, h, -r],
+            [-r, h - bridgeMinusH, -r - bridgeL],
+        ),
+
+
+        ...createFace(
+            [r, hh, -r],
+            [r, hh - bridgeMinusH, -r - bridgeL],
+            [r, h - bridgeMinusH, -r - bridgeL],
+            [r, h, -r],
+        ),
+
+        ...createFace(
+            [-r, hh - bridgeMinusH, -r - bridgeL],
+            [r, hh - bridgeMinusH, -r - bridgeL],
+            [r, hh, -r],
+            [-r, hh, -r],
+        ),
+
+
+        /** column */
+        ...createFace(
+            [r - rColumn, h - hColumn, r - rColumn],
+            [r - rColumn, h - hColumn, r + rColumn],
+            [r - rColumn, h, r + rColumn],
+            [r - rColumn, h, r - rColumn],
+        ),
+        ...createFace(
+            [r - rColumn, h - hColumn, r + rColumn],
+            [r + rColumn, h - hColumn, r + rColumn],
+            [r + rColumn, h, r + rColumn],
+            [r - rColumn, h, r + rColumn],
+        ),
+        ...createFace(
+            [r + rColumn, h - hColumn, r + rColumn],
+            [r + rColumn, h - hColumn, r - rColumn],
+            [r + rColumn, h, r - rColumn],
+            [r + rColumn, h, r + rColumn],
+        ),
+        ...createFace(
+            [r + rColumn, h - hColumn, r - rColumn],
+            [r - rColumn, h - hColumn, r - rColumn],
+            [r - rColumn, h, r - rColumn],
+            [r + rColumn, h, r - rColumn],
+        ),
+    )
+
+    c.push(
+        ...fillColorFace(color2),
+        ...fillColorFace(color2),
+        ...fillColorFace(color2),
+        ...fillColorFace(color2),
+        ...fillColorFace(color2),
+        ...fillColorFace(color2),
+        ...fillColorFace(color2),
+        ...fillColorFace(color2),
+        ...fillColorFace(color2),
+        ...fillColorFace(color2),
+        ...fillColorFace(color2),
+        ...fillColorFace(color2),
+        ...fillColorFace(color2),
+        ...fillColorFace(color2)
+    )
+
+    u.push(
+        ...uvBr,
+        ...uvCl,
+        ...uvCl,
+        ...uvCl,
+        ...uvCl,
+        ...uvBr,
+        ...uvBr,
+        ...uvCl,
+        ...uvCl,
+        ...uvBr,
+        ...uvCl,
+        ...uvCl,
+        ...uvCl,
+        ...uvCl,
+    )
+
+    /** arc */
+    const arcC = 7
+    const arcL = r
+    const arcStep = arcL / arcC
+    for (let i = arcC; i > 0; --i) {
+        const phase0 = sin((arcC - i) / arcC * (Math.PI / 2))
+        const phase1 = sin((arcC - i + 1) / arcC * (Math.PI / 2))
+        v.push(
+            r - ((i) * arcStep) - rColumn, hh - ((arcC - i) * 5), r,
+            r - ((i - 1) * arcStep) - rColumn, hh - ((arcC - i + 1) * 5), r,
+            //r - ((i) * arcStep) - rColumn, hh - phase0 * 10, r,
+            //r - ((i - 1) * arcStep) - rColumn, hh - phase1 * 10, r,
+            r, hh, r,
+        )
+
+        c.push(
+            ...color1,
+            ...color1,
+            ...color1,
+        )
+
+        u.push(
+            ...uvArc,
+        )
+    }
+
+
+
+
+    rotateArr(v, Math.PI - ((Math.PI / 2) * (i)))
+    translateArr(v, x, 0, z)
+
+
+
+    return { v, c, u }
 }
 
 
@@ -84,180 +268,17 @@ export const createWay = ({
   color2,
   h2,
 }) => {
-
+    const scheme = createScheme()
 
     const vertP = []
     const colorsP = []
     const uvTopP = []
-
-
-
-
-
-    const uvBr = createUv([0, .5], [.5, .5], [.5, 1], [0, 1],)
-    const uvCl = createUv([0, 0], [0, 0], [0, 0], [0, 0],)
-
-
-    const scheme = createScheme()
-
-
-
     for (let i = 0; i < scheme.length; ++i) {
-        const { h, hh, r, x, z, bridgeL, bridgeMinusH, hColumn, rColumn } = scheme[i]
-
-        const v = []
-        const c = []
-        const u = []
-
-        v.push(
-            /** place */    
-
-            ...createFace(
-                [-r, h, r],
-                [r, h, r],
-                [r, h, -r],
-                [-r, h, -r],
-            ),
-    
-            ...createFace(
-                [-r, hh, r],
-                [r, hh, r],
-                [r, h, r],
-                [-r, h, r],
-            ),
-    
-            ...createFace(
-                [-r, hh, -r],
-                [-r, hh, r],
-                [-r, h, r],
-                [-r, h, -r],
-            ),
-    
-            ...createFace(
-                [r, hh, r],
-                [r, hh, -r],
-                [r, h, -r],
-                [r, h, r],
-            ),
-    
-            ...createFace(
-                [r, hh, -r],
-                [-r, hh, -r],
-                [-r, h, -r],
-                [r, h, -r],
-            ),
-
-            // bottom
-            ...createFace(
-                [r, hh, -r],
-                [r, hh, r],
-                [-r, hh, r],
-                [-r, hh, -r],
-            ),
-
-            /** connect */
-
-            ...createFace(
-                [-r, h, -r],
-                [r, h, -r],
-                [r, h - bridgeMinusH, -r - bridgeL],
-                [-r, h - bridgeMinusH, -r - bridgeL],
-            ),
-
-            ...createFace(
-                [-r, hh - bridgeMinusH, -r - bridgeL],
-                [-r, hh, -r],
-                [-r, h, -r],
-                [-r, h - bridgeMinusH, -r - bridgeL],
-            ),
-
-
-            ...createFace(
-                [r, hh, -r],
-                [r, hh - bridgeMinusH, -r - bridgeL],
-                [r, h - bridgeMinusH, -r - bridgeL],
-                [r, h, -r],
-            ),
-
-            ...createFace(
-                [-r, hh - bridgeMinusH, -r - bridgeL],
-                [r, hh - bridgeMinusH, -r - bridgeL],
-                [r, hh, -r],
-                [-r, hh, -r],
-            ),
-
-
-            /** column */
-            ...createFace(
-                [r - rColumn, h - hColumn, r - rColumn],
-                [r - rColumn, h - hColumn, r + rColumn],
-                [r - rColumn, h, r + rColumn],
-                [r - rColumn, h, r - rColumn],
-            ),
-            ...createFace(
-                [r - rColumn, h - hColumn, r + rColumn],
-                [r + rColumn, h - hColumn, r + rColumn],
-                [r + rColumn, h, r + rColumn],
-                [r - rColumn, h, r + rColumn],
-            ),
-            ...createFace(
-                [r + rColumn, h - hColumn, r + rColumn],
-                [r + rColumn, h - hColumn, r - rColumn],
-                [r + rColumn, h, r - rColumn],
-                [r + rColumn, h, r + rColumn],
-            ),
-            ...createFace(
-                [r + rColumn, h - hColumn, r - rColumn],
-                [r - rColumn, h - hColumn, r - rColumn],
-                [r - rColumn, h, r - rColumn],
-                [r + rColumn, h, r - rColumn],
-            ),
-
-
-        )
-    
-        rotateArr(v, Math.PI - ((Math.PI / 2) * (i)))
-        translateArr(v, x, 0, z)
-
+        const { v, c, u } = createSegment(scheme[i], color1, color2)
         vertP.push(...v)
-       
-        colorsP.push(
-            ...fillColorFace(color2),
-            ...fillColorFace(color2),
-            ...fillColorFace(color2),
-            ...fillColorFace(color2),
-            ...fillColorFace(color2),
-            ...fillColorFace(color2),
-            ...fillColorFace(color2),
-            ...fillColorFace(color2),
-            ...fillColorFace(color2),
-            ...fillColorFace(color2),
-            ...fillColorFace(color2),
-            ...fillColorFace(color2),
-            ...fillColorFace(color2),
-            ...fillColorFace(color2),
-        )
-    
-        uvTopP.push(
-            ...uvBr,
-            ...uvCl,
-            ...uvCl,
-            ...uvCl,
-            ...uvCl,
-            ...uvBr,
-            ...uvBr,
-            ...uvCl,
-            ...uvCl,
-            ...uvBr,
-            ...uvCl,
-            ...uvCl,
-            ...uvCl,
-            ...uvCl,  
-        )
+        colorsP.push(...c)
+        uvTopP.push(...u)
     }
-
-
-    //console.log(vertTopElem)
 
     return {
         vertP,
