@@ -9,7 +9,8 @@ import {
 import { createCheckerChangeLocationKey } from '../components/checkerChangeLocationKey'
 
 import { createMeshGallery } from '../Entities/meshGallery'
-import { createMeshStairs } from "../Entities/meshStairs";
+import { createMeshStairs } from "../Entities/meshStairs"
+import { createMeshSuper } from '../Entities/meshSuper'
 
 
 export class actions {
@@ -298,20 +299,32 @@ const createManagerLevelTrash = root => {
 
     let arrTrash = []
 
-    const p = createMeshStairs(root)
-    p.mesh.position.set(0, -42, 0)
-    studio.addToScene(p.mesh)
+    /** test stairs */
+    const stairs = createMeshStairs(root)
+    stairs.mesh.position.set(400, -42, 0)
+    studio.addToScene(stairs.mesh)
+    stairs.meshCollision.visible = false
+    stairs.meshCollision.position.copy(stairs.mesh.position)
+    studio.addToScene(stairs.meshCollision)
+    system_PlayerMoveOnLevel.addItemToPlayerCollision(stairs.meshCollision)
 
-    p.meshCollision.visible = false
-    p.meshCollision.position.copy(p.mesh.position)
-    studio.addToScene(p.meshCollision)
-    system_PlayerMoveOnLevel.addItemToPlayerCollision(p.meshCollision)
+
+    /** super */
+    const superP = createMeshSuper(root)
+    superP.mesh.position.set(0, -42, 0)
+    studio.addToScene(superP.mesh)
+    superP.meshCollision.visible = false
+    superP.meshCollision.position.copy(superP.mesh.position)
+    studio.addToScene(superP.meshCollision)
+    system_PlayerMoveOnLevel.addItemToPlayerCollision(superP.meshCollision)
+    studio.addToScene(superP.meshFinish)
+
 
 
 
     //const trashGeom = new THREE.BoxGeometry(30, 50, 30)
     const trashCollisionGeom = new THREE.BoxGeometry(45, 50, 45)  
-    const trashMat = materials.wallVirtual
+    const trashMat = materials.testRed
     const floorGeom = new THREE.PlaneGeometry(SIZE_QUADRANT, SIZE_QUADRANT)
 
 
@@ -322,7 +335,7 @@ const createManagerLevelTrash = root => {
             const x = +p[0] * SIZE_QUADRANT
             const z = +p[1] * SIZE_QUADRANT
             const y = -50
-            const floor = new THREE.Mesh(floorGeom, trashMat)
+            const floor = new THREE.Mesh(floorGeom, materials.floorMat)
             floor.rotation.x = -Math.PI / 2
             floor.position.set(x, y - 12, z)
             studio.addToScene(floor)
@@ -349,10 +362,10 @@ const createManagerLevelTrash = root => {
                     z + Math.random() * SIZE_QUADRANT,
                 )
                 studio.addToScene(mesh)
-                system_PlayerMoveOnLevel.addItemToPlayerCollision(mesh)
+                //system_PlayerMoveOnLevel.addItemToPlayerCollision(mesh)
                 
                 const meshCollision = new THREE.Mesh(trashCollisionGeom, trashMat)
-                meshCollision.visible = false
+                //meshCollision.visible = false
                 meshCollision.position.copy(mesh.position)
                 studio.addToScene(meshCollision)
                 car.setCollisionForDraw(meshCollision)

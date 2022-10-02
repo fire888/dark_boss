@@ -40,7 +40,7 @@ export const MATERIALS_CONFIG = {
         mat: 'MeshStandardMaterial',
         props: {
             //color: 0xffd4a8,
-            color: 0x111111,
+            color: 0xff00ff,
             //color: 0x999999,
             emissive: 0x000000,
             //map: 'mapVirtual',
@@ -75,7 +75,7 @@ export const MATERIALS_CONFIG = {
         mat: 'MeshPhongMaterial',
         props: {
             //color: 0xffd4a8,
-            color: 0x444444,
+            color: 0x0000ff,
             //color: 0x999999,
             emissive: 0x000000,
             //map: 'mapVirtual',
@@ -87,11 +87,35 @@ export const MATERIALS_CONFIG = {
             specular: 0xffffff,
         },
     },
+
+    'floorMat': {
+        mat: 'MeshStandardMaterial',
+        props: {
+            color: 0x004400,
+            //color: 0x999999,
+            //emissive: 0x000000,
+            //map: 'mapVirtual',
+            //bumpMap: 'mapVirtual',
+            //bumpScale: 3,
+            ///envMap: 'skyBox',
+            //reflectivity: .5,
+            //shininess: .5,
+            //specular: 0xffffff,
+        },
+    },
+
+    'testRed': {
+        mat: 'MeshBasicMaterial',
+        props: {
+            color: 0xff0000,
+        },
+    },
+
 }
 
 
 
-export const START_ENV_CONFIG = { fogNear: 500, fogFar: 1500, color: 0x005500, /*backgroundImgKey: 'skyBox2'*/ }
+export const START_ENV_CONFIG = { fogNear: 500, fogFar: 1500, color: 0x00aa00, /*backgroundImgKey: 'skyBox2'*/ }
 //export const START_ENV_CONFIG_2 = { fogNear: -10, fogFar: 0, color: 0x4a0a45, backgroundImgKey: 'skyBox2' }
 //export const START_ENV_CONFIG_3 = { fogNear: 20, fogFar: 1500, color: 0x334455, backgroundImgKey: 'skyBox2' }
 //export const START_ENV_CONFIG_4 = { fogNear: -10, fogFar: 0, color: 0x4a0a45, backgroundImgKey: null }
