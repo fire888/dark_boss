@@ -2,6 +2,7 @@ import * as THREE from 'three'
 
 import { createSegmentStair } from './geometry/segmentStair'
 import { createDataZone } from './geometry/dataZone'
+import { createDataBridge } from './geometry/dataBridge'
 //import { createSchemeStairs } from './geometry/schemeStairs'
 import { createSchemeSuper } from './geometry/schemeSuper'
 
@@ -33,6 +34,13 @@ export const createMeshSuper = (root) => {
             colorsP.push(...c)
             uvTopP.push(...u)
             coll.push(...collision)
+        }
+        if (scheme[i].type === 'bridge') {
+            const { v, c, u, collision } = createDataBridge(scheme[i], [1, 1, 1], [0, .7, 0],)
+            vertP.push(...v)
+            colorsP.push(...c)
+            uvTopP.push(...u)
+            coll.push(...collision) 
         }
     }
     /** triangle fix bug collision */

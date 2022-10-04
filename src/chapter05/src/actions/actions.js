@@ -301,7 +301,7 @@ const createManagerLevelTrash = root => {
 
     /** test stairs */
     const stairs = createMeshStairs(root)
-    stairs.mesh.position.set(400, -42, 0)
+    stairs.mesh.position.set(400, -42, -1000)
     studio.addToScene(stairs.mesh)
     stairs.meshCollision.visible = false
     stairs.meshCollision.position.copy(stairs.mesh.position)

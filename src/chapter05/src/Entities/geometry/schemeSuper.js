@@ -66,41 +66,48 @@ const OFFSET = {
     'S': [0, 1],
     'W': [-1, 0],
 }
+const STAIR_WIDTH = 140 
 
 export const createSchemeSuper = () => {
     const arr = []
 
     let h = 0
-    let nextDir = D[Math.floor(Math.random() * D.length)]
     let xCenter = 0
     let zCenter = 0
 
     for (let i = 0; i < 5; ++i) {
-        let nextDir = D[Math.floor(Math.random() * D.length)]
+        const nextDir = D[Math.floor(Math.random() * D.length)]
+        const lenBridge = Math.random() * 400 + 30
+        const nextXCenter = xCenter + (OFFSET[nextDir][0] * (STAIR_WIDTH + lenBridge))
+        const nextZCenter = zCenter + (OFFSET[nextDir][1] * (STAIR_WIDTH + lenBridge))
+
+        
+        /** stair set */
         const count = C[nextDir] + 4 * Math.floor(Math.random() * 2)
         const hEnd = h + count * 30 
         const data = { xCenter, zCenter, hStart: h, hEnd, count }
         arr.push(...createSet(data))
-        xCenter = xCenter + (OFFSET[nextDir][0] * 140)
-        zCenter = zCenter + (OFFSET[nextDir][1] * 140)
-        h = hEnd
 
 
-        if (i !== 5 - 1) {
+        /** next platform */
+        if (i !== 0) {
             arr.push({ xCenter, zCenter, h: h - 30, type: 'zone' })
         }
+        
+
+        /** bridge */
+        if (i !== 5 - 1) {
+            const centerBridgeX = nextXCenter - xCenter
+            const centerBridgeZ = nextZCenter - zCenter
+            arr.push({ centerBridgeX, centerBridgeZ, h: h - 30, dir: nextDir, lenBridge, type: 'bridge' })
+        }
+
+        
+        /** move center */
+        xCenter = nextXCenter
+        zCenter = nextZCenter
+        h = hEnd
     }
-
-
-    //console.log(arr)
-
-
-    // arr.push(...createSet({ 
-    //     xCenter: 0, zCenter: -140, hStart: 150, hEnd: 400, offset: 50,
-    // }))
-    // arr.push(...createSet({ 
-    //     xCenter: -140, zCenter: -140, hStart: 400, hEnd: 650, offset: 50,
-    // }))
 
     return arr
 }
