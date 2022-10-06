@@ -97,9 +97,12 @@ export const createSchemeSuper = () => {
 
         /** bridge */
         if (i !== 5 - 1) {
-            const centerBridgeX = nextXCenter - xCenter
-            const centerBridgeZ = nextZCenter - zCenter
-            arr.push({ centerBridgeX, centerBridgeZ, h: h - 30, dir: nextDir, lenBridge, type: 'bridge' })
+            const centerBridgeX = (nextXCenter - xCenter) / 2 + xCenter
+            const centerBridgeZ = (nextZCenter - zCenter) / 2 + zCenter
+            //const centerBridgeX = xCenter - nextXCenter
+            //const centerBridgeZ = zCenter - nextZCenter
+
+            arr.push({ centerBridgeX, centerBridgeZ, h: hEnd - 30, dir: nextDir, lenBridge, type: 'bridge' })
         }
 
         
