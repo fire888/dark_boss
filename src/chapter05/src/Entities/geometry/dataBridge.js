@@ -6,8 +6,12 @@ import {
     rotateArr,
 } from "./helpers";
 
-const color2 = [1, 1, 0]
-const colorB = [1, 1, 1]
+import { createTopElem } from './dataTopElem'
+import { createDataColumn } from "./dataColumn";
+
+
+const color1 = [0, 0, 0]
+const color2 = [0, .7, 0]
 const R = {
     'N': 0,
     'E': -Math.PI * .5,
@@ -34,12 +38,62 @@ export const createDataBridge = ({
 }) => {
 
 
+
     const hh = h - 3
 
     const v = []
     const c = []
     const u = []
     const collision = []
+
+
+    const lenSeg = 70
+    const count = Math.floor(lenBridge / lenSeg)
+    for (let i = 0; i < count; ++i) {
+        const zSeg = (lenBridge / 2) - (i * lenSeg) - (lenSeg / 2)
+        
+        const column = createDataColumn({
+            h0: -20,
+            h1: h - 1,
+            rCapital: 9,
+            rBase: 5,
+            capTop: true,
+            capBottom: false,
+        })
+
+        translateArr(column.v, -20, 0, zSeg)
+        v.push(...column.v)
+        c.push(...column.c)
+        u.push(...column.u)
+
+        translateArr(column.v, 40, 0, 0)
+        v.push(...column.v)
+        c.push(...column.c)
+        u.push(...column.u)
+
+
+        const {         
+            vertTopElem,
+            colorsTopElem,
+            uvTopElem
+        } = createTopElem({   
+            isTopElem: true,
+            color1,
+            color2,
+            h2: h - 1, 
+        })
+
+        translateArr(vertTopElem, -20, 0, zSeg)
+        v.push(...vertTopElem)
+        c.push(...colorsTopElem)
+        u.push(...uvTopElem)
+
+        translateArr(vertTopElem, 40, 0, 0)
+        v.push(...vertTopElem)
+        c.push(...colorsTopElem)
+        u.push(...uvTopElem)
+    }
+
 
     const r2 = lenBridge / 2
 
@@ -129,9 +183,9 @@ export const createDataBridge = ({
 
     c.push(
         ...fillColorFace(color2),
-        ...fillColorFace(colorB),
-        ...fillColorFace(colorB),
-        ...fillColorFace(colorB),
+        ...fillColorFace(color1),
+        ...fillColorFace(color1),
+        ...fillColorFace(color1),
         ...fillColorFace(color2),
         ...fillColorFace(color2),
         // ...fillColorFace(color2),
