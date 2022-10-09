@@ -17,15 +17,19 @@ export const createMeshSuper = (root) => {
     const colorsP = []
     const uvTopP = []
     const coll = []
+    const collisionCarA = []
 
 
     for (let i = 0; i < scheme.length; ++i) {
         if (scheme[i].type === 'stairs') {
-            const { v, c, u, collision } = createSegmentStair(scheme[i], [1, 1, 1], [0, .7, 0],)
+            const { v, c, u, collision, collisionCar } = createSegmentStair(scheme[i], [1, 1, 1], [0, .7, 0],)
             vertP.push(...v)
             colorsP.push(...c)
             uvTopP.push(...u)
             coll.push(...collision)
+            if (collisionCar) {
+                collisionCarA.push(...collisionCar)
+            }
         }
         if (scheme[i].type === 'zone') {
             const { v, c, u, collision } = createDataZone(scheme[i], [1, 1, 1], [0, .7, 0],)
@@ -35,12 +39,14 @@ export const createMeshSuper = (root) => {
             coll.push(...collision)
         }
         if (scheme[i].type === 'bridge') {
-            const { v, c, u, collision } = createDataBridge(scheme[i], [1, 1, 1], [0, .7, 0],)
+            const { v, c, u, collision, collisionCar } = createDataBridge(scheme[i], [1, 1, 1], [0, .7, 0],)
             for (let i = 0; i < v.length; ++i) vertP.push(v[i])
             for (let i = 0; i < c.length; ++i) colorsP.push(c[i])
             for (let i = 0; i < u.length; ++i) uvTopP.push(u[i])
             for (let i = 0; i < collision.length; ++i) coll.push(collision[i])
-            //coll.push(...collision)
+            if (collisionCar) {
+                for (let i = 0; i < collisionCar.length; ++i) collisionCarA.push(collisionCar[i])
+            }
         }
     }
     /** triangle fix bug collision */
@@ -70,6 +76,10 @@ export const createMeshSuper = (root) => {
     const collMat = new THREE.MeshBasicMaterial({ color: 0xFF0000 })
     const meshCollision = new THREE.Mesh(collGeom, collMat)
 
+    const verticesCar = new Float32Array(collisionCarA)
+    const geometryCollCar = new THREE.BufferGeometry();
+    geometryCollCar.setAttribute('position', new THREE.BufferAttribute(verticesCar, 3))
+    const meshCollisionCar = new THREE.Mesh(geometryCollCar, collMat)
 
     const meshFinish = new THREE.Mesh(
         new THREE.BoxGeometry(30, 30, 30),
@@ -82,5 +92,5 @@ export const createMeshSuper = (root) => {
     )
 
 
-    return { mesh, meshCollision, meshFinish }
+    return { mesh, meshCollision, meshCollisionCar, meshFinish }
 }

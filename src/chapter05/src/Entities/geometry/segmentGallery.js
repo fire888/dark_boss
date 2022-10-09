@@ -9,17 +9,19 @@ const color1 = [0, 0, 0]
 const color2 = [0, .7, 0]
 
 export const createSegmentGallery = ({
-                          h0 = 0,
-                          h1 = 30,
-                          h2 = 60,
-                          arc = false,
-                          isTopElem = false,
-                          isColumn = false
-                      }) => {
+    h0 = 0,
+    h1 = 30,
+    h2 = 60,
+    arc = false,
+    isTopElem = false,
+    isColumn = false
+}) => {
 
-    let v = []
-    let c = []
-    let u = []
+    const v = []
+    const c = []
+    const u = []
+    const collision = []
+    const collisionCar = []
 
     /** arc */
     if (arc) {
@@ -46,6 +48,10 @@ export const createSegmentGallery = ({
     v.push(...columnData.v)
     c.push(...columnData.c)
     u.push(...columnData.u)
+    collision.push(...columnData.collision)
+    if (columnData.collisionCar) {
+        collisionCar.push(...columnData.collisionCar)
+    }
 
 
     /** top elem */
@@ -69,5 +75,5 @@ export const createSegmentGallery = ({
     u.push(...uvColumn)
 
 
-    return { v, c, u }
+    return { v, c, u, collision, collisionCar }
 }

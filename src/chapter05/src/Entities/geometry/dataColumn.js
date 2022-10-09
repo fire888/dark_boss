@@ -8,7 +8,7 @@ import {
 import { lCol, lW } from '../../constants/constants_elements'
 
 
-
+const CAR_COLL = 20
 
 const color1 = [0, 0, 0]
 const color2 = [0, .7, 0]
@@ -91,6 +91,33 @@ export const createDataColumn = ({
         ),
     ]
 
+    const collisionCar = [
+        ...createFace(
+            [-CAR_COLL, h0, CAR_COLL],
+            [CAR_COLL, h0, CAR_COLL],
+            [CAR_COLL, h1, CAR_COLL],
+            [-CAR_COLL, h1, CAR_COLL],
+        ),
+        ...createFace(
+            [CAR_COLL, h0, CAR_COLL],
+            [CAR_COLL, h0, -CAR_COLL],
+            [CAR_COLL, h1, -CAR_COLL],
+            [CAR_COLL, h1, CAR_COLL],
+        ),
+        ...createFace(
+            [CAR_COLL, h0, -CAR_COLL],
+            [-CAR_COLL, h0, -CAR_COLL],
+            [-CAR_COLL, h1, -CAR_COLL],
+            [CAR_COLL, h1, -CAR_COLL],
+        ),
+        ...createFace(
+            [-CAR_COLL, h0, -CAR_COLL],
+            [-CAR_COLL, h0, CAR_COLL],
+            [-CAR_COLL, h1, CAR_COLL],
+            [-CAR_COLL, h1, -CAR_COLL],
+        ),
+    ]
+
 
     if (capBottom) {
         v.push(...createFace(
@@ -125,5 +152,5 @@ export const createDataColumn = ({
     }
 
 
-    return { v, c, u, collision }
+    return { v, c, u, collision, collisionCar }
 }

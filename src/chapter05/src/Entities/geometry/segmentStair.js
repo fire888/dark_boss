@@ -25,6 +25,7 @@ export const createSegmentStair = (data, color1, color2,) => {
     const c = []
     const u = []
     const collision = []
+    const collisionCar = []
 
 
 
@@ -50,6 +51,10 @@ export const createSegmentStair = (data, color1, color2,) => {
     u.push(...column.u)
     translateArr(column.collision, r, 0, r)
     collision.push(...column.collision)
+    if (column.collisionCar) {
+        translateArr(column.collisionCar, r, 0, r)
+        collisionCar.push(...column.collisionCar)
+    }
 
 
 
@@ -93,8 +98,10 @@ export const createSegmentStair = (data, color1, color2,) => {
     translateArr(v, x, 0, z)
     rotateArr(collision, Math.PI - ((Math.PI / 2) * (i)))
     translateArr(collision, x, 0, z)
+    rotateArr(collisionCar, Math.PI - ((Math.PI / 2) * (i)))
+    translateArr(collisionCar, x, 0, z)
 
 
 
-    return { v, c, u, collision }
+    return { v, c, u, collision, collisionCar }
 }

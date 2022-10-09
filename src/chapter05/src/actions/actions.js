@@ -313,18 +313,22 @@ const createManagerLevelTrash = root => {
     const superP = createMeshSuper(root)
     superP.mesh.position.set(0, -42, 0)
     studio.addToScene(superP.mesh)
+
     superP.meshCollision.visible = false
     superP.meshCollision.position.copy(superP.mesh.position)
     studio.addToScene(superP.meshCollision)
     system_PlayerMoveOnLevel.addItemToPlayerCollision(superP.meshCollision)
+
+    superP.meshCollisionCar.visible = false
+    superP.meshCollisionCar.position.copy(superP.mesh.position)
+    studio.addToScene(superP.meshCollisionCar)
+    car.setCollisionForDraw(superP.meshCollisionCar)
+
+    superP.meshFinish.position.copy(superP.mesh.position)
     studio.addToScene(superP.meshFinish)
 
 
 
-
-    //const trashGeom = new THREE.BoxGeometry(30, 50, 30)
-    const trashCollisionGeom = new THREE.BoxGeometry(45, 50, 45)  
-    const trashMat = materials.testRed
     const floorGeom = new THREE.PlaneGeometry(SIZE_QUADRANT, SIZE_QUADRANT)
 
 
@@ -349,27 +353,29 @@ const createManagerLevelTrash = root => {
 
 
             /** add trash ******************/
-            //const rCount = Math.floor(Math.random() * 10)
             const rCount = Math.floor(Math.random() * 3)
             for (let j = 0; j < rCount; ++j) {
                 console.log('!!!!!!!!!!!!!!!!! new tresh')
 
-                //const mesh = new THREE.Mesh(trashGeom, trashMat,)
-                const mesh = createMeshGallery(root)
+                const { mesh, meshCollision, meshCollisionCar } = createMeshGallery(root)
                 mesh.position.set(
                     x + Math.random() * SIZE_QUADRANT,
                     -60,
                     z + Math.random() * SIZE_QUADRANT,
                 )
                 studio.addToScene(mesh)
-                //system_PlayerMoveOnLevel.addItemToPlayerCollision(mesh)
-                
-                const meshCollision = new THREE.Mesh(trashCollisionGeom, trashMat)
-                //meshCollision.visible = false
+
+                meshCollision.visible = false
                 meshCollision.position.copy(mesh.position)
                 studio.addToScene(meshCollision)
-                car.setCollisionForDraw(meshCollision)
-                arrTrash.push({ mesh, meshCollision, keyLocation: arr[i], type: 'trash' })
+                system_PlayerMoveOnLevel.addItemToPlayerCollision(meshCollision)
+
+                meshCollisionCar.visible = false
+                meshCollisionCar.position.copy(mesh.position)
+                studio.addToScene(meshCollisionCar)
+                car.setCollisionForDraw(meshCollisionCar)
+
+                arrTrash.push({ mesh, meshCollision, meshCollisionCar, keyLocation: arr[i], type: 'trash' })
             }
         }
     } 
@@ -395,16 +401,24 @@ const createManagerLevelTrash = root => {
         })
 
         for (let i = 0; i < arrToRemove.length; ++i) {
-            const { mesh, meshCollision } = arrToRemove[i]
+            const { mesh, meshCollision, meshCollisionCar } = arrToRemove[i]
             studio.removeFromScene(mesh)
-            system_PlayerMoveOnLevel.removeItemFromPlayerCollision(mesh)
-            if (meshCollision) {
-                studio.removeFromScene(meshCollision)
-                car.removeCollisionForDraw(meshCollision)
-            }
             arrToRemove[i].mesh.geometry.dispose()
             delete arrToRemove[i].mesh
-            delete arrToRemove[i].meshCollision
+
+            if (meshCollision) {
+                system_PlayerMoveOnLevel.removeItemFromPlayerCollision(meshCollision)
+                studio.removeFromScene(meshCollision)
+                arrToRemove[i].meshCollision.geometry.dispose()
+                delete arrToRemove[i].meshCollision
+            }
+
+            if (meshCollisionCar) {
+                car.removeCollisionForDraw(meshCollisionCar)
+                studio.removeFromScene(meshCollisionCar)
+                arrToRemove[i].meshCollisionCar.geometry.dispose()
+                delete arrToRemove[i].meshCollisionCar
+            }
         }
     }
 
