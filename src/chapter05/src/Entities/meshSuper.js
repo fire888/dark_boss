@@ -37,10 +37,11 @@ export const createMeshSuper = (root) => {
         }
         if (scheme[i].type === 'bridge') {
             const { v, c, u, collision } = createDataBridge(scheme[i], [1, 1, 1], [0, .7, 0],)
-            vertP.push(...v)
-            colorsP.push(...c)
-            uvTopP.push(...u)
-            coll.push(...collision) 
+            for (let i = 0; i < v.length; ++i) vertP.push(v[i])
+            for (let i = 0; i < c.length; ++i) colorsP.push(c[i])
+            for (let i = 0; i < u.length; ++i) uvTopP.push(u[i])
+            for (let i = 0; i < collision.length; ++i) coll.push(collision[i])
+            //coll.push(...collision)
         }
     }
     /** triangle fix bug collision */

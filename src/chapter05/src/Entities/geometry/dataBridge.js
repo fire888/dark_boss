@@ -47,12 +47,25 @@ export const createDataBridge = ({
     const collision = []
 
 
-    const lenSeg = 70
+    const lenSeg =  70
     const count = Math.floor(lenBridge / lenSeg)
     for (let i = 0; i < count; ++i) {
-        const zSeg = (lenBridge / 2) - (i * lenSeg) - (lenSeg / 2)
-        
-        const column = createDataColumn({
+         const zSeg = (lenBridge / 2) - (i * lenSeg) - (lenSeg / 2)
+
+        const columnL = createDataColumn({
+            h0: -20,
+            h1: h - 1,
+            rCapital: 9,
+            rBase: 5,
+            capTop: true,
+            capBottom: false,
+        })
+        translateArr(columnL.v, -20, 0, zSeg)
+        for (let i = 0; i < columnL.v.length; ++i) v.push(columnL.v[i])
+        for (let i = 0; i < columnL.c.length; ++i) c.push(columnL.c[i])
+        for (let i = 0; i < columnL.u.length; ++i) u.push(columnL.u[i])
+
+        const columnR = createDataColumn({
             h0: -20,
             h1: h - 1,
             rCapital: 9,
@@ -61,37 +74,37 @@ export const createDataBridge = ({
             capBottom: false,
         })
 
-        translateArr(column.v, -20, 0, zSeg)
-        v.push(...column.v)
-        c.push(...column.c)
-        u.push(...column.u)
-
-        translateArr(column.v, 40, 0, 0)
-        v.push(...column.v)
-        c.push(...column.c)
-        u.push(...column.u)
+        translateArr(columnR.v, 20, 0, zSeg)
+        for (let i = 0; i < columnR.v.length; ++i) v.push(columnR.v[i])
+        for (let i = 0; i < columnR.c.length; ++i) c.push(columnR.c[i])
+        for (let i = 0; i < columnR.u.length; ++i) u.push(columnR.u[i])
 
 
-        const {         
-            vertTopElem,
-            colorsTopElem,
-            uvTopElem
-        } = createTopElem({   
+        const topElemL =  createTopElem({
             isTopElem: true,
             color1,
             color2,
-            h2: h - 1, 
+            h2: h - 1,
         })
 
-        translateArr(vertTopElem, -20, 0, zSeg)
-        v.push(...vertTopElem)
-        c.push(...colorsTopElem)
-        u.push(...uvTopElem)
+        translateArr(topElemL.vertTopElem, -20, 0, zSeg)
+        v.push(...topElemL.vertTopElem)
+        c.push(...topElemL.colorsTopElem)
+        u.push(...topElemL.uvTopElem)
 
-        translateArr(vertTopElem, 40, 0, 0)
-        v.push(...vertTopElem)
-        c.push(...colorsTopElem)
-        u.push(...uvTopElem)
+        const topElemR = createTopElem({
+            isTopElem: true,
+            color1,
+            color2,
+            h2: h - 1,
+        })
+
+
+
+        translateArr(topElemR.vertTopElem, 20, 0, zSeg)
+        v.push(...topElemR.vertTopElem)
+        c.push(...topElemR.colorsTopElem)
+        u.push(...topElemR.uvTopElem)
     }
 
 
