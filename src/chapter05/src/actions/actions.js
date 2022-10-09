@@ -233,6 +233,42 @@ const createChangerLocations = root => {
     //     studio.addToScene(b)
     // }
 
+
+    // /** super */
+    const createSuper = () => {
+        const superP = createMeshSuper(root)
+        //superP.mesh.position.set(0, -42, 0)
+        //studio.addToScene(superP.mesh)
+    
+        superP.meshCollision.visible = false
+        //superP.meshCollision.position.copy(superP.mesh.position)
+        //studio.addToScene(superP.meshCollision)
+        //system_PlayerMoveOnLevel.addItemToPlayerCollision(superP.meshCollision)
+    
+        superP.meshCollisionCar.visible = false
+        //superP.meshCollisionCar.position.copy(superP.mesh.position)
+        //studio.addToScene(superP.meshCollisionCar)
+        //car.setCollisionForDraw(superP.meshCollisionCar)
+    
+        superP.meshFinish.position.copy(superP.mesh.position)
+        //studio.addToScene(superP.meshFinish)
+
+        return superP
+    }
+
+    const s = {
+        location01: createSuper(),
+        location02: createSuper(),
+        location03: createSuper(),
+    }
+    //const s2 = createSuper()
+    //const s3 = createSuper()
+
+
+
+
+
+
     setTimeout(() => {
         for (let key in LOCATIONS_QUADRANTS) {
             const p = key.split('_')
@@ -240,7 +276,7 @@ const createChangerLocations = root => {
             const z = +p[1] * SIZE_QUADRANT  + SIZE_QUADRANT / 2
             const y = 0
             system_Level.locations[LOCATIONS_QUADRANTS[key]].mesh.position.set(x, y, z)
-            studio.addToScene(system_Level.locations[LOCATIONS_QUADRANTS[key]].mesh)
+            //studio.addToScene(system_Level.locations[LOCATIONS_QUADRANTS[key]].mesh)
         }
     }, 500)
 
@@ -248,36 +284,41 @@ const createChangerLocations = root => {
 
     /** add/remove locations by key */
     const addLocationToScene = (keyLocation, x, z) => {
-        const { mesh, carCollision, personOffset, personCollision } = system_Level.locations[keyLocation]
+        const { mesh, meshCollision, meshCollisionCar } = s[keyLocation]
 
-        mesh.position.set(x, 0, z)
-        /**
-        *studio.addToScene(mesh)
-        */
+        const y = -42
 
-        system_PlayerMoveOnLevel.addItemToPlayerCollision(mesh)
-        carCollision.position.set(x, 0, z)
-        studio.addToScene(carCollision)
-        car.setCollisionForDraw(carCollision)
+        mesh.position.set(x, y, z)
+        studio.addToScene(mesh)
 
-        personCollision.position.set(personOffset[0] + x, personOffset[1], personOffset[2] + z)
-        studio.addToScene(personCollision)
-        system_PlayerNearLevelItems.setItemToCheck(personCollision, 'nearPerson_' + keyLocation, 28)
+        system_PlayerMoveOnLevel.addItemToPlayerCollision(meshCollision)
+        meshCollision.visible = false
+        meshCollision.position.set(x, y, z)
+        studio.addToScene(meshCollision)
+        
+        car.setCollisionForDraw(meshCollisionCar)
+        meshCollisionCar.visible = false
+        meshCollisionCar.position.set(x, y, z)
+        studio.addToScene(meshCollisionCar)
+
+        //personCollision.position.set(personOffset[0] + x, personOffset[1], personOffset[2] + z)
+        //studio.addToScene(personCollision)
+        //system_PlayerNearLevelItems.setItemToCheck(personCollision, 'nearPerson_' + keyLocation, 28)
     }
 
     const removeLocationFromScene = keyLocation => {
-        const { mesh, carCollision, personCollision} = system_Level.locations[keyLocation]
+        const { mesh, meshCollision, meshCollisionCar } = s[keyLocation]
 
-        /**
-        * studio.removeFromScene(mesh)
-        */
-        system_PlayerMoveOnLevel.removeItemFromPlayerCollision(mesh)
+        studio.removeFromScene(mesh)
 
-        studio.removeFromScene(carCollision)
-        car.removeCollisionForDraw(carCollision)
+        system_PlayerMoveOnLevel.removeItemFromPlayerCollision(meshCollision)
+        studio.removeFromScene(meshCollision)
 
-        studio.removeFromScene(personCollision)
-        system_PlayerNearLevelItems.removeItemFromCheck(personCollision)
+        studio.removeFromScene(meshCollisionCar)
+        car.removeCollisionForDraw(meshCollisionCar)
+
+        //studio.removeFromScene(personCollision)
+        //system_PlayerNearLevelItems.removeItemFromCheck(personCollision)
     }
 
 
@@ -309,30 +350,28 @@ const createManagerLevelTrash = root => {
     system_PlayerMoveOnLevel.addItemToPlayerCollision(stairs.meshCollision)
 
 
-    /** super */
-    const superP = createMeshSuper(root)
-    superP.mesh.position.set(0, -42, 0)
-    studio.addToScene(superP.mesh)
+    // /** super */
+    // const superP = createMeshSuper(root)
+    // superP.mesh.position.set(0, -42, 0)
+    // studio.addToScene(superP.mesh)
 
-    superP.meshCollision.visible = false
-    superP.meshCollision.position.copy(superP.mesh.position)
-    studio.addToScene(superP.meshCollision)
-    system_PlayerMoveOnLevel.addItemToPlayerCollision(superP.meshCollision)
+    // superP.meshCollision.visible = false
+    // superP.meshCollision.position.copy(superP.mesh.position)
+    // studio.addToScene(superP.meshCollision)
+    // system_PlayerMoveOnLevel.addItemToPlayerCollision(superP.meshCollision)
 
-    superP.meshCollisionCar.visible = false
-    superP.meshCollisionCar.position.copy(superP.mesh.position)
-    studio.addToScene(superP.meshCollisionCar)
-    car.setCollisionForDraw(superP.meshCollisionCar)
+    // superP.meshCollisionCar.visible = false
+    // superP.meshCollisionCar.position.copy(superP.mesh.position)
+    // studio.addToScene(superP.meshCollisionCar)
+    // car.setCollisionForDraw(superP.meshCollisionCar)
 
-    superP.meshFinish.position.copy(superP.mesh.position)
-    studio.addToScene(superP.meshFinish)
+    // superP.meshFinish.position.copy(superP.mesh.position)
+    // studio.addToScene(superP.meshFinish)
 
 
 
     const floorGeom = new THREE.PlaneGeometry(SIZE_QUADRANT, SIZE_QUADRANT)
 
-
-    console.log(materials.floorMat)
     materials.floorMat.map.wrapS = materials.floorMat.map.wrapT = 80
     materials.floorMat.map.repeat.set(50, 50)
 
