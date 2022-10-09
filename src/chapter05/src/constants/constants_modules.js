@@ -18,6 +18,7 @@ import levelRoomsSrc from '../../../assets/chapter05/level.obj'
 import mapFloorOuter from '../../../assets/chapter04/floor_outer_map3.jpg'
 import mapFloorOuter2 from '../../../assets/chapter04/floor_outer_map2.jpg'
 import mapVirt from '../../../assets/chapter05/map01.jpg'
+import mapVirt2 from '../../../assets/chapter05/map02.jpg'
 import mapTop from '../../../assets/floor_outer_map.jpg'
 import mapTxt from '../../../assets/chapter05/txt1.jpg'
 
@@ -139,6 +140,7 @@ export const GAME_MODULES = [
             //{ type: 'img', path: mapFloorOuter2, key: 'mapFloorOuter2', wrap: true },
             { type: 'img', path: mapTop, key: 'mapTop', wrap: true },
             { type: 'img', path: mapVirt, key: 'mapVirtual', wrap: true },
+            { type: 'img', path: mapVirt2, key: 'mapVirtual2', wrap: true },
             { type: 'img', path: mapTxt, key: 'mapParams' },
         ],
     },

@@ -332,6 +332,10 @@ const createManagerLevelTrash = root => {
     const floorGeom = new THREE.PlaneGeometry(SIZE_QUADRANT, SIZE_QUADRANT)
 
 
+    console.log(materials.floorMat)
+    materials.floorMat.map.wrapS = materials.floorMat.map.wrapT = 80
+    materials.floorMat.map.repeat.set(50, 50)
+
     const addItems = arr => {
         for (let i = 0; i < arr.length; ++i) {
             /** add floor */

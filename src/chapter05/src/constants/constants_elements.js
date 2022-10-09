@@ -89,15 +89,15 @@ export const MATERIALS_CONFIG = {
     },
 
     'floorMat': {
-        mat: 'MeshBasicMaterial',
+        mat: 'MeshPhongMaterial',
         props: {
-            color: 0x006600,
+            color: 0x00ff00,
             //color: 0x999999,
             //emissive: 0x000000,
-            //map: 'mapVirtual',
-            //bumpMap: 'mapVirtual',
-            //bumpScale: 3,
-            ///envMap: 'skyBox',
+            map: 'mapVirtual2',
+            bumpMap: 'mapVirtual2',
+            bumpScale: 3,
+            //envMap: 'skyBox2',
             //reflectivity: .5,
             //shininess: .5,
             //specular: 0xffffff,
