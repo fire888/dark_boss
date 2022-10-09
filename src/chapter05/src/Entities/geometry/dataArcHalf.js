@@ -35,9 +35,9 @@ export const createDataArcHalf = ({
         const phase1 = cos((i + 1) / arcC * (hPI))
         const hhArc = 0
         v.push(
-            i * arcStep, hhArc + (phase0 * hArc), 0,
-            (i + 1) * arcStep, hhArc + (phase1 * hArc), 0,
-            arcL,  hArc, 0,
+            i * arcStep, hhArc + (phase0 * hArc), .1,
+            (i + 1) * arcStep, hhArc + (phase1 * hArc), .1,
+            arcL,  hArc, 1,
         )
 
         v.push(
@@ -57,10 +57,10 @@ export const createDataArcHalf = ({
 
 
         v.push(...createFace(
-            [i * arcStep, hhArc + (phase0 * hArc), 0],
+            [i * arcStep, hhArc + (phase0 * hArc), .1],
             [i * arcStep, hhArc + (phase0 * hArc), -2],
             [(i + 1) * arcStep, hhArc + (phase1 * hArc), -2],
-            [(i + 1) * arcStep, hhArc + (phase1 * hArc), 0],
+            [(i + 1) * arcStep, hhArc + (phase1 * hArc), .1],
         ))
 
         c.push(...fillColorFace(colorB))

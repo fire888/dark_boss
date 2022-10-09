@@ -12,7 +12,6 @@ import { createSchemeSuper } from './geometry/schemeSuper'
 export const createMeshSuper = (root) => {
     const scheme = createSchemeSuper()
 
-    console.log(scheme[scheme.length - 1])
 
     const vertP = []
     const colorsP = []

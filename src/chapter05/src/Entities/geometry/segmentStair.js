@@ -19,7 +19,7 @@ export const createSegmentStair = (data, color1, color2,) => {
     const { h, r, x, z, bridgeL, bridgeMinusH, hColumn, rColumn, i } = data
 
     const hh = h - 5
-    const hCol = hColumn * (Math.random() * 0.35 + 0.1)
+    const hCol = Math.min(hColumn * (Math.random() * 0.35 + 0.1), 50)
 
     const v = []
     const c = []

@@ -1,23 +1,28 @@
 const createSet = ({ xCenter, zCenter, hStart, hEnd, count }) => {
     const r = 20
     const hDiff = hEnd - hStart
-    //const count = Math.floor(hDiff / 30)  
     const stepH = hDiff / count
-    //const count = 5
+
 
     const tickness = 7
-    const hColumn = stepH * 4
     const rColumn = 3
     const offset = 50
 
     const lBridge = offset + offset - r - r
 
     const scheme = []
-    
-    /** first */
+
     for (let i = 0; i < count; ++i) {
+        let hColumn = stepH * (4)
+        if (i < 4) {
+             hColumn = hStart + (i * stepH) + 15
+        }
+
         const h = stepH * i + hStart
         const hh = h - tickness + hStart
+
+        //const hColumn = stepH * 4
+
 
         let x = xCenter
         let z = zCenter
@@ -75,6 +80,8 @@ export const createSchemeSuper = () => {
     let xCenter = 0
     let zCenter = 0
 
+    let currentDir = 'N'
+
     for (let i = 0; i < 5; ++i) {
         const nextDir = D[Math.floor(Math.random() * D.length)]
         const lenBridge = Math.random() * 400 + 30
@@ -84,14 +91,15 @@ export const createSchemeSuper = () => {
         
         /** stair set */
         const count = C[nextDir] + 4 * Math.floor(Math.random() * 2)
-        const hEnd = h + count * 30 
+        const hEnd = h + count * 30
         const data = { xCenter, zCenter, hStart: h, hEnd, count }
-        arr.push(...createSet(data))
+        const setStair = createSet(data)
+        arr.push(...setStair)
 
 
         /** next platform */
         if (i !== 0) {
-            arr.push({ xCenter, zCenter, h: h - 30, type: 'zone' })
+            arr.push({ xCenter, zCenter, h: h - 30, type: 'zone', nextDir, dir: currentDir })
         }
         
 
@@ -99,9 +107,6 @@ export const createSchemeSuper = () => {
         if (i !== 5 - 1) {
             const centerBridgeX = (nextXCenter - xCenter) / 2 + xCenter
             const centerBridgeZ = (nextZCenter - zCenter) / 2 + zCenter
-            //const centerBridgeX = xCenter - nextXCenter
-            //const centerBridgeZ = zCenter - nextZCenter
-
             arr.push({ centerBridgeX, centerBridgeZ, h: hEnd - 30, dir: nextDir, lenBridge, type: 'bridge' })
         }
 
@@ -110,6 +115,7 @@ export const createSchemeSuper = () => {
         xCenter = nextXCenter
         zCenter = nextZCenter
         h = hEnd
+        currentDir = nextDir
     }
 
     return arr
