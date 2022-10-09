@@ -1,4 +1,4 @@
-export const SIZE_QUADRANT = 2000
+export const SIZE_QUADRANT = 5000
 export const LOCATIONS_QUADRANTS = {
     //'-4_-1': 'location01',
     '0_0': 'location01',
@@ -89,9 +89,9 @@ export const MATERIALS_CONFIG = {
     },
 
     'floorMat': {
-        mat: 'MeshStandardMaterial',
+        mat: 'MeshBasicMaterial',
         props: {
-            color: 0x004400,
+            color: 0x006600,
             //color: 0x999999,
             //emissive: 0x000000,
             //map: 'mapVirtual',
@@ -115,7 +115,7 @@ export const MATERIALS_CONFIG = {
 
 
 
-export const START_ENV_CONFIG = { fogNear: 500, fogFar: 1500, color: 0x00aa00, /*backgroundImgKey: 'skyBox2'*/ }
+export const START_ENV_CONFIG = { fogNear: 1000, fogFar: 3000, color: 0x000000, backgroundImgKey: 'skyBox' }
 //export const START_ENV_CONFIG_2 = { fogNear: -10, fogFar: 0, color: 0x4a0a45, backgroundImgKey: 'skyBox2' }
 //export const START_ENV_CONFIG_3 = { fogNear: 20, fogFar: 1500, color: 0x334455, backgroundImgKey: 'skyBox2' }
 //export const START_ENV_CONFIG_4 = { fogNear: -10, fogFar: 0, color: 0x4a0a45, backgroundImgKey: null }

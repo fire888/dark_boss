@@ -132,7 +132,8 @@ export const GAME_MODULES = [
         assetsToLoad: [
             { type: 'obj', path: levelRoomsSrc, key: 'level-rooms' },
             { type: 'obj', path: bodySrc, key: 'body' },
-            { type: 'cubeTextures', path: [ pxjpg, nxjpg, pyjpg, nyjpg, pzjpg, nzjpg, ], key: 'skyBox' },
+            //{ type: 'cubeTextures', path: [ pxjpg, nxjpg, pyjpg, nyjpg, pzjpg, nzjpg, ], key: 'skyBox' },
+            { type: 'cubeTextures', path: [ nxjpg, nxjpg, nxjpg, nxjpg, nxjpg, nxjpg, ], key: 'skyBox' },
             { type: 'cubeTextures', path: [ px2jpg, nx2jpg, py2jpg, ny2jpg, pz2jpg, nz2jpg, ], key: 'skyBox2' },
             { type: 'img', path: mapFloorOuter, key: 'mapFloorOuter', wrap: true },
             //{ type: 'img', path: mapFloorOuter2, key: 'mapFloorOuter2', wrap: true },

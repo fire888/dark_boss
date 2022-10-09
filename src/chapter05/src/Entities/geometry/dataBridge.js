@@ -237,7 +237,6 @@ export const createDataBridge = ({
     )
 
 
-
     translateArr(v, -50, 0, 0)   
     rotateArr(v, R[dir])
     translateArr(v, centerBridgeX, 0, centerBridgeZ)
