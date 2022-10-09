@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "./static/css/main.02ea5dc3.chunk.css",
-    "main.js": "./static/js/main.1d2c57c4.chunk.js",
-    "main.js.map": "./static/js/main.1d2c57c4.chunk.js.map",
+    "main.js": "./static/js/main.881597bc.chunk.js",
+    "main.js.map": "./static/js/main.881597bc.chunk.js.map",
     "runtime-main.js": "./static/js/runtime-main.2134470b.js",
     "runtime-main.js.map": "./static/js/runtime-main.2134470b.js.map",
     "static/js/2.b85cbcb1.chunk.js": "./static/js/2.b85cbcb1.chunk.js",
@@ -19,7 +19,7 @@
     "static/media/level.21832d73.obj": "./static/media/level.21832d73.obj",
     "static/media/map01.48219503.jpg": "./static/media/map01.48219503.jpg",
     "static/media/nx.8cbf039d.jpg": "./static/media/nx.8cbf039d.jpg",
-    "static/media/nx.dc0a1bc7.jpg": "./static/media/nx.dc0a1bc7.jpg",
+    "static/media/nx.a038c501.jpg": "./static/media/nx.a038c501.jpg",
     "static/media/ny.09051a4e.jpg": "./static/media/ny.09051a4e.jpg",
     "static/media/ny.75a01d7a.jpg": "./static/media/ny.75a01d7a.jpg",
     "static/media/nz.0bc769f7.jpg": "./static/media/nz.0bc769f7.jpg",
@@ -36,6 +36,6 @@
     "static/js/runtime-main.2134470b.js",
     "static/js/2.b85cbcb1.chunk.js",
     "static/css/main.02ea5dc3.chunk.css",
-    "static/js/main.1d2c57c4.chunk.js"
+    "static/js/main.881597bc.chunk.js"
   ]
 }
