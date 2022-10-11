@@ -237,22 +237,9 @@ const createChangerLocations = root => {
     // /** super */
     const createSuper = () => {
         const superP = createMeshSuper(root)
-        //superP.mesh.position.set(0, -42, 0)
-        //studio.addToScene(superP.mesh)
-    
         superP.meshCollision.visible = false
-        //superP.meshCollision.position.copy(superP.mesh.position)
-        //studio.addToScene(superP.meshCollision)
-        //system_PlayerMoveOnLevel.addItemToPlayerCollision(superP.meshCollision)
-    
         superP.meshCollisionCar.visible = false
-        //superP.meshCollisionCar.position.copy(superP.mesh.position)
-        //studio.addToScene(superP.meshCollisionCar)
-        //car.setCollisionForDraw(superP.meshCollisionCar)
-    
         superP.meshFinish.position.copy(superP.mesh.position)
-        //studio.addToScene(superP.meshFinish)
-
         return superP
     }
 
@@ -284,7 +271,7 @@ const createChangerLocations = root => {
 
     /** add/remove locations by key */
     const addLocationToScene = (keyLocation, x, z) => {
-        const { mesh, meshCollision, meshCollisionCar } = s[keyLocation]
+        const { mesh, meshCollision, meshCollisionCar, meshFinish, lastXYZ } = s[keyLocation]
 
         const y = -42
 
@@ -301,13 +288,16 @@ const createChangerLocations = root => {
         meshCollisionCar.position.set(x, y, z)
         studio.addToScene(meshCollisionCar)
 
-        //personCollision.position.set(personOffset[0] + x, personOffset[1], personOffset[2] + z)
-        //studio.addToScene(personCollision)
-        //system_PlayerNearLevelItems.setItemToCheck(personCollision, 'nearPerson_' + keyLocation, 28)
+        meshFinish.position.set(x, y, z)
+        meshFinish.position.x += lastXYZ[0]
+        meshFinish.position.y += lastXYZ[1]
+        meshFinish.position.z += lastXYZ[2]
+        studio.addToScene(meshFinish)
+        system_PlayerNearLevelItems.setItemToCheck(meshFinish, 'nearPerson_' + keyLocation, 28)
     }
 
     const removeLocationFromScene = keyLocation => {
-        const { mesh, meshCollision, meshCollisionCar } = s[keyLocation]
+        const { mesh, meshCollision, meshCollisionCar, meshFinish } = s[keyLocation]
 
         studio.removeFromScene(mesh)
 
@@ -317,9 +307,13 @@ const createChangerLocations = root => {
         studio.removeFromScene(meshCollisionCar)
         car.removeCollisionForDraw(meshCollisionCar)
 
-        //studio.removeFromScene(personCollision)
-        //system_PlayerNearLevelItems.removeItemFromCheck(personCollision)
+        studio.removeFromScene(meshFinish)
+        system_PlayerNearLevelItems.removeItemFromCheck(meshFinish)
     }
+
+
+    /** TODO: remove */
+    addLocationToScene('location01', 0, 0)
 
 
     return {

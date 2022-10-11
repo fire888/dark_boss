@@ -81,16 +81,24 @@ export const createMeshSuper = (root) => {
     geometryCollCar.setAttribute('position', new THREE.BufferAttribute(verticesCar, 3))
     const meshCollisionCar = new THREE.Mesh(geometryCollCar, collMat)
 
+    /** finish coord */
+    let lastXYZ
+    for (let i = scheme.length - 1; i > -1; --i) {
+        if (scheme[i].type && scheme[i].type === 'stairs') {
+            lastXYZ = [scheme[i].x, scheme[i].h, scheme[i].z]
+            break;
+        }
+    }
     const meshFinish = new THREE.Mesh(
-        new THREE.BoxGeometry(30, 30, 30),
+        new THREE.BoxGeometry(15, 15, 15),
         new THREE.MeshBasicMaterial({ color: 0xFF00FF })
     )
     meshFinish.position.set(
-        scheme[scheme.length - 1].x,
-        scheme[scheme.length - 1].h,
-        scheme[scheme.length - 1].z,  
+        lastXYZ[0],
+        lastXYZ[1],
+        lastXYZ[2],
     )
 
 
-    return { mesh, meshCollision, meshCollisionCar, meshFinish }
+    return { mesh, meshCollision, meshCollisionCar, meshFinish, lastXYZ }
 }
