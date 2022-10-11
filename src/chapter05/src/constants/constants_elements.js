@@ -111,6 +111,14 @@ export const MATERIALS_CONFIG = {
         },
     },
 
+
+    'testGreen': {
+        mat: 'MeshBasicMaterial',
+        props: {
+            color: 0x00aa00,
+        },
+    },
+
 }
 
 

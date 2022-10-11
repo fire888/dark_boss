@@ -14,7 +14,7 @@ export class Car {
 
         const { position, rotation } = CONSTANTS.CONFIG_FOR_INIT.currentSceneConfig.carProps
 
-        this._model = assets.car.children[0]
+        this._model = assets['level-rooms'].children.filter(item => item.name === 'CAR_0101')[0]
         this._model.material = materials.car
 
         this._camera = new THREE.PerspectiveCamera(80, window.innerWidth/window.innerHeight, .5, 100000)
@@ -24,7 +24,7 @@ export class Car {
         this._model.position.fromArray(position)
         this._model.rotation.fromArray(rotation)
 
-        this._collision = assets.carCollision.children[0]
+        this._collision = assets['level-rooms'].children.filter(item => item.name === 'CAR_0102')[0]
         this._collision.visible = false
 
         this._model.add(this._collision)
