@@ -1,3 +1,4 @@
+import * as THREE from 'three'
 export const SIZE_QUADRANT = 5000
 export const LOCATIONS_QUADRANTS = {
     //'-4_-1': 'location01',
@@ -5,6 +6,7 @@ export const LOCATIONS_QUADRANTS = {
     '0_-3': 'location02',
     '3_-1': 'location03',
 }
+
 
 
 
@@ -116,6 +118,13 @@ export const MATERIALS_CONFIG = {
         mat: 'MeshBasicMaterial',
         props: {
             color: 0x00aa00,
+        },
+    },
+    'testGreen1': {
+        mat: 'MeshBasicMaterial',
+        props: {
+            color: 0x00aa00,
+            side: THREE.DoubleSide,
         },
     },
 
