@@ -15,11 +15,14 @@ export class Car {
         const { position, rotation } = CONSTANTS.CONFIG_FOR_INIT.currentSceneConfig.carProps
 
         console.log(assets['level-rooms'].children)
-        this._model = assets['level-rooms'].children.filter(item => item.name === 'CAR_102')[0]
+        this._model = assets['level-rooms'].children.filter(item => item.name === 'CAR_102G')[0]
         this._model.material = materials.testGreen1
+        const part = assets['level-rooms'].children.filter(item => item.name === 'CAR_102')[0]
+        part.material = materials.testBlack
+        this._model.add(part)
 
         this._camera = new THREE.PerspectiveCamera(80, window.innerWidth/window.innerHeight, .5, 100000)
-        this._camera.position.y = 28
+        this._camera.position.y = 15
         this._model.add(this._camera)
 
         this._model.position.fromArray(position)
@@ -43,7 +46,7 @@ export class Car {
         setTimeout(() => {
             this._compass = createCarCompas(root)
             this._compass.addToParent(this._model)
-            this._compass.setArrowPosition(0, 23, -11.5)
+            this._compass.setArrowPosition(0, 4.3, -26)
             this.setTargetPosition = (val) => {
                 this._compass.setTargetPosition(val)
                 this._compass.update()
