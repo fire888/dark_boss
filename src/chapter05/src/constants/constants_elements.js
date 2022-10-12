@@ -123,7 +123,7 @@ export const MATERIALS_CONFIG = {
     'testGreen1': {
         mat: 'MeshBasicMaterial',
         props: {
-            color: 0x00aa00,
+            color: 0x009900,
             //side: THREE.DoubleSide,
         },
     },

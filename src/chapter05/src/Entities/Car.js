@@ -17,6 +17,10 @@ export class Car {
         console.log(assets['level-rooms'].children)
         this._model = assets['level-rooms'].children.filter(item => item.name === 'CAR_102G')[0]
         this._model.material = materials.testGreen1
+        this._model.position.fromArray(position)
+        this._model.rotation.fromArray(rotation)
+        this._model.position.y = -49
+
         const part = assets['level-rooms'].children.filter(item => item.name === 'CAR_102')[0]
         part.material = materials.testBlack
         this._model.add(part)
@@ -25,8 +29,6 @@ export class Car {
         this._camera.position.y = 15
         this._model.add(this._camera)
 
-        this._model.position.fromArray(position)
-        this._model.rotation.fromArray(rotation)
 
         this._collision = assets['level-rooms'].children.filter(item => item.name === 'CAR_104')[0]
         this._collision.visible = false
