@@ -38,6 +38,22 @@ export const lCol = [.3, 1, .3]
 export const lW = .2 
 
 export const MATERIALS_CONFIG = {
+    'unit': {
+        mat: 'MeshStandardMaterial',
+        props: {
+            //color: 0xffd4a8,
+            color: 0xff00ff,
+            //color: 0x999999,
+            emissive: 0x000000,
+            //map: 'mapVirtual',
+            //bumpMap: 'mapVirtual',
+            //bumpScale: 3,
+            //envMap: 'skyBox',
+            //reflectivity: .5,
+            //shininess: .5,
+            //specular: 0xffffff,
+        },
+    },
     'wallVirtual': {
         mat: 'MeshStandardMaterial',
         props: {
