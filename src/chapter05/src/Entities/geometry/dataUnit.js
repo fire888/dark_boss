@@ -20,7 +20,7 @@ const createG = () => {
     const h = 7
     const hh = 15
     const r = 15
-    const w = 2
+    const w = 3
 
     const data = {
         tt: [[0, hh, 0]],
@@ -40,7 +40,7 @@ const createG = () => {
             -w, w, 0,
             -w, 0, 0,
 
-            0, 0, 3,
+            0, 1, 10,
         ]
 
 
@@ -58,7 +58,7 @@ const createG = () => {
             w, -w, 0,
             w, 0, 0,
 
-            0, 0, 3,
+            0, -1, 10,
         ]
 
         const ph2 = (i + .5) / count * PI2
