@@ -4,7 +4,7 @@ import { createDataUnit } from './geometry/dataUnit'
 
 export const createMeshUnit = (root) => {
 
-    const dataUnit = createDataUnit()
+    const dataUnit = createDataUnit(root)
 
     const v = new Float32Array(dataUnit.v)
     const c =  new Float32Array(dataUnit.c)
