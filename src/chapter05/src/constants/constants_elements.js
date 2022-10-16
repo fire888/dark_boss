@@ -39,7 +39,7 @@ export const lW = .2
 
 export const MATERIALS_CONFIG = {
     'unit': {
-        mat: 'MeshBasicMaterial',
+        mat: 'MeshStandardMaterial',
         props: {
             color: 0xffffff,
             //emissive: 0x000000,
