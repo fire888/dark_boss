@@ -64,8 +64,6 @@ export class actions {
 
 
 
-
-
         const checkerChangeLocation = createCheckerChangeLocationKey(SIZE_QUADRANT, car._model.position.x, car._model.position.z)
         let currentQuadrantKey = checkerChangeLocation.getCurrent()
         
@@ -75,7 +73,7 @@ export class actions {
         this._changerLevelTresh.createTresh(currentQuadrantKey.currentEnv)
 
         const unit = createMeshUnit(root)
-        unit.mesh.position.y = -50
+        unit.mesh.position.y = -35
         unit.mesh.position.z = -40
         studio.addToScene(unit.mesh)
  
@@ -84,7 +82,7 @@ export class actions {
 
         /** update every frame ***************/
         frameUpdater.on(data => {
-            //unit.mesh.rotation.y += 0.01
+            unit.mesh.rotation.x += 0.01
             system_PlayerMoveOnLevel.update(data)
             if (!car.isFreeze) {
                 car.update(data)
@@ -113,7 +111,6 @@ export class actions {
             }
             studio.drawFrame()
         })
-
         this._startPlay()
     }
 

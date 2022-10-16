@@ -39,19 +39,11 @@ export const lW = .2
 
 export const MATERIALS_CONFIG = {
     'unit': {
-        mat: 'MeshStandardMaterial',
+        mat: 'MeshBasicMaterial',
         props: {
-            //color: 0xffd4a8,
-            color: 0xff00ff,
-            //color: 0x999999,
-            emissive: 0x000000,
-            //map: 'mapVirtual',
-            //bumpMap: 'mapVirtual',
-            //bumpScale: 3,
-            //envMap: 'skyBox',
-            //reflectivity: .5,
-            //shininess: .5,
-            //specular: 0xffffff,
+            color: 0xffffff,
+            //emissive: 0x000000,
+            vertexColors: true,
         },
     },
     'wallVirtual': {
