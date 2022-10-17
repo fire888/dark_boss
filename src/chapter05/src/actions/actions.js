@@ -75,7 +75,8 @@ export class actions {
         const unit = createMeshUnit(root)
         unit.mesh.position.y = -35
         unit.mesh.position.z = -40
-        studio.addToScene(unit.mesh)
+        //studio.addToScene(unit.mesh)
+        root.unit = unit
  
 
 

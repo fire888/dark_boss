@@ -10,6 +10,7 @@ export const createMeshUnit = (root) => {
         w: 2,
         wt: 3,
         wtr: 5,
+        htr: 5,
         rInner: -5,
         hhh: 8,
     })
@@ -19,9 +20,10 @@ export const createMeshUnit = (root) => {
         w: .5,
         wt: .7, 
         wtr: 2,
+        htr: 0,
         rInner: -5, 
         hhh: 12,
-        hh: 12,
+        hh: 16,
         hhD: -12,
     })
     let phase = 0
@@ -49,7 +51,7 @@ export const createMeshUnit = (root) => {
             //mesh.rotation.x = (t * Math.PI) / 2
             //mesh.rotation.z = (t * Math.PI) / 3
             mesh.rotation.y = phase / 2
-            mesh.rotation.x = phase / 5
+            //mesh.rotation.x = phase / 5
             for (let i = 0; i < dataUnit1.v.length; ++i) {
                 geometry.attributes.position.array[i] = dataUnit1.v[i] * (1 - t) + dataUnit2.v[i] * t
                 
