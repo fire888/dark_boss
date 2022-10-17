@@ -82,7 +82,7 @@ export class actions {
 
         /** update every frame ***************/
         frameUpdater.on(data => {
-            //unit.mesh.rotation.x += 0.01
+            unit.update()
             system_PlayerMoveOnLevel.update(data)
             if (!car.isFreeze) {
                 car.update(data)

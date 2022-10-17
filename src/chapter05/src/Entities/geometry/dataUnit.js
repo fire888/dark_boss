@@ -10,19 +10,32 @@ import {
 const { PI, sin, cos } = Math
 const PI2 = PI * 2
 
+// const count = 5
+// const hh = 15
+// const h = 7
+// const hD = -7
+// const hhD = -15
+// const r = 15
+// const cone = 10
+// const w = 2
+// const wt = 3
+// const wtr = 2
+// const rInner = -5
 
+const createG = ({
+    count = 5,
+    hh = 15,
+    h = 7,
+    hD = -7,
+    hhD = -15,
+    r = 15,
+    cone = 10,
+    w = 2,
+    wt = 3,
+    wtr = 5,
+    rInner = -5,  
+}) => {
 
-const createG = () => {
-    const count = 5
-    const h = 7
-    const hD = -7
-    const hh = 15
-    const hhD = -15
-    const r = 15
-    const w = 2
-    const wt = 3
-    const wtr = 2
-    const rInner = -5
 
     const data = {
         tt: [],
@@ -62,7 +75,7 @@ const createG = () => {
             -w, w, 0, //9 10 11
             -w, 0, 0, //12 13 14 
             // cone
-            0, 4, 10, //15 16 17
+            0, 4, cone, //15 16 17
             // tr
             -wtr, -h * 1.7, rInner, //18 19 20 
             wtr, -h * 1.7, rInner, //21 22 23
@@ -104,7 +117,7 @@ const createG = () => {
             w, -w, 0, //9 10 11
             w, 0, 0, //12 13 14
             // cone
-            0, -4, 10, // 15 16 17
+            0, -4, cone, // 15 16 17
             // tr
             -wtr, h * 1.7, rInner, //18 19 20
             0, h * .7, rInner, //21 22 23
@@ -119,8 +132,8 @@ const createG = () => {
         data.bot.push(b)
 
 
-        const phP = (i / count) * PI2
-        data.tt.push(sin(phP) * wt, hh, cos(ph1) * wt)
+        const phP = ((i - .5) / count) * PI2
+        data.tt.push(sin(phP) * wt, hh, cos(phP) * wt)
         data.bb.push(sin(ph1) * wt, hhD, cos(ph1) * wt)
     }
 
@@ -134,7 +147,9 @@ const createG = () => {
 
 
 
-export const createDataUnit = () => {
+export const createDataUnit = (params) => {
+
+    const hhh = params.hhh || 12
 
     const v = []
     const c = []
@@ -142,9 +157,9 @@ export const createDataUnit = () => {
     const r2 = 15
 
 
-    const n = createG()
+    const n = createG(params)
 
-    const c1W = [0, 1, 0]
+    const c1W = [0, .7, 0]
     const c3W = [...c1W, ...c1W, ...c1W]
     const c6W = [...c3W, ...c3W]
 
@@ -152,9 +167,19 @@ export const createDataUnit = () => {
     const c3R = [...c1R, ...c1R, ...c1R]
     const c6R = [...c3R, ...c3R]
 
-    const c1B = [0, 0, .5]
+    const c1B = [0, 0, 0]
     const c3B = [...c1B, ...c1B, ...c1B]
     const c6B = [...c3B, ...c3B]
+
+    const c1B2 = [0, 0, 0]
+    const c3B2 = [...c1B2, ...c1B2, ...c1B2]
+    const c6B2 = [...c3B2, ...c3B2]
+
+    const c1B3 = [0, 0, 0]
+    const c3B3 = [...c1B3, ...c1B3, ...c1B3]
+    const c6B3 = [...c3B3, ...c3B3]
+
+
     
     
     const f = (i, j) => {
@@ -167,14 +192,14 @@ export const createDataUnit = () => {
         v.push(
             n.tt[i * 3], n.tt[i * 3 + 1], n.tt[i * 3 + 2],
             n.tt[j * 3], n.tt[j * 3 + 1], n.tt[j * 3 + 2], 
-            0, n.tt[i * 3 + 1] + 12, 0,
+            0, n.tt[i * 3 + 1] + hhh, 0,
         )
         c.push(...c3W)
         /** bb cone */
         v.push(
             n.bb[j * 3], n.bb[j * 3 + 1], n.bb[j * 3 + 2], 
             n.bb[i * 3], n.bb[i * 3 + 1], n.bb[i * 3 + 2],
-            0, n.bb[i * 3 + 1] - 12, 0,
+            0, n.bb[i * 3 + 1] - hhh, 0,
         )
         c.push(...c3W)
 
@@ -291,7 +316,7 @@ export const createDataUnit = () => {
             [tN[24], tN[25], tN[26]],
             [tN[0], tN[1], tN[2]],
         ))
-        c.push(...c6B)
+        c.push(...c6B2)
         /* tr cap b */
         v.push(...createFace(
             [b[12], b[13], b[14]],
@@ -299,11 +324,10 @@ export const createDataUnit = () => {
             [tN[21], tN[22], tN[23]],
             [tN[18], tN[19], tN[20]],
         ))
-        c.push(...c6B)
+        c.push(...c6B3)
 
         ///////////////////////////////////
         /** b tr */
-        console.log(t)
         v.push(
             t[27], t[28], t[29],
             t[30], t[31], t[32],
@@ -353,7 +377,7 @@ export const createDataUnit = () => {
             [b[18], b[19], b[20]],
             [t[3], t[4], t[5]],
         ))
-        c.push(...c6B)
+        c.push(...c6B2)
         /* tr cap r */
         v.push(...createFace(
             [b[0], b[1], b[2]],

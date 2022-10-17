@@ -39,10 +39,13 @@ export const lW = .2
 
 export const MATERIALS_CONFIG = {
     'unit': {
-        mat: 'MeshStandardMaterial',
+        //mat: 'MeshPhongMaterial',
+        mat: 'MeshBasicMaterial',
         props: {
             color: 0xffffff,
-            //emissive: 0x000000,
+            emissive: 0x444444,
+            reflectivity: .5,
+            shininess: .5,
             vertexColors: true,
         },
     },
