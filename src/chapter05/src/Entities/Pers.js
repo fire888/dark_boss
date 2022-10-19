@@ -2,6 +2,36 @@ import * as THREE from 'three'
 import { createDataUnit } from './geometry/dataUnit'
 
 
+const createS = (root) => {
+    const v = []
+
+    const r = 15
+    const rh = r / 2
+    const s = 1
+
+
+    for (let i = 0; i < 100; ++i) {
+        const x = Math.random() * r - rh 
+        const y = Math.random() * r - rh
+        const z = Math.random() * r - rh
+
+        for (let i = 0; i < 3; ++i) {
+            v.push(
+                x + Math.random() * s,
+                y + Math.random() * s,
+                z + Math.random() * s,
+            )
+        }
+    } 
+
+
+    const vertices = new Float32Array(v)
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3))
+    return new THREE.Mesh(geometry, root.materials.testGreen)
+}
+
+
 export const createMeshUnit = (root) => {
 
     const dataUnit1 = createDataUnit({ 
@@ -39,24 +69,33 @@ export const createMeshUnit = (root) => {
 
 
     const mat = root.materials.unit
-    const mesh = new THREE.Mesh(geometry, mat)
-
-    console.log(geometry)
+    const mesh = new THREE.Object3D()
+    const star = new THREE.Mesh(geometry, mat)
+    mesh.add(star)
+    const s1 = createS(root)
+    mesh.add(s1) 
+    const s2 = createS(root)
+    mesh.add(s2) 
+    const s3 = createS(root)
+    mesh.add(s3) 
 
     return { 
         mesh,
         update: () => {
             phase += 0.05
             const t = Math.sin(phase)
+            s1.rotation.y = - phase * 2
+            s2.rotation.x = - phase * 2
+            s3.rotation.z= - phase * 2 
             //mesh.rotation.x = (t * Math.PI) / 2
             //mesh.rotation.z = (t * Math.PI) / 3
-            mesh.rotation.y = phase / 2
+            star.rotation.y = phase / 2
             //mesh.rotation.x = phase / 5
             for (let i = 0; i < dataUnit1.v.length; ++i) {
                 geometry.attributes.position.array[i] = dataUnit1.v[i] * (1 - t) + dataUnit2.v[i] * t
                 
             }
-            mesh.geometry.attributes.position.needsUpdate = true
+            star.geometry.attributes.position.needsUpdate = true
         }  
     }
 }

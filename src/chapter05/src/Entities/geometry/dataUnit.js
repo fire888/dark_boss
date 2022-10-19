@@ -160,11 +160,11 @@ export const createDataUnit = (params) => {
 
     const n = createG(params)
 
-    const c1W = [0, .7, 0]
+    const c1W = [0, .67, 0]
     const c3W = [...c1W, ...c1W, ...c1W]
     const c6W = [...c3W, ...c3W]
 
-    const c1R = [0, .7, 0]
+    const c1R = [0, .5, 0]
     const c3R = [...c1R, ...c1R, ...c1R]
     const c6R = [...c3R, ...c3R]
 
@@ -212,7 +212,8 @@ export const createDataUnit = (params) => {
             [n.tt[j * 3], n.tt[j * 3 + 1], n.tt[j * 3 + 2]],
             [n.tt[i * 3], n.tt[i * 3 + 1], n.tt[i * 3 + 2]],
         ))
-        c.push(...c6W)
+        //c.push(...c6W)
+        c.push(...c6B)
         /** to bot cone */
         v.push(...createFace(
             [n.bb[i * 3], n.bb[i * 3 + 1], n.bb[i * 3 + 2]],
@@ -220,7 +221,8 @@ export const createDataUnit = (params) => {
             [b[9], b[10], b[11]],
             [b[6], b[7], b[8]],
         ))
-        c.push(...c6W)
+        //c.push(...c6W)
+        c.push(...c6B)
 
 
         /** top connect */
@@ -230,7 +232,7 @@ export const createDataUnit = (params) => {
             [tN[9], tN[10], tN[11]],
             [t[6], t[7], t[8]],
         ))
-        c.push(...c6W)
+        c.push(...c6B)
 
         /** bot connect */         
         v.push(...createFace(
@@ -239,7 +241,7 @@ export const createDataUnit = (params) => {
             [bN[3], bN[4], bN[5]],
             [b[12], b[13], b[14]],
         ))
-        c.push(...c6W)
+        c.push(...c6B)
 
 
         /** t -> b */
@@ -249,7 +251,9 @@ export const createDataUnit = (params) => {
             [t[3], t[4], t[5]],
             [t[0], t[1], t[2]],
         ))
-        c.push(...c6W)
+        //c.push(...c6W)
+        c.push(...c6B)
+
         /** b -> tN */
         v.push(...createFace(
             [b[0], b[1], b[2]],
@@ -257,7 +261,9 @@ export const createDataUnit = (params) => {
             [tN[0], tN[1], tN[2]],
             [tN[12], tN[13], tN[14]],
         ))
-        c.push(...c6W)
+        //c.push(...c6W)
+        c.push(...c6B)
+
 
 
         /** cones */
@@ -296,12 +302,12 @@ export const createDataUnit = (params) => {
 
         //////////////////////////
         /** inner tr 1 */
-        v.push(
-            t[18], t[19], t[20],
-            t[21], t[22], t[23],
-            t[24], t[25], t[26],
-        )
-        c.push(...c3R)
+        // v.push(
+        //     t[18], t[19], t[20],
+        //     t[21], t[22], t[23],
+        //     t[24], t[25], t[26],
+        // )
+        //c.push(...c3R)
         /* tr cap r */
         v.push(...createFace(
             [t[21], t[22], t[23]],
@@ -309,7 +315,7 @@ export const createDataUnit = (params) => {
             [t[0], t[1], t[2]],
             [t[24], t[25], t[26]],
         ))
-        c.push(...c6B)
+        c.push(...c6W)
         /* tr cap l */
         v.push(...createFace(
             [b[12], b[13], b[14]],
@@ -317,7 +323,7 @@ export const createDataUnit = (params) => {
             [tN[24], tN[25], tN[26]],
             [tN[0], tN[1], tN[2]],
         ))
-        c.push(...c6B2)
+        c.push(...c6W)
         /* tr cap b */
         v.push(...createFace(
             [b[12], b[13], b[14]],
@@ -325,25 +331,25 @@ export const createDataUnit = (params) => {
             [tN[21], tN[22], tN[23]],
             [tN[18], tN[19], tN[20]],
         ))
-        c.push(...c6B3)
+        c.push(...c6W)
 
         ///////////////////////////////////
         /** b tr */
-        v.push(
-            t[27], t[28], t[29],
-            t[30], t[31], t[32],
-            t[33], t[34], t[35],
-        )
-        c.push(...c3R)
+        // v.push(
+        //     t[27], t[28], t[29],
+        //     t[30], t[31], t[32],
+        //     t[33], t[34], t[35],
+        // )
+        //c.push(...c3R)
         /* b cap t */ 
         /* tr cap r */
         v.push(...createFace(
-            [t[30], t[31], t[32]],
-            [n.bb[i * 3], n.bb[i * 3 + 1], n.bb[i * 3 + 2]],
-            [b[6], b[7], b[8]],
-            [t[33], t[34], t[35]],
+             [t[30], t[31], t[32]],
+             [n.bb[i * 3], n.bb[i * 3 + 1], n.bb[i * 3 + 2]],
+             [b[6], b[7], b[8]],
+             [t[33], t[34], t[35]],
         ))
-        c.push(...c6B)
+        c.push(...c6W)
         /* tr cap next l */
         v.push(...createFace(
             [n.bb[j * 3], n.bb[j * 3 + 1], n.bb[j * 3 + 2]],
@@ -351,7 +357,7 @@ export const createDataUnit = (params) => {
             [tN[27], tN[28], tN[29]],
             [b[9], b[10], b[11]],
         ))
-        c.push(...c6B)
+        c.push(...c6W)
         /* tr cap next t */
         v.push(...createFace(
             [tN[27], tN[28], tN[29]],
@@ -359,18 +365,18 @@ export const createDataUnit = (params) => {
             [bN[6], bN[7], bN[8]],
             [b[9], b[10], b[11]],
         ))
-        c.push(...c6B)
+        c.push(...c6W)
         
 
 
 
         /** inner tr 2 */
-        v.push(
-            b[18], b[19], b[20],
-            b[21], b[22], b[23],
-            b[24], b[25], b[26], // cone
-        )
-        c.push(...c3R)
+        // v.push(
+        //     b[18], b[19], b[20],
+        //     b[21], b[22], b[23],
+        //     b[24], b[25], b[26], // cone
+        // )
+        // c.push(...c3R)
         /* tr cap l */
         v.push(...createFace(
             [b[0], b[1], b[2]],
@@ -378,7 +384,7 @@ export const createDataUnit = (params) => {
             [b[18], b[19], b[20]],
             [t[3], t[4], t[5]],
         ))
-        c.push(...c6B2)
+        c.push(...c6W)
         /* tr cap r */
         v.push(...createFace(
             [b[0], b[1], b[2]],
@@ -386,7 +392,7 @@ export const createDataUnit = (params) => {
             [b[24], b[25], b[26]],
             [b[21], b[22], b[23]],
         ))
-        c.push(...c6B)
+        c.push(...c6W)
         /* tr cap t */
         v.push(...createFace(
             [b[18], b[19], b[20]],
@@ -394,15 +400,15 @@ export const createDataUnit = (params) => {
             [tN[12], tN[13], tN[14]],
             [t[3], t[4], t[5]],
         ))
-        c.push(...c6B)
+        c.push(...c6W)
 
         /* tr top */
-        v.push(
-            b[27], b[28], b[29],
-            b[30], b[31], b[32],
-            b[33], b[34], b[35],
-        )
-        c.push(...c3R)
+        // v.push(
+        //     b[27], b[28], b[29],
+        //     b[30], b[31], b[32],
+        //     b[33], b[34], b[35],
+        // )
+        // c.push(...c3R)
 
         /* cap t b */
         v.push(...createFace(
@@ -411,7 +417,7 @@ export const createDataUnit = (params) => {
             [b[30], b[31], b[32]],
             [b[27], b[28], b[29]],
         )) 
-        c.push(...c6B)
+        c.push(...c6W)
         /* cap t r */
         v.push(...createFace(
             [b[30], b[31], b[32]],
@@ -419,7 +425,7 @@ export const createDataUnit = (params) => {
             [n.tt[j * 3], n.tt[j * 3 + 1], n.tt[j * 3 + 2]],
             [b[33], b[34], b[35]],
         )) 
-        c.push(...c6B)
+        c.push(...c6W)
         /* cap t l */
         v.push(...createFace(
             [t[6], t[7], t[8]],
@@ -427,7 +433,7 @@ export const createDataUnit = (params) => {
             [b[33], b[34], b[35]],
             [n.tt[j * 3], n.tt[j * 3 + 1], n.tt[j * 3 + 2]],
         )) 
-        c.push(...c6B)
+        c.push(...c6W)
     }
 
 /*

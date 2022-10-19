@@ -70,6 +70,15 @@ export const createChangerLocations = root => {
 
     }
 
+    setTimeout(() => {
+        //root.unit.mesh.position.copy(meshFinish.position)
+        root.unit.mesh.position.z -= 50
+        root.unit.mesh.position.x += 50
+        root.unit.mesh.position.y += 30
+        studio.addToScene(root.unit.mesh/*meshFinish*/)
+    }, 300)
+
+
     const removeLocationFromScene = keyLocation => {
         const { mesh, meshCollision, meshCollisionCar, meshFinish } = s[keyLocation]
 
