@@ -2,12 +2,9 @@ import * as THREE from 'three'
 import { createDataUnit } from './geometry/dataUnit'
 
 
-const createS = (root) => {
+const createS = (root, { r = 15, s = .5, mKey = 'testGreen'  }) => {
     const v = []
-
-    const r = 15
     const rh = r / 2
-    const s = 1
 
 
     for (let i = 0; i < 100; ++i) {
@@ -28,7 +25,7 @@ const createS = (root) => {
     const vertices = new Float32Array(v)
     const geometry = new THREE.BufferGeometry();
     geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3))
-    return new THREE.Mesh(geometry, root.materials.testGreen)
+    return new THREE.Mesh(geometry, root.materials[mKey])
 }
 
 
@@ -72,12 +69,15 @@ export const createMeshUnit = (root) => {
     const mesh = new THREE.Object3D()
     const star = new THREE.Mesh(geometry, mat)
     mesh.add(star)
-    const s1 = createS(root)
+    const s1 = createS(root, { mKey: 'testWhite' })
     mesh.add(s1) 
-    const s2 = createS(root)
+    const s2 = createS(root, { mKey: 'testWhite' })
     mesh.add(s2) 
-    const s3 = createS(root)
+    const s3 = createS(root, { mKey: 'testWhite' })
     mesh.add(s3) 
+
+    const s4 = createS(root, { r: 50, s: .5 })
+    mesh.add(s4) 
 
     return { 
         mesh,
@@ -87,9 +87,11 @@ export const createMeshUnit = (root) => {
             s1.rotation.y = - phase * 2
             s2.rotation.x = - phase * 2
             s3.rotation.z= - phase * 2 
-            //mesh.rotation.x = (t * Math.PI) / 2
-            //mesh.rotation.z = (t * Math.PI) / 3
+            s4.rotation.y = phase / 4
             star.rotation.y = phase / 2
+            star.rotation.x = phase / 1.33
+            star.rotation.z = phase / 1.88
+
             //mesh.rotation.x = phase / 5
             for (let i = 0; i < dataUnit1.v.length; ++i) {
                 geometry.attributes.position.array[i] = dataUnit1.v[i] * (1 - t) + dataUnit2.v[i] * t

@@ -55,9 +55,13 @@ export class actions {
             if (data.item === 'nearStarterDrawCar') {
                 root.dispatcher.dispatch({ type: 'TOGGLE_BUTTON_DRAW_CAR', is: data.is })
             }
-            if (data.item === 'nearPerson') {
-                console.log('checkNear nearPerson !!!!!!', data)
+
+            if (data.item.includes('nearPerson')) {
+                root.dispatcher.dispatch({ type: 'TOGGLE_BUTTON_DIALOG', is: data.is, keyPerson: data.item })
             }
+            //if (data.item === 'nearPerson') {
+            //    console.log('checkNear nearPerson !!!!!!', data)
+            //}
         })
 
 

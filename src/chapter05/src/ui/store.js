@@ -37,12 +37,6 @@ export const createCustomStore = root => {
             })
         }
 
-        // if (action.type === 'CLOSE_LOCATIONS_LIST') {
-        //     return ({
-        //         ...state,
-        //         isLocationListOpened: false,
-        //     })
-        // }
 
         if (action.type === 'SELECT_LOCATION') {
             root.actions.changeTargetLocation({ key: action.location })
@@ -50,6 +44,14 @@ export const createCustomStore = root => {
                 ...state,
                 isLocationListOpened: false,
                 currentLocation: action.location,
+            })
+        }
+
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!
+        if (action.type === 'TOGGLE_BUTTON_DIALOG') {
+            return ({
+                ...state,
+                isButtonDialog: action.is,
             })
         }
 
@@ -113,7 +115,7 @@ export const createCustomStore = root => {
             root.player.toggleBlocked(action.isShowPalleteDialog)
 
             if (action.isShowPalleteDialog) {
-                userReplicies = state.isDialogComplete ? [] : [state.phrasesData[state.currentBot][state.phraseIndex]]
+                //userReplicies = state.isDialogComplete ? [] : [state.phrasesData[state.currentBot][state.phraseIndex]]
             }
 
             return ({

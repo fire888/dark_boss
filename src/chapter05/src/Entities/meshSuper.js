@@ -86,11 +86,26 @@ export const createMeshSuper = (root) => {
     for (let i = scheme.length - 1; i > -1; --i) {
         if (scheme[i].type && scheme[i].type === 'stairs') {
             lastXYZ = [scheme[i].x, scheme[i].h, scheme[i].z]
+            const n = Math.floor(scheme[i].i % 4)
+            console.log(scheme[i], n)
+            if (n === 0) {
+                lastXYZ[2] -= 60
+            }
+            if (n === 1) {
+                lastXYZ[0] += 60
+            }
+            if (n === 2) {
+                lastXYZ[2] += 60
+            }
+            if (n === 3) {
+                lastXYZ[0] -= 60
+            }
+
             break;
         }
     }
     const meshFinish = new THREE.Mesh(
-        new THREE.BoxGeometry(15, 15, 15),
+        new THREE.BoxGeometry(30, 30, 30),
         new THREE.MeshBasicMaterial({ color: 0xFF00FF })
     )
     meshFinish.position.set(
@@ -98,7 +113,6 @@ export const createMeshSuper = (root) => {
         lastXYZ[1],
         lastXYZ[2],
     )
-
 
     return { mesh, meshCollision, meshCollisionCar, meshFinish, lastXYZ }
 }

@@ -39,14 +39,15 @@ export const lW = .2
 
 export const MATERIALS_CONFIG = {
     'unit': {
-        //mat: 'MeshPhongMaterial',
-        mat: 'MeshBasicMaterial',
+        mat: 'MeshPhongMaterial',
+        //mat: 'MeshBasicMaterial',
         props: {
             color: 0xffffff,
             emissive: 0x444444,
             reflectivity: .5,
             shininess: .5,
             vertexColors: true,
+            flatShading: false,
         },
     },
     'wallVirtual': {
@@ -114,6 +115,13 @@ export const MATERIALS_CONFIG = {
             //reflectivity: .5,
             //shininess: .5,
             //specular: 0xffffff,
+        },
+    },
+
+    'testWhite': {
+        mat: 'MeshBasicMaterial',
+        props: {
+            color: 0xffff55,
         },
     },
 

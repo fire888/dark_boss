@@ -3,13 +3,16 @@
 }
 
 
-button.dialog-button-toggle {
+button.dialog-button-toggle,
+button.draw-car-button {
     font-size: 19px;
     height: 40px;
     min-width: 300px;
     max-width: 90vw;
     flex: 0 0 auto;
 }
+
+
 
 
 .dialog-wrapper {
@@ -27,15 +30,22 @@ button.dialog-button-toggle {
 
 
 
-.open-locations-car-button {
+button.open-locations-car-button {
+    font-size: 16px;
     position: absolute;
-    right: 8rem;
-    bottom: 10rem;
+    right: 0;
+    bottom: 30rem;
+    height: auto;
 }
 .list-locations {
+    font-size: 16px;
     position: absolute;
-    right: 8rem;
-    bottom: 10rem;
+    right: 0rem;
+    bottom: 30rem;
+}
+.list-locations button {
+    font-size: 16px;
+    height: auto;
 }
 
 
