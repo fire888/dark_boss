@@ -133,8 +133,6 @@ export class Studio {
         this.drawFrame = () => {
             this._composer.render(this._scene, this._controlsCamera)
         }
-        //emitter.subscribe('frameUpdate')(this.drawFrame)
-
 
 
         //this._backgroundImgKey = root.CONSTANTS.studioConfig.sceneEnvironment.backgroundImgKey
@@ -161,38 +159,39 @@ export class Studio {
     /** INTERNAL ****************************************/
 
     _changeFog (sceneEnvironment, conf) {
-        // const { fogNear, fogFar, color } = sceneEnvironment
-        // if (
-        //     this._scene.fog.near !== fogNear ||
-        //     this._scene.fog.far !== fogFar ||
-        //     this._scene.fog.color !== fogFar
-        // ) {
-        //     const startData = {
-        //         color: this._scene.fog.color,
-        //         near: this._scene.fog.near,
-        //         far: this._scene.fog.far,
-        //     }
-        //     const endData = {
-        //         color: new THREE.Color(color),
-        //         near: fogNear,
-        //         far: fogFar,
-        //     }
-        //
-        //     new TWEEN.Tween(startData)
-        //         .to(endData, (conf && conf.time) || 3000)
-        //         .onUpdate(() => {
-        //             // this._scene.fog.color = startData.color
-        //             // this._scene.fog.near = startData.near
-        //             // this._scene.fog.far = startData.far
-        //             if (conf) {
-        //                 if (conf.updateAmb) this._lightA.color = startData.color
-        //             } else {
-        //                 this._lightA.color = startData.color
-        //             }
-        //             this._renderer.setClearColor(startData.color)
-        //         })
-        //         .start()
-        // }
+        const { fogNear, fogFar, color } = sceneEnvironment
+        if (
+             this._scene.fog.near !== fogNear ||
+             this._scene.fog.far !== fogFar ||
+             this._scene.fog.color !== fogFar
+        ) {
+             const startData = {
+                 color: this._scene.fog.color,
+                 near: this._scene.fog.near,
+                 far: this._scene.fog.far,
+             }
+             const endData = {
+                 color: new THREE.Color(color),
+                 near: fogNear,
+                 far: fogFar,
+             }
+
+             new TWEEN.Tween(startData)
+                 .to(endData, (conf && conf.time) || 3000)
+                 .onUpdate(() => {
+                    console.log('!!!--')
+                    this._scene.fog.color = startData.color
+                    this._scene.fog.near = startData.near
+                    this._scene.fog.far = startData.far
+                    if (conf) {
+                    //                 if (conf.updateAmb) this._lightA.color = startData.color
+                    } else {
+                    //                 this._lightA.color = startData.color
+                    }
+                    this._renderer.setClearColor(startData.color)
+                 })
+                 .start()
+        }
 
     }
 

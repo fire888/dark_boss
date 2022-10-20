@@ -1,3 +1,5 @@
+import * as THREE from 'three'
+
 export class Level {
     constructor(root) {
         this._root = root
@@ -6,6 +8,19 @@ export class Level {
             assets, 
             materials,
         } = root
+
+
+        const groundStart = new THREE.Mesh(
+            new THREE.PlaneGeometry(5000, 5000),
+            materials.floorMat1
+        )
+        materials.floorMat1.map.repeat.set(180, 180)
+        groundStart.rotation.x = -Math.PI / 2
+        groundStart.position.y = -62
+        root.studio.addToScene(groundStart)
+        setTimeout(() => {
+            root.system_PlayerMoveOnLevel.addItemToPlayerCollision(groundStart)
+        }, 10)
 
 
         const { items } = createLevelMeshes(assets, materials)

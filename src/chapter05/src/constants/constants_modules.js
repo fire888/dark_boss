@@ -19,7 +19,7 @@ import mapFloorOuter from '../../../assets/chapter04/floor_outer_map3.jpg'
 import mapFloorOuter2 from '../../../assets/chapter04/floor_outer_map2.jpg'
 //import mapVirt from '../../../assets/chapter05/map01.jpg'
 import mapVirt2 from '../../../assets/chapter05/map02.jpg'
-import mapTop from '../../../assets/floor_outer_map.jpg'
+import mapTop from '../../../assets/chapter05/floor_outer_map.jpg'
 import mapTxt from '../../../assets/chapter05/txt1.jpg'
 
 import pxjpg from '../../../assets/sky4/px.jpg'

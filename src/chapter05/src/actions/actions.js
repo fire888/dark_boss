@@ -1,8 +1,15 @@
+import * as TWEEN from '@tweenjs/tween.js'
+
+
+// export class Helper_TweenUpdater {
+//     constructor (gameContext) {
+//         gameContext['emitter'].subscribe('frameUpdate')(() => TWEEN.update())
 import * as THREE from 'three'
 import {
-    //START_ENV_CONFIG,
+    START_ENV_CONFIG,
     //START_ENV_CONFIG_2,
     //START_ENV_CONFIG_3,
+    ENV_CONFIG_WORD_1,
     LOCATIONS_QUADRANTS,
     SIZE_QUADRANT,
 } from '../constants/constants_elements';
@@ -31,7 +38,7 @@ export class actions {
         /** prepare ui ******/
         dispatcher.dispatch({
             type: 'CHANGE_INFO_CHAPTER',
-            currentChapterIndex: 4,
+            currentChapterIndex: 5,
         })
         dispatcher.dispatch({
             type: 'ENABLE_CONTROL_SOUND',
@@ -62,26 +69,23 @@ export class actions {
         })
 
 
-
-
-
         const checkerChangeLocation = createCheckerChangeLocationKey(SIZE_QUADRANT, car._model.position.x, car._model.position.z)
         let currentQuadrantKey = checkerChangeLocation.getCurrent()
         
         this._changerLocations = createChangerLocations(this._root)
         this._changerLevelTresh = createLevelArea(this._root)
-        this._systemSprites = createSustemSprites(this._root)   
-        this._changerLevelTresh.createTresh(currentQuadrantKey.currentEnv)
-
+        //this._systemSprites = createSustemSprites(this._root)
+        //this._changerLevelTresh.createTresh(currentQuadrantKey.currentEnv)
         const unit = createMeshUnit(root)
         root.unit = unit
 
 
-        this._changerLocations.addLocationToScene('location01', 0, 0)
+        //this._changerLocations.addLocationToScene('location01', 0, 0)
 
         /** update every frame ***************/
         frameUpdater.on(data => {
             unit.update()
+            TWEEN.update()
             system_PlayerMoveOnLevel.update(data)
             if (!car.isFreeze) {
                 car.update(data)
@@ -204,8 +208,11 @@ export class actions {
         studio.addToScene(system_Level._items['body'])
 
 
+
+        //studio.changeEnvironment(START_ENV_CONFIG, { updateAmb: false, time: 1 })
         ui.showStartButton(() => {
-            //studio.changeEnvironment(START_ENV_CONFIG_3, { updateAmb: false, time: 1500 })
+
+            studio.changeEnvironment(ENV_CONFIG_WORD_1, { updateAmb: false, time: 3000})
             player.toggleBlocked(false)
         })
     }
