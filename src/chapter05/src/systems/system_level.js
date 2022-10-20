@@ -27,7 +27,9 @@ export class Level {
         this._items = items
         console.log('system_level_items', this._items)
 
-        items.body.material = materials.car
+        items.body.material = materials.body
+        items.body_shadow.material = materials.body_sh
+        items.body.add(items.body_shadow)
     }
 }
 

@@ -22,6 +22,9 @@ import mapVirt2 from '../../../assets/chapter05/map02.jpg'
 import mapTop from '../../../assets/chapter05/floor_outer_map.jpg'
 import mapTxt from '../../../assets/chapter05/txt1.jpg'
 
+import mapBody from '../../../assets/chapter05/botMap.png'
+import mapBodyShadow from '../../../assets/chapter05/body_sh_map.jpg'
+
 import pxjpg from '../../../assets/sky4/px.jpg'
 import nxjpg from '../../../assets/sky4/nx.jpg'
 import pyjpg from '../../../assets/sky4/py.jpg'
@@ -127,6 +130,8 @@ export const GAME_MODULES = [
             //{ type: 'img', path: mapVirt, key: 'mapVirtual', wrap: true },
             { type: 'img', path: mapVirt2, key: 'mapVirtual2', wrap: true },
             { type: 'img', path: mapTxt, key: 'mapParams' },
+            { type: 'img', path: mapBody, key: 'mapBody' },
+            { type: 'img', path: mapBodyShadow, key: 'mapBodySh' },
         ],
     },
     {

@@ -48,20 +48,33 @@ export const MATERIALS_CONF = {
         },
     },
 
-    'car': {
+    'body': {
         mat: 'MeshPhongMaterial',
         props: {
             //color: 0xffd4a8,
-            color: 0x0000ff,
+            color: 0xaaaaff,
             //color: 0x999999,
             emissive: 0x000000,
-            //map: 'mapVirtual',
-            //bumpMap: 'mapVirtual',
-            //bumpScale: 3,
-            ///envMap: 'skyBox',
-            reflectivity: .5,
-            shininess: .5,
+            map: 'mapBody',
+            bumpMap: 'mapBody',
+            bumpScale: .1,
+            //envMap: 'skyBox',
+            reflectivity: .005,
+            shininess: .005,
             specular: 0xffffff,
+        },
+    },
+
+    'body_sh': {
+        mat: 'MeshPhongMaterial',
+        props: {
+            //color: 0xffd4a8,
+            color: 0x000000,
+            //color: 0x999999,
+            emissive: 0x000000,
+           //map: 'mapBodySh',
+           transparent: true,
+           alphaMap: 'mapBodySh',
         },
     },
 
