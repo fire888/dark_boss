@@ -14,7 +14,6 @@ export class Car {
 
         const { position, rotation } = CONSTANTS.CONFIG_FOR_INIT.currentSceneConfig.carProps
 
-        console.log(assets['level-rooms'].children)
         this._model = assets['level-rooms'].children.filter(item => item.name === 'CAR_102G')[0]
         this._model.material = materials.testGreen1
         this._model.position.fromArray(position)

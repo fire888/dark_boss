@@ -20,7 +20,7 @@ const mapStateToProps = state => {
         //isShowButtonToggleOpenLocationsList: state.ui.isShowButtonToggleOpenLocationsList,
         isShowButtonToggleOpenLocationsList: true,//state.ui.isShowButtonToggleOpenLocationsList,
         isLocationListOpened: state.ui.isLocationListOpened,
-        currentLocation: state.ui.currentLocation,
+        currentLocationOfList: state.ui.currentLocationOfList,
         locationsList: state.ui.locationsList,
     })
 }
@@ -63,7 +63,7 @@ function CustomReactComponent(props) {
             {props.isShowButtonToggleOpenLocationsList && !props.isLocationListOpened && <button
                 className="open-locations-car-button"
                 onClick={() => props.dispatch({ type: 'OPEN_LOCATIONS_LIST' })}>
-                {props.currentLocation}
+                {props.currentLocationOfList}
             </button>}
 
 
@@ -82,7 +82,7 @@ function CustomReactComponent(props) {
                                     location: item,
                                 })}>
                                 {item}
-                                {props.currentLocation === item && '___v'}
+                                {props.currentLocationOfList === item && '___v'}
                             </button>))}
                     </div>
                 </div>

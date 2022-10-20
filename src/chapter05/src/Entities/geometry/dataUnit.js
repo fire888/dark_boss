@@ -161,16 +161,16 @@ export const createDataUnit = (params) => {
     const n = createG(params)
 
 
-    const c1WW = [1, .67, 1]
+    const c1WW = [1, 1, 1]
     const c3WW = [...c1WW, ...c1WW, ...c1WW]
     const c6WW = [...c3WW, ...c3WW]
 
 
-    const c1W = [0, .67, 0]
+    const c1W = [.5, 1, .5]
     const c3W = [...c1W, ...c1W, ...c1W]
     const c6W = [...c3W, ...c3W]
 
-    const c1R = [0, .5, 0]
+    const c1R = [0, 0, 0]
     const c3R = [...c1R, ...c1R, ...c1R]
     const c6R = [...c3R, ...c3R]
 

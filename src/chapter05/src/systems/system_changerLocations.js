@@ -31,9 +31,9 @@ export const createChangerLocations = root => {
     }
 
     const s = {
-        location01: createSuper(),
-        location02: createSuper(),
-        location03: createSuper(),
+        'location01': createSuper(),
+        'location02': createSuper(),
+        'location03': createSuper(),
     }
 
 
@@ -60,18 +60,11 @@ export const createChangerLocations = root => {
         meshFinish.position.x += lastXYZ[0]
         meshFinish.position.y += lastXYZ[1]
         meshFinish.position.z += lastXYZ[2]
-        studio.addToScene(root.unit.mesh/*meshFinish*/)
+        studio.addToScene(root.unit.mesh)
         root.unit.mesh.position.copy(meshFinish.position)
-        //root.unit.mesh.position.z -= 50
-        //root.unit.mesh.position.x += 50
         root.unit.mesh.position.y += 20
-        //root.unit.mesh
         system_PlayerNearLevelItems.setItemToCheck(meshFinish, 'nearPerson_' + keyLocation, 80)
-
     }
-
-
-    setTimeout(() => { addLocationToScene('location01', 0, 0)}, 100)
 
 
     const removeLocationFromScene = keyLocation => {

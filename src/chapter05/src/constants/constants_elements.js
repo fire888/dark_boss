@@ -1,4 +1,5 @@
-import * as THREE from 'three'
+import { MATERIALS_CONF } from "./constants_materials";
+
 export const SIZE_QUADRANT = 5000
 export const LOCATIONS_QUADRANTS = {
     //'-4_-1': 'location01',
@@ -6,10 +7,7 @@ export const LOCATIONS_QUADRANTS = {
     '0_-3': 'location02',
     '3_-1': 'location03',
 }
-
-
-
-
+export const MATERIALS_CONFIG = MATERIALS_CONF
 
 
 
@@ -33,128 +31,11 @@ export const CONFIG_FOR_INIT = {
 }
 
 
-
+/** geometry column */
 export const lCol = [.3, 1, .3]
-export const lW = .2 
-
-export const MATERIALS_CONFIG = {
-    'unit': {
-        mat: 'MeshPhongMaterial',
-        //mat: 'MeshBasicMaterial',
-        props: {
-            color: 0xffffff,
-            emissive: 0x444444,
-            reflectivity: .5,
-            shininess: .5,
-            vertexColors: true,
-            flatShading: false,
-        },
-    },
-    'wallVirtual': {
-        mat: 'MeshStandardMaterial',
-        props: {
-            //color: 0xffd4a8,
-            color: 0xff00ff,
-            //color: 0x999999,
-            emissive: 0x000000,
-            //map: 'mapVirtual',
-            //bumpMap: 'mapVirtual',
-            //bumpScale: 3,
-            //envMap: 'skyBox',
-            //reflectivity: .5,
-            //shininess: .5,
-            //specular: 0xffffff,
-        },
-    },
-    'wallVirtualColor': {
-        //mat: 'MeshPhongMaterial',
-        mat: 'MeshBasicMaterial',
-        props: {
-            //color: 0xffd4a8,
-            color: 0xffffff,
-            //color: 0x999999,
-            emissive: 0x001111,
-            map: 'mapParams',
-            bumpMap: 'mapParams',
-            bumpScale: .1,
-            //envMap: 'skyBox',
-            //reflectivity: .5,
-            //shininess: .5,
-            specular: 0x0000ff,
-            vertexColors: true,
-        },
-    },
-
-    'car': {
-        mat: 'MeshPhongMaterial',
-        props: {
-            //color: 0xffd4a8,
-            color: 0x0000ff,
-            //color: 0x999999,
-            emissive: 0x000000,
-            //map: 'mapVirtual',
-            //bumpMap: 'mapVirtual',
-            //bumpScale: 3,
-            ///envMap: 'skyBox',
-            reflectivity: .5,
-            shininess: .5,
-            specular: 0xffffff,
-        },
-    },
-
-    'floorMat': {
-        mat: 'MeshPhongMaterial',
-        props: {
-            color: 0x00ff00,
-            //color: 0x999999,
-            //emissive: 0x000000,
-            map: 'mapVirtual2',
-            bumpMap: 'mapVirtual2',
-            bumpScale: 3,
-            //envMap: 'skyBox2',
-            //reflectivity: .5,
-            //shininess: .5,
-            //specular: 0xffffff,
-        },
-    },
-
-    'testWhite': {
-        mat: 'MeshBasicMaterial',
-        props: {
-            color: 0xffff55,
-        },
-    },
-
-    'testRed': {
-        mat: 'MeshBasicMaterial',
-        props: {
-            color: 0xff0000,
-        },
-    },
+export const lW = .2
 
 
-    'testGreen': {
-        mat: 'MeshBasicMaterial',
-        props: {
-            color: 0x00aa00,
-        },
-    },
-    'testGreen1': {
-        mat: 'MeshBasicMaterial',
-        props: {
-            color: 0x009900,
-            //side: THREE.DoubleSide,
-        },
-    },
-    'testBlack': {
-        mat: 'MeshBasicMaterial',
-        props: {
-            color: 0x000000,
-            side: THREE.DoubleSide,
-        },
-    },
-
-}
 
 
 

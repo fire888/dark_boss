@@ -26,32 +26,6 @@ export const createCheckerChangeLocationKey = (SIZE = 100, x = 0, z = 0) => {
 
             const addedQs = getArrNotInFirst(currentEnv, oldEnv)
             const removedQs = getArrNotInFirst(oldEnv, currentEnv)
-            // const removedQs = []
-            // for (let i = 0; i < oldEnv.length; ++i) {
-            //     let isIn = false
-            //     for (let j = 0; j < currentEnv.length; ++j) {
-            //         if (oldEnv[i] === currentEnv[j]) {
-            //             isIn = true
-            //         }
-            //     }
-            //     if (!isIn) {
-            //         removedQs.push(oldEnv[i])
-            //     }
-            // }
-            //
-            // const addedQs = []
-            // for (let i = 0; i < currentEnv.length; ++i) {
-            //     let isIn = false
-            //     for (let j = 0; j < oldEnv.length; ++j) {
-            //         if (oldEnv[i] === currentEnv[j]) {
-            //             isIn = true
-            //         }
-            //     }
-            //     if (!isIn) {
-            //         addedQs.push(currentEnv[i])
-            //     }
-            // }
-
 
             return {
                 oldKey: saveOldKey,

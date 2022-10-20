@@ -87,7 +87,6 @@ export const createMeshSuper = (root) => {
         if (scheme[i].type && scheme[i].type === 'stairs') {
             lastXYZ = [scheme[i].x, scheme[i].h, scheme[i].z]
             const n = Math.floor(scheme[i].i % 4)
-            console.log(scheme[i], n)
             if (n === 0) {
                 lastXYZ[2] -= 60
             }

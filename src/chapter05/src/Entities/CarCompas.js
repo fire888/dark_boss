@@ -9,11 +9,11 @@ export const createCarCompas = root => {
     const arrow = root.system_Level._items.arrow
     arrow.material = root.materials.testGreen1
 
-    //const target = new THREE.Object3D()
-    const target = new THREE.Mesh(
-        new THREE.BoxGeometry(10, 10, 10),
-        new THREE.MeshBasicMaterial({ color: 0xff0000 })
-    )
+    const target = new THREE.Object3D()
+    // const target = new THREE.Mesh(
+    //     new THREE.BoxGeometry(10, 10, 10),
+    //     new THREE.MeshBasicMaterial({ color: 0xff0000 })
+    // )
     target.position.set(-500, -30, -500)
     studio.addToScene(target)
 

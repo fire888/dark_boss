@@ -77,13 +77,10 @@ export class actions {
         this._changerLevelTresh.createTresh(currentQuadrantKey.currentEnv)
 
         const unit = createMeshUnit(root)
-        unit.mesh.position.y = -35
-        unit.mesh.position.z = -40
-        //studio.addToScene(unit.mesh)
         root.unit = unit
- 
 
 
+        this._changerLocations.addLocationToScene('location01', 0, 0)
 
         /** update every frame ***************/
         frameUpdater.on(data => {

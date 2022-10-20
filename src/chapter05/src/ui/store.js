@@ -1,5 +1,5 @@
 //import { START_ENV_CONFIG_4 } from '../constants/constants_elements'
-
+import { DIALOGS_DATA, RESULT_DIALOGS } from '../constants/const_dialogs'
 
 
 
@@ -13,13 +13,14 @@ export const uiState = {
     isShowButtonDrawCar: false,
     valButtonDrawCar: 'draw car',
 
-    currentBot: null,
-    phraseIndex: 0,
-    isDialogComplete: false,
-    //phrasesData: DIALOGS_DATA,
+    currentLocation: null,
+    //phraseIndex: 0,
+    //isDialogComplete: false,
+    phrasesData: DIALOGS_DATA,
     isShowButtonToggleOpenLocationsList: false,
     isLocationListOpened: false,
-    currentLocation: 'location01',
+
+    currentLocationOfList: 'location01',
     locationsList: [
         'location01',
         'location02',
@@ -30,28 +31,43 @@ export const uiState = {
 
 export const createCustomStore = root => {
     const ui = (state = uiState, action) => {
-        if (action.type === 'OPEN_LOCATIONS_LIST') {
-            return ({
-                ...state,
-                isLocationListOpened: true,
-            })
-        }
 
 
-        if (action.type === 'SELECT_LOCATION') {
-            root.actions.changeTargetLocation({ key: action.location })
-            return ({
-                ...state,
-                isLocationListOpened: false,
-                currentLocation: action.location,
-            })
-        }
-
-        // !!!!!!!!!!!!!!!!!!!!!!!!!!
         if (action.type === 'TOGGLE_BUTTON_DIALOG') {
+            const newLocation = action.keyPerson.split('_')[1]
+            const botAnswers = []
+
+            if (state.phrasesData[newLocation]) {
+                const {  phraseIndex, phrases } = state.phrasesData[newLocation]
+                for (let i = 0; i < phraseIndex; ++i) {
+                    botAnswers.push(phrases[i])
+                }
+            }
+
+
             return ({
                 ...state,
                 isButtonDialog: action.is,
+                currentLocation: newLocation,
+                userReplicies: [],
+                botAnswers,
+            })
+        }
+
+
+        if (action.type === 'TOGGLE_DIALOG') {
+            let userReplicies = []
+            root.player.toggleBlocked(action.isShowPalleteDialog)
+
+            if (action.isShowPalleteDialog) {
+                const { isComplete, phraseIndex, phrases } = state.phrasesData[state.currentLocation]
+                userReplicies = isComplete ? [] : [phrases[phraseIndex]]
+            }
+
+            return ({
+                ...state,
+                isShowPalleteDialog: action.isShowPalleteDialog,
+                userReplicies,
             })
         }
 
@@ -70,100 +86,58 @@ export const createCustomStore = root => {
 
 
         if (action.type === 'PHRASE_EVENT') {
-            const { event, levelEvent } = action.phrase
+            const { event } = action.phrase
 
             if (event === 'nextReply') {
-                const userReplicies = [state.phrasesData[state.currentBot][state.phraseIndex + 1]]
+                const { isComplete, phraseIndex, phrases } = state.phrasesData[state.currentLocation]
+                const nextPhraseIndex = phraseIndex + 1
+                const userReplicies = [phrases[nextPhraseIndex]]
 
                 return ({
                     ...state,
-                    phraseIndex: state.phraseIndex + 1,
+                    phrasesData: {
+                        ...state.phrasesData,
+                        [state.currentLocation]: {
+                            ...state.phrasesData[state.currentLocation],
+                            phraseIndex: nextPhraseIndex
+                        },
+                    },
                     userReplicies,
                 })
 
             }
 
             if (event === 'close') {
+                const { phraseIndex } = state.phrasesData[state.currentLocation]
+                const nextPhraseIndex = phraseIndex + 1
 
-                if (state.currentBot === 20) {
-                    setTimeout(() => {
-                        root.dispatcher.dispatch({ type: 'TOGGLE_BUTTON', isButtonDialog: false })
-                        root.dispatcher.dispatch({ type: 'TOGGLE_DIALOG', isShowPalleteDialog: false })
-                        //root.studio.changeEnvironment(START_ENV_CONFIG_4, { updateAmb: false, time: 1500 }) 
-                        root.player.toggleBlocked(true)
-                        setTimeout(() => {
-                            root.dispatcher.dispatch({ type: 'SHOW_FINAL_MESSAGE' })
-                        }, 3000)
-                    }, 20000)
-                    
-                }
+                setTimeout(() => { root.dispatcher.dispatch(
+                    { type: 'SELECT_LOCATION', location: RESULT_DIALOGS[state.currentLocation],}
+                ) }, 50)
 
                 return ({
                     ...state,
                     userReplicies: [],
-                    isDialogComplete: true,
+                    phrasesData: {
+                        ...state.phrasesData,
+                        [state.currentLocation]: {
+                            ...state.phrasesData[state.currentLocation],
+                            isComplete: true,
+                            phraseIndex: nextPhraseIndex,
+                        },
+                    },
                     isButtonDialog: true,
                 })
             }
         }
 
-
-
-        if (action.type === 'TOGGLE_DIALOG') {
-            let userReplicies = []
-
-            root.player.toggleBlocked(action.isShowPalleteDialog)
-
-            if (action.isShowPalleteDialog) {
-                //userReplicies = state.isDialogComplete ? [] : [state.phrasesData[state.currentBot][state.phraseIndex]]
-            }
-
-            return ({
-                ...state,
-                isShowPalleteDialog: action.isShowPalleteDialog,
-                userReplicies,
-            })
-        }
-
-
-        if (action.type === 'TOGGLE_BUTTON') {
-
-            let botAnswers = state.botAnswers
-            let phraseIndex = state.phraseIndex
-            let isDialogComplete = state.isDialogComplete
-            if (action.currentBot && action.currentBot !== state.currentBot) {
-                botAnswers = []
-                phraseIndex = 0
-                isDialogComplete = false
-            }
-
-            return ({
-                ...state,
-                phraseIndex,
-                currentBot: action.currentBot || state.currentBot,
-                isButtonDialog: action.isButtonDialog,
-                isDialogComplete,
-                botAnswers,
-            })
-        }
-
-
-        if (action.type === 'SHOW_FINAL_MESSAGE') {
-            return ({
-                ...state,
-                isShowFinalMessage: true,
-            })
-        }
-
-
+        /** draw car button */
         if (action.type === 'TOGGLE_BUTTON_DRAW_CAR') {
             return  ({
                 ...state,
                 isShowButtonDrawCar: action.is
             })
         }
-
-
         if (action.type === 'CLICK_DRAW') {
             const { valButtonDrawCar } = state
             if (valButtonDrawCar === 'draw car') {
@@ -180,60 +154,32 @@ export const createCustomStore = root => {
                 })
             }
         }
+        /** *************************/
+
+
+
+        /** select target buttons */
+        if (action.type === 'OPEN_LOCATIONS_LIST') {
+            return ({
+                ...state,
+                isLocationListOpened: true,
+            })
+        }
+        if (action.type === 'SELECT_LOCATION') {
+            root.actions.changeTargetLocation({ key: action.location })
+            return ({
+                ...state,
+                isLocationListOpened: false,
+                currentLocationOfList: action.location,
+            })
+        }
+        /** *******************************/
 
 
         return state
     }
 
+
+
     return { ui }
 }
-
-
-
-//const DIALOGS_DATA = {
-//     '4': [
-//         {
-//             q: 'What is this place?',
-//             a: "It's The Great Way to the surface.",
-//             event: 'nextReply',
-//         }, {
-//             q: 'Who are you?',
-//             a: 'I help The Creator.',
-//             event: 'nextReply',
-//         }, {
-//             q: 'What are you doing?',
-//             a: "Don't distract me, I have to dig the tunnel.",
-//             event: 'close',
-//         },
-//     ],
-//     '13': [
-//         {
-//             q: 'Such enormous dungeons...',
-//             a: 'The Creator gave the order to dig.',
-//             event: 'nextReply',
-//         }, {
-//             q: 'How long have you been digging?',
-//             a: 'Time does not matter, the goal is what\'s important.',
-//             event: 'close',
-//         },
-//     ],
-//     '20': [
-//         {
-//             q: 'What do you do here?',
-//             a: 'Long ago, the Creator fell under the ground. He created us and gave us an assignment to dig.',
-//             event: 'nextReply',
-//         },
-//         {
-//             q: "But you already dug the way out...",
-//             a: 'When we dug a tunnel, The Creator went through it.',
-//             event: 'nextReply',
-//         },
-//         {
-//             q: "And...",
-//             a: 'We are made to dig. And we keep on doing it. We believe that he will return to us.',
-//             event: 'close',
-//         },
-//     ],
-// }
-
-
