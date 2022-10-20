@@ -77,7 +77,7 @@ export class actions {
         root.unit = unit
 
 
-        //this._changerLocations.addLocationToScene('location01', 0, 0)
+        this._changerLocations.addLocationToScene('location01', 0, 0)
 
         /** update every frame ***************/
         frameUpdater.on(data => {
