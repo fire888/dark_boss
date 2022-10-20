@@ -59,9 +59,6 @@ export class actions {
             if (data.item.includes('nearPerson')) {
                 root.dispatcher.dispatch({ type: 'TOGGLE_BUTTON_DIALOG', is: data.is, keyPerson: data.item })
             }
-            //if (data.item === 'nearPerson') {
-            //    console.log('checkNear nearPerson !!!!!!', data)
-            //}
         })
 
 
@@ -80,7 +77,7 @@ export class actions {
         root.unit = unit
 
 
-        this._changerLocations.addLocationToScene('location01', 0, 0)
+        //this._changerLocations.addLocationToScene('location01', 0, 0)
 
         /** update every frame ***************/
         frameUpdater.on(data => {

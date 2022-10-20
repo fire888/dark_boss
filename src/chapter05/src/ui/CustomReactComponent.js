@@ -60,33 +60,33 @@ function CustomReactComponent(props) {
                 </div>)}
 
 
-            {props.isShowButtonToggleOpenLocationsList && !props.isLocationListOpened && <button
-                className="open-locations-car-button"
-                onClick={() => props.dispatch({ type: 'OPEN_LOCATIONS_LIST' })}>
-                {props.currentLocationOfList}
-            </button>}
+            {/*{props.isShowButtonToggleOpenLocationsList && !props.isLocationListOpened && <button*/}
+            {/*    className="open-locations-car-button"*/}
+            {/*    onClick={() => props.dispatch({ type: 'OPEN_LOCATIONS_LIST' })}>*/}
+            {/*    {props.currentLocationOfList}*/}
+            {/*</button>}*/}
 
 
-            {props.isLocationListOpened && (
-                <div className='list-locations'>
-                    {/*<button*/}
-                    {/*    onClick={() => props.dispatch({ type: 'CLOSE_LOCATIONS_LIST' })}>*/}
-                    {/*    _x_*/}
-                    {/*</button>*/}
-                    <div>
-                        {props.locationsList.map(item =>
-                            (<button
-                                key={Math.floor(Math.random() * 1000000)}
-                                onClick={() => props.dispatch({
-                                    type: 'SELECT_LOCATION',
-                                    location: item,
-                                })}>
-                                {item}
-                                {props.currentLocationOfList === item && '___v'}
-                            </button>))}
-                    </div>
-                </div>
-            )}
+            {/*{props.isLocationListOpened && (*/}
+            {/*    <div className='list-locations'>*/}
+            {/*        /!*<button*!/*/}
+            {/*        /!*    onClick={() => props.dispatch({ type: 'CLOSE_LOCATIONS_LIST' })}>*!/*/}
+            {/*        /!*    _x_*!/*/}
+            {/*        /!*</button>*!/*/}
+            {/*        <div>*/}
+            {/*            {props.locationsList.map(item =>*/}
+            {/*                (<button*/}
+            {/*                    key={Math.floor(Math.random() * 1000000)}*/}
+            {/*                    onClick={() => props.dispatch({*/}
+            {/*                        type: 'SELECT_LOCATION',*/}
+            {/*                        location: item,*/}
+            {/*                    })}>*/}
+            {/*                    {item}*/}
+            {/*                    {props.currentLocationOfList === item && '___v'}*/}
+            {/*                </button>))}*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*)}*/}
 
             {props.isShowFinalMessage && (
                     <div className='final-mess'>{t('To be continued')}</div>
