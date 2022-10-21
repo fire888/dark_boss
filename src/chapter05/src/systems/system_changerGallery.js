@@ -2,7 +2,7 @@ import { createMeshSuper } from '../Entities/meshSuper'
 import { createMeshStairs } from "../Entities/meshStairs"
 
 
-export const createChangerLocations = root => {
+export const createChangerGalleries = root => {
     const {
         studio,
         car,

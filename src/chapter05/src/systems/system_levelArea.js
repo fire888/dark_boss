@@ -15,7 +15,6 @@ export const createLevelArea = root => {
     let arrTrash = []
 
     const floorGeom = new THREE.PlaneGeometry(SIZE_QUADRANT, SIZE_QUADRANT)
-
     materials.floorMat.map.wrapS = materials.floorMat.map.wrapT = 80
     materials.floorMat.map.repeat.set(50, 50)
 
@@ -112,12 +111,12 @@ export const createLevelArea = root => {
 
 
     return {
-        updateTrash: (removeArr, addArr) => {
+        updateAreas: (removeArr, addArr) => {
             removeItems(removeArr)
             addItems(addArr)
         },
-        createTresh: (arr) => {
-            addItems(arr)                
+        createArea: (arr) => {
+            addItems(arr)
         },
     }
 }

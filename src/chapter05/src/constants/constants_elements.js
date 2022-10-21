@@ -39,16 +39,8 @@ export const lW = .2
 
 export const START_ENV_CONFIG = { fogNear: 0, fogFar: 0, color: 0x4a0a46, backgroundImgKey: null }
 export const ENV_CONFIG_WORD_1 = { fogNear: 100, fogFar: 1500, color: 0x4a0a46, backgroundImgKey: 'skyBox2' }
-//export const START_ENV_CONFIG = { fogNear: 1000, fogFar: 3000, color: 0x000000, backgroundImgKey: 'skyBox' }
-//export const START_ENV_CONFIG_2 = { fogNear: -10, fogFar: 0, color: 0x4a0a45, backgroundImgKey: 'skyBox2' }
-//export const START_ENV_CONFIG_3 = { fogNear: 20, fogFar: 1500, color: 0x334455, backgroundImgKey: 'skyBox2' }
-//export const START_ENV_CONFIG_4 = { fogNear: -10, fogFar: 0, color: 0x4a0a45, backgroundImgKey: null }
+export const ENV_CONFIG_WORD_2 = { fogNear: 1500, fogFar: 3000, color: 0x000000, backgroundImgKey: 'skyBox' }
 
-//export const START_ENV_CONFIG = { fogNear: -10, fogFar: 20, color: 0xffd4a8, backgroundImgKey: 'skyBox' }
-//export const START_ENV_CONFIG = { fogNear: 20, fogFar: 1500, color: 0x888888, backgroundImgKey: 'skyBox' }
-//export const START_ENV_CONFIG_2 = { fogNear: -10, fogFar: 0, color: 0x888888, backgroundImgKey: 'skyBox' }
-//export const START_ENV_CONFIG_3 = { fogNear: 20, fogFar: 1500, color: 0x888888, backgroundImgKey: 'skyBox' }
-//export const START_ENV_CONFIG_4 = { fogNear: -10, fogFar: 0, color: 0x888888, backgroundImgKey: null }
 
 export const studioConfig = {
     canId: 'webgl-canvas',

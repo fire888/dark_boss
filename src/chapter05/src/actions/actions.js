@@ -1,29 +1,30 @@
 import * as TWEEN from '@tweenjs/tween.js'
-
-
-// export class Helper_TweenUpdater {
-//     constructor (gameContext) {
-//         gameContext['emitter'].subscribe('frameUpdate')(() => TWEEN.update())
 import * as THREE from 'three'
 import {
     START_ENV_CONFIG,
     //START_ENV_CONFIG_2,
     //START_ENV_CONFIG_3,
     ENV_CONFIG_WORD_1,
+    ENV_CONFIG_WORD_2,
     LOCATIONS_QUADRANTS,
     SIZE_QUADRANT,
 } from '../constants/constants_elements';
-import { createCheckerChangeLocationKey } from '../components/checkerChangeLocationKey'
-import { createChangerLocations } from '../systems/system_changerLocations'
-import { createLevelArea } from '../systems/system_levelArea'
-import { createSustemSprites } from '../systems/sustem_sprites'
-import { createMeshUnit } from '../Entities/Pers'
+//import { createCheckerChangeLocationKey } from '../components/checkerChangeLocationKey'
+//import { createChangerLocations } from '../systems/system_changerLocations'
+//import { createLevelArea } from '../systems/system_levelArea'
+//import { createSustemSprites } from '../systems/sustem_sprites'
+//import { createMeshUnit } from '../Entities/Pers'
 
+import { createWorldReal } from '../systems/sustem_worldReal'
+import { createSystemWorldVirtual} from "../systems/system_worldVirtual";
 
 
 export class actions {
     constructor (root) {
         this._root = root
+
+        this._isInRealWord = true
+
 
         const {
             emitter,
@@ -58,60 +59,31 @@ export class actions {
 
 
         emitter.subscribe('checkNear')(data => {
-            console.log('checkNear', data)
             if (data.item === 'nearStarterDrawCar') {
                 root.dispatcher.dispatch({ type: 'TOGGLE_BUTTON_DRAW_CAR', is: data.is })
             }
-
             if (data.item.includes('nearPerson')) {
                 root.dispatcher.dispatch({ type: 'TOGGLE_BUTTON_DIALOG', is: data.is, keyPerson: data.item })
             }
         })
 
 
-        const checkerChangeLocation = createCheckerChangeLocationKey(SIZE_QUADRANT, car._model.position.x, car._model.position.z)
-        let currentQuadrantKey = checkerChangeLocation.getCurrent()
-        
-        this._changerLocations = createChangerLocations(this._root)
-        this._changerLevelTresh = createLevelArea(this._root)
-        //this._systemSprites = createSustemSprites(this._root)
-        //this._changerLevelTresh.createTresh(currentQuadrantKey.currentEnv)
-        const unit = createMeshUnit(root)
-        root.unit = unit
 
+        this._worldReal = createWorldReal(root)
+        this._worldReal.addWorld()
+        this._worldVirtual = createSystemWorldVirtual(root, car._model.position.x, car._model.position.z)
 
-        //this._changerLocations.addLocationToScene('location01', 0, 0)
-
-        /** update every frame ***************/
         frameUpdater.on(data => {
-            unit.update()
             TWEEN.update()
-            system_PlayerMoveOnLevel.update(data)
+
+            this._worldVirtual.update(car._model.position.x, car._model.position.z)
+
             if (!car.isFreeze) {
                 car.update(data)
-                this._systemSprites.update()
-                const l = checkerChangeLocation.checkChanged(car._model.position.x, car._model.position.z)
-                if (l) {
-                    console.log('quadrants data', l)
-                    /** arr/remove level tresh **********************/
-                    this._changerLevelTresh.updateTrash(l.removedQs, l.addedQs)
-
-                    /** add/remove  locations ************************/
-                    if (LOCATIONS_QUADRANTS[l.oldKey]) {
-                        //console.log('remove', l.oldKey)
-                        this._changerLocations.removeLocationFromScene(LOCATIONS_QUADRANTS[l.oldKey])
-                    }
-                    if (LOCATIONS_QUADRANTS[l.newKey]) {
-                        //console.log('add', l.newKey)
-                        const strArr = l.newKey.split('_')
-                        const locationX = +strArr[0] * SIZE_QUADRANT + SIZE_QUADRANT / 2
-                        const locationZ = +strArr[1] * SIZE_QUADRANT + SIZE_QUADRANT / 2
-                        this._changerLocations.addLocationToScene(LOCATIONS_QUADRANTS[l.newKey], locationX, locationZ)
-                    }
-
-                }
-
+            } else {
+                system_PlayerMoveOnLevel.update(data)
             }
+
             studio.drawFrame()
         })
         this._startPlay()
@@ -121,9 +93,17 @@ export class actions {
     clickMachineDraw () {
         const { studio, system_PlayerMoveOnLevel, car } = this._root
 
+
         system_PlayerMoveOnLevel.toggleFreeze(true)
         car.toggleFreeze(false)
         studio.setCamera(car.getCamera())
+
+        if (this._isInRealWord) {
+            this._isInRealWord = false
+            studio.changeEnvironment(ENV_CONFIG_WORD_2, { updateAmb: false, time: 3000})
+            this._worldVirtual.addWorld()
+            this._worldReal.removeWorld()
+        }
     }
 
 
@@ -168,22 +148,15 @@ export class actions {
             ui,
             studio,
             car,
-            system_Level,
             system_PlayerMoveOnLevel,
             system_PlayerNearLevelItems,
         } = this._root
-
-
-
-
 
 
         /** car ****************************/
         system_PlayerNearLevelItems.setItemToCheck(car.getModel(), 'nearStarterDrawCar', 28)
         studio.addToScene(car.getModel())
         system_PlayerMoveOnLevel.addItemToPlayerCollision(car.getCollision())
-
-
         setTimeout(() => {
             let i = 0
             let key = null
@@ -202,16 +175,9 @@ export class actions {
         }, 500)
 
 
-        /** body **************************/
-        system_Level._items['body'].position.fromArray([-20, -60, -50])
-        system_Level._items['body'].rotation.fromArray([0, 2, 0])
-        studio.addToScene(system_Level._items['body'])
 
 
-
-        //studio.changeEnvironment(START_ENV_CONFIG, { updateAmb: false, time: 1 })
         ui.showStartButton(() => {
-
             studio.changeEnvironment(ENV_CONFIG_WORD_1, { updateAmb: false, time: 3000})
             player.toggleBlocked(false)
         })

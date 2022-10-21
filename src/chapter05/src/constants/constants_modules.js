@@ -13,7 +13,8 @@ import { Player } from '../../../_CORE/entities/createPlayer_v02'
 import { Helper_MaterialsLib } from '../../../_CORE/helpers/helper_MaterialsLib'
 
 
-import { Level } from '../systems/system_level'
+//import { Level } from '../systems/system_level'
+import { SystemAssets } from "../systems/sustems_assets";
 import levelRoomsSrc from '../../../assets/chapter05/level.obj'
 import mapFloorOuter from '../../../assets/chapter04/floor_outer_map3.jpg'
 import mapFloorOuter2 from '../../../assets/chapter04/floor_outer_map2.jpg'
@@ -116,18 +117,15 @@ export const GAME_MODULES = [
         initStateKey: 'beforeStartPlay',
     },
     {
-        key: 'system_Level',
-        constr: Level,
+        key: 'system_Assets',
+        constr: SystemAssets,
         initStateKey: 'beforeStartPlay',
         assetsToLoad: [
             { type: 'obj', path: levelRoomsSrc, key: 'level-rooms' },
-            //{ type: 'cubeTextures', path: [ pxjpg, nxjpg, pyjpg, nyjpg, pzjpg, nzjpg, ], key: 'skyBox' },
             { type: 'cubeTextures', path: [ nxjpg, nxjpg, nxjpg, nxjpg, nxjpg, nxjpg, ], key: 'skyBox' },
             { type: 'cubeTextures', path: [ px2jpg, nx2jpg, py2jpg, ny2jpg, pz2jpg, nz2jpg, ], key: 'skyBox2' },
             { type: 'img', path: mapFloorOuter, key: 'mapFloorOuter', wrap: true },
-            //{ type: 'img', path: mapFloorOuter2, key: 'mapFloorOuter2', wrap: true },
             { type: 'img', path: mapTop, key: 'mapTop', wrap: true },
-            //{ type: 'img', path: mapVirt, key: 'mapVirtual', wrap: true },
             { type: 'img', path: mapVirt2, key: 'mapVirtual2', wrap: true },
             { type: 'img', path: mapTxt, key: 'mapParams' },
             { type: 'img', path: mapBody, key: 'mapBody' },

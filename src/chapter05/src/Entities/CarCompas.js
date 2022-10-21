@@ -6,7 +6,7 @@ export const createCarCompas = root => {
         studio,
     } = root
 
-    const arrow = root.system_Level._items.arrow
+    const arrow = root.system_Assets.items.arrow
     arrow.material = root.materials.testGreen1
 
     const target = new THREE.Object3D()

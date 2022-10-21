@@ -46,7 +46,6 @@ export const createSustemSprites = root => {
         const s = createS(root)
         s.position.set(Math.random() * 3000 - 1500, 0, Math.random() * 3000 - 1500)
         arrSprites.push(s)
-        root.studio.addToScene(s)
     }
 
 
@@ -57,6 +56,16 @@ export const createSustemSprites = root => {
                 if (arrSprites[i].position.distanceTo(vecObPos) > 4000) {
                     arrSprites[i].position.copy(vecObPos)
                 }
+            }
+        },
+        addToScene: () => {
+            for (let i = 0; i < arrSprites.length; ++i) {
+                root.studio.addToScene(arrSprites[i])
+            }
+        },
+        removeFromScene: () => {
+            for (let i = 0; i < arrSprites.length; ++i) {
+                root.studio.removeFromScene(arrSprites[i])
             }
         }
     }
