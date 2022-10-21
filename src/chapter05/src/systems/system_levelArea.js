@@ -24,10 +24,10 @@ export const createLevelArea = root => {
             const p = arr[i].split('_')
             const x = +p[0] * SIZE_QUADRANT
             const z = +p[1] * SIZE_QUADRANT
-            const y = -50
+            const y = -62
             const floor = new THREE.Mesh(floorGeom, materials.floorMat)
             floor.rotation.x = -Math.PI / 2
-            floor.position.set(x, y - 12, z)
+            floor.position.set(x, y, z)
             studio.addToScene(floor)
             arrTrash.push({
                 mesh: floor,
@@ -89,6 +89,7 @@ export const createLevelArea = root => {
         for (let i = 0; i < arrToRemove.length; ++i) {
             const { mesh, meshCollision, meshCollisionCar } = arrToRemove[i]
             studio.removeFromScene(mesh)
+            system_PlayerMoveOnLevel.removeItemFromPlayerCollision(mesh)
             arrToRemove[i].mesh.geometry.dispose()
             delete arrToRemove[i].mesh
 
@@ -121,7 +122,9 @@ export const createLevelArea = root => {
         removeAll: () => {
             for (let i = 0; i < arrTrash.length; ++i) {
                 const { mesh, meshCollision, meshCollisionCar } = arrTrash[i]
+
                 studio.removeFromScene(mesh)
+                system_PlayerMoveOnLevel.removeItemFromPlayerCollision(mesh)
                 arrTrash[i].mesh.geometry.dispose()
                 delete arrTrash[i].mesh
 

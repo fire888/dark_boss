@@ -47,7 +47,7 @@ export const createChangerGalleries = root => {
         studio.addToScene(mesh)
 
         system_PlayerMoveOnLevel.addItemToPlayerCollision(meshCollision)
-        meshCollision.visible = false
+        //meshCollision.visible = false
         meshCollision.position.set(x, y, z)
         studio.addToScene(meshCollision)
         
