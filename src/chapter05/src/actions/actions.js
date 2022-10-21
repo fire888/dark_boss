@@ -178,7 +178,7 @@ export class actions {
 
 
         ui.showStartButton(() => {
-            studio.changeEnvironment(ENV_CONFIG_WORD_1, { updateAmb: false, time: 3000})
+            studio.changeEnvironment(ENV_CONFIG_WORD_1, { updateAmb: false, time: 1})
             player.toggleBlocked(false)
         })
     }
