@@ -4,6 +4,42 @@ import {
 } from '../constants/constants_elements';
 import { createMeshGallery } from '../Entities/meshGallery'
 
+
+
+const createManagerBuilds = (root) => {
+    const arr = []
+    for (let i = 0; i < 30; ++i) {
+        const data = createMeshGallery(root)
+        const id = 'build_' + i
+        arr.push({...data, id, inScene: false })
+    }
+
+    return {
+        getItem: () => {
+            for (let i = 0; i < arr.length; ++i) {
+                if (!arr[i].inScene) {
+                    arr[i].inScene = true
+                    return arr[i]
+                }
+            }
+
+            return null
+        },
+        setFlagAsFree: id => {
+            for (let i = 0; i < arr.length; ++i) {
+                if (arr[i].id === id) {
+                    arr[i].inScene = false
+                    break;
+                }
+            }
+
+        }
+    }
+}
+
+
+
+
 export const createLevelArea = root => {
     const {
         studio,
@@ -13,6 +49,7 @@ export const createLevelArea = root => {
     } = root
 
     let arrTrash = []
+    const managerBuilds = createManagerBuilds(root)
 
     const floorGeom = new THREE.PlaneGeometry(SIZE_QUADRANT, SIZE_QUADRANT)
     materials.floorMat.map.wrapS = materials.floorMat.map.wrapT = 80
@@ -38,12 +75,16 @@ export const createLevelArea = root => {
 
 
 
-            /** add trash ******************/
-            const rCount = Math.floor(Math.random() * 3)
-            for (let j = 0; j < rCount; ++j) {
-                console.log('!!!!!!!!!!!!!!!!! new tresh')
+            /** add build ******************/
+            const rCount = Math.floor(Math.random() * 8)
+            for (let j = 0; j < rCount; ++j) {                
+                const buildingData = managerBuilds.getItem()
+                if (!buildingData) {
+                    continue;
+                }
 
-                const { mesh, meshCollision, meshCollisionCar } = createMeshGallery(root)
+                const { mesh, meshCollision, meshCollisionCar, id } = buildingData
+                console.log('!!!!!!!!!!!!!!!!! add Build ', id)
                 mesh.position.set(
                     x + Math.random() * SIZE_QUADRANT,
                     -60,
@@ -61,7 +102,7 @@ export const createLevelArea = root => {
                 studio.addToScene(meshCollisionCar)
                 car.setCollisionForDraw(meshCollisionCar)
 
-                arrTrash.push({ mesh, meshCollision, meshCollisionCar, keyLocation: arr[i], type: 'trash' })
+                arrTrash.push({ mesh, meshCollision, meshCollisionCar, keyLocation: arr[i], type: 'build', id })
             }
         }
     } 
@@ -87,24 +128,27 @@ export const createLevelArea = root => {
         })
 
         for (let i = 0; i < arrToRemove.length; ++i) {
-            const { mesh, meshCollision, meshCollisionCar } = arrToRemove[i]
+            const { mesh, meshCollision, meshCollisionCar, type, id } = arrToRemove[i]
             studio.removeFromScene(mesh)
             system_PlayerMoveOnLevel.removeItemFromPlayerCollision(mesh)
-            arrToRemove[i].mesh.geometry.dispose()
-            delete arrToRemove[i].mesh
 
-            if (meshCollision) {
+            if (type === 'build') {
                 system_PlayerMoveOnLevel.removeItemFromPlayerCollision(meshCollision)
                 studio.removeFromScene(meshCollision)
-                arrToRemove[i].meshCollision.geometry.dispose()
-                delete arrToRemove[i].meshCollision
-            }
+                //arrToRemove[i].meshCollision.geometry.dispose()
+                //delete arrToRemove[i].meshCollision
 
-            if (meshCollisionCar) {
                 car.removeCollisionForDraw(meshCollisionCar)
                 studio.removeFromScene(meshCollisionCar)
-                arrToRemove[i].meshCollisionCar.geometry.dispose()
-                delete arrToRemove[i].meshCollisionCar
+                //arrToRemove[i].meshCollisionCar.geometry.dispose()
+                //delete arrToRemove[i].meshCollisionCar
+
+                managerBuilds.setFlagAsFree(id)
+            }
+
+            if (type === 'floor') {
+                arrToRemove[i].mesh.geometry.dispose()
+                delete arrToRemove[i].mesh
             }
         }
     }
