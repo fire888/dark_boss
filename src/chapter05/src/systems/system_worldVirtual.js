@@ -7,7 +7,7 @@ import { SIZE_QUADRANT, LOCATIONS_QUADRANTS } from "../constants/constants_eleme
 
 export const createSystemWorldVirtual = (root, carX, carZ) => {
     const checkerChangeLocation = createCheckerChangeLocationKey(SIZE_QUADRANT, carX, carZ)
-    const changerLocations = createChangerGalleries(root)
+    const changerGalleries = createChangerGalleries(root)
     const changerLevelArea = createLevelArea(root)
     const systemSprites = createSustemSprites(root)
     const unit = createMeshUnit(root)
@@ -24,7 +24,9 @@ export const createSystemWorldVirtual = (root, carX, carZ) => {
         },
         removeWorld: () => {
             isEnabled = false
-            /** TODO: add removeFromScene */
+            systemSprites.removeAll()
+            changerGalleries.removeAll()
+            changerLevelArea.removeAll()
         },
         update: (carX, carZ) => {
             if (!isEnabled) {
@@ -41,15 +43,14 @@ export const createSystemWorldVirtual = (root, carX, carZ) => {
 
                 /** add/remove  locations ************************/
                 if (LOCATIONS_QUADRANTS[l.oldKey]) {
-                    //console.log('remove', l.oldKey)
-                    changerLocations.removeLocationFromScene(LOCATIONS_QUADRANTS[l.oldKey])
+                    changerGalleries.removeLocationFromScene(LOCATIONS_QUADRANTS[l.oldKey])
                 }
                 if (LOCATIONS_QUADRANTS[l.newKey]) {
                     //console.log('add', l.newKey)
                     const strArr = l.newKey.split('_')
                     const locationX = +strArr[0] * SIZE_QUADRANT + SIZE_QUADRANT / 2
                     const locationZ = +strArr[1] * SIZE_QUADRANT + SIZE_QUADRANT / 2
-                    changerLocations.addLocationToScene(LOCATIONS_QUADRANTS[l.newKey], locationX, locationZ)
+                    changerGalleries.addLocationToScene(LOCATIONS_QUADRANTS[l.newKey], locationX, locationZ)
                 }
 
             }

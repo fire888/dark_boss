@@ -1,8 +1,6 @@
 import { LoaderAssets } from '../../../_CORE/helpers/helper_LoadAssets'
 import { EventEmitter } from "../../../_CORE/helpers/helper_Emitter"
-import { UI } from '../../../_CORE/ui/UI'
 import { DeviceResizer } from "../../../_CORE/helpers/helper_DeviceResizer"
-//import { FrameUpdater } from "../../../_CORE/helpers/helper_FrameUpater"
 import { FrameUpdater } from "../../../_CORE/helpers/helper_FrameUpdater_02"
 import { Helper_TweenUpdater } from "../../../_CORE/helpers/helper_TweenUpdater"
 import { Studio } from '../../../_CORE/entities/createStudio_02'
@@ -11,14 +9,9 @@ import { Player } from '../../../_CORE/entities/createPlayer_v02'
 
 
 import { Helper_MaterialsLib } from '../../../_CORE/helpers/helper_MaterialsLib'
-
-
-//import { Level } from '../systems/system_level'
 import { SystemAssets } from "../systems/sustems_assets";
 import levelRoomsSrc from '../../../assets/chapter05/level.obj'
 import mapFloorOuter from '../../../assets/chapter04/floor_outer_map3.jpg'
-import mapFloorOuter2 from '../../../assets/chapter04/floor_outer_map2.jpg'
-//import mapVirt from '../../../assets/chapter05/map01.jpg'
 import mapVirt2 from '../../../assets/chapter05/map02.jpg'
 import mapTop from '../../../assets/chapter05/floor_outer_map.jpg'
 import mapTxt from '../../../assets/chapter05/txt1.jpg'
@@ -45,13 +38,6 @@ import { Car } from '../Entities/Car'
 import { system_PlayerMoveOnLevel } from '../systems/system_PlayerMoveOnLevel'
 import { system_PlayerNearLevelItems } from '../systems/system_PlayerNearLevelItems'
 
-
-//import { system_Monsters } from '../systems/system_Monsters'
-//import botSrc from '../../../assets/chapter04/botWalk.gltf'
-//import monsterSkinSrc from '../../../assets/chapter04/skin.jpg'
-
-
-//import { system_PrepareDialogs } from '../systems/system_PrepareDialogs'
 
 import { actions } from '../actions/actions'
 import { Ui } from "../ui/Ui";
@@ -143,25 +129,6 @@ export const GAME_MODULES = [
         initStateKey: 'beforeStartPlay',
     },
     // {
-    //     key: 'system_Columns',
-    //     constr: system_Columns,
-    //     initStateKey: 'beforeStartPlay',
-    // },
-    // {
-    //     key: 'system_Monsters',
-    //     constr: system_Monsters,
-    //     initStateKey: 'beforeStartPlay',
-    //     assetsToLoad: [
-    //         { type: 'glb', path: botSrc, key: 'bot' },
-    //         { type: 'img', path: monsterSkinSrc, key: 'skin', wrap: true },
-    //     ]
-    // },
-    // {
-    //     key: 'system_PrepareDialogs',
-    //     constr: system_PrepareDialogs,
-    //     initStateKey: 'beforeStartPlay',
-    // },
-    // {
     //     key: 'system_Sound',
     //     constr: system_Sound,
     //     initStateKey: 'beforeStartPlay',
@@ -169,7 +136,6 @@ export const GAME_MODULES = [
     //         { type: 'soundMp3', path: soundAmbientSrc, key: 'soundAmbient' },
     //     ]
     // },
-
     {
         key: 'customUi',
         constr: Ui,

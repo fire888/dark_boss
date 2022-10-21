@@ -86,5 +86,10 @@ export const createChangerGalleries = root => {
     return {
         removeLocationFromScene,
         addLocationToScene,
+        removeAll: () => {
+            for (let k in s) {
+                removeLocationFromScene(k)
+            }
+        }
     }
 }

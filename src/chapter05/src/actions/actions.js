@@ -8,13 +8,8 @@ import {
     ENV_CONFIG_WORD_2,
     LOCATIONS_QUADRANTS,
     SIZE_QUADRANT,
+    playerConfig,
 } from '../constants/constants_elements';
-//import { createCheckerChangeLocationKey } from '../components/checkerChangeLocationKey'
-//import { createChangerLocations } from '../systems/system_changerLocations'
-//import { createLevelArea } from '../systems/system_levelArea'
-//import { createSustemSprites } from '../systems/sustem_sprites'
-//import { createMeshUnit } from '../Entities/Pers'
-
 import { createWorldReal } from '../systems/sustem_worldReal'
 import { createSystemWorldVirtual} from "../systems/system_worldVirtual";
 
@@ -24,6 +19,7 @@ export class actions {
         this._root = root
 
         this._isInRealWord = true
+        this._isExitFromVirt = false
 
 
         const {
@@ -32,7 +28,6 @@ export class actions {
             dispatcher,
             frameUpdater,
             studio,
-            player,
             system_PlayerMoveOnLevel,
         } = this._root
 
@@ -59,6 +54,10 @@ export class actions {
 
 
         emitter.subscribe('checkNear')(data => {
+            if (this._isExitFromVirt) {
+                return;
+            }
+
             if (data.item === 'nearStarterDrawCar') {
                 root.dispatcher.dispatch({ type: 'TOGGLE_BUTTON_DRAW_CAR', is: data.is })
             }
@@ -93,14 +92,14 @@ export class actions {
     clickMachineDraw () {
         const { studio, system_PlayerMoveOnLevel, car } = this._root
 
-
         system_PlayerMoveOnLevel.toggleFreeze(true)
         car.toggleFreeze(false)
         studio.setCamera(car.getCamera())
 
         if (this._isInRealWord) {
             this._isInRealWord = false
-            studio.changeEnvironment(ENV_CONFIG_WORD_2, { updateAmb: false, time: 3000})
+            car.toggleMat('green')
+            studio.changeEnvironment(ENV_CONFIG_WORD_2, { updateAmb: false, time: 3000 })
             this._worldVirtual.addWorld()
             this._worldReal.removeWorld()
         }
@@ -108,7 +107,7 @@ export class actions {
 
 
     clickMachineExit () {
-        const { system_PlayerMoveOnLevel, player, studio, car  } = this._root
+        const { system_PlayerMoveOnLevel, player, studio, car, CONSTANTS  } = this._root
 
         const pos = car.getPosition()
         const q = car.getQuaternion()
@@ -117,9 +116,34 @@ export class actions {
         car.toggleFreeze(true)
 
         system_PlayerMoveOnLevel.toggleFreeze(false)
-
         player.setToPos(pos.x, player.mesh.position.y, pos.z)
         player.mesh.setRotationFromQuaternion(q)
+
+        if (!this._isInRealWord) {
+            this._isInRealWord = true
+            this._isExitFromVirt = true
+            setTimeout(() => this._root.dispatcher.dispatch({ type: 'TOGGLE_BUTTON_DRAW_CAR', is: false }))
+            const { position, rotation } = CONSTANTS.CONFIG_FOR_INIT.currentSceneConfig.carProps
+            const carMesh = car.getModel()
+            car.toggleMat('red')
+            carMesh.position.fromArray(position)
+            carMesh.rotation.fromArray(rotation)
+            carMesh.position.y = -49
+
+            const pos = car.getPosition()
+            const q = car.getQuaternion()
+
+            studio.setCamera(player.getCamera())
+            car.toggleFreeze(true)
+
+            system_PlayerMoveOnLevel.toggleFreeze(false)
+            player.setToPos(pos.x, player.mesh.position.y, pos.z)
+            player.mesh.setRotationFromQuaternion(q)
+
+            studio.changeEnvironment(ENV_CONFIG_WORD_1, { updateAmb: false, time: 3000 })
+            this._worldReal.addWorld()
+            this._worldVirtual.removeWorld()
+        }
     }
 
 
@@ -150,12 +174,21 @@ export class actions {
             car,
             system_PlayerMoveOnLevel,
             system_PlayerNearLevelItems,
+            CONSTANTS,
         } = this._root
+
+        player.setToPos(...CONSTANTS.playerConfig.startPos)
 
 
         /** car ****************************/
-        system_PlayerNearLevelItems.setItemToCheck(car.getModel(), 'nearStarterDrawCar', 28)
-        studio.addToScene(car.getModel())
+        const { position, rotation } = CONSTANTS.CONFIG_FOR_INIT.currentSceneConfig.carProps
+        const carMesh = car.getModel()
+        carMesh.position.fromArray(position)
+        carMesh.rotation.fromArray(rotation)
+        carMesh.position.y = -49
+
+        system_PlayerNearLevelItems.setItemToCheck(carMesh, 'nearStarterDrawCar', 28)
+        studio.addToScene(carMesh)
         system_PlayerMoveOnLevel.addItemToPlayerCollision(car.getCollision())
         setTimeout(() => {
             let i = 0

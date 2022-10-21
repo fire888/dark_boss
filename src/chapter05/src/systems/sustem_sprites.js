@@ -63,7 +63,7 @@ export const createSustemSprites = root => {
                 root.studio.addToScene(arrSprites[i])
             }
         },
-        removeFromScene: () => {
+        removeAll: () => {
             for (let i = 0; i < arrSprites.length; ++i) {
                 root.studio.removeFromScene(arrSprites[i])
             }

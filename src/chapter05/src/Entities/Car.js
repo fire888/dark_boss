@@ -6,19 +6,14 @@ export class Car {
     constructor (root) {
         const {
             assets,
-            CONSTANTS,
             emitter,
             materials,
-            system_Level
         } = root
+        this._root = root
 
-        const { position, rotation } = CONSTANTS.CONFIG_FOR_INIT.currentSceneConfig.carProps
 
         this._model = assets['level-rooms'].children.filter(item => item.name === 'CAR_102G')[0]
-        this._model.material = materials.testGreen1
-        this._model.position.fromArray(position)
-        this._model.rotation.fromArray(rotation)
-        this._model.position.y = -49
+        this._model.material = materials.carNorm
 
         const part = assets['level-rooms'].children.filter(item => item.name === 'CAR_102')[0]
         part.material = materials.testBlack
@@ -208,6 +203,18 @@ export class Car {
     }
 
     subscribeOnMove () {
+
+    }
+
+    toggleMat (key) {
+        const { materials } = this._root
+
+        if (key === 'green') {
+            this._model.material = materials.testGreen1
+        }
+        if (key === 'red') {
+            this._model.material = materials.carNorm
+        }
 
     }
 }

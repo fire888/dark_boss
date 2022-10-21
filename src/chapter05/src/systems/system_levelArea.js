@@ -118,5 +118,27 @@ export const createLevelArea = root => {
         createArea: (arr) => {
             addItems(arr)
         },
+        removeAll: () => {
+            for (let i = 0; i < arrTrash.length; ++i) {
+                const { mesh, meshCollision, meshCollisionCar } = arrTrash[i]
+                studio.removeFromScene(mesh)
+                arrTrash[i].mesh.geometry.dispose()
+                delete arrTrash[i].mesh
+
+                if (meshCollision) {
+                    system_PlayerMoveOnLevel.removeItemFromPlayerCollision(meshCollision)
+                    studio.removeFromScene(meshCollision)
+                    arrTrash[i].meshCollision.geometry.dispose()
+                    delete arrTrash[i].meshCollision
+                }
+
+                if (meshCollisionCar) {
+                    car.removeCollisionForDraw(meshCollisionCar)
+                    studio.removeFromScene(meshCollisionCar)
+                    arrTrash[i].meshCollisionCar.geometry.dispose()
+                    delete arrTrash[i].meshCollisionCar
+                }
+            }
+        },
     }
 }

@@ -123,6 +123,13 @@ export const MATERIALS_CONF = {
         },
     },
 
+    'carNorm': {
+        mat: 'MeshStandardMaterial',
+        props: {
+            color: 0xaa00aa,
+        },
+    },
+
 
     'testGreen': {
         mat: 'MeshBasicMaterial',
@@ -130,6 +137,7 @@ export const MATERIALS_CONF = {
             color: 0x00aa00,
         },
     },
+
     'testGreen1': {
         mat: 'MeshBasicMaterial',
         props: {
