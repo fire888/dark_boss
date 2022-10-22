@@ -42,7 +42,6 @@ export const createChangerGalleries = root => {
         const { mesh, meshCollision, meshCollisionCar, meshFinish, lastXYZ } = s[keyLocation]
 
         const y = -42
-
         mesh.position.set(x, y, z)
         studio.addToScene(mesh)
 
@@ -57,9 +56,9 @@ export const createChangerGalleries = root => {
         studio.addToScene(meshCollisionCar)
 
         meshFinish.position.set(x, y, z)
-        //meshFinish.position.x += lastXYZ[0]
-        //meshFinish.position.y += lastXYZ[1]
-        //meshFinish.position.z += lastXYZ[2]
+        meshFinish.position.x += lastXYZ[0]
+        meshFinish.position.y += lastXYZ[1]
+        meshFinish.position.z += lastXYZ[2]
         studio.addToScene(root.unit.mesh)
         root.unit.mesh.position.copy(meshFinish.position)
         root.unit.mesh.position.y += 20

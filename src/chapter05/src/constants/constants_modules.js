@@ -9,7 +9,7 @@ import { Player } from '../../../_CORE/entities/createPlayer_v02'
 
 
 import { Helper_MaterialsLib } from '../../../_CORE/helpers/helper_MaterialsLib'
-import { SystemAssets } from "../systems/sustems_assets";
+import { SystemAssets } from "../systems/systems_assets";
 import levelRoomsSrc from '../../../assets/chapter05/level.obj'
 import mapFloorOuter from '../../../assets/chapter04/floor_outer_map3.jpg'
 import mapVirt2 from '../../../assets/chapter05/map02.jpg'

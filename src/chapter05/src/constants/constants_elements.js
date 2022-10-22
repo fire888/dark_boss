@@ -6,7 +6,12 @@ export const LOCATIONS_QUADRANTS = {
     '0_0': 'location01',
     '0_-3': 'location02',
     '3_-1': 'location03',
+    '100_1000': 'locationToFinish',
 }
+
+
+
+
 export const MATERIALS_CONFIG = MATERIALS_CONF
 
 

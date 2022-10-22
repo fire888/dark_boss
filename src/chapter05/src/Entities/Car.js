@@ -19,6 +19,13 @@ export class Car {
         part.material = materials.testBlack
         this._model.add(part)
 
+        this._phase = 0
+        this._battery = assets['level-rooms'].children.filter(item => item.name === 'battary')[0]
+
+        this._battery.material = materials.carBattery
+        this._battery.material.opacity = 0
+        this._model.add(this._battery)
+
         this._camera = new THREE.PerspectiveCamera(80, window.innerWidth/window.innerHeight, .5, 100000)
         this._camera.position.y = 15
         this._model.add(this._camera)
@@ -216,5 +223,14 @@ export class Car {
             this._model.material = materials.carNorm
         }
 
+    }
+
+    updateBattary () {
+        this._phase += 0.05
+        this._battery.material.opacity = Math.sin(this._phase) + 1
+    }
+
+    batteryLight () {
+        this._battery.material.opacity = 0
     }
 }

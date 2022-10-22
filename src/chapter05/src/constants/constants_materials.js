@@ -130,6 +130,14 @@ export const MATERIALS_CONF = {
         },
     },
 
+    'carBattery': {
+        mat: 'MeshBasicMaterial',
+        props: {
+            color: 0xaa0000,
+            transparent: true,
+        },
+    },
+
 
     'testGreen': {
         mat: 'MeshBasicMaterial',

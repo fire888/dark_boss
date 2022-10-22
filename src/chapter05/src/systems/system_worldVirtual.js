@@ -1,7 +1,7 @@
 import { createCheckerChangeLocationKey } from '../components/checkerChangeLocationKey'
 import { createChangerGalleries } from './system_changerGallery'
 import { createLevelArea } from './system_levelArea'
-import { createSustemSprites } from './sustem_sprites'
+import { createSustemSprites } from './system_sprites'
 import { createMeshUnit } from '../Entities/Pers'
 import { SIZE_QUADRANT, LOCATIONS_QUADRANTS } from "../constants/constants_elements";
 
@@ -37,7 +37,7 @@ export const createSystemWorldVirtual = (root, carX, carZ) => {
             systemSprites.update()
             const l = checkerChangeLocation.checkChanged(carX, carZ)
             if (l) {
-                console.log('quadrants data', l)
+                //console.log('quadrants data', l)
                 /** arr/remove level tresh **********************/
                 changerLevelArea.updateAreas(l.removedQs, l.addedQs)
 

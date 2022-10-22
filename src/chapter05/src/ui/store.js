@@ -176,6 +176,13 @@ export const createCustomStore = root => {
         /** *******************************/
 
 
+        if (action.type === 'SHOW_FINAL_MESSAGE') {
+            return ({
+                ...state,
+                isShowFinalMessage: true,
+            })
+        }
+        
         return state
     }
 

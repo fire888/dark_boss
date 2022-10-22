@@ -57,15 +57,16 @@ const location03 = {
 }
 
 
-export const RESULT_DIALOGS = {
-    'location01': 'location02',
-    'location02': 'location03',
-    'location03': 'location01',
-}
-
-
 export const DIALOGS_DATA = {
     location01,
     location02,
     location03,
+}
+
+
+export const RESULT_DIALOGS = {
+    'location01': 'location02',
+    //'location01': 'locationToFinish',
+    'location02': 'location03',
+    'location03': 'locationToFinish',
 }

@@ -84,7 +84,7 @@ export const createLevelArea = root => {
                 }
 
                 const { mesh, meshCollision, meshCollisionCar, id } = buildingData
-                console.log('!!!!!!!!!!!!!!!!! add Build ', id)
+                //console.log('!!!!!!!!!!!!!!!!! add Build ', id)
                 mesh.position.set(
                     x + Math.random() * SIZE_QUADRANT,
                     -60,

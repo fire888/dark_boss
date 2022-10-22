@@ -10,7 +10,7 @@ import {
     SIZE_QUADRANT,
     playerConfig,
 } from '../constants/constants_elements';
-import { createWorldReal } from '../systems/sustem_worldReal'
+import { createWorldReal } from '../systems/system_worldReal'
 import { createSystemWorldVirtual} from "../systems/system_worldVirtual";
 
 
@@ -20,6 +20,8 @@ export class actions {
 
         this._isInRealWord = true
         this._isExitFromVirt = false
+        this._nextLocation = null 
+        this._finalCountDown = 3000
 
 
         const {
@@ -72,6 +74,8 @@ export class actions {
         this._worldReal.addWorld()
         this._worldVirtual = createSystemWorldVirtual(root, car._model.position.x, car._model.position.z)
 
+
+
         frameUpdater.on(data => {
             TWEEN.update()
 
@@ -79,12 +83,14 @@ export class actions {
 
             if (!car.isFreeze) {
                 car.update(data)
+                this._checkEndPlay()    
             } else {
                 system_PlayerMoveOnLevel.update(data)
             }
 
             studio.drawFrame()
         })
+
         this._startPlay()
     }
 
@@ -95,6 +101,8 @@ export class actions {
         system_PlayerMoveOnLevel.toggleFreeze(true)
         car.toggleFreeze(false)
         studio.setCamera(car.getCamera())
+
+
 
         if (this._isInRealWord) {
             this._isInRealWord = false
@@ -119,35 +127,14 @@ export class actions {
         player.setToPos(pos.x, player.mesh.position.y, pos.z)
         player.mesh.setRotationFromQuaternion(q)
 
-        if (!this._isInRealWord) {
-            this._isInRealWord = true
-            this._isExitFromVirt = true
-            setTimeout(() => this._root.dispatcher.dispatch({ type: 'TOGGLE_BUTTON_DRAW_CAR', is: false }))
-            const { position, rotation } = CONSTANTS.CONFIG_FOR_INIT.currentSceneConfig.carProps
-            const carMesh = car.getModel()
-            car.toggleMat('red')
-            carMesh.position.fromArray(position)
-            carMesh.rotation.fromArray(rotation)
-            carMesh.position.y = -49
 
-            const pos = car.getPosition()
-            const q = car.getQuaternion()
-
-            studio.setCamera(player.getCamera())
-            car.toggleFreeze(true)
-
-            system_PlayerMoveOnLevel.toggleFreeze(false)
-            player.setToPos(pos.x, player.mesh.position.y, pos.z)
-            player.mesh.setRotationFromQuaternion(q)
-
-            studio.changeEnvironment(ENV_CONFIG_WORD_1, { updateAmb: false, time: 3000 })
-            this._worldReal.addWorld()
-            this._worldVirtual.removeWorld()
-        }
     }
 
 
     changeTargetLocation ({ key }) {
+        this._nextLocation = key
+        console.log('nextLocation', this._nextLocation)
+
         let keyXZ = null
         for (let k in LOCATIONS_QUADRANTS) {
             if (LOCATIONS_QUADRANTS[k] === key) {
@@ -200,8 +187,8 @@ export class actions {
                 ++i
             }
             const p = key.split('_')
-            const x = +p[0] * SIZE_QUADRANT  + SIZE_QUADRANT / 2
-            const z = +p[1] * SIZE_QUADRANT  + SIZE_QUADRANT / 2
+            const x = +p[0] * SIZE_QUADRANT + SIZE_QUADRANT / 2
+            const z = +p[1] * SIZE_QUADRANT + SIZE_QUADRANT / 2
             const y = 0
 
             car.setTargetPosition(new THREE.Vector3(x, y, z))
@@ -214,6 +201,64 @@ export class actions {
             studio.changeEnvironment(ENV_CONFIG_WORD_1, { updateAmb: false, time: 1})
             player.toggleBlocked(false)
         })
+    }
+
+    _checkEndPlay () {
+        if (this._nextLocation !== 'locationToFinish') {
+            return;
+        }
+        --this._finalCountDown
+        if (this._finalCountDown < 1000) {
+            this._root.car.updateBattary()
+        }
+        this._finalCountDown < 0 && this._endPlay()
+    }
+
+    _endPlay () {
+        this._nextLocation = '----'
+        this._isInRealWord = true
+        this._isExitFromVirt = true
+
+        const {
+            CONSTANTS,
+            dispatcher,
+            car,
+            studio,
+            player,
+            system_PlayerMoveOnLevel,
+        } = this._root
+
+        this._root.car.batteryLight() 
+        setTimeout(() => dispatcher.dispatch({ type: 'TOGGLE_BUTTON_DRAW_CAR', is: false }))
+        const { position, rotation } = CONSTANTS.CONFIG_FOR_INIT.currentSceneConfig.carProps
+        const carMesh = car.getModel()
+        car.toggleMat('red')
+        carMesh.position.fromArray(position)
+        carMesh.rotation.fromArray(rotation)
+        carMesh.position.y = -49
+
+        const pos = car.getPosition()
+        const q = car.getQuaternion()
+
+        studio.setCamera(player.getCamera())
+        car.toggleFreeze(true)
+
+        system_PlayerMoveOnLevel.toggleFreeze(false)
+        player.setToPos(pos.x, player.mesh.position.y, pos.z)
+        player.mesh.setRotationFromQuaternion(q)
+
+
+        this._worldReal.addWorld()
+        this._worldVirtual.removeWorld()
+        studio.changeEnvironment(ENV_CONFIG_WORD_1, { updateAmb: false, time: 1})
+
+
+        setTimeout(() => {
+            studio.changeEnvironment(START_ENV_CONFIG, { updateAmb: false, time: 5000 })
+            setTimeout(() => {
+                this._root.dispatcher.dispatch({ type: 'SHOW_FINAL_MESSAGE' })
+            }, 5000)
+        }, 45000)
     }
 }
 
