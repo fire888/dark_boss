@@ -3,9 +3,9 @@ import { MATERIALS_CONF } from "./constants_materials";
 export const SIZE_QUADRANT = 5000
 export const LOCATIONS_QUADRANTS = {
     //'-4_-1': 'location01',
-    '0_0': 'location01',
-    '0_-3': 'location02',
-    '3_-1': 'location03',
+    '3_-3': 'location01',
+    '-3_-3': 'location02',
+    '3_3': 'location03',
     '100_1000': 'locationToFinish',
 }
 
@@ -72,9 +72,9 @@ export const playerConfig = {
     offsetFromFloorFactor: 0.5,
     offsetWallCollision: 3.5,
     level: -13,
-    startRot: [0, 0, 0],
-    //startPos: [0, -45, 500],
-    startPos: [0, -45, 0],
+    //startRot: [0, 0, 0],
+    startPos: [0, -45, 400],
+    //startPos: [0, -45, 0],
     cameraData: {
         fov: 90,
         ratio: window.innerWidth / window.innerHeight,

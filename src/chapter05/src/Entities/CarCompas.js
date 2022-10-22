@@ -7,7 +7,7 @@ export const createCarCompas = root => {
     } = root
 
     const arrow = root.system_Assets.items.arrow
-    arrow.material = root.materials.testGreen1
+    arrow.material = root.materials.carNorm
 
     const target = new THREE.Object3D()
     // const target = new THREE.Mesh(
@@ -45,6 +45,14 @@ export const createCarCompas = root => {
             else {
                 arrow.rotation.y = -arrow.parent.rotation.y - src.rotation.y + Math.PI
             }
-        }
+        },
+        changeColor: key => {
+            if (key === 'normal') {
+                arrow.material = root.materials.carNorm
+            }
+            if (key === 'green') {
+                arrow.material = root.materials.testGreen1
+            }
+        },
     }
 }

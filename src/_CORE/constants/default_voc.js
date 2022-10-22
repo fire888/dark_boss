@@ -5,6 +5,7 @@ export const INFO_VOC = {
         'Brige': 'Мост',
         'Cube': 'Куб',
         'Endways': 'Напрямик',
+        'Machine': 'Машина',
         'in production': 'скоро..',
         ' (current)': ' (тут)',
         'Author: ': 'от: ',

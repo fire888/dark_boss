@@ -16,6 +16,7 @@ export const startDefaultStoreData = {
             { text: 'Brige', href: './../chapter02' },
             { text: 'Cube', href: './../chapter03' },
             { text: 'Endways', href: './../chapter04' },
+            { text: 'Machine', href: './../chapter05' },
             { text: 'in production' },
         ],
         currentChapterIndex: null,

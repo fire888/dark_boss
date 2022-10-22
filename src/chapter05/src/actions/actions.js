@@ -36,11 +36,11 @@ export class actions {
         /** prepare ui ******/
         dispatcher.dispatch({
             type: 'CHANGE_INFO_CHAPTER',
-            currentChapterIndex: 5,
+            currentChapterIndex: 4,
         })
-        dispatcher.dispatch({
-            type: 'ENABLE_CONTROL_SOUND',
-        })
+        // dispatcher.dispatch({
+        //     type: 'ENABLE_CONTROL_SOUND',
+        // })
 
 
 
@@ -107,7 +107,7 @@ export class actions {
         if (this._isInRealWord) {
             this._isInRealWord = false
             car.toggleMat('green')
-            studio.changeEnvironment(ENV_CONFIG_WORD_2, { updateAmb: false, time: 3000 })
+            studio.changeEnvironment(ENV_CONFIG_WORD_2, { updateAmb: false, time: 50 })
             this._worldVirtual.addWorld()
             this._worldReal.removeWorld()
         }
@@ -127,7 +127,7 @@ export class actions {
         player.setToPos(pos.x, player.mesh.position.y, pos.z)
         player.mesh.setRotationFromQuaternion(q)
 
-
+        //this._endPlay()
     }
 
 
@@ -198,7 +198,7 @@ export class actions {
 
 
         ui.showStartButton(() => {
-            studio.changeEnvironment(ENV_CONFIG_WORD_1, { updateAmb: false, time: 1})
+            studio.changeEnvironment(ENV_CONFIG_WORD_1, { updateAmb: false, time: 1000 })
             player.toggleBlocked(false)
         })
     }
@@ -250,15 +250,15 @@ export class actions {
 
         this._worldReal.addWorld()
         this._worldVirtual.removeWorld()
-        studio.changeEnvironment(ENV_CONFIG_WORD_1, { updateAmb: false, time: 1})
+        studio.changeEnvironment(ENV_CONFIG_WORD_1, { updateAmb: false, time: 50 })
 
 
         setTimeout(() => {
-            studio.changeEnvironment(START_ENV_CONFIG, { updateAmb: false, time: 5000 })
+            studio.changeEnvironment(START_ENV_CONFIG, { updateAmb: false, time: 500 })
             setTimeout(() => {
                 this._root.dispatcher.dispatch({ type: 'SHOW_FINAL_MESSAGE' })
-            }, 5000)
-        }, 45000)
+            }, 1000)
+        }, 35000)
     }
 }
 

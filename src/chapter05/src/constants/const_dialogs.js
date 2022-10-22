@@ -3,16 +3,16 @@ const location01 = {
     phraseIndex: 0,
     phrases: [
         {
-            q: 'What is this place?',
-            a: "It's The Great Way to the surface.",
+            q: 'What\'s happening?', // Что происходит?
+            a: "I am generating the Great Recursion. I need a component. Deliver it to me.", // Я генерю Великую Рекурсию. Мне нужна компонента. Доставь мне ее.
             event: 'nextReply',
         }, {
-            q: 'Who are you?',
-            a: 'I help The Creator.',
+            q: 'Good. Where can I find the component?', // Хорошо. Где мне найти компоненту?
+            a: 'I updated the sign in your car, follow it.', // Я обновил указатель в твоей машине, следуй ему.
             event: 'nextReply',
         }, {
-            q: 'What are you doing?',
-            a: "Don't distract me, I have to dig the tunnel.",
+            q: 'I\'ll be back.', // Я вернусь.
+            a: "For the glory of Recursion.", // Во славу Рекурсии.
             event: 'close',
         },
     ],
@@ -23,12 +23,12 @@ const location02 = {
     phraseIndex: 0,
     phrases: [
         {
-            q: 'Such enormous dungeons...',
-            a: 'The Creator gave the order to dig.',
+            q: 'Do you have a Great Recursion Component?', // У тебя есть Компонента для Великой Рекурсии?
+            a: 'I will generate you a Great Component for the Great Recursion. I need a Component.', // Я сгенерю тебе Великую Компоненту для Великой Рекурсии. Мне нужна Компонента.
             event: 'nextReply',
         }, {
-            q: 'How long have you been digging?',
-            a: 'Time does not matter, the goal is what\'s important.',
+            q: 'Where can I find her?', // Где мне ее найти?
+            a: 'I updated the pointer in the car.', // Я обновил указатель в машине.
             event: 'close',
         },
     ],
@@ -39,18 +39,18 @@ const location03 = {
     phraseIndex: 0,
     phrases: [
         {
-            q: 'What do you do here?',
-            a: 'Long ago, the Creator fell under the ground. He created us and gave us an assignment to dig.',
+            q: 'Do you have a Component for the Great Component of the Great Recursion?', // У тебя есть Компонента для Великой Копоненты Великой Рекурсии?
+            a: 'Yes. I have finished generating the Component.', // Да. Я закончил генерить Компоненту.
             event: 'nextReply',
         },
         {
-            q: "But you already dug the way out...",
-            a: 'When we dug a tunnel, The Creator went through it.',
+            q: "I need to deliver it to generate the Great Component.", // Мне нужно доставить ее для генерации Великой Компоненты.
+            a: 'The pointer in your car has been updated. He will point to the Component of the Great Component.', // Указатель в твоей машине обновлен. Он укажет на Компоненту Великой Компоненты.
             event: 'nextReply',
         },
         {
-            q: "And...",
-            a: 'We are made to dig. And we keep on doing it. We believe that he will return to us.',
+            q: "Is my car the key to Components?", // Моя машина это ключ к Компонентам?
+            a: 'Your Machine is the main Generator. Follow him.', // Твоя Машина это главный Генератор. Следуй ему.
             event: 'close',
         },
     ],

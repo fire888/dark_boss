@@ -11,11 +11,9 @@ export const uiState = {
     isShowPalleteDialog: false,
     isShowFinalMessage: false,
     isShowButtonDrawCar: false,
-    valButtonDrawCar: 'draw car',
+    valButtonDrawCar: 'drive',
 
     currentLocation: null,
-    //phraseIndex: 0,
-    //isDialogComplete: false,
     phrasesData: DIALOGS_DATA,
     isShowButtonToggleOpenLocationsList: false,
     isLocationListOpened: false,
@@ -140,17 +138,17 @@ export const createCustomStore = root => {
         }
         if (action.type === 'CLICK_DRAW') {
             const { valButtonDrawCar } = state
-            if (valButtonDrawCar === 'draw car') {
+            if (valButtonDrawCar === 'drive') {
                 root.actions.clickMachineDraw()
                 return ({
                     ...state,
-                    valButtonDrawCar: 'exit car',
+                    valButtonDrawCar: 'exit',
                 })
             } else {
                 root.actions.clickMachineExit()
                 return ({
                     ...state,
-                    valButtonDrawCar: 'draw car',
+                    valButtonDrawCar: 'drive',
                 })
             }
         }

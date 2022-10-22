@@ -111,7 +111,7 @@ export class Studio {
             this._renderer.setSize(size.width, size.height)
             this._composer.setSize(size.width, size.height)
             if (this._controlsCamera) {
-                this._controlsCamera.aspect = size.width/size.height
+                this._controlsCamera.aspect = size.width / size.height
                 this._controlsCamera.updateProjectionMatrix()
             }
             if (this._playerCamera) {
@@ -145,6 +145,8 @@ export class Studio {
     /** PUBLIC ****************************************/
 
     setCamera (cam) {
+        cam.aspect = window.innerWidth / window.innerHeight
+        cam.updateProjectionMatrix()
         this._playerCamera = cam
         this._renderPass.camera = this._playerCamera
     }
