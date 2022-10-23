@@ -28,10 +28,14 @@ const mapStateToProps = state => {
 
 
 function CustomReactComponent(props) {
-
     return (
         <>
-            {(!props.isShowFinalMessage && props.isButtonDialog || props.isShowPalleteDialog) && (
+            {!props.isShowFinalMessage && props.isButtonDialog && !props.isShowPalleteDialog && <button
+                className={`control control-enter`}
+                onClick={() => props.dispatch({ type: 'TOGGLE_DIALOG', isShowPalleteDialog: true })}>
+            </button>}
+            
+            {(props.isShowPalleteDialog) && (
                 <div className="dialog-wrapper">
                     <div className="dialog-content">
 
@@ -40,6 +44,8 @@ function CustomReactComponent(props) {
                             <UserReplicies />
                         </div>}
 
+
+
                         {props.isButtonDialog && <button
                             className="dialog-button-toggle"
                             onClick={() => props.dispatch({ type: 'TOGGLE_DIALOG', isShowPalleteDialog: !props.isShowPalleteDialog })}>
@@ -47,17 +53,13 @@ function CustomReactComponent(props) {
                         </button>}
                     </div>
                 </div>)}
+                
 
             {props.isShowButtonDrawCar && (
-                <div className="dialog-wrapper">
-                    <div className="dialog-content">
-                        <button
-                            className="draw-car-button"
-                            onClick={() => props.dispatch({ type: 'CLICK_DRAW' })}>
-                            {t(props.valButtonDrawCar)}
-                        </button>
-                    </div>
-                </div>)}
+                <button
+                    className={`control ${props.valButtonDrawCar === 'exit' ? 'control-exit' : 'control-enter'}`}
+                    onClick={() => props.dispatch({ type: 'CLICK_DRAW' })}>
+                </button>)}
 
 
             {/*{props.isShowButtonToggleOpenLocationsList && !props.isLocationListOpened && <button*/}

@@ -16,9 +16,8 @@ export default connect(mapStateToProps)(function(props) {
     return ( 
         <div className="info">
             <button
-                className="control butt-infoClose"
+                className="control-small butt-infoClose"
                 onClick={() => props.dispatch({ type: 'TOGGLE_INFO' })}>
-                x
             </button>
             <div className="info-inner">
                 <p>{t(props.title)}</p>

@@ -19,7 +19,7 @@ button.draw-car-button {
     position: absolute;
     left: 8rem;
     right: 8rem;
-    bottom: 10rem;
+    bottom: .5rem;
     top: 7rem;
     display: flex;
     flex-direction: row;
@@ -48,15 +48,6 @@ button.open-locations-car-button {
     height: auto;
 }
 
-
-
-
-@media screen and (min-width: 610px) {
-    .dialog-wrapper {
-        top: 2rem;
-        bottom: 2rem;
-    }
-}
 
 .dialog-content {
     min-width: 300px;
@@ -113,18 +104,6 @@ button.open-locations-car-button {
 } 
 
 
-
-/* .final-message {
-    text-align: center;
-    background: none;
-} */
-
-
-/* .final-message p {
-    font-size: 14px;
-    font-weight: bold;
-} */
-
 .final-mess {
     font-size: 19px;
     font-weight: bold;
@@ -135,6 +114,56 @@ button.open-locations-car-button {
     text-align: center;
     color: rgba(255, 255, 255, 0.753);
 }
+
+
+@media screen and (min-width: 910px) {
+    .dialog-wrapper {
+        top: .5rem;
+        bottom: .5rem;
+    }
+    button.dialog-button-toggle {
+        height: 30px;
+        font-size: 17px;
+    }
+    .replicies button {
+        font-size: 17px;
+        height: auto;
+    }
+
+}
+
+.ui button {
+    background-size: contain !important;
+}
+
+.ui button.control-enter {
+    width: 70px;
+    height: 70px;
+    bottom: 7rem;
+    left: 50vw;
+    transform: translate(-30px, 0);
+    background-size: contain;
+    background: url(../../../assets/ui/c-start-enter.png)  center no-repeat;
+    z-index: 1000;
+}
+
+.ui button.control-exit {
+    width: 70px;
+    height: 70px;
+    bottom: 7rem;
+    left: 50vw;
+    transform: translate(-30px, 0);
+    background-size: contain;
+    background: url(../../../assets/ui/c-end-exit.png)  center no-repeat;
+}
+
+.ui button.control-enter:hover,
+.ui button.control-exit:hover 
+{
+    border: 1px solid #e4f9ff; 
+    background-color: #181d3855;
+}
+
 
 
 

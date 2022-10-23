@@ -20,9 +20,15 @@
 }
 
 
-.butt-infoClose {
+.info button.butt-infoClose {
+    border: none;
     right: 0;
     top: 0;
+    background: url(../../../assets/ui/c-close.png);
+}
+
+.ui .info button.butt-infoClose:hover {
+    border: none;
 }
 
 .info-inner {

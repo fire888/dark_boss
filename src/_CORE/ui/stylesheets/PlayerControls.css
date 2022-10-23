@@ -9,15 +9,21 @@
     transition: 0.2s;  
     height: 60px;
     width: 35vw;
-    border: 2px solid #e4f9ff; 
+    border: 1px solid #e4f9ff; 
     min-height: 4vh;
     width: auto;
     overflow: hidden;
-    border-radius: 5px; 
-    background: #181d38;
+    background-color: #181d3855;
     color: #e4f9ff;
     cursor: pointer;
     margin: 1vh;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 
@@ -28,16 +34,34 @@
     width: 60px;
     max-width: 80px;
     max-height: 80px;
-    border-radius: 40px;
+    user-select: none;
+    border-radius: 150px; 
+    background-size: contain;
+}
+
+.ui button.control-small  {
+    position: absolute;
+    flex: 0 0 60px;
+    height: 40px;
+    width: 40px;
+    border-radius: 150px; 
+    background-size: contain;
 }
 
 
 
 .ui button:hover {
-    background: #e4f9ff;
+    background-color: #e4f9ff;
     color: #181d38;
     cursor: pointer;
     border-color:  #181d38;
+}
+
+.ui button.control:hover,  
+.ui button.control-small:hover
+{
+    border: 1px solid #e4f9ff; 
+    background-color: #181d3855;
 }
 
 
@@ -45,37 +69,71 @@
 .butt-left {
     bottom: 1.5rem;
     left: .5rem;
+    background: url(../../../assets/ui/c-left.png) center no-repeat;
 }
 
 .butt-right {
     bottom: 1.5rem;
     left: 5rem;
+    background: url(../../../assets/ui/c-right.png) center no-repeat;
 }
 
 .butt-front {
     bottom: 5.5rem;
     right: 1rem;
+    background: url(../../../assets/ui/c-top.png) center no-repeat;
 }
 
 .butt-back {
     bottom: 1.5rem;
     right: 1rem;
+    background: url(../../../assets/ui/c-bottom.png) center no-repeat;
 }
 
-.butt-fullscreen {
+button.butt-fullscreen {
+    height: 60px;
+    width: 60px;
+    background-color: none;
+    border: none;
     top: .5rem;
-    right: 1rem
+    right: 4rem;
+    background: url(../../../assets/ui/c-screen.png) center no-repeat; 
+}
+button.butt-info {
+    background-color: none;
+    border: none;
+    top: .5rem;
+    right: 1rem;
+    background: url(../../../assets/ui/c-i.png) center no-repeat; 
+}
+button.butt-sound {
+    background-color: none;
+    border: none;
+    top: .5rem;
+    left: 1rem; 
+    background: url(../../../assets/ui/c-sound.png) center no-repeat; 
+}
+button.butt-sound-n {
+    background-color: none;
+    border: none;
+    top: .5rem;
+    left: 1rem; 
+    background: url(../../../assets/ui/c-sound-n.png) center no-repeat; 
 }
 
-.butt-info {
-    top: .5rem;
-    right: 5.5rem;
+
+.ui button.butt-fullscreen:hover, 
+.ui button.butt-info:hover,
+.ui button.butt-sound:hover,
+.ui button.butt-sound-n:hover
+{
+    background-color: none;
+    border: none;
 }
 
-.butt-sound {
-    top: .5rem;
-    right: 10rem;  
-}
+
+
+
 
 
 

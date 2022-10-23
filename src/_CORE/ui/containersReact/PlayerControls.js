@@ -27,7 +27,7 @@ export default connect(
     return (
         <div className='ui-controls'>
             {props.isShowControls && props.isShowControlSound && <button
-                className="butt-sound control"
+                className={`${props.isMute ? 'butt-sound-n' : 'butt-sound' } control-small`}
                 onMouseUp={() => { 
                     props.gameContext.emitter.emit('toggleSound')(!props.isMute) 
                     props.dispatch({ type: 'TOGGLE_MUTE', is: !props.isMute })
@@ -37,7 +37,6 @@ export default connect(
                     props.dispatch({ type: 'TOGGLE_MUTE', is: !props.isMute })
                 }}
             >
-                {props.isMute ? <>&#10236;</> : <>&#10239;</>}
             </button>}
 
             {props.isShowControls && <button
@@ -47,7 +46,6 @@ export default connect(
                 onMouseUp={() => props.gameContext.emitter.emit('mouseUp')('butt-left')}
                 onTouchEnd={() => props.gameContext.emitter.emit('mouseUp')('butt-left')}
             >
-                &#9668;
             </button>}
 
 
@@ -58,7 +56,6 @@ export default connect(
                 onMouseUp={() => props.gameContext.emitter.emit('mouseUp')('butt-right')}
                 onTouchEnd={() => props.gameContext.emitter.emit('mouseUp')('butt-right')}
             >
-                &#9658;
             </button>}
 
 
@@ -69,7 +66,6 @@ export default connect(
                 onMouseUp={() => props.gameContext.emitter.emit('mouseUp')('butt-front')}
                 onTouchEnd={() => props.gameContext.emitter.emit('mouseUp')('butt-front')}
             >
-                &#9650;
             </button>}
 
             {props.isShowControls && <button
@@ -79,26 +75,23 @@ export default connect(
                 onMouseUp={() => props.gameContext.emitter.emit('mouseUp')('butt-back')}
                 onTouchEnd={() => props.gameContext.emitter.emit('mouseUp')('butt-back')}
             >
-                &#x25BC;
             </button>}
 
 
 
             {props.isShowControls && isShowFullScreenButt && (
                 <button
-                    className="butt-fullscreen control"
+                    className="butt-fullscreen control-small"
                     onClick={() => {
                         props.gameContext.emitter.emit('mouseDown')('butt-fullscreen')
                         changeShowFullScreenButt(false)
                     }}>
-                    &#10066;
                 </button>)}
 
             {!props.isInfo && (
                 <button
-                    className="butt-info control"
+                    className="butt-info control-small"
                     onClick={() => props.dispatch({ type: 'TOGGLE_INFO' })}>
-                    i
                 </button>)}
 
 

@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "./static/css/main.9a553338.chunk.css",
-    "main.js": "./static/js/main.fbcabedc.chunk.js",
-    "main.js.map": "./static/js/main.fbcabedc.chunk.js.map",
+    "main.js": "./static/js/main.31669afb.chunk.js",
+    "main.js.map": "./static/js/main.31669afb.chunk.js.map",
     "runtime-main.js": "./static/js/runtime-main.2134470b.js",
     "runtime-main.js.map": "./static/js/runtime-main.2134470b.js.map",
     "index.html": "./index.html",
@@ -11,6 +11,6 @@
   "entrypoints": [
     "static/js/runtime-main.2134470b.js",
     "static/css/main.9a553338.chunk.css",
-    "static/js/main.fbcabedc.chunk.js"
+    "static/js/main.31669afb.chunk.js"
   ]
 }
