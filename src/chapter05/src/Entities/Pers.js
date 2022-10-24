@@ -53,8 +53,29 @@ export const createMeshUnit = (root) => {
         hh: 16,
         hhD: -12,
     })
-    let phase = 0
-    const fillL = [...dataUnit1.v]
+    const dataUnit3 = createDataUnit({ 
+        r: 16,
+        cone: 9,
+        w: 1,
+        wt: 5,
+        wtr: 6,
+        htr: 6,
+        rInner: -3,
+        hhh: 8,
+    }) 
+    const dataUnit4 = createDataUnit({ 
+        r: 16,
+        cone: 15,
+        w: 1.5,
+        wt: 8,
+        wtr: 6,
+        htr: 6,
+        rInner: -3,
+        hhh: 8,
+    }) 
+
+
+
 
     const v = new Float32Array(dataUnit1.v)
     const c =  new Float32Array(dataUnit2.c)
@@ -79,25 +100,96 @@ export const createMeshUnit = (root) => {
     const s4 = createS(root, { r: 50, s: .5 })
     mesh.add(s4) 
 
+    let phase = 0
+    let phaseMesh = 0
+    let mode = 'idle'
+    let strength = 0
+    const spd = 0.05
+    let starQSaved = new THREE.Quaternion()
+    let meshQSaved = new THREE.Quaternion()
+    const q0 = new THREE.Quaternion()
+
+
+    let arr1 = dataUnit1.v
+    let arr2 = dataUnit2.v 
+
+    let isRotate = true
+
     return { 
         mesh,
         update: () => {
-            phase += 0.05
-            const t = Math.sin(phase)
-            s1.rotation.y = - phase * 2
-            s2.rotation.x = - phase * 2
-            s3.rotation.z= - phase * 2 
-            s4.rotation.y = phase / 4
-            star.rotation.y = phase / 2
-            star.rotation.x = phase / 1.33
-            star.rotation.z = phase / 1.88
 
-            //mesh.rotation.x = phase / 5
-            for (let i = 0; i < dataUnit1.v.length; ++i) {
-                geometry.attributes.position.array[i] = dataUnit1.v[i] * (1 - t) + dataUnit2.v[i] * t
-                
+            phaseMesh += 0.05
+            s1.rotation.y = - phaseMesh * 2
+            s2.rotation.x = - phaseMesh * 2
+            s3.rotation.z= - phaseMesh * 2 
+            s4.rotation.y = phaseMesh / 4
+            mesh.rotation.y = phaseMesh / 5
+
+            if (mode === 'idle') {
+                const t = Math.sin(phase)
+
+                phase += 0.05
+                if (isRotate) {
+                    star.rotation.y = phase / 2
+                    star.rotation.x = phase / 1.33
+                    star.rotation.z = phase / 1.88
+                }
+
+                for (let i = 0; i < dataUnit1.v.length; ++i) {
+                    geometry.attributes.position.array[i] = arr1[i] * (1 - t) + arr2[i] * t
+                }
+                star.geometry.attributes.position.needsUpdate = true
             }
-            star.geometry.attributes.position.needsUpdate = true
-        }  
+
+            if (mode === 'toDialog') {
+                strength += spd
+                if (strength > 1) strength = 1
+                star.quaternion.slerpQuaternions(starQSaved, q0, strength)
+                for (let i = 0; i < dataUnit1.v.length; ++i) {
+                    geometry.attributes.position.array[i] = arr1[i] * (1 - strength) + arr2[i] * strength
+                }
+                star.geometry.attributes.position.needsUpdate = true
+                if (strength === 1) {
+                    isRotate = false
+                    mode = 'idle'
+                    phase = 0
+                    arr1 = dataUnit3.v
+                    arr2 = dataUnit4.v
+                }
+            }
+
+            if (mode === 'fromDialog') {
+                strength += spd
+                if (strength > 1) strength = 1
+                for (let i = 0; i < dataUnit1.v.length; ++i) {
+                    geometry.attributes.position.array[i] = arr1[i] * (1 - strength) + arr2[i] * strength
+                }
+                star.geometry.attributes.position.needsUpdate = true
+                if (strength === 1) {
+                    mode = 'idle'
+                    phase = 0
+                    arr1 = dataUnit1.v
+                    arr2 = dataUnit2.v
+                    isRotate = true
+                }
+            }
+
+
+        },
+        prepareDialog: () => {
+            mode = 'toDialog'
+            arr1 = [...geometry.attributes.position.array]
+            arr2 = dataUnit3.v
+            strength = 0
+            meshQSaved.copy(mesh.quaternion)
+            starQSaved.copy(star.quaternion)
+        },
+        exitDialog: () => {
+            mode = 'fromDialog'
+            arr1 = [...geometry.attributes.position.array]
+            arr2 = dataUnit1.v
+            strength = 0
+        }
     }
 }

@@ -64,7 +64,26 @@ export class actions {
                 root.dispatcher.dispatch({ type: 'TOGGLE_BUTTON_DRAW_CAR', is: data.is })
             }
             if (data.item.includes('nearPerson')) {
-                root.dispatcher.dispatch({ type: 'TOGGLE_BUTTON_DIALOG', is: data.is, keyPerson: data.item })
+
+                if (data.is) {
+                    root.unit.prepareDialog()
+                } else {
+                    root.unit.exitDialog()  
+                }
+
+                setTimeout(() => {
+                    root.dispatcher.dispatch({ type: 'TOGGLE_BUTTON_DIALOG', is: data.is, keyPerson: data.item })
+                })
+
+    // setTimeout(() => {
+    //     unit.prepareDialog()
+    //     setTimeout(() => {
+    //         unit.exitDialog()    
+    //     }, 10000)
+    // }, 3000)
+
+
+                //root.dispatcher.dispatch({ type: 'TOGGLE_BUTTON_DIALOG', is: data.is, keyPerson: data.item })
             }
         })
 
@@ -91,6 +110,18 @@ export class actions {
             studio.drawFrame()
         })
 
+//         //////////
+//         setTimeout(() => {
+//         ////////////////////
+//         this._isInRealWord = false
+//         car.toggleMat('green')
+//         studio.changeEnvironment(ENV_CONFIG_WORD_2, { updateAmb: false, time: 50 })
+//         this._worldVirtual.addWorld()
+//         this._worldReal.removeWorld()
+// ////////////////////////
+//         }, 100)
+// //////////////////////////
+
         this._startPlay()
     }
 
@@ -101,8 +132,6 @@ export class actions {
         system_PlayerMoveOnLevel.toggleFreeze(true)
         car.toggleFreeze(false)
         studio.setCamera(car.getCamera())
-
-
 
         if (this._isInRealWord) {
             this._isInRealWord = false

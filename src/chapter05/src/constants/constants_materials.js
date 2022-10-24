@@ -10,6 +10,7 @@ export const MATERIALS_CONF = {
             shininess: 5,
             vertexColors: true,
             flatShading: false,
+            side: THREE.DoubleSide,
         },
     },
     'wallVirtual': {

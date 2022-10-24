@@ -112,7 +112,6 @@ export const createCustomStore = root => {
             const { event } = action.phrase
 
             if (event === 'nextReply') {
-                console.log(JSON.stringify(state))
                 const { isComplete, phraseIndex, phrases } = state.phrasesData[state.currentLocation]
                 const nextPhraseIndex = phraseIndex + 1
                 const userReplicies = [phrases[nextPhraseIndex]]
