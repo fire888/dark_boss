@@ -178,18 +178,18 @@ export const createMeshUnit = (root) => {
 
         },
         prepareDialog: () => {
-            mode = 'toDialog'
-            arr1 = [...geometry.attributes.position.array]
-            arr2 = dataUnit3.v
-            strength = 0
-            meshQSaved.copy(mesh.quaternion)
-            starQSaved.copy(star.quaternion)
+            // mode = 'toDialog'
+            // arr1 = [...geometry.attributes.position.array]
+            // arr2 = dataUnit3.v
+            // strength = 0
+            // meshQSaved.copy(mesh.quaternion)
+            // starQSaved.copy(star.quaternion)
         },
         exitDialog: () => {
-            mode = 'fromDialog'
-            arr1 = [...geometry.attributes.position.array]
-            arr2 = dataUnit1.v
-            strength = 0
+            // mode = 'fromDialog'
+            // arr1 = [...geometry.attributes.position.array]
+            // arr2 = dataUnit1.v
+            // strength = 0
         }
     }
 }

@@ -13,8 +13,8 @@ export const createSystemWorldVirtual = (root, carX, carZ) => {
     const unit = createMeshUnit(root)
     root.unit = unit
 
-    root.studio.addToScene(root.unit.mesh)
-    root.unit.mesh.position.y = -40
+    //root.studio.addToScene(root.unit.mesh)
+    //root.unit.mesh.position.y = -40
 
     // setTimeout(() => {
     //     unit.prepareDialog()
