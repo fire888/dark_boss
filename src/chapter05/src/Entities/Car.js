@@ -81,9 +81,10 @@ export class Car {
         this._maxSpdBack = 10
         this._spdRot = 0.03
 
-        this._isCarStay = false
+        this._isCarStay = true
 
 
+        let savedSpd = 0
 
         this.update = data => {
             if (this.isFreeze) {
@@ -160,10 +161,13 @@ export class Car {
             /** callback change state stay or move *****/
             if (this._isCarStay && this._spd !== 0) {
                 this._isCarStay = false
+                root.system_Sound.startCar()
                 this._onChangeStateIsStay('carStart')
             }
             if (!this._isCarStay && this._spd === 0) {
+                console.log('stop')
                 this._isCarStay = true
+                root.system_Sound.stopCar()
                 this._onChangeStateIsStay('carStop')
             }
         }

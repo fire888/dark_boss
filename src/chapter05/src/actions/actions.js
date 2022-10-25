@@ -38,9 +38,9 @@ export class actions {
             type: 'CHANGE_INFO_CHAPTER',
             currentChapterIndex: 4,
         })
-        // dispatcher.dispatch({
-        //     type: 'ENABLE_CONTROL_SOUND',
-        // })
+        dispatcher.dispatch({
+            type: 'ENABLE_CONTROL_SOUND',
+        })
 
 
 
@@ -229,6 +229,7 @@ export class actions {
         ui.showStartButton(() => {
             studio.changeEnvironment(ENV_CONFIG_WORD_1, { updateAmb: false, time: 1000 })
             player.toggleBlocked(false)
+            this._root.system_Sound.playAmbient()
         })
     }
 

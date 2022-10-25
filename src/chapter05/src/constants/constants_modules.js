@@ -42,8 +42,10 @@ import { system_PlayerNearLevelItems } from '../systems/system_PlayerNearLevelIt
 import { actions } from '../actions/actions'
 import { Ui } from "../ui/Ui";
 
-//import { system_Sound } from '../systems/system_Sound'
-//import soundAmbientSrc from '../../../assets/sound/ambient.mp3'
+import { system_Sound } from '../systems/system_Sound'
+import soundAmbientSrc from '../../../assets/chapter05/audio/ambient.mp3'
+import carStart from '../../../assets/chapter05/audio/ambient_intro.mp3'
+import carLoop from '../../../assets/chapter05/audio/ambient_loop.mp3'
 
 
 
@@ -128,14 +130,16 @@ export const GAME_MODULES = [
         constr: system_PlayerMoveOnLevel,
         initStateKey: 'beforeStartPlay',
     },
-    // {
-    //     key: 'system_Sound',
-    //     constr: system_Sound,
-    //     initStateKey: 'beforeStartPlay',
-    //     assetsToLoad: [
-    //         { type: 'soundMp3', path: soundAmbientSrc, key: 'soundAmbient' },
-    //     ]
-    // },
+    {
+        key: 'system_Sound',
+        constr: system_Sound,
+        initStateKey: 'beforeStartPlay',
+        assetsToLoad: [
+            { type: 'soundMp3', path: soundAmbientSrc, key: 'soundAmbient' },
+            { type: 'soundMp3', path: carStart, key: 'carStart' },
+            { type: 'soundMp3', path: carLoop, key: 'carLoop' },
+        ]
+    },
     {
         key: 'customUi',
         constr: Ui,
