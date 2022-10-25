@@ -16,13 +16,13 @@ export class system_Sound {
 
         this._soundCarStart = new THREE.Audio(listener)
         this._soundCarStart.setBuffer(root.assets.carStart)
-        this._sound.setLoop(false)
-        this._soundCarStart.setVolume(0.06)
+        this._soundCarStart.setLoop(false)
+        this._soundCarStart.setVolume(0.09)
 
         this._soundCar = new THREE.Audio(listener)
         this._soundCar.setBuffer(root.assets.carLoop)
         this._soundCar.setLoop(true)
-        this._soundCar.setVolume(0.06)
+        this._soundCar.setVolume(0.09)
 
 
         this._isMuted = false
