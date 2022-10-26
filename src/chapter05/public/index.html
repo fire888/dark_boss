@@ -92,6 +92,7 @@ a {
   margin-top: 1rem;
 }
 .instructions p {
+  font-weight: bold;
   font-size: 16px;
 }
 .load-container {
@@ -107,11 +108,11 @@ a {
 
 /*****************************/
 .progress-wrapper {
-  border: 2px solid #e4f9ff; 
+  /*border: 2px solid #e4f9ff; */
   min-height: 4vh;
   width: 31vh;
   overflow: hidden;
-  border-radius: 5px; 
+  /*border-radius: 5px; */
 }
 .startbuttons-wrapper {
   /*border: 2px solid #e4f9ff;*/ 
@@ -159,7 +160,7 @@ a {
         <img src="start-img.png">
       </div>
       <div class="instructions">
-        <p>Keys: &#8592; &#8593; &#8594; &#8595;, w s a d</p>
+        <p>&#8592; &#8593; &#8594; &#8595; &nbsp;&nbsp; W A S D</p>
       </div> 
       <div class = "load-container">
         <div class="startbuttons-wrapper" style="display: none;">
@@ -167,7 +168,8 @@ a {
             <button class="start-butt" data-lang="ru">RU</button>
         </div>
         <div class="progress-wrapper">
-          <div class="progress"></div> 
+          <img src="icon.gif" style="width: 50px; height: 50px; border: none; border-radius: 100px;">
+          <div class="progress" style="display: none"></div>
         </div> 
       </div>
     </div>
