@@ -95,6 +95,8 @@ export class system_PlayerMoveOnLevel {
         }
 
 
+        let isSoundWalk = false
+        let savedPos = new THREE.Vector3()
 
         this.update = data => {
             if (this.isFreeze) {
@@ -107,9 +109,49 @@ export class system_PlayerMoveOnLevel {
 
             if (isBlocked) return;
 
-            checkBottomAndDropDownPlayer(data)
+            
+            savedPos.x = player.mesh.position.x
+            savedPos.y = player.mesh.position.y  
+            savedPos.z = player.mesh.position.z        
+        
+
             keys['up'] && this.isCanMove['forward'] && checkAndMoveFront(data)
             keys['down'] && this.isCanMove['back'] && checkAndMoveBack(data)
+
+
+
+            if (
+                savedPos.x === player.mesh.position.x &&
+                savedPos.z === player.mesh.position.z &&
+                isSoundWalk
+            ) {
+                isSoundWalk = false
+                root.system_Sound.stopWalk()
+            }
+
+
+            let isMustStartSound = false
+            if (
+                (savedPos.x !== player.mesh.position.x || savedPos.z !== player.mesh.position.z) &&
+                !isSoundWalk
+            ) {
+                isMustStartSound = true
+            }
+
+
+            checkBottomAndDropDownPlayer(data)
+
+            if (savedPos.y > player.mesh.position.y) {
+                isSoundWalk = false
+                root.system_Sound.stopWalk()
+                isMustStartSound = false
+            }
+
+            if (isMustStartSound) {
+                isSoundWalk = true
+                root.system_Sound.startWalk()
+            }
+
             keys['p'] && console.log(`player.mesh.position.fromArray([${player.mesh.position.x}, ${player.mesh.position.y}, ${player.mesh.position.z}])`)
         }
     

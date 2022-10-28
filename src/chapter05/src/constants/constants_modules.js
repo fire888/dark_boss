@@ -46,6 +46,7 @@ import { system_Sound } from '../systems/system_Sound'
 import soundAmbientSrc from '../../../assets/chapter05/audio/ambient.mp3'
 import carStart from '../../../assets/chapter05/audio/ambient_intro.mp3'
 import carLoop from '../../../assets/chapter05/audio/ambient_loop.mp3'
+import unitStepAudio from '../../../assets/chapter05/audio/ambient_3.mp3'
 
 
 
@@ -138,6 +139,7 @@ export const GAME_MODULES = [
             { type: 'soundMp3', path: soundAmbientSrc, key: 'soundAmbient' },
             { type: 'soundMp3', path: carStart, key: 'carStart' },
             { type: 'soundMp3', path: carLoop, key: 'carLoop' },
+            { type: 'soundMp3', path: unitStepAudio, key: 'unitStep' },
         ]
     },
     {
