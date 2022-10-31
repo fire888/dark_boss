@@ -74,16 +74,6 @@ export class actions {
                 setTimeout(() => {
                     root.dispatcher.dispatch({ type: 'TOGGLE_BUTTON_DIALOG', is: data.is, keyPerson: data.item })
                 })
-
-    // setTimeout(() => {
-    //     unit.prepareDialog()
-    //     setTimeout(() => {
-    //         unit.exitDialog()    
-    //     }, 10000)
-    // }, 3000)
-
-
-                //root.dispatcher.dispatch({ type: 'TOGGLE_BUTTON_DIALOG', is: data.is, keyPerson: data.item })
             }
         })
 
@@ -109,19 +99,6 @@ export class actions {
 
             studio.drawFrame()
         })
-
-//         //////////
-//         setTimeout(() => {
-//         ////////////////////
-//         this._isInRealWord = false
-//         car.toggleMat('green')
-//         studio.changeEnvironment(ENV_CONFIG_WORD_2, { updateAmb: false, time: 50 })
-//         this._worldVirtual.addWorld()
-//         this._worldReal.removeWorld()
-// ////////////////////////
-//         }, 100)
-// //////////////////////////
-
         this._startPlay()
     }
 
@@ -155,14 +132,11 @@ export class actions {
         system_PlayerMoveOnLevel.toggleFreeze(false)
         player.setToPos(pos.x, player.mesh.position.y, pos.z)
         player.mesh.setRotationFromQuaternion(q)
-
-        //this._endPlay()
     }
 
 
     changeTargetLocation ({ key }) {
         this._nextLocation = key
-        console.log('nextLocation', this._nextLocation)
 
         let keyXZ = null
         for (let k in LOCATIONS_QUADRANTS) {
@@ -256,6 +230,7 @@ export class actions {
             studio,
             player,
             system_PlayerMoveOnLevel,
+            system_Sound,
         } = this._root
 
         this._root.car.batteryLight() 
@@ -272,6 +247,7 @@ export class actions {
 
         studio.setCamera(player.getCamera())
         car.toggleFreeze(true)
+        system_Sound.stopCar()
 
         system_PlayerMoveOnLevel.toggleFreeze(false)
         player.setToPos(pos.x, player.mesh.position.y, pos.z)
