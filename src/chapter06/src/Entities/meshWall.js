@@ -8,16 +8,26 @@ export const createMeshWall = (root) => {
     const mesh = new THREE.Object3D()
 
     const dataWall = []
-    for (let i = 0; i < 20; ++i) {
+    const fullWidth = 2000
+    let x = 0
+    let w = null
+    let wNext = Math.random() * 70 + 10
+
+    while (x < fullWidth) {
+        const wc = 2.5
+        w = wNext
+        wNext = Math.random() * 80 + 10
         dataWall.push({
-            x: i * 55,
-            w: 50,
-            wc: 2.5,
-            innerH: 100 + Math.random() * 100,
+            x,
+            w,
+            wc,
+            innerH: w + Math.random() * 160,
             h: 250,
-            isWindow: i !== 10,
+            isWindow: Math.random() < .7,
         })
+        x += (w / 2 + wNext / 2 + wc + wc)
     }
+
 
     const v = []
     const c = []
@@ -29,7 +39,8 @@ export const createMeshWall = (root) => {
             const windowTrash = createDataWindowTrash({
                 w: dataWall[i].w,
                 h: dataWall[i].innerH,
-                t: 10
+                t: 10,
+                countTrash: dataWall[i].w / 5
             })
             translateArr(windowTrash.v, dataWall[i].x, 0, 0)
             v.push(...windowTrash.v)
@@ -48,6 +59,8 @@ export const createMeshWall = (root) => {
         c.push(...arc.c)
 
     }
+
+    translateArr(v, -5 * 105, 0, 0 )
 
 
 
