@@ -35,6 +35,9 @@
     "start05": "set FOLDER=chapter05 && react-app-rewired start",
     "build05": "set FOLDER=chapter05 && react-app-rewired build",
 
+    "start06": "set FOLDER=chapter06 && react-app-rewired start",
+    "build06": "set FOLDER=chapter06 && react-app-rewired build",
+
     "startContinued": "set FOLDER=chapter_continued && react-app-rewired start",
     "buildContinued": "set FOLDER=chapter_continued && react-app-rewired build",
 
