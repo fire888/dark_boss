@@ -84,8 +84,6 @@ export class Car {
         this._isCarStay = true
 
 
-        let savedSpd = 0
-
         this.update = data => {
             if (this.isFreeze) {
                 return;

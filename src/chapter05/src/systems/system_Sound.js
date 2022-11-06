@@ -24,6 +24,11 @@ export class system_Sound {
         this._soundCar.setLoop(true)
         this._soundCar.setVolume(0.09)
 
+        this._w = new THREE.Audio(listener)
+        this._w.setBuffer(root.assets.unitStep)
+        this._w.setLoop(true)
+        this._w.setVolume(.3)
+
 
         this._isMuted = false
 
@@ -34,6 +39,7 @@ export class system_Sound {
                 this._sound.isPlaying && this._sound.stop()
                 this._soundCarStart.isPlaying && this._soundCarStart.stop()
                 this._soundCar.isPlaying && this._soundCar.stop()
+                this._w.isPlaying && this._w.stop()
             } else {
                 this._sound.play()
             }      
@@ -67,5 +73,21 @@ export class system_Sound {
         this._soundCarStart.isPlaying && this._soundCarStart.stop()
         this._soundCar.isPlaying && this._soundCar.stop()
         clearTimeout(this._timer)
+    }
+
+    startWalk () {
+        if (this._isMuted) {
+            return;
+        } 
+
+        this._w.play()
+    }
+
+    stopWalk () {
+        if (this._isMuted) {
+            return;
+        } 
+
+        this._w.isPlaying && this._w.stop()
     }
 }
