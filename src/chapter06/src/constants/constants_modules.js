@@ -130,16 +130,16 @@ export const GAME_MODULES = [
         constr: system_PlayerMoveOnLevel,
         initStateKey: 'beforeStartPlay',
     },
-    {
-        key: 'system_Sound',
-        constr: system_Sound,
-        initStateKey: 'beforeStartPlay',
-        assetsToLoad: [
-            { type: 'soundMp3', path: soundAmbientSrc, key: 'soundAmbient' },
-            //{ type: 'soundMp3', path: carStart, key: 'carStart' },
-            //{ type: 'soundMp3', path: carLoop, key: 'carLoop' },
-        ]
-    },
+    // {
+    //     key: 'system_Sound',
+    //     constr: system_Sound,
+    //     initStateKey: 'beforeStartPlay',
+    //     assetsToLoad: [
+    //         { type: 'soundMp3', path: soundAmbientSrc, key: 'soundAmbient' },
+    //         //{ type: 'soundMp3', path: carStart, key: 'carStart' },
+    //         //{ type: 'soundMp3', path: carLoop, key: 'carLoop' },
+    //     ]
+    // },
     {
         key: 'customUi',
         constr: Ui,

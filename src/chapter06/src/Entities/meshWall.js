@@ -1,7 +1,6 @@
 import * as THREE from 'three'
-import { createDataArc  } from './geometryWall/dataArc'
-import { createDataWindowTrash } from './geometryWall/dataWindowTresh'
-import {translateArr} from "./geometry/helpers";
+import { translateArr } from "./geometry/helpers";
+import { createDataArcWindow } from './geometryWall/dataArcWindow'
 
 
 export const createMeshWall = (root) => {
@@ -35,35 +34,12 @@ export const createMeshWall = (root) => {
 
 
     for (let i = 0; i < dataWall.length; ++i) {
-        if (dataWall[i].isWindow) {
-            const windowTrash = createDataWindowTrash({
-                w: dataWall[i].w,
-                h: dataWall[i].innerH,
-                t: 10,
-                countTrash: dataWall[i].w / 5
-            })
-            translateArr(windowTrash.v, dataWall[i].x, 0, 0)
-            v.push(...windowTrash.v)
-            c.push(...windowTrash.c)
-        }
-
-        const arc = createDataArc({
-            w: dataWall[i].w,
-            t: 30,
-            h1: dataWall[i].innerH - (dataWall[i].w / 2),
-            wc: dataWall[i].wc,
-            h2: dataWall[i].h,
-        })
-        translateArr(arc.v, dataWall[i].x, 0, 0)
-        v.push(...arc.v)
-        c.push(...arc.c)
-
+        const dataArc = createDataArcWindow(dataWall[i])
+        v.push(...dataArc.v)
+        c.push(...dataArc.c)
     }
 
     translateArr(v, -5 * 105, 0, 0 )
-
-
-
 
 
     const vertices = new Float32Array(v)

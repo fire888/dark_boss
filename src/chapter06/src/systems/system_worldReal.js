@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import { createMeshWall } from '../Entities/meshWall'
+import { createMeshTown } from '../Entities/meshTown'
 
 export const createWorldReal = (root) => {
     const {
@@ -18,11 +19,18 @@ export const createWorldReal = (root) => {
     groundStart.rotation.x = -Math.PI / 2
     groundStart.position.y = -62
 
-    const mWall = createMeshWall(root)
-    studio.addToScene(mWall.mesh)
-    mWall.mesh.position.y = -62
 
-    /** body **************************/
+
+    const mTown = createMeshTown(root)
+    mTown.mesh.position.y = -62
+    studio.addToScene(mTown.mesh)
+
+
+    const mWall = createMeshWall(root)
+    mWall.mesh.position.y = -62
+    studio.addToScene(mWall.mesh)
+
+
 
 
 

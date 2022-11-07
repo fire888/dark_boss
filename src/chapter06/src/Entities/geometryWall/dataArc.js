@@ -129,12 +129,5 @@ export const createDataArc = data => {
         c.push(1, 1, 1, 1, 1, 1, 1, 1, 1)
     }
 
-
-
-
-
-    console.log(v)
-
     return { v, c }
-
 }
