@@ -1,8 +1,5 @@
 import * as THREE from "three";
 import { createDataGeomTownSegment } from './geometryWall/dataGeomTownSegment'
-import {createDataWindowTrash} from "./geometryWall/dataWindowTresh";
-import {translateArr} from "./geometry/helpers";
-import {createDataArc} from "./geometryWall/dataArc";
 
 const createSchemeTown = () => {
     const w = 250

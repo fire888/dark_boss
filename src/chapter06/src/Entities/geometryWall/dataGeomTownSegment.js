@@ -19,6 +19,9 @@ export const createDataGeomTownSegment = data => {
         x: data.x,
         z: data.z,
     })
+
+    console.log('!!')
+
     v.push(...dataArc.v)
     c.push(...dataArc.c)
 

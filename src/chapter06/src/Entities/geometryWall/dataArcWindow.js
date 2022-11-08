@@ -1,6 +1,7 @@
-import {createDataWindowTrash} from "./dataWindowTresh";
-import {translateArr} from "../geometry/helpers";
-import {createDataArc} from "./dataArc";
+import {createDataWindowTrash} from "./dataWindowTresh"
+import {createDataArc} from "./dataArc"
+import {translateArr} from "../geometry/helpers"
+
 
 
 export const createDataArcWindow = data => {
