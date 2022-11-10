@@ -1,5 +1,6 @@
 import { createDataArcWindow } from "./dataArcWindow";
 
+
 export const createDataGeomTownSegment = data => {
     const {
         x,
@@ -16,11 +17,10 @@ export const createDataGeomTownSegment = data => {
         isWindow: true,
         w: 65.58940133582206,
         wc: 2.5,
-        x: data.x,
-        z: data.z,
+        x,
+        z,
     })
 
-    console.log('!!')
 
     v.push(...dataArc.v)
     c.push(...dataArc.c)
