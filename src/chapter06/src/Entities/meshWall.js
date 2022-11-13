@@ -1,32 +1,13 @@
 import * as THREE from 'three'
 import { translateArr } from "./geometry/helpers";
 import { createDataArcWindow } from './geometryWall/dataArcWindow'
-
+import { createWallScheme } from './schemes/schemeWall';
 
 export const createMeshWall = (root) => {
     const mesh = new THREE.Object3D()
 
-    const dataWall = []
-    const fullWidth = 2000
-    let x = 0
-    let w = null
-    let wNext = Math.random() * 70 + 10
 
-    while (x < fullWidth) {
-        const wc = 2.5
-        w = wNext
-        wNext = Math.random() * 80 + 10
-        dataWall.push({
-            x,
-            w,
-            wc,
-            innerH: w + Math.random() * 160,
-            h: 250,
-            isWindow: Math.random() < .7,
-        })
-        x += (w / 2 + wNext / 2 + wc + wc)
-    }
-
+    const dataWall = createWallScheme()
 
     const v = []
     const c = []

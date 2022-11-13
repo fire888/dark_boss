@@ -2,6 +2,8 @@ import { createDataArcWindow } from "./dataArcWindow";
 
 
 export const createDataGeomTownSegment = data => {
+    console.log(data)
+
     const {
         x,
         z,

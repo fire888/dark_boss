@@ -1,6 +1,6 @@
-import {createWallScheme} from "./wallSheme";
+import { createSchemeLattice } from "../schemes/schemeLattice";
 import {createDataLine} from "./dataLine";
-import * as THREE from "three";
+
 import {
     createFace,
     createUv,
@@ -22,7 +22,7 @@ export const createDataWindowTrash = data => {
 
     const v = []
     const c = []
-    const scheme = createWallScheme({ w, h, countTrash })
+    const scheme = createSchemeLattice({ w, h, countTrash })
     for (let i = 0; i < scheme.length; ++i) {
         for (let j = 0; j < scheme[i].length; ++j) {
             for (let k = 0; k < scheme[i][j].nears.length; ++k) {
