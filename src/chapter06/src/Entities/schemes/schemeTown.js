@@ -30,8 +30,26 @@ export const createSchemeTown = () => {
 
             const node = { center, left, right, top, bottom }
 
+            let isTopCapWall = false 
+            if (j === 0) {
+                isTopCapWall = true
+            }
+            let isBottomCapWall = false 
+            if (j === numsZ - 1) {
+                isBottomCapWall = true
+            }
+            let isLeftCapWall = false 
+            if (i === 0) {
+                isLeftCapWall = true
+            }
+            let isRightCapWall = false 
+            if (i === numsX - 1) {
+                isRightCapWall = true
+            }
+
             arr.push({
-                x, z, w, i, j, node, id: '' + i + '_' + j
+                x, z, w, i, j, node, id: '' + i + '_' + j,
+                isTopCapWall, isBottomCapWall, isLeftCapWall, isRightCapWall,
             })
         }
     }
@@ -41,10 +59,11 @@ export const createSchemeTown = () => {
     for (let i = 0; i < arr.length; ++i) {
         const { x, z, id } = arr[i]
 
+
         const northCenter = {
             x: x + Math.random() * w * 0.3 * Math.sign(Math.random() -.5),
             z: z - (w / 2),
-            y: Math.random() * maxH,
+            y: arr[i].j === 0 ? 0 : Math.random() * maxH,
         }
         const nodeN = {
             center: { ...northCenter },
@@ -62,7 +81,7 @@ export const createSchemeTown = () => {
         const westCenter = {
             x: x - (w / 2),
             z: z + Math.random() * w * 0.2 * Math.sign(Math.random() -.5),
-            y: Math.random() * maxH,
+            y: arr[i].i === 0 ? 0 : Math.random() * maxH,
         }
         const nodeW = {
             center: { ...westCenter },
@@ -136,8 +155,8 @@ export const createSchemeTown = () => {
         const topLeft = math.intersect(
             [nodeN.left.x, nodeN.left.z],
             [node.left.x, node.left.z],
-                [nodeW.top.x, nodeW.top.z],
-                [node.top.x, node.top.z],
+            [nodeW.top.x, nodeW.top.z],
+            [node.top.x, node.top.z],
         )
         arr[i].node.topLeft = { x: topLeft[0], z: topLeft[1] }
         const topRight = math.intersect(
@@ -162,7 +181,6 @@ export const createSchemeTown = () => {
         )
         arr[i].node.bottomRight = { x: bottomRight[0], z: bottomRight[1] }
     }
-    console.log(arr)
 
     return arr;
 }
