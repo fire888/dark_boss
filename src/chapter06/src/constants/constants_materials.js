@@ -29,7 +29,7 @@ export const MATERIALS_CONF = {
             //bumpMap: 'mapParams',
             //bumpScale: .1,
             specular: 0xffffff,
-            vertexColors: true,
+            //vertexColors: true,
         },
     },
     'body': {

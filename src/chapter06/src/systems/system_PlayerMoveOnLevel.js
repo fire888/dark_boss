@@ -125,6 +125,7 @@ export class system_PlayerMoveOnLevel {
 
     addItemToPlayerCollision (item) {
         this._collisionsWalls.setItemToCollision(item)
+        console.log(this._collisionsWalls)
     }
 
     removeItemFromPlayerCollision (item) {

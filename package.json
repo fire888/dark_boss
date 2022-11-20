@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^12.1.10",
     "@tweenjs/tween.js": "^18.6.4",
     "gsap": "^3.6.1",
+    "mathjs": "^11.4.0",
     "ramda": "^0.27.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -22,26 +23,18 @@
   "scripts": {
     "start01": "set FOLDER=chapter01 && react-app-rewired start",
     "build01": "set FOLDER=chapter01 && react-app-rewired build",
-
     "start02": "set FOLDER=chapter02 && react-app-rewired start",
     "build02": "set FOLDER=chapter02 && react-app-rewired build",
-    
     "start03": "set FOLDER=chapter03 && react-app-rewired start",
     "build03": "set FOLDER=chapter03 && react-app-rewired build",
-    
     "start04": "set FOLDER=chapter04 && react-app-rewired start",
     "build04": "set FOLDER=chapter04 && react-app-rewired build",
-
     "start05": "set FOLDER=chapter05 && react-app-rewired start",
     "build05": "set FOLDER=chapter05 && react-app-rewired build",
-
     "start06": "set FOLDER=chapter06 && react-app-rewired start",
     "build06": "set FOLDER=chapter06 && react-app-rewired build",
-
     "startContinued": "set FOLDER=chapter_continued && react-app-rewired start",
     "buildContinued": "set FOLDER=chapter_continued && react-app-rewired build",
-
-
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

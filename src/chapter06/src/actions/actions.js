@@ -17,15 +17,7 @@ export class actions {
     constructor (root) {
         this._root = root
 
-        //this._isInRealWord = true
-        //this._isExitFromVirt = false
-        //this._nextLocation = null
-        //this._finalCountDown = 3000
-
-
         const {
-            emitter,
-         //   car,
             dispatcher,
             frameUpdater,
             studio,
@@ -44,9 +36,6 @@ export class actions {
 
         this._worldReal = createWorldReal(root)
         this._worldReal.addWorld()
-        //this._worldVirtual = createSystemWorldVirtual(root, car._model.position.x, car._model.position.z)
-
-
 
         frameUpdater.on(data => {
             TWEEN.update()
@@ -76,7 +65,7 @@ export class actions {
         ui.showStartButton(() => {
             studio.changeEnvironment(ENV_CONFIG_WORD_1, { updateAmb: false, time: 1000 })
             player.toggleBlocked(false)
-            this._root.system_Sound && this._root.system_Sound.playAmbient()
+            //this._root.system_Sound && this._root.system_Sound.playAmbient()
         })
     }
 

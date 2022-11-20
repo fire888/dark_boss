@@ -22,13 +22,14 @@ export const createWorldReal = (root) => {
 
 
     const mTown = createMeshTown(root)
-    mTown.mesh.position.y = -62
+    //mTown.mesh.position.y = -62
+    mTown.mesh.position.y = -61.5
     studio.addToScene(mTown.mesh)
 
 
-    const mWall = createMeshWall(root)
-    mWall.mesh.position.y = -62
-    studio.addToScene(mWall.mesh)
+    // const mWall = createMeshWall(root)
+    // mWall.mesh.position.y = -62
+    // studio.addToScene(mWall.mesh)
 
 
 
@@ -38,7 +39,9 @@ export const createWorldReal = (root) => {
     return {
         addWorld: () => {
             system_PlayerMoveOnLevel.addItemToPlayerCollision(groundStart)
+            system_PlayerMoveOnLevel.addItemToPlayerCollision(mTown.mesh)
             studio.addToScene(groundStart)
+            studio.addToScene(mTown.mesh)
         },
         removeWorld: () => {
             system_PlayerMoveOnLevel.removeItemFromPlayerCollision(groundStart)
