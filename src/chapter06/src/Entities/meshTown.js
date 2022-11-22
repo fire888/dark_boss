@@ -13,14 +13,14 @@ export const createMeshTown = root => {
     const u2 = []
 
 
-    /** lines */
-    for (let i = 0; i < schemeTown.length; ++i) {
-        if (i === 3) {
-            console.log('III', schemeTown[i])
-        }
-        const dataSegment = createHelperLines(schemeTown[i])
-        root.studio.addToScene(dataSegment)
-    }
+    // /** lines */
+    // for (let i = 0; i < schemeTown.length; ++i) {
+    //     if (i === 3) {
+    //         console.log('III', schemeTown[i])
+    //     }
+    //     const dataSegment = createHelperLines(schemeTown[i])
+    //     root.studio.addToScene(dataSegment)
+    // }
 
 
 

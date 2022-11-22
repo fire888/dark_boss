@@ -86,25 +86,28 @@ export const createDataArc = data => {
     /** columns */
     if (h1 - h0 > 0) {
         v.push(
+            /** left inner */
             ...createFace(
                 [-wh, h0, th],
                 [-wh, h0, -th],
                 [-wh, h1, -th],
                 [-wh, h1, th],
             ),
+            /** right inner */
             ...createFace(
                 [wh, h0, -th],
                 [wh, h0, th],
                 [wh, h1, th],
                 [wh, h1, -th],
             ),
-
+            /** left front */
             ...createFace(
                 [-wh - wc, h0, th],
                 [-wh, h0, th],
                 [-wh, h1, th],
                 [-wh - wc, h1, th],
             ),
+            /** right front */
             ...createFace(
                 [wh, h0, th],
                 [wh + wc, h0, th],
@@ -112,10 +115,27 @@ export const createDataArc = data => {
                 [wh, h1, th],
             ),
 
+            /** left back */
+            ...createFace(
+                [-wh, h0, -th],
+                [-wh - wc, h0, -th],
+                [-wh - wc, h1, -th],
+                [-wh, h1, -th],
+            ),
+            /** right back */
+            ...createFace(
+                [wh + wc, h0, -th],
+                [wh, h0, -th],
+                [wh, h1, -th],
+                [wh + wc, h1, -th],
+            ),
+
+            /** left cap to top */
             -wh - wc, h1, th,
             -wh, h1, th,
             -wh - wc, h2, th,
 
+            /** right cap to top */
             wh, h1, th,
             wh + wc, h1, th,
             wh + wc, h2, th,
@@ -125,6 +145,9 @@ export const createDataArc = data => {
         c.push(...fillColor6([0, 0, 1]))
         c.push(...fillColor6([1, 1, 1]))
         c.push(...fillColor6([1, 1, 1]))
+
+        c.push(...fillColor6([1, 1, 1]))
+
         c.push(1, 1, 1, 1, 1, 1, 1, 1, 1)
         c.push(1, 1, 1, 1, 1, 1, 1, 1, 1)
     }

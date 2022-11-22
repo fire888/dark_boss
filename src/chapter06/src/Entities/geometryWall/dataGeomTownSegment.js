@@ -1,8 +1,14 @@
 import { createDataArcWindow } from "./dataArcWindow";
 import * as THREE from "three";
-import { createFace } from '../geometry/helpers'
+import * as math from 'mathjs'
+import {
+    createFace,
+    rotateArrY,
+} from '../geometry/helpers'
 
-const h = 150
+const h = 200
+
+console.log(math.atan2(-2, 0))
 
 export const createDataGeomTownSegment = data => {
     console.log(data)
@@ -17,6 +23,9 @@ export const createDataGeomTownSegment = data => {
         node, nodeE, nodeN, nodeW, nodeS,
         isTopCapWall, isBottomCapWall, isLeftCapWall, isRightCapWall, w, x, z
     } = data
+
+
+
 
 
 
@@ -223,23 +232,34 @@ export const createDataGeomTownSegment = data => {
         )
     }
 
-    
 
+    /** arc */
+    {
+        const xArc = (node.bottomRight.x + node.bottomLeft.x) / 2
+        const zArc = (node.bottomRight.z + node.bottomLeft.z) / 2
+        const dX = node.bottomRight.x - node.bottomLeft.x
+        const dZ = node.bottomRight.z - node.bottomLeft.z
+        const fullW = Math.sqrt(dX * dX + dZ * dZ)
+        const angle = -math.atan2(dZ, dX)
 
+        const thickness = 5 + Math.random() * 30
 
+        const dataArc = createDataArcWindow({
+            h: h - node.center.y + 50,
+            innerH: (h - node.center.y + 50) - (fullW * .8),
+            isWindow: false,
+            w: fullW * 0.8,
+            wc: fullW * 0.2,
+            x: xArc,
+            y: node.center.y - 50,
+            z: zArc + thickness / 2,
+            t: thickness,
+            angle,
+        })
+        v.push(...dataArc.v)
+        c.push(...dataArc.c)
+    }
 
-
-    // const dataArc = createDataArcWindow({
-    //     h: 250,
-    //     innerH: 103.19155704929601,
-    //     isWindow: true,
-    //     w: 65.58940133582206,
-    //     wc: 2.5,
-    //     x,
-    //     z,
-    // })
-    //v.push(...dataArc.v)
-    //c.push(...dataArc.c)
 
 
 
