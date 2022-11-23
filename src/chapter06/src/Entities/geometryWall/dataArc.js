@@ -8,6 +8,15 @@ import {
     fillColor6,
 } from '../geometry/helpers'
 
+import {
+    COLOR1_1,
+    COLOR1_6,
+    COLOR2_1,
+    COLOR2_6,
+    COLOR3_1,
+    COLOR3_6,
+} from '../../constants/constants_materials'
+
 export const createDataArc = data => {
     const {
         w = 50,
@@ -39,6 +48,7 @@ export const createDataArc = data => {
         if (!pointsA[i - 1]) {
             continue;
         }
+
         v.push(
             ...createFace(
                 [pointsA[i][0], pointsA[i][1], th],
@@ -47,15 +57,22 @@ export const createDataArc = data => {
                 [pointsA[i][0], pointsA[i][1], -th],
             )
         )
-        c.push(...fillColor6([0, 0, 1]))
+        c.push(...COLOR3_6)
 
         if (pointsA[i][0] <= 0) {
+            /** front */
             v.push(
                 -wh - wc, h2 - (h1 - h0), th,
                 pointsA[i - 1][0], pointsA[i - 1][1], th,
                 pointsA[i][0], pointsA[i][1], th,
             )
-            c.push(1, 1, 1, 1, 1, 1, 1, 1, 1)
+            c.push(...COLOR2_1, ...COLOR2_1, ...COLOR2_1)
+            v.push(
+                -wh - wc, h2 - (h1 - h0), -th,
+                pointsA[i][0], pointsA[i][1], -th,
+                pointsA[i - 1][0], pointsA[i - 1][1], -th,
+            )
+            c.push(...COLOR2_1, ...COLOR2_1, ...COLOR2_1)
         }
         if (pointsA[i][0] > 0) {
             v.push(
@@ -63,7 +80,13 @@ export const createDataArc = data => {
                 pointsA[i - 1][0], pointsA[i - 1][1], th,
                 pointsA[i][0], pointsA[i][1], th,
             )
-            c.push(1, 1, 1, 1, 1, 1, 1, 1, 1)
+            c.push(...COLOR2_1, ...COLOR2_1, ...COLOR2_1)
+            v.push(
+                wh + wc, h2 - (h1 - h0), -th,
+                pointsA[i][0], pointsA[i][1], -th,
+                pointsA[i - 1][0], pointsA[i - 1][1], -th,
+            )
+            c.push(...COLOR2_1, ...COLOR2_1, ...COLOR2_1)
         }
         if (i === count / 2) {
             v.push(
@@ -71,9 +94,15 @@ export const createDataArc = data => {
                 pointsA[i][0], pointsA[i][1], th,
                 wh + wc, h2 - (h1 - h0), th,
             )
-            c.push(1, 1, 1, 1, 1, 1, 1, 1, 1)
+            c.push(...COLOR2_1, ...COLOR2_1, ...COLOR2_1)
+            v.push(
+                wh + wc, h2 - (h1 - h0), -th,
+                pointsA[i][0], pointsA[i][1], -th,
+                -wh - wc, h2 - (h1 - h0), -th,
+            )
+            c.push(...COLOR2_1, ...COLOR2_1, ...COLOR2_1)
         }
-
+        /** back */
 
 
     }
@@ -86,25 +115,28 @@ export const createDataArc = data => {
     /** columns */
     if (h1 - h0 > 0) {
         v.push(
+            /** left inner */
             ...createFace(
                 [-wh, h0, th],
                 [-wh, h0, -th],
                 [-wh, h1, -th],
                 [-wh, h1, th],
             ),
+            /** right inner */
             ...createFace(
                 [wh, h0, -th],
                 [wh, h0, th],
                 [wh, h1, th],
                 [wh, h1, -th],
             ),
-
+            /** left front */
             ...createFace(
                 [-wh - wc, h0, th],
                 [-wh, h0, th],
                 [-wh, h1, th],
                 [-wh - wc, h1, th],
             ),
+            /** right front */
             ...createFace(
                 [wh, h0, th],
                 [wh + wc, h0, th],
@@ -112,21 +144,55 @@ export const createDataArc = data => {
                 [wh, h1, th],
             ),
 
+            /** left back */
+            ...createFace(
+                [-wh, h0, -th],
+                [-wh - wc, h0, -th],
+                [-wh - wc, h1, -th],
+                [-wh, h1, -th],
+            ),
+            /** right back */
+            ...createFace(
+                [wh + wc, h0, -th],
+                [wh, h0, -th],
+                [wh, h1, -th],
+                [wh + wc, h1, -th],
+            ),
+
+            /** left cap to top */
             -wh - wc, h1, th,
             -wh, h1, th,
             -wh - wc, h2, th,
 
+            /** right cap to top */
             wh, h1, th,
             wh + wc, h1, th,
             wh + wc, h2, th,
+
+            /** back */
+            /** left cap to top */
+            -wh - wc, h2, -th,
+            -wh, h1, -th,
+            -wh - wc, h1, -th,
+
+
+            /** right cap to top */
+            wh + wc, h2, -th,
+            wh + wc, h1, -th,
+            wh, h1, -th,
         )
 
-        c.push(...fillColor6([0, 0, 1]))
-        c.push(...fillColor6([0, 0, 1]))
-        c.push(...fillColor6([1, 1, 1]))
-        c.push(...fillColor6([1, 1, 1]))
-        c.push(1, 1, 1, 1, 1, 1, 1, 1, 1)
-        c.push(1, 1, 1, 1, 1, 1, 1, 1, 1)
+        c.push(...COLOR3_6)
+        c.push(...COLOR3_6)
+        c.push(...COLOR2_6)
+        c.push(...COLOR2_6)
+        c.push(...COLOR2_6)
+        c.push(...COLOR2_6)
+
+        c.push(...COLOR2_1, ...COLOR2_1, ...COLOR2_1)
+        c.push(...COLOR2_1, ...COLOR2_1, ...COLOR2_1)
+        c.push(...COLOR2_1, ...COLOR2_1, ...COLOR2_1)
+        c.push(...COLOR2_1, ...COLOR2_1, ...COLOR2_1)
     }
 
     return { v, c }

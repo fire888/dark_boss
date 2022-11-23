@@ -1,5 +1,16 @@
 import * as THREE from "three";
 
+
+
+export const COLOR1_1 = [0, 1, 1]
+export const COLOR1_6 = [...COLOR1_1, ...COLOR1_1, ...COLOR1_1, ...COLOR1_1, ...COLOR1_1, ...COLOR1_1]   
+export const COLOR2_1 = [.5, 1, 0]
+export const COLOR2_6 = [...COLOR2_1, ...COLOR2_1, ...COLOR2_1, ...COLOR2_1, ...COLOR2_1, ...COLOR2_1]
+export const COLOR3_1 = [1, 1, 0]
+export const COLOR3_6 = [...COLOR3_1, ...COLOR3_1, ...COLOR3_1, ...COLOR3_1, ...COLOR3_1, ...COLOR3_1]
+
+
+
 export const MATERIALS_CONF = {
     'unit': {
         mat: 'MeshPhongMaterial',
@@ -28,6 +39,7 @@ export const MATERIALS_CONF = {
             //map: 'mapParams',
             //bumpMap: 'mapParams',
             //bumpScale: .1,
+            flatShading: true,
             specular: 0xffffff,
             vertexColors: true,
         },
