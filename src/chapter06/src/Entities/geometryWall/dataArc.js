@@ -182,6 +182,9 @@ export const createDataArc = data => {
             wh, h1, -th,
         )
 
+
+
+
         c.push(...COLOR3_6)
         c.push(...COLOR3_6)
         c.push(...COLOR2_6)
@@ -193,7 +196,31 @@ export const createDataArc = data => {
         c.push(...COLOR2_1, ...COLOR2_1, ...COLOR2_1)
         c.push(...COLOR2_1, ...COLOR2_1, ...COLOR2_1)
         c.push(...COLOR2_1, ...COLOR2_1, ...COLOR2_1)
+
+
+        
     }
+
+    /** cap l */
+    v.push(
+        ...createFace(
+            [-wh - wc, h0, -th],
+            [-wh - wc, h0, th],
+            [-wh - wc, h2, th],
+            [-wh - wc, h2, -th],
+        )
+    )
+    c.push(...COLOR2_6)
+    /** cap r */        
+    v.push(
+        ...createFace(
+            [wh + wc, h0, th],
+            [wh + wc, h0, -th],
+            [wh + wc, h2, -th],
+            [wh + wc, h2, th],
+        )
+    )
+    c.push(...COLOR2_6)
 
     return { v, c }
 }

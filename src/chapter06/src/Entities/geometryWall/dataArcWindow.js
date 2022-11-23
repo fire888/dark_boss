@@ -22,6 +22,8 @@ export const createDataArcWindow = data => {
 
     const v = []
     const c = []
+
+    //if (Math.random() < .25) {
     if (data.isWindow) {
         const windowTrash = createDataWindowTrash({
             w: w,

@@ -263,7 +263,7 @@ export const createDataGeomTownSegment = data => {
     }
 
 
-    /** arc */
+    /** arc s */
     {
         const xArc = (node.bottomRight.x + node.bottomLeft.x) / 2
         const zArc = (node.bottomRight.z + node.bottomLeft.z) / 2
@@ -282,13 +282,67 @@ export const createDataGeomTownSegment = data => {
             wc: fullW * 0.2,
             x: xArc,
             y: node.center.y - 50,
-            z: zArc + thickness / 2,
+            z: zArc + thickness / 2 - 10,
             t: thickness,
             angle,
         })
         v.push(...dataArc.v)
         c.push(...dataArc.c)
     }
+
+    /** arc n */
+    {
+        const xArc = (node.topRight.x + node.topLeft.x) / 2
+        const zArc = (node.topRight.z + node.topLeft.z) / 2
+        const dX = node.topRight.x - node.topLeft.x
+        const dZ = node.topRight.z - node.topLeft.z
+        const fullW = Math.sqrt(dX * dX + dZ * dZ)
+        const angle = -math.atan2(dZ, dX)
+
+        const thickness = 5 + Math.random() * 30
+
+        const dataArc = createDataArcWindow({
+            h: h - node.center.y + 50,
+            innerH: (h - node.center.y + 50) - (fullW * .8),
+            isWindow: false,
+            w: fullW * 0.8,
+            wc: fullW * 0.2,
+            x: xArc,
+            y: node.center.y - 50,
+            z: zArc - thickness / 2 + 10,
+            t: thickness,
+            angle,
+        })
+        v.push(...dataArc.v)
+        c.push(...dataArc.c)
+    }
+
+        /** arc r */
+        {
+            const xArc = (node.topRight.x + node.bottomRight.x) / 2
+            const zArc = (node.topRight.z + node.bottomRight.z) / 2
+            const dX = node.topRight.x - node.bottomRight.x
+            const dZ = node.topRight.z - node.bottomRight.z
+            const fullW = Math.sqrt(dX * dX + dZ * dZ)
+            const angle = -math.atan2(dZ, dX)
+    
+            const thickness = 5 + Math.random() * 30
+    
+            const dataArc = createDataArcWindow({
+                h: h - node.center.y + 50,
+                innerH: (h - node.center.y + 50) - (fullW * .8),
+                isWindow: false,
+                w: fullW * 0.6,
+                wc: fullW * 0.25,
+                x: xArc + thickness / 2,
+                y: node.center.y - 50,
+                z: zArc,
+                t: thickness,
+                angle,
+            })
+            v.push(...dataArc.v)
+            c.push(...dataArc.c)
+        }
 
 
     return { v, c }
