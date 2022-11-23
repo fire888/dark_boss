@@ -2,7 +2,13 @@ import { createDataArcWindow } from "./dataArcWindow";
 import * as THREE from "three";
 import { createFace } from '../geometry/helpers'
 
-const h = 150
+const h = 70
+
+const c1 = [0, 1, 1]
+const c1_6 = [...c1, ...c1, ...c1, ...c1, ...c1, ...c1]   
+const c2 = [.5, 1, 0]
+const c2_6 = [...c2, ...c2, ...c2, ...c2, ...c2, ...c2]  
+
 
 export const createDataGeomTownSegment = data => {
     console.log(data)
@@ -29,6 +35,7 @@ export const createDataGeomTownSegment = data => {
             [node.topLeft.x, node.center.y, node.topLeft.z],
         )
     )
+    c.push(...c1_6)
 
     v.push(
         ...createFace(
@@ -38,6 +45,8 @@ export const createDataGeomTownSegment = data => {
             [nodeN.left.x, nodeN.center.y, nodeN.left.z],
         )
     )
+    c.push(...c1_6)
+
 
     v.push(
         ...createFace(
@@ -47,6 +56,7 @@ export const createDataGeomTownSegment = data => {
             [node.bottomLeft.x, node.center.y, node.bottomLeft.z],
         )
     )
+    c.push(...c1_6)
 
     v.push(
         ...createFace(
@@ -56,6 +66,7 @@ export const createDataGeomTownSegment = data => {
             [nodeW.top.x, nodeW.center.y, nodeW.top.z],
         )
     )
+    c.push(...c1_6)
 
     v.push(
         ...createFace(
@@ -65,6 +76,7 @@ export const createDataGeomTownSegment = data => {
             [node.topRight.x, node.center.y, node.topRight.z],
         )
     )
+    c.push(...c1_6)
 
     /** walls */
     /** north ***********/
@@ -76,6 +88,8 @@ export const createDataGeomTownSegment = data => {
             [nodeN.right.x, h, nodeN.right.z],
         )
     )
+    c.push(...c2_6)
+
     v.push(
         ...createFace(
             [node.topLeft.x, node.center.y, node.topLeft.z],
@@ -84,6 +98,7 @@ export const createDataGeomTownSegment = data => {
             [node.topLeft.x, h, node.topLeft.z],
         )
     )
+    c.push(...c2_6)
 
     /** south *****/
     v.push(
@@ -94,6 +109,7 @@ export const createDataGeomTownSegment = data => {
             [node.bottomRight.x, h, node.bottomRight.z],
         )
     )
+    c.push(...c2_6)
     v.push(
         ...createFace(
             [nodeS.left.x, nodeS.center.y, nodeS.left.z],
@@ -102,7 +118,7 @@ export const createDataGeomTownSegment = data => {
             [nodeS.left.x, h, nodeS.left.z],
         )
     )
-
+    c.push(...c2_6)
     /** right ****/
     v.push(
         ...createFace(
@@ -112,6 +128,7 @@ export const createDataGeomTownSegment = data => {
             [node.topRight.x, h, node.topRight.z],
         )
     )
+    c.push(...c2_6)
     v.push(
         ...createFace(
             [node.bottomRight.x, node.center.y, node.bottomRight.z],
@@ -122,7 +139,7 @@ export const createDataGeomTownSegment = data => {
             //[node.bottomRight.x, 200, node.bottomRight.z],
         )
     )
-
+    c.push(...c2_6)
     /** left ***/
     v.push(
         ...createFace(
@@ -132,6 +149,7 @@ export const createDataGeomTownSegment = data => {
             [nodeW.top.x, h, nodeW.top.z],
         )
     )
+    c.push(...c2_6)
     v.push(
         ...createFace(
             [nodeW.bottom.x, nodeW.center.y, nodeW.bottom.z],
@@ -140,7 +158,7 @@ export const createDataGeomTownSegment = data => {
             [node.bottomLeft.x, node.center.y, node.bottomLeft.z],
         )
     )
-
+    c.push(...c2_6)
     /** Cap */
     if (isBottomCapWall) {
         v.push(
@@ -151,6 +169,7 @@ export const createDataGeomTownSegment = data => {
                 [x - w / 2, h, nodeS.left.z],
             )
         )
+        c.push(...c2_6)
         v.push(
             ...createFace(
                 [nodeS.right.x, 0, nodeS.right.z],
@@ -160,6 +179,7 @@ export const createDataGeomTownSegment = data => {
                 
             )
         )
+        c.push(...c2_6)
     }
 
     if (isTopCapWall) {
@@ -172,6 +192,7 @@ export const createDataGeomTownSegment = data => {
 
             )
         )
+        c.push(...c2_6)
         v.push(
             ...createFace(
                 [x + w / 2, 0, nodeN.right.z],
@@ -180,6 +201,7 @@ export const createDataGeomTownSegment = data => {
                 [x + w / 2, h, nodeN.left.z],   
             )
         )
+        c.push(...c2_6)
     }
 
     if (isLeftCapWall) {
@@ -192,6 +214,7 @@ export const createDataGeomTownSegment = data => {
 
             )
         )
+        c.push(...c2_6)
         v.push(
             ...createFace(
                 [nodeW.bottom.x, 0, z - w / 2],
@@ -200,6 +223,7 @@ export const createDataGeomTownSegment = data => {
                 [nodeW.bottom.x, h, z - w / 2],   
             )
         )
+        c.push(...c2_6)
     }
 
     if (isRightCapWall) {
@@ -213,6 +237,7 @@ export const createDataGeomTownSegment = data => {
 
             )
         )
+        c.push(...c2_6)
         v.push(
             ...createFace(
                 [nodeE.bottom.x, 0, nodeE.top.z],
@@ -221,6 +246,7 @@ export const createDataGeomTownSegment = data => {
                 [nodeE.bottom.x, h, nodeE.top.z],
             )
         )
+        c.push(...c2_6)
     }
 
     
