@@ -195,6 +195,35 @@ export const createDataGeomTownSegment = data => {
             )
         )
         c.push(...COLOR2_6)
+
+
+        /** arc s */
+        {
+            const xArc = (nodeS.right.x + nodeS.left.x) / 2
+            const zArc = (nodeS.right.z + nodeS.left.z) / 2
+            const dX = nodeS.right.x - nodeS.left.x
+            const dZ = nodeS.right.z - nodeS.left.z
+            const fullW = Math.sqrt(dX * dX + dZ * dZ)
+            const angle = -math.atan2(dZ, dX)
+
+            const thickness = 5 + Math.random() * 30
+
+            const dataArc = createDataArcWindow({
+                h: h - nodeS.center.y,
+                innerH: (h - nodeS.center.y) - (fullW * .8),
+                isWindow: false,
+                w: fullW * 0.8,
+                wc: fullW * 0.2,
+                x: xArc,
+                y: nodeS.center.y,
+                z: zArc + thickness / 2 - 4,
+                t: thickness,
+                angle,
+            })
+            v.push(...dataArc.v)
+            c.push(...dataArc.c)
+        }
+
     }
 
     if (isTopCapWall) {
@@ -217,6 +246,33 @@ export const createDataGeomTownSegment = data => {
             )
         )
         c.push(...COLOR2_6)
+
+        /** arc n */
+        {
+            const xArc = (nodeN.right.x + nodeN.left.x) / 2
+            const zArc = (nodeN.right.z + nodeN.left.z) / 2
+            const dX = nodeN.right.x - nodeN.left.x
+            const dZ = nodeN.right.z - nodeN.left.z
+            const fullW = Math.sqrt(dX * dX + dZ * dZ)
+            const angle = -math.atan2(dZ, dX)
+
+            const thickness = 5 + Math.random() * 30
+
+            const dataArc = createDataArcWindow({
+                h: h - nodeN.center.y,
+                innerH: (h - nodeN.center.y) - (fullW * .8),
+                isWindow: false,
+                w: fullW * 0.8,
+                wc: fullW * 0.2,
+                x: xArc,
+                y: nodeN.center.y,
+                z: zArc + thickness / 2 - 4,
+                t: thickness,
+                angle,
+            })
+            v.push(...dataArc.v)
+            c.push(...dataArc.c)
+        }
     }
 
     if (isLeftCapWall) {
@@ -239,6 +295,33 @@ export const createDataGeomTownSegment = data => {
             )
         )
         c.push(...COLOR2_6)
+
+        /** arc l */
+        {
+            const xArc = (nodeW.top.x + nodeW.bottom.x) / 2
+            const zArc = (nodeW.top.z + nodeW.bottom.z) / 2
+            const dX = nodeW.top.x - nodeW.bottom.x
+            const dZ = nodeW.top.z - nodeW.bottom.z
+            const fullW = Math.sqrt(dX * dX + dZ * dZ)
+            const angle = -math.atan2(dZ, dX)
+
+            const thickness = 5 + Math.random() * 30
+
+            const dataArc = createDataArcWindow({
+                h: h - nodeW.center.y,
+                innerH: (h - nodeW.center.y) - (fullW * .8),
+                isWindow: false,
+                w: fullW * 0.8,
+                wc: fullW * 0.2,
+                x: xArc + thickness / 2 - 4,
+                y: nodeW.center.y,
+                z: zArc,
+                t: thickness,
+                angle,
+            })
+            v.push(...dataArc.v)
+            c.push(...dataArc.c)
+        }
     }
 
     if (isRightCapWall) {
@@ -260,6 +343,33 @@ export const createDataGeomTownSegment = data => {
             )
         )
         c.push(...COLOR2_6)
+
+        /** arc l */
+        {
+            const xArc = (nodeE.top.x + nodeE.bottom.x) / 2
+            const zArc = (nodeE.top.z + nodeE.bottom.z) / 2
+            const dX = nodeE.top.x - nodeE.bottom.x
+            const dZ = nodeE.top.z - nodeE.bottom.z
+            const fullW = Math.sqrt(dX * dX + dZ * dZ)
+            const angle = -math.atan2(dZ, dX)
+
+            const thickness = 5 + Math.random() * 30
+
+            const dataArc = createDataArcWindow({
+                h: h - nodeE.center.y,
+                innerH: (h - nodeE.center.y) - (fullW * .8),
+                isWindow: false,
+                w: fullW * 0.8,
+                wc: fullW * 0.2,
+                x: xArc - thickness / 2 + 4,
+                y: nodeE.center.y,
+                z: zArc,
+                t: thickness,
+                angle,
+            })
+            v.push(...dataArc.v)
+            c.push(...dataArc.c)
+        }
     }
 
 
@@ -317,32 +427,59 @@ export const createDataGeomTownSegment = data => {
         c.push(...dataArc.c)
     }
 
-        /** arc r */
-        {
-            const xArc = (node.topRight.x + node.bottomRight.x) / 2
-            const zArc = (node.topRight.z + node.bottomRight.z) / 2
-            const dX = node.topRight.x - node.bottomRight.x
-            const dZ = node.topRight.z - node.bottomRight.z
-            const fullW = Math.sqrt(dX * dX + dZ * dZ)
-            const angle = -math.atan2(dZ, dX)
-    
-            const thickness = 5 + Math.random() * 30
-    
-            const dataArc = createDataArcWindow({
-                h: h - node.center.y + 50,
-                innerH: (h - node.center.y + 50) - (fullW * .8),
-                isWindow: false,
-                w: fullW * 0.6,
-                wc: fullW * 0.25,
-                x: xArc + thickness / 2,
-                y: node.center.y - 50,
-                z: zArc,
-                t: thickness,
-                angle,
-            })
-            v.push(...dataArc.v)
-            c.push(...dataArc.c)
-        }
+    /** arc r */
+    {
+        const xArc = (node.topRight.x + node.bottomRight.x) / 2
+        const zArc = (node.topRight.z + node.bottomRight.z) / 2
+        const dX = node.topRight.x - node.bottomRight.x
+        const dZ = node.topRight.z - node.bottomRight.z
+        const fullW = Math.sqrt(dX * dX + dZ * dZ)
+        const angle = -math.atan2(dZ, dX)
+
+        const thickness = 5 + Math.random() * 30
+
+        const dataArc = createDataArcWindow({
+            h: h - node.center.y + 50,
+            innerH: (h - node.center.y + 50) - (fullW * .8),
+            isWindow: false,
+            w: fullW * 0.6,
+            wc: fullW * 0.25,
+            x: xArc + thickness / 2,
+            y: node.center.y - 50,
+            z: zArc,
+            t: thickness,
+            angle,
+        })
+        v.push(...dataArc.v)
+        c.push(...dataArc.c)
+    }
+
+    /** arc l */
+    {
+        const xArc = (node.topLeft.x + node.bottomLeft.x) / 2
+        const zArc = (node.topLeft.z + node.bottomLeft.z) / 2
+        const dX = node.topLeft.x - node.bottomLeft.x
+        const dZ = node.topLeft.z - node.bottomLeft.z
+        const fullW = Math.sqrt(dX * dX + dZ * dZ)
+        const angle = -math.atan2(dZ, dX)
+
+        const thickness = 5 + Math.random() * 30
+
+        const dataArc = createDataArcWindow({
+            h: h - node.center.y + 50,
+            innerH: (h - node.center.y + 50) - (fullW * .8),
+            isWindow: false,
+            w: fullW * 0.6,
+            wc: fullW * 0.25,
+            x: xArc - thickness / 2,
+            y: node.center.y - 50,
+            z: zArc,
+            t: thickness,
+            angle,
+        })
+        v.push(...dataArc.v)
+        c.push(...dataArc.c)
+    }    
 
 
     return { v, c }
