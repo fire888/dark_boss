@@ -82,6 +82,16 @@ export const createSchemeTown = () => {
             nodeN.offsetToCenter = {
                 left: {
                     x: nodeN.left.x,
+                    z: nodeN.left.z + 15,
+                },
+                right: {
+                    x: nodeN.right.x,
+                    z: nodeN.right.z + 15,
+                },
+            }
+            nodeN.offsetToCenter2 = {
+                left: {
+                    x: nodeN.left.x,
                     z: nodeN.left.z + 30,
                 },
                 right: {

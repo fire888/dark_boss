@@ -48,6 +48,30 @@ export const createDataGeomTownSegment = data => {
 
 
     if (nodeN.offsetToCenter) {
+        // const xArc = (nodeN.offsetToCenter.left.x + nodeS.left.x) / 2
+        // const zArc = (nodeS.right.z + nodeS.left.z) / 2
+        // const dX = nodeS.right.x - nodeS.left.x
+        // const dZ = nodeS.right.z - nodeS.left.z
+        // const fullW = Math.sqrt(dX * dX + dZ * dZ)
+        // const angle = -math.atan2(dZ, dX)
+
+        // const thickness = 5 + Math.random() * 30
+
+        // const dataArc = createDataArcWindow({
+        //     h: h - nodeS.center.y,
+        //     innerH: (h - nodeS.center.y) - (fullW * .8),
+        //     isWindow: false,
+        //     w: fullW * 0.8,
+        //     wc: fullW * 0.2,
+        //     x: xArc,
+        //     y: nodeS.center.y,
+        //     z: zArc + thickness / 2 - 4,
+        //     t: thickness,
+        //     angle,
+        // })
+        // v.push(...dataArc.v)
+        // c.push(...dataArc.c)
+
     } else {
         v.push(
             ...createFace(
