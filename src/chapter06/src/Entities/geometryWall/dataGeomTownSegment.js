@@ -6,13 +6,6 @@ import {
     rotateArrY,
 } from '../geometry/helpers'
 
-const h = 200
-
-// const c1 = [0, 1, 1]
-// const c1_6 = [...c1, ...c1, ...c1, ...c1, ...c1, ...c1]   
-// const c2 = [.5, 1, 0]
-// const c2_6 = [...c2, ...c2, ...c2, ...c2, ...c2, ...c2]
-
 import {
     COLOR1_1,
     COLOR1_6,
@@ -22,11 +15,11 @@ import {
     COLOR3_6,
 } from '../../constants/constants_materials'
 
+
+const h = 200
+
+
 export const createDataGeomTownSegment = data => {
-    // console.log(data)
-
-
-
     const v = []
     const c = []
 
@@ -52,15 +45,41 @@ export const createDataGeomTownSegment = data => {
     )
     c.push(...COLOR1_6)
 
-    v.push(
-        ...createFace(
-            [node.topLeft.x, node.center.y, node.topLeft.z],
-            [node.topRight.x, node.center.y, node.topRight.z],
-            [nodeN.right.x, nodeN.center.y, nodeN.right.z],
-            [nodeN.left.x, nodeN.center.y, nodeN.left.z],
+
+
+    if (nodeN.offsetToCenter) {
+    } else {
+        v.push(
+            ...createFace(
+                [node.topLeft.x, node.center.y, node.topLeft.z],
+                [node.topRight.x, node.center.y, node.topRight.z],
+                [nodeN.right.x, nodeN.center.y, nodeN.right.z],
+                [nodeN.left.x, nodeN.center.y, nodeN.left.z],
+            )
         )
-    )
-    c.push(...COLOR1_6)
+        c.push(...COLOR1_6)
+
+        /** north ***********/
+        v.push(
+            ...createFace(
+                [nodeN.right.x, nodeN.center.y, nodeN.right.z],
+                [node.topRight.x, node.center.y, node.topRight.z],
+                [node.topRight.x, h, node.topRight.z],
+                [nodeN.right.x, h, nodeN.right.z],
+            )
+        )
+        c.push(...COLOR2_6)
+
+        v.push(
+            ...createFace(
+                [node.topLeft.x, node.center.y, node.topLeft.z],
+                [nodeN.left.x, nodeN.center.y, nodeN.left.z],
+                [nodeN.left.x, h, nodeN.left.z],
+                [node.topLeft.x, h, node.topLeft.z],
+            )
+        )
+        c.push(...COLOR2_6)
+    }
 
 
     v.push(
@@ -94,26 +113,7 @@ export const createDataGeomTownSegment = data => {
     c.push(...COLOR1_6)
 
     /** walls */
-    /** north ***********/
-    v.push(
-        ...createFace(
-            [nodeN.right.x, nodeN.center.y, nodeN.right.z],
-            [node.topRight.x, node.center.y, node.topRight.z],
-            [node.topRight.x, h, node.topRight.z],
-            [nodeN.right.x, h, nodeN.right.z],
-        )
-    )
-    c.push(...COLOR2_6)
 
-    v.push(
-        ...createFace(
-            [node.topLeft.x, node.center.y, node.topLeft.z],
-            [nodeN.left.x, nodeN.center.y, nodeN.left.z],
-            [nodeN.left.x, h, nodeN.left.z],
-            [node.topLeft.x, h, node.topLeft.z],
-        )
-    )
-    c.push(...COLOR2_6)
 
     /** south *****/
     v.push(

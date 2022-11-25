@@ -55,7 +55,7 @@ export const createSchemeTown = () => {
     }
 
 
-    /** connectors */
+    /** roads from center */
     for (let i = 0; i < arr.length; ++i) {
         const { x, z, id } = arr[i]
 
@@ -75,6 +75,20 @@ export const createSchemeTown = () => {
                 x: northCenter.x + wRoadH,
                 z: northCenter.z,
             },
+            offsetToCenter: null
+        }
+
+        if (Math.random() < .3) {
+            nodeN.offsetToCenter = {
+                left: {
+                    x: nodeN.left.x,
+                    z: nodeN.left.z + 30,
+                },
+                right: {
+                    x: nodeN.right.x,
+                    z: nodeN.right.z + 30,
+                },
+            }
         }
 
 
@@ -101,6 +115,7 @@ export const createSchemeTown = () => {
             if (arr[i].i === arr[j].i) {
                 if (arr[i].j === arr[j].j + 1) {
                     arr[j].nodeS = { ...nodeN }
+                    arr[j].nodeS.offsetToCenter = null
                 } else {
                     const southCenter = {
                         x: x + Math.random() * w * 0.3 * Math.sign(Math.random() -.5),
