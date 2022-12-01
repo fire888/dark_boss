@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import { createMeshWall } from '../Entities/meshWall'
 import { createMeshTown } from '../Entities/meshTown'
+import { createMeshPath } from '../Entities/meshPath'
 
 export const createWorldReal = (root) => {
     const {
@@ -21,10 +22,10 @@ export const createWorldReal = (root) => {
 
 
 
-    const mTown = createMeshTown(root)
-    //mTown.mesh.position.y = -62
-    mTown.mesh.position.y = -61.5
-    studio.addToScene(mTown.mesh)
+    // const mTown = createMeshTown(root)
+    // //mTown.mesh.position.y = -62
+    // mTown.mesh.position.y = -61.5
+    // studio.addToScene(mTown.mesh)
 
 
     // const mWall = createMeshWall(root)
@@ -33,15 +34,19 @@ export const createWorldReal = (root) => {
 
 
 
+    const mPath = createMeshPath(root)
+    //mTown.mesh.position.y = -62
+    mPath.mesh.position.y = -61.5
+    studio.addToScene(mPath.mesh)
 
 
 
     return {
         addWorld: () => {
             system_PlayerMoveOnLevel.addItemToPlayerCollision(groundStart)
-            system_PlayerMoveOnLevel.addItemToPlayerCollision(mTown.mesh)
+            //system_PlayerMoveOnLevel.addItemToPlayerCollision(mTown.mesh)
             studio.addToScene(groundStart)
-            studio.addToScene(mTown.mesh)
+            //studio.addToScene(mTown.mesh)
         },
         removeWorld: () => {
             system_PlayerMoveOnLevel.removeItemFromPlayerCollision(groundStart)
