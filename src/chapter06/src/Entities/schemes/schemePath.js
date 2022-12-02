@@ -1,6 +1,12 @@
 import * as THREE from 'three'
 import {Vector3} from "three";
 
+
+const v1 = new THREE.Vector3(5, 0, 1)
+const v2 = new THREE.Vector3(3, 0, 3)
+
+console.log('erererere', v1.dot(v2))
+
 export const createSchemePath = () => {
     const arr = []
     const count = 15
@@ -56,6 +62,25 @@ export const createSchemePath = () => {
         const p0Right = new THREE.Vector3().copy(axisData.p0).add(rotRightV3)
         const p1Right = new THREE.Vector3().copy(axisData.p1).add(rotRightV3)
         arr[i].rightData = { p0: p0Right, p1: p1Right }
+    }
+
+    /** connectors */
+    for (let i = 1; i < arr.length; ++i) {
+        const prev = arr[i - 1]
+        const next = arr[i]
+
+        const toZeroNext = new THREE.Vector3().copy(next.axisData.p1).sub(next.axisData.p0)
+        const toZeroPrev = new THREE.Vector3().copy(prev.axisData.p0).sub(prev.axisData.p1)
+
+        const result = new THREE.Vector3()
+            .copy(toZeroNext)
+            .sub(toZeroPrev)
+            .add(prev.axisData.p1)
+            //.setLength(100)
+
+        arr[i].res = result
+        //const senterL =
+
     }
 
     console.log(arr)

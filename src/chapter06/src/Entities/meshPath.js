@@ -16,8 +16,9 @@ export const createMeshPath = (root) => {
      /** lines */
      const materialR = new THREE.LineBasicMaterial({ color: 0xff0000 })
      const materialG = new THREE.LineBasicMaterial({ color: 0x00ff00 })
+     const materialY = new THREE.LineBasicMaterial({ color: 0xFFff00 })
      for (let i = 1; i < schemePath.length; ++i) {
-         const { axisData, leftData, rightData } = schemePath[i]
+         const { axisData, leftData, rightData, res } = schemePath[i]
          {
              const p = [...axisData.p0.toArray(), ...axisData.p1.toArray()]
              const geometry = new THREE.BufferGeometry()
@@ -26,6 +27,19 @@ export const createMeshPath = (root) => {
              //const dataSegment = createHelperLines(schemeTown[i])
              root.studio.addToScene(line)
          }
+
+
+         {
+             const p = [...axisData.p1.toArray(), ...res.toArray()]
+             const geometry = new THREE.BufferGeometry()
+             geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(p), 3))
+             const line = new THREE.Line(geometry, materialY);
+             //const dataSegment = createHelperLines(schemeTown[i])
+             root.studio.addToScene(line)
+         }
+
+
+
 
          {
              const p = [...leftData.p0.toArray(), ...leftData.p1.toArray()]
@@ -44,6 +58,7 @@ export const createMeshPath = (root) => {
              //const dataSegment = createHelperLines(schemeTown[i])
              root.studio.addToScene(line)
          }
+
 
 
 
