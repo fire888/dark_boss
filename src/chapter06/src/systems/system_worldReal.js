@@ -3,6 +3,8 @@ import { createMeshWall } from '../Entities/meshWall'
 import { createMeshTown } from '../Entities/meshTown'
 import { createMeshPath } from '../Entities/meshPath'
 
+import {createTown2} from '../Entities/town2'
+
 export const createWorldReal = (root) => {
     const {
         assets,
@@ -34,10 +36,13 @@ export const createWorldReal = (root) => {
 
 
 
-    const mPath = createMeshPath(root)
+    //const mPath = createMeshPath(root)
     //mTown.mesh.position.y = -62
-    mPath.mesh.position.y = -61.5
-    studio.addToScene(mPath.mesh)
+    //mPath.mesh.position.y = -61.5
+    //studio.addToScene(mPath.mesh)
+
+    const t2 = createTown2()
+    studio.addToScene(t2.mesh)
 
 
 
