@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import { tryToDivideRoom, roomStart } from './town2TryToDivide'
+import { createRoom } from '../Entities/geometryRoom/geomRoom'
 
 const DOOR_SIZE = 40
 
@@ -24,6 +25,7 @@ export const createTown2 = () => {
     /** doors */
     for (let i = 0; i < resultArr.length; ++i) {
         const sData = resultArr[i].walls['s']
+        const eData = resultArr[i].walls['e']
         for (let j = 0; j < resultArr.length; ++j) {
             if (resultArr[i].id === resultArr[j].id) {
                 continue;
@@ -60,6 +62,40 @@ export const createTown2 = () => {
                     })
                 }
             }
+
+            const wData = resultArr[j].walls['w']
+
+            const zz = [Math.max(wData.p0[1], eData.p0[1]), Math.min(wData.p1[1], eData.p1[1])]
+            if (
+                wData.p0[0] === eData.p0[0] &&
+                zz[0] >= eData.p0[1] &&
+                zz[0] <= eData.p1[1] &&
+                zz[1] >= eData.p0[1] &&
+                zz[1] <= eData.p1[1]
+            ) {
+                const d = zz[1] - zz[0]
+                if (d > DOOR_SIZE) {
+                    const id = Math.random() * 100000000000000
+                    if (!eData.doors) {
+                        eData.doors = []
+                    }
+                    eData.doors.push({
+                        id,
+                        z0: zz[0] + (d / 2) - DOOR_SIZE * .4,
+                        z1: zz[0] + (d / 2) + DOOR_SIZE * .4 ,
+                    })
+                    if (!wData.doors) {
+                        wData.doors = []
+                    }
+                    wData.doors.push({
+                        id,
+                        z0: zz[0] + (d / 2) - DOOR_SIZE * .4,
+                        z1: zz[0] + (d / 2) + DOOR_SIZE * .4,
+                    })
+                }
+            }
+
+
         }
     }
 
@@ -110,9 +146,45 @@ export const createTown2 = () => {
                         mesh.add(line)
                     }
                 }
+                if (key === 'e') {
+                    for (let i = 0; i < doors.length; ++i) {
+                        const p = [
+                            p0[0], y, doors[i]['z0'],
+                            p0[0] - 5, y, doors[i]['z0'],
+                            p0[0] - 5, y, doors[i]['z1'],
+                            p0[0], y, doors[i]['z1'],
+                        ]
+                        const geometry = new THREE.BufferGeometry()
+                        geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(p), 3))
+                        const line = new THREE.Line(geometry, materialW);
+                        mesh.add(line)
+                    }
+                }
+                if (key === 'w') {
+                    for (let i = 0; i < doors.length; ++i) {
+                        const p = [
+                            p0[0], y, doors[i]['z0'],
+                            p0[0] + 5, y, doors[i]['z0'],
+                            p0[0] + 5, y, doors[i]['z1'],
+                            p0[0], y, doors[i]['z1'],
+                        ]
+                        const geometry = new THREE.BufferGeometry()
+                        geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(p), 3))
+                        const line = new THREE.Line(geometry, materialW);
+                        mesh.add(line)
+                    }
+                }
             }
         }
     }
+
+    for (let i = 0; i < resultArr.length; ++i) {
+        const m = createRoom(resultArr[i])
+        mesh.add(m)
+    }
+
+
+
 
     return {
         mesh
