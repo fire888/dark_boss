@@ -38,6 +38,38 @@ export const createRoom = data => {
                 }
             }
         }
+
+        if (key === 's') {
+            if (doors) {
+                doors.sort((a, b) => a.x0 - b.x0)
+                for (let i = doors.length - 1; i > - 1; --i) {
+                    if (i === doors.length - 1) {
+                        v.push(p1[0] - 1, y, p1[1] - 1)
+                        v.push(doors[i].x1, y, p1[1] + 1)
+                        v.push(doors[i].x1, 40, p1[1] + 1)
+                        v.push(p1[0] - 1, y, p1[1] - 1)
+                        v.push(doors[i].x0, 40, p1[1] - 1)
+                        v.push(p1[0] - 1, 40, p1[1] - 1)
+                    }
+                    // if (i > 0 && i <= doors.length - 1) {
+                    //     v.push(doors[i - 1].x1, y, p0[1] + 1)
+                    //     v.push(doors[i].x0, y, p0[1] + 1)
+                    //     v.push(doors[i].x0, 40, p0[1] + 1)
+                    //     v.push(doors[i - 1].x1, y, p0[1] + 1)
+                    //     v.push(doors[i].x0, 40, p0[1] + 1)
+                    //     v.push(doors[i - 1].x1, 40, p0[1] + 1)
+                    // }
+                    // if (i === doors.length - 1) {
+                    //     v.push(doors[doors.length-1].x1, y, p0[1] + 1)
+                    //     v.push(p1[0] - 1, y, p1[1] + 1)
+                    //     v.push(p1[0] - 1, 40, p1[1] + 1)
+                    //     v.push(doors[doors.length-1].x1, y, p0[1] + 1)
+                    //     v.push(p1[0] - 1, 40, p1[1] + 1)
+                    //     v.push(doors[doors.length-1].x1, 40, p0[1] + 1)
+                    // }
+                }
+            }
+        }
     }
 
     const vertices = new Float32Array(v)
