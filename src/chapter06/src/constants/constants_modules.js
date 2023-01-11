@@ -42,6 +42,8 @@ import { system_PlayerNearLevelItems } from '../systems/system_PlayerNearLevelIt
 import { actions } from '../actions/actions'
 import { Ui } from "../ui/Ui";
 
+import levelWallsSrc from '../../../assets/chapter06/walls.obj'
+
 import { system_Sound } from '../systems/system_Sound'
 import soundAmbientSrc from '../../../assets/chapter05/audio/ambient.mp3'
 //import carStart from '../../../assets/chapter05/audio/ambient_intro.mp3'
@@ -114,6 +116,7 @@ export const GAME_MODULES = [
             { type: 'cubeTextures', path: [ px2jpg, nx2jpg, py2jpg, ny2jpg, pz2jpg, nz2jpg, ], key: 'skyBox2' },
             { type: 'img', path: mapFloorOuter, key: 'mapFloorOuter', wrap: true },
             { type: 'img', path: mapTop, key: 'mapTop', wrap: true },
+            { type: 'obj', path: levelWallsSrc, key: 'walls' },
         //    { type: 'img', path: mapVirt2, key: 'mapVirtual2', wrap: true },
         //    { type: 'img', path: mapTxt, key: 'mapParams' },
         //    { type: 'img', path: mapBody, key: 'mapBody' },

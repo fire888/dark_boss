@@ -41,7 +41,7 @@ export const createWorldReal = (root) => {
     //mPath.mesh.position.y = -61.5
     //studio.addToScene(mPath.mesh)
 
-    const t2 = createTown2()
+    const t2 = createTown2(root)
     studio.addToScene(t2.mesh)
 
 

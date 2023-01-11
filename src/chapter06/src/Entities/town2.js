@@ -1,10 +1,11 @@
 import * as THREE from 'three'
 import { tryToDivideRoom, roomStart } from './town2TryToDivide'
-import { createRoom } from '../Entities/geometryRoom/geomRoom'
+import { createRoom } from './geometryRoom/geomRoom'
 
 const DOOR_SIZE = 40
 
-export const createTown2 = () => {
+export const createTown2 = (root) => {
+    console.log(root)
     /** create areas */
     const arr = [roomStart]
     let resultArr = null
@@ -179,8 +180,10 @@ export const createTown2 = () => {
     }
 
     for (let i = 0; i < resultArr.length; ++i) {
-        const m = createRoom(resultArr[i])
-        mesh.add(m)
+        const m = createRoom(resultArr[i], root)
+        console.log(m)
+        root.studio.addToScene(m)
+        //mesh.add(m)
     }
 
 
