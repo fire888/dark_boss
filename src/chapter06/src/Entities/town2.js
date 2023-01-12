@@ -100,6 +100,58 @@ export const createTown2 = (root) => {
         }
     }
 
+    /** divide walls by doors */
+    for (let i = 0; i < resultArr.length; ++i) {
+        const nData = resultArr[i].walls['n']
+        if (nData.doors) {
+            nData.wallSegments = []
+            for (let j = 0; j < nData.doors.length; ++j) {
+                if (j === 0) {
+                    nData.wallSegments.push({
+                        p0: [...nData.p0],
+                        p1: [nData.doors[j].x0, nData.p0[1]],
+                    })
+                }
+                if (nData.doors[j - 1]) {
+                    nData.wallSegments.push({
+                        p0: [nData.doors[j - 1].x1, nData.p0[1]],
+                        p1: [nData.doors[j].x0, nData.p0[1]],
+                    })
+                }
+                if (j === nData.doors.length - 1) {
+                    nData.wallSegments.push({
+                        p0: [nData.doors[nData.doors.length - 1].x1, nData.p0[1]],
+                        p1: [...nData.p1],
+                    })
+                }
+            }
+        }
+        // const sData = resultArr[i].walls['s']
+        // if (sData.doors) {
+        //     sData.wallSegments = []
+        //     for (let j = 0; j < nData.doors.length; ++j) {
+        //         if (j === 0) {
+        //             nData.wallSegments.push({
+        //                 p0: [...nData.p0],
+        //                 p1: [nData.doors[j].x0, nData.p0[1]],
+        //             })
+        //         }
+        //         if (nData.doors[j - 1]) {
+        //             nData.wallSegments.push({
+        //                 p0: [nData.doors[j - 1].x1, nData.p0[1]],
+        //                 p1: [nData.doors[j].x0, nData.p0[1]],
+        //             })
+        //         }
+        //         if (j === nData.doors.length - 1) {
+        //             nData.wallSegments.push({
+        //                 p0: [nData.doors[nData.doors.length - 1].x1, nData.p0[1]],
+        //                 p1: [...nData.p1],
+        //             })
+        //         }
+        //     }
+        // }
+    }
+
     console.log(resultArr)
 
 
@@ -181,13 +233,9 @@ export const createTown2 = (root) => {
 
     for (let i = 0; i < resultArr.length; ++i) {
         const m = createRoom(resultArr[i], root)
-        console.log(m)
+        //console.log(m)
         root.studio.addToScene(m)
-        //mesh.add(m)
     }
-
-
-
 
     return {
         mesh

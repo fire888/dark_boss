@@ -11,13 +11,24 @@ export const createRoom = (data, root) => {
     //const l = null
     for (let key in data.walls) {
         if (key === 'n') {
-            const {p0, p1, doors} = data.walls[key]
-
-            const l = p1[0] - p0[0]
-            const wData = createTopPartWall(l, root.assets['walls'].children[0])
-            translateArr(wData.v, p0[0], y0, p0[1])
-            v.push(...wData.v)
-            c.push(...wData.c)
+            const {p0, p1, doors, wallSegments} = data.walls[key]
+            if (!wallSegments) {
+                const l = p1[0] - p0[0]
+                const wData = createTopPartWall(l, root.assets['walls'].children[0])
+                translateArr(wData.v, p0[0], y0, p0[1])
+                v.push(...wData.v)
+                c.push(...wData.c)
+            } else {
+                for (let i = 0; i < wallSegments.length; ++i) {
+                    const {p0, p1} = wallSegments[i]
+                    const l = p1[0] - p0[0]
+                    const wData = createTopPartWall(l, root.assets['walls'].children[0])
+                    translateArr(wData.v, p0[0], y0, p0[1])
+                    v.push(...wData.v)
+                    c.push(...wData.c)
+                }
+                //console.log('%^&%&%^&%!!!')
+            }
         }
 
         if (key === 's') {

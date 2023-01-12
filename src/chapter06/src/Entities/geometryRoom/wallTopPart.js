@@ -70,16 +70,18 @@ export const createTopPartWall = (l, lineData) => {
 
     /** top items */
     {
-        const n = Math.floor((l - 30) / 10)
+        //const offset = 15
+        const offset = 7
+        const n = Math.floor((l - offset * 2) / 10)
 
         const r = 1.5
         const h2 = 87
         const h1 = 83
         const h0 = 78
-        let step = (l - 30) / n
+        let step = (l - offset * 2) / n
         if (n > 0) {
             for (let i = 0; i < n + 1; ++i) {
-                let currentX = (30 / 2) + (i * step)
+                let currentX = (offset) + (i * step)
                 const dt = createFaceWithSquare(
                     [currentX - r, h1, 11],
                     [currentX + r, h1, 11],
@@ -124,16 +126,18 @@ export const createTopPartWall = (l, lineData) => {
 
     /** bottom items */
     {
-        const n = Math.floor((l - 60) / 20)
+        //let offset = 30
+        let offset = 8
+        const n = Math.floor((l - offset * 2) / 20)
 
         const r = 3
         const h2 = 21
         const h1 = 83
         const h0 = 8.7
-        let step = (l - 60) / n
+        let step = (l - offset * 2) / n
         if (n > 0) {
             for (let i = 0; i < n + 1; ++i) {
-                let currentX = (60 / 2) + (i * step)
+                let currentX = offset + (i * step)
                 v.push(
                     ...createFace(
                         [currentX - r + 2, h0, 15],
@@ -200,11 +204,10 @@ export const createTopPartWall = (l, lineData) => {
 
     }
 
-    /** bottom lines */
-
     /** bottom items */
     {
-        let offset = 19
+        //let offset = 19
+        let offset = 2
         const n = Math.floor((l - (offset * 2)) / 5)
 
         const r = .5
