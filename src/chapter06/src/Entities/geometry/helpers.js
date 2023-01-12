@@ -25,12 +25,17 @@ export const getAngle = (x, y) => {
 
 
 
-export const createFaceWithSquare = (v1, v2, v3, v4, color1, color2) => {
+export const createFaceWithSquare = (v1, v2, v3, v4, color1, color2, offset) => {
     const maxW = v2[0] - v1[0]
     const maxH = v3[1] - v1[1]
 
-    const innerW = ran(maxW * 0.3, maxW * 0.7)
-    const innerH = ran(maxH * 0.3, maxH * 0.7)
+    let innerW = ran(maxW * 0.3, maxW * 0.7)
+    let innerH = ran(maxH * 0.3, maxH * 0.7)
+
+    if (offset) {
+        innerW = maxW * offset
+        innerH = maxH * offset
+    }
 
     const x1 = v1[0] + (maxW - innerW) / 2
     const x2 = v2[0] - (maxW - innerW) / 2
