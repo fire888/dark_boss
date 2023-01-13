@@ -104,6 +104,7 @@ export const createTown2 = (root) => {
     for (let i = 0; i < resultArr.length; ++i) {
         const nData = resultArr[i].walls['n']
         if (nData.doors) {
+            nData.doors.sort((a, b) => a.x0 - b.x0)
             nData.wallSegments = []
             for (let j = 0; j < nData.doors.length; ++j) {
                 if (j === 0) {
@@ -126,10 +127,31 @@ export const createTown2 = (root) => {
                 }
             }
         }
-        // const sData = resultArr[i].walls['s']
-        // if (sData.doors) {
-        //     sData.wallSegments = []
-        //     for (let j = 0; j < nData.doors.length; ++j) {
+        const sData = resultArr[i].walls['s']
+        if (sData.doors) {
+            sData.doors.sort((a, b) => a.x0 - b.x0)
+            sData.wallSegments = []
+            for (let j = sData.doors.length - 1; j > -1; --j) {
+                if (j === sData.doors.length - 1) {
+                     sData.wallSegments.push({
+                         p0: [...sData.p1],
+                         p1: [sData.doors[j].x1, sData.p1[1]],
+                     })
+                }
+                if (j === sData.doors.length - 1 && sData.doors[j - 1]) {
+                    sData.wallSegments.push({
+                        p0: [sData.doors[j].x0, sData.p1[1]],
+                        p1: [sData.doors[j - 1].x1, sData.p1[1]],
+                    })
+                }
+                if (j === 0) {
+                   sData.wallSegments.push({
+                       p0: [sData.doors[j].x0, sData.p1[1]],
+                       p1: [...sData.p0],
+                   })
+                }
+            }
+        }
         //         if (j === 0) {
         //             nData.wallSegments.push({
         //                 p0: [...nData.p0],
@@ -149,7 +171,7 @@ export const createTown2 = (root) => {
         //             })
         //         }
         //     }
-        // }
+        //}
     }
 
     console.log(resultArr)
