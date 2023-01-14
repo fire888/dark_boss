@@ -152,29 +152,70 @@ export const createTown2 = (root) => {
                 }
             }
         }
-        //         if (j === 0) {
-        //             nData.wallSegments.push({
-        //                 p0: [...nData.p0],
-        //                 p1: [nData.doors[j].x0, nData.p0[1]],
-        //             })
-        //         }
-        //         if (nData.doors[j - 1]) {
-        //             nData.wallSegments.push({
-        //                 p0: [nData.doors[j - 1].x1, nData.p0[1]],
-        //                 p1: [nData.doors[j].x0, nData.p0[1]],
-        //             })
-        //         }
-        //         if (j === nData.doors.length - 1) {
-        //             nData.wallSegments.push({
-        //                 p0: [nData.doors[nData.doors.length - 1].x1, nData.p0[1]],
-        //                 p1: [...nData.p1],
-        //             })
-        //         }
-        //     }
-        //}
+        const eData = resultArr[i].walls['e']
+        if (eData.doors) {
+            eData.doors.sort((a, b) => a.z0 - b.z0)
+            eData.wallSegments = []
+            for (let j = 0; j < eData.doors.length; ++j) {
+                if (j === 0) {
+                    eData.wallSegments.push({
+                        p0: [...eData.p0],
+                        p1: [eData.p0[0], eData.doors[j].z0],
+                    })
+                }
+                if (eData.doors[j - 1]) {
+                    eData.wallSegments.push({
+                        p0: [eData.p0[0], eData.doors[j - 1].z1],
+                        p1: [eData.p0[0], eData.doors[j].z0],
+                    })
+                }
+                if (j === eData.doors.length - 1) {
+                    eData.wallSegments.push({
+                        p0: [eData.p0[0], eData.doors[j].z1],
+                        p1: [...eData.p1],
+                    })
+                }
+            }
+        }
+        const wData = resultArr[i].walls['w']
+        if (wData.doors) {
+            wData.doors.sort((a, b) => a.z0 - b.z0)
+            wData.wallSegments = []
+            for (let j = wData.doors.length - 1; j > -1; --j) {
+                if (j === wData.doors.length - 1) {
+                    wData.wallSegments.push({
+                        p0: [...wData.p1],
+                        p1: [wData.p1[0], wData.doors[j].z1],
+                    })
+                }
+                if (wData.doors[j - 1]) {
+                    wData.wallSegments.push({
+                        p0: [wData.p1[0], wData.doors[j].z0],
+                        p1: [wData.p1[0], wData.doors[j- 1].z1],
+                    })
+                }
+                if (j === 0) {
+                    wData.wallSegments.push({
+                        p0: [wData.p1[0], wData.doors[j].z0],
+                        p1: [...wData.p0],
+                    })
+                }
+                // if (eData.doors[j - 1]) {
+                //     eData.wallSegments.push({
+                //         p0: [eData.p0[0], eData.doors[j - 1].z1],
+                //         p1: [eData.p0[0], eData.doors[j].z0],
+                //     })
+                // }
+                // if (j === eData.doors.length - 1) {
+                //     eData.wallSegments.push({
+                //         p0: [eData.p0[0], eData.doors[j].z1],
+                //         p1: [...eData.p1],
+                //     })
+                // }
+            }
+        }
     }
 
-    console.log(resultArr)
 
 
     /** lines */
