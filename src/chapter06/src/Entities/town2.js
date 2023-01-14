@@ -5,7 +5,6 @@ import { createRoom } from './geometryRoom/geomRoom'
 const DOOR_SIZE = 40
 
 export const createTown2 = (root) => {
-    console.log(root)
     /** create areas */
     const arr = [roomStart]
     let resultArr = null
@@ -200,18 +199,6 @@ export const createTown2 = (root) => {
                         p1: [...wData.p0],
                     })
                 }
-                // if (eData.doors[j - 1]) {
-                //     eData.wallSegments.push({
-                //         p0: [eData.p0[0], eData.doors[j - 1].z1],
-                //         p1: [eData.p0[0], eData.doors[j].z0],
-                //     })
-                // }
-                // if (j === eData.doors.length - 1) {
-                //     eData.wallSegments.push({
-                //         p0: [eData.p0[0], eData.doors[j].z1],
-                //         p1: [...eData.p1],
-                //     })
-                // }
             }
         }
     }
@@ -296,9 +283,26 @@ export const createTown2 = (root) => {
 
     for (let i = 0; i < resultArr.length; ++i) {
         const m = createRoom(resultArr[i], root)
-        //console.log(m)
         root.studio.addToScene(m)
     }
+
+
+    const doors = {}
+    for (let i = 0; i < resultArr.length; ++i) {
+        for (let key in resultArr[i].walls) {
+            if (resultArr[i].walls[key].doors) {
+                for (let j = 0; j < resultArr[i].walls[key].doors.length; ++j) {
+                    doors[resultArr[i].walls[key].doors[j].id] = {
+                        ...resultArr[i].walls[key].doors[j],
+                        dir: key
+                    }
+                }
+            }
+        }
+    }
+
+    console.log(doors)
+
 
     return {
         mesh
