@@ -302,6 +302,7 @@ export const createTown2 = (root) => {
     }
 
     console.log(doors)
+    console.log('----', root.assets['walls'])
 
 
     return {
