@@ -1,8 +1,11 @@
 import * as THREE from 'three'
 import { tryToDivideRoom, roomStart } from './town2TryToDivide'
 import { createRoom } from './geometryRoom/geomRoom'
+import { createDoorData } from './geometryRoom/geomDoor'
+import {translateArr} from "./geometry/helpers";
 
 const DOOR_SIZE = 40
+const y0 = -62
 
 export const createTown2 = (root) => {
     /** create areas */
@@ -292,17 +295,58 @@ export const createTown2 = (root) => {
         for (let key in resultArr[i].walls) {
             if (resultArr[i].walls[key].doors) {
                 for (let j = 0; j < resultArr[i].walls[key].doors.length; ++j) {
+                    let x = null, z = null
+                    if (key === 'n' || key === 's') {
+                        z = resultArr[i].walls[key].p0[1]
+                    }
+                    if (key === 'e' || key === 'w') {
+                        x = resultArr[i].walls[key].p0[0]
+                    }
+
                     doors[resultArr[i].walls[key].doors[j].id] = {
                         ...resultArr[i].walls[key].doors[j],
-                        dir: key
+                        dir: key,
+                        x, z,
                     }
                 }
             }
         }
     }
 
-    console.log(doors)
-    console.log('----', root.assets['walls'])
+    const vDoors = []
+    const cDoors = []
+
+    for (let key in doors) {
+        if (doors[key].dir !== 'n') {
+            continue
+        }
+        console.log(doors[key])
+        let l
+        if (doors[key].x0) {
+            l = doors[key].x1 - doors[key].x0
+        } else {
+            l = doors[key].z1 - doors[key].z0
+        }
+
+        const door = createDoorData(root, root.assets['walls'].children[1], l)
+        translateArr(door.v, doors[key].x0, y0, doors[key].z)
+
+        vDoors.push(...door.v)
+        cDoors.push(...door.c)
+
+    }
+
+    const vertices = new Float32Array(vDoors)
+    const colors = new Float32Array(cDoors)
+    /** mesh main */
+    const g = new THREE.BufferGeometry()
+    g.setAttribute('position', new THREE.BufferAttribute(vertices, 3))
+    g.setAttribute('color', new THREE.BufferAttribute(colors, 3))
+    g.computeVertexNormals()
+    const m = new THREE.Mesh(g, new THREE.MeshPhongMaterial({ color: 0xFFFFFF, vertexColors: true }))
+    root.studio.addToScene(m)
+    //console.log(doors)
+    //console.log('----', root.assets['walls'])
 
 
     return {
