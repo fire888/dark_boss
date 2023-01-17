@@ -172,3 +172,51 @@ export const translateArr = (arr, x = 0, y = 0, z = 0) => {
         arr[i + 2] = vector[2]
     }
 }
+
+export const scaleArr = (arr, sX, sY, sZ) => {
+    const matrix = m4.scaling(sX, sY, sZ)
+
+    for (let i = 0; i < arr.length; i += 3) {
+        const vector = m4.transformPoint(matrix, [arr[i + 0], arr[i + 1], arr[i + 2], 1])
+        arr[i + 0] = vector[0]
+        arr[i + 1] = vector[1]
+        arr[i + 2] = vector[2]
+    }
+}
+
+export const inverseVertexOrder = copyV => {
+    for (let i = 0; i < copyV.length; i += 18) {
+        const n0_0 = copyV[i]
+        const n0_1 = copyV[i + 1]
+        const n0_2 = copyV[i + 2]
+
+        const n1_0 = copyV[i + 3]
+        const n1_1 = copyV[i + 3 + 1]
+        const n1_2 = copyV[i + 3 + 2]
+
+        const n4_0 = copyV[i + 12]
+        const n4_1 = copyV[i + 12 + 1]
+        const n4_2 = copyV[i + 12 + 2]
+
+        const n5_0 = copyV[i + 15]
+        const n5_1 = copyV[i + 15 + 1]
+        const n5_2 = copyV[i + 15 + 2]
+
+
+        copyV[i] = n1_0
+        copyV[i + 1] = n1_1
+        copyV[i + 2] = n1_2
+
+        copyV[i + 3] = n0_0
+        copyV[i + 3 + 1] = n0_1
+        copyV[i + 3 + 2] = n0_2
+
+        copyV[i + 12] = n5_0
+        copyV[i + 12 + 1] = n5_1
+        copyV[i + 12 + 2] = n5_2
+
+        copyV[i + 15] = n4_0
+        copyV[i + 15 + 1] = n4_1
+        copyV[i + 15 + 2] = n4_2
+    }
+}
