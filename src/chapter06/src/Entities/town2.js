@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { tryToDivideRoom, roomStart } from './town2TryToDivide'
 import { createRoom } from './geometryRoom/geomRoom'
 import { createDoorData } from './geometryRoom/geomDoor'
-import {translateArr} from "./geometry/helpers";
+import {rotateArrY, translateArr} from "./geometry/helpers";
 
 const DOOR_SIZE = 40
 const y0 = -62
@@ -45,7 +45,7 @@ export const createTown2 = (root) => {
                 xx[1] <= sData.p1[0]
             ) {
                 const d = xx[1] - xx[0]
-                if (d > DOOR_SIZE) {
+                if (d > DOOR_SIZE + 5) {
                     const id = Math.random() * 100000000000000
                     if (!sData.doors) {
                         sData.doors = []
@@ -317,10 +317,10 @@ export const createTown2 = (root) => {
     const cDoors = []
 
     for (let key in doors) {
-        if (doors[key].dir !== 'n') {
-            continue
-        }
-        console.log(doors[key])
+        //if (doors[key].dir !== 'n') {
+        //    continue
+        //}
+        //console.log(doors[key])
         let l
         if (doors[key].x0) {
             l = doors[key].x1 - doors[key].x0
@@ -329,7 +329,14 @@ export const createTown2 = (root) => {
         }
 
         const door = createDoorData(root, root.assets['walls'].children[1], l)
-        translateArr(door.v, doors[key].x0, y0, doors[key].z)
+
+        if (doors[key].dir === 'n' || doors[key].dir === 's') {
+            translateArr(door.v, doors[key].x0, y0, doors[key].z)
+        } else {
+            rotateArrY(door.v, -Math.PI / 2)
+            translateArr(door.v, doors[key].x, y0, doors[key].z0)
+        }
+
 
         vDoors.push(...door.v)
         cDoors.push(...door.c)

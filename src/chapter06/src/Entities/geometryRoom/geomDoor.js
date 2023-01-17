@@ -126,7 +126,6 @@ export const createDoorData = (root, lineData, l) => {
     const mirrorV = [...v]
     inverseVertexOrder(mirrorV)
     scaleArr(mirrorV, 1, 1, -1)
-    // translateArr(mirrorV, l, 0, 0)
     v.push(...mirrorV)
     c.push(...c)
 
