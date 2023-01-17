@@ -6,6 +6,7 @@ import {rotateArrY, translateArr} from "./geometry/helpers";
 
 const DOOR_SIZE = 40
 const y0 = -62
+const DOOR_MIN_OFFSET = .5
 
 export const createTown2 = (root) => {
     /** create areas */
@@ -13,6 +14,18 @@ export const createTown2 = (root) => {
     let resultArr = null
     const iterate = (arr) => {
         for (let i = 0; i < arr.length; ++i) {
+            const lX = arr[i].walls['s'].p1[0] - arr[i].walls['s'].p0[0]
+            const lZ = arr[i].walls['e'].p1[1] - arr[i].walls['e'].p0[1]
+
+            if (lX < 1000 && lZ < 1000 && Math.random() < .15) {
+                arr[i].notDivide = true
+            }
+
+            if (arr[i].notDivide) {
+                continue;
+            }
+
+
             const newDataRooms = tryToDivideRoom(arr[i])
             if (!newDataRooms) {
                 continue
@@ -45,7 +58,7 @@ export const createTown2 = (root) => {
                 xx[1] <= sData.p1[0]
             ) {
                 const d = xx[1] - xx[0]
-                if (d > DOOR_SIZE + 5) {
+                if (d > DOOR_SIZE) {
                     const id = Math.random() * 100000000000000
                     if (!sData.doors) {
                         sData.doors = []

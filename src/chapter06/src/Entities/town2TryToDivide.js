@@ -1,5 +1,5 @@
 //const minS = 200
-const minS = 280
+const minS = 200
 
 let count = 0
 export const getId = () => {
@@ -28,15 +28,20 @@ export const tryToDivideRoom = (roomData) => {
     let isZBig = false
     let divideAxis = null
 
-    if (walls['s'].p1[0] - walls['s'].p0[0] > minS) {
+    const lX = walls['s'].p1[0] - walls['s'].p0[0]
+    const lZ = walls['e'].p1[1] - walls['e'].p0[1]
+
+    if (lX > minS) {
         isXBig = true
         divideAxis = 'x'
     }
-    if (walls['e'].p1[1] - walls['e'].p0[1] > minS) {
+
+    if (lZ > minS) {
         isZBig = true
         divideAxis = 'z'
+        console.log(walls['e'].p1[1] - walls['e'].p0[1])
     }
-
+    
     if (isXBig && isZBig) {
         divideAxis = Math.random() < .5 ? 'x' : 'z'
     }
@@ -47,7 +52,7 @@ export const tryToDivideRoom = (roomData) => {
 
     const newRooms = []
     if (divideAxis === 'x') {
-        const newX = (walls['s'].p1[0] - walls['s'].p0[0]) * (0.3 + Math.random() * .6) + walls['s'].p0[0]
+        const newX = (walls['s'].p1[0] - walls['s'].p0[0]) * (0.3 + Math.random() * .4) + walls['s'].p0[0]
         newRooms.push(
             {
                 id: getId(),
@@ -103,7 +108,7 @@ export const tryToDivideRoom = (roomData) => {
     }
 
     if (divideAxis === 'z') {
-        const newZ = (walls['e'].p1[1] - walls['e'].p0[1]) * (0.3 + Math.random() * .6) + walls['e'].p0[1]
+        const newZ = (walls['e'].p1[1] - walls['e'].p0[1]) * (0.3 + Math.random() * .4) + walls['e'].p0[1]
         newRooms.push(
             {
                 id: getId(),
