@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import { tryToDivideRoom, roomStart } from './town2TryToDivide'
 import { createRoom } from './geometryRoom/geomRoom'
 import { createDoorData } from './geometryRoom/geomDoor'
+import { createOuterWall } from './geometryRoom/outerWall'
 import {rotateArrY, translateArr} from "./geometry/helpers";
 
 const DOOR_SIZE = 30
@@ -9,6 +10,62 @@ const DOOR_SIZE_FULL = 60
 const y0 = -62
 
 export const createTown2 = (root) => {
+    {
+        const outerWallsData = JSON.parse(JSON.stringify(roomStart))
+        const v = []
+        const c = []
+
+        for (let key in outerWallsData.walls) {
+            if (key === 'n') {
+                const wall = createOuterWall(
+                    { p0: outerWallsData.walls[key].p1, p1: outerWallsData.walls[key].p0 },
+                    root.assets['walls'].children[2]
+                )
+                v.push(...wall.v)
+                c.push(...wall.c)
+            }
+
+            if (key === 's') {
+                const wall = createOuterWall(
+                    { p0: outerWallsData.walls[key].p0, p1: outerWallsData.walls[key].p1 },
+                    root.assets['walls'].children[2]
+                )
+                v.push(...wall.v)
+                c.push(...wall.c)
+            }
+
+            if (key === 'e') {
+                const wall = createOuterWall(
+                    { p0: outerWallsData.walls[key].p1, p1: outerWallsData.walls[key].p0 },
+                    root.assets['walls'].children[2]
+                )
+                v.push(...wall.v)
+                c.push(...wall.c)
+            }
+
+            if (key === 'w') {
+                const wall = createOuterWall(
+                    { p0: outerWallsData.walls[key].p0, p1: outerWallsData.walls[key].p1 },
+                    root.assets['walls'].children[2]
+                )
+                v.push(...wall.v)
+                c.push(...wall.c)
+            }
+        }
+
+        const vertices = new Float32Array(v)
+        const colors = new Float32Array(c)
+        /** mesh main */
+        const g = new THREE.BufferGeometry()
+        g.setAttribute('position', new THREE.BufferAttribute(vertices, 3))
+        g.setAttribute('color', new THREE.BufferAttribute(colors, 3))
+        g.computeVertexNormals()
+        const m = new THREE.Mesh(g, new THREE.MeshPhongMaterial({ color: 0xFFFFFF, vertexColors: true }))
+        root.studio.addToScene(m)
+    }
+
+
+
     /** create areas */
     const arr = [roomStart]
     let resultArr = null
@@ -340,10 +397,6 @@ export const createTown2 = (root) => {
     const cDoors = []
 
     for (let key in doors) {
-        //if (doors[key].dir !== 'n') {
-        //    continue
-        //}
-        //console.log(doors[key])
         let l
         if (doors[key].x0) {
             l = doors[key].x1 - doors[key].x0
@@ -375,8 +428,6 @@ export const createTown2 = (root) => {
     g.computeVertexNormals()
     const m = new THREE.Mesh(g, new THREE.MeshPhongMaterial({ color: 0xFFFFFF, vertexColors: true }))
     root.studio.addToScene(m)
-    //console.log(doors)
-    //console.log('----', root.assets['walls'])
 
 
     return {

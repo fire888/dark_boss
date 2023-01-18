@@ -1,5 +1,8 @@
-//const minS = 200
 const minS = 150
+const S1 = 500
+//const S2 = 5000
+const S2 = 1500
+
 
 let count = 0
 export const getId = () => {
@@ -8,8 +11,7 @@ export const getId = () => {
 }
 
 
-const S1 = 5000
-const S2 = 500
+
 
 export const roomStart = {
     id: getId(),
@@ -39,7 +41,6 @@ export const tryToDivideRoom = (roomData) => {
     if (lZ > minS) {
         isZBig = true
         divideAxis = 'z'
-        console.log(walls['e'].p1[1] - walls['e'].p0[1])
     }
     
     if (isXBig && isZBig) {

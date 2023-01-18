@@ -23,6 +23,13 @@ export const getAngle = (x, y) => {
     return inRads - Math.PI / 2
 }
 
+export const angleFromCoords = (x, y) => {
+    let rad = Math.atan(y / x)
+    x < 0 && y > 0 && (rad = Math.PI - Math.abs(rad))
+    x < 0 && y <= 0 && (rad = Math.PI + Math.abs(rad))
+    return rad
+}
+
 
 
 export const createFaceWithSquare = (v1, v2, v3, v4, color1, color2, offset) => {

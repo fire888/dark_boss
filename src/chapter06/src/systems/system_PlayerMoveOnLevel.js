@@ -1,5 +1,5 @@
 import { helper_CollisionsItems_v02 } from '../../../_CORE/helpers/helper_CollisionsItems_v02'
-import * as THREE from 'three'
+
 
 
 
@@ -115,7 +115,9 @@ export class system_PlayerMoveOnLevel {
     
 
 
-        emitter.subscribe('keyEvent')(data => keys = data)
+        emitter.subscribe('keyEvent')(data => {
+            keys = data
+        })
         //emitter.subscribe('frameUpdate')(update)
 
 
@@ -125,7 +127,6 @@ export class system_PlayerMoveOnLevel {
 
     addItemToPlayerCollision (item) {
         this._collisionsWalls.setItemToCollision(item)
-        console.log(this._collisionsWalls)
     }
 
     removeItemFromPlayerCollision (item) {
