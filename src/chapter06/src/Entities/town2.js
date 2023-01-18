@@ -4,9 +4,9 @@ import { createRoom } from './geometryRoom/geomRoom'
 import { createDoorData } from './geometryRoom/geomDoor'
 import {rotateArrY, translateArr} from "./geometry/helpers";
 
-const DOOR_SIZE = 40
+const DOOR_SIZE = 30
+const DOOR_SIZE_FULL = 60
 const y0 = -62
-const DOOR_MIN_OFFSET = .5
 
 export const createTown2 = (root) => {
     /** create areas */
@@ -55,26 +55,31 @@ export const createTown2 = (root) => {
                 xx[0] >= sData.p0[0] &&
                 xx[0] <= sData.p1[0] &&
                 xx[1] >= sData.p0[0] &&
-                xx[1] <= sData.p1[0]
+                xx[1] <= sData.p1[0] &&
+
+                xx[0] >= nData.p0[0] &&
+                xx[0] <= nData.p1[0] &&
+                xx[1] >= nData.p0[0] &&
+                xx[1] <= nData.p1[0]
             ) {
                 const d = xx[1] - xx[0]
-                if (d > DOOR_SIZE) {
+                if (d > DOOR_SIZE_FULL) {
                     const id = Math.random() * 100000000000000
                     if (!sData.doors) {
                         sData.doors = []
                     }
                     sData.doors.push({
                         id,
-                        x0: xx[0] + (d / 2) - DOOR_SIZE * .4,
-                        x1: xx[0] + (d / 2) + DOOR_SIZE * .4 ,
+                        x0: xx[0] + (d / 2) - DOOR_SIZE * .5,
+                        x1: xx[0] + (d / 2) + DOOR_SIZE * .5,
                     })
                     if (!nData.doors) {
                         nData.doors = []
                     }
                     nData.doors.push({
                         id,
-                        x0: xx[0] + (d / 2) - DOOR_SIZE * .4,
-                        x1: xx[0] + (d / 2) + DOOR_SIZE * .4,
+                        x0: xx[0] + (d / 2) - DOOR_SIZE * .5,
+                        x1: xx[0] + (d / 2) + DOOR_SIZE * .5,
                     })
                 }
             }
@@ -87,26 +92,31 @@ export const createTown2 = (root) => {
                 zz[0] >= eData.p0[1] &&
                 zz[0] <= eData.p1[1] &&
                 zz[1] >= eData.p0[1] &&
-                zz[1] <= eData.p1[1]
+                zz[1] <= eData.p1[1] &&
+
+                zz[0] >= wData.p0[1] &&
+                zz[0] <= wData.p1[1] &&
+                zz[1] >= wData.p0[1] &&
+                zz[1] <= wData.p1[1]
             ) {
                 const d = zz[1] - zz[0]
-                if (d > DOOR_SIZE) {
+                if (d > DOOR_SIZE_FULL) {
                     const id = Math.random() * 100000000000000
                     if (!eData.doors) {
                         eData.doors = []
                     }
                     eData.doors.push({
                         id,
-                        z0: zz[0] + (d / 2) - DOOR_SIZE * .4,
-                        z1: zz[0] + (d / 2) + DOOR_SIZE * .4 ,
+                        z0: zz[0] + (d / 2) - DOOR_SIZE * .5,
+                        z1: zz[0] + (d / 2) + DOOR_SIZE * .5,
                     })
                     if (!wData.doors) {
                         wData.doors = []
                     }
                     wData.doors.push({
                         id,
-                        z0: zz[0] + (d / 2) - DOOR_SIZE * .4,
-                        z1: zz[0] + (d / 2) + DOOR_SIZE * .4,
+                        z0: zz[0] + (d / 2) - DOOR_SIZE * .5,
+                        z1: zz[0] + (d / 2) + DOOR_SIZE * .5,
                     })
                 }
             }
@@ -153,7 +163,7 @@ export const createTown2 = (root) => {
                          p1: [sData.doors[j].x1, sData.p1[1]],
                      })
                 }
-                if (j === sData.doors.length - 1 && sData.doors[j - 1]) {
+                if (sData.doors[j - 1]) {
                     sData.wallSegments.push({
                         p0: [sData.doors[j].x0, sData.p1[1]],
                         p1: [sData.doors[j - 1].x1, sData.p1[1]],

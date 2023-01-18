@@ -1,5 +1,5 @@
 //const minS = 200
-const minS = 200
+const minS = 150
 
 let count = 0
 export const getId = () => {
@@ -8,8 +8,8 @@ export const getId = () => {
 }
 
 
-const S1 = 1500
-const S2 = 1500
+const S1 = 5000
+const S2 = 500
 
 export const roomStart = {
     id: getId(),
