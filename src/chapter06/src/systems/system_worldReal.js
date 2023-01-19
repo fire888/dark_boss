@@ -42,7 +42,7 @@ export const createWorldReal = (root) => {
     //studio.addToScene(mPath.mesh)
 
     const t2 = createTown2(root)
-    studio.addToScene(t2.mesh)
+    //studio.addToScene(t2.mesh)
 
 
 

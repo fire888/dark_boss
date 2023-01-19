@@ -4,67 +4,14 @@ import { createRoom } from './geometryRoom/geomRoom'
 import { createDoorData } from './geometryRoom/geomDoor'
 import { createOuterWall } from './geometryRoom/outerWall'
 import {rotateArrY, translateArr} from "./geometry/helpers";
+import { createMeshFromBuffer } from '../helpers/createBufferGeom'
+import { createHelpLines }  from './geometryRoom/helpLines'
 
 const DOOR_SIZE = 30
 const DOOR_SIZE_FULL = 60
 const y0 = -62
 
 export const createTown2 = (root) => {
-    {
-        const outerWallsData = JSON.parse(JSON.stringify(roomStart))
-        const v = []
-        const c = []
-
-        for (let key in outerWallsData.walls) {
-            if (key === 'n') {
-                const wall = createOuterWall(
-                    { p0: outerWallsData.walls[key].p1, p1: outerWallsData.walls[key].p0 },
-                    root.assets['walls'].children[2]
-                )
-                v.push(...wall.v)
-                c.push(...wall.c)
-            }
-
-            if (key === 's') {
-                const wall = createOuterWall(
-                    { p0: outerWallsData.walls[key].p0, p1: outerWallsData.walls[key].p1 },
-                    root.assets['walls'].children[2]
-                )
-                v.push(...wall.v)
-                c.push(...wall.c)
-            }
-
-            if (key === 'e') {
-                const wall = createOuterWall(
-                    { p0: outerWallsData.walls[key].p1, p1: outerWallsData.walls[key].p0 },
-                    root.assets['walls'].children[2]
-                )
-                v.push(...wall.v)
-                c.push(...wall.c)
-            }
-
-            if (key === 'w') {
-                const wall = createOuterWall(
-                    { p0: outerWallsData.walls[key].p0, p1: outerWallsData.walls[key].p1 },
-                    root.assets['walls'].children[2]
-                )
-                v.push(...wall.v)
-                c.push(...wall.c)
-            }
-        }
-
-        const vertices = new Float32Array(v)
-        const colors = new Float32Array(c)
-        /** mesh main */
-        const g = new THREE.BufferGeometry()
-        g.setAttribute('position', new THREE.BufferAttribute(vertices, 3))
-        g.setAttribute('color', new THREE.BufferAttribute(colors, 3))
-        g.computeVertexNormals()
-        const m = new THREE.Mesh(g, new THREE.MeshPhongMaterial({ color: 0xFFFFFF, vertexColors: true }))
-        root.studio.addToScene(m)
-    }
-
-
 
     /** create areas */
     const arr = [roomStart]
@@ -177,10 +124,37 @@ export const createTown2 = (root) => {
                     })
                 }
             }
-
-
         }
     }
+    /** create outer doors */
+    const outerDoors = []
+    for (let i = 0; i < resultArr.length; ++i) {
+        const sData = resultArr[i].walls['n']
+        if (sData.p0[1] === 0) {
+            const xx = [sData.p0[0], sData.p1[0]]
+            const d = xx[1] - xx[0]
+            if (d > DOOR_SIZE_FULL) {
+                const id = Math.random() * 100000000000000
+                if (!sData.doors) {
+                    sData.doors = []
+                }
+                sData.doors.push({
+                    id,
+                    x0: xx[0] + (d / 2) - DOOR_SIZE * .5,
+                    x1: xx[0] + (d / 2) + DOOR_SIZE * .5,
+                })
+
+                outerDoors.push({
+                    id,
+                    x0: xx[0] + (d / 2) - DOOR_SIZE * .5,
+                    x1: xx[0] + (d / 2) + DOOR_SIZE * .5,
+                })
+            }
+        }
+    }
+
+
+
 
     /** divide walls by doors */
     for (let i = 0; i < resultArr.length; ++i) {
@@ -288,88 +262,15 @@ export const createTown2 = (root) => {
 
 
 
-    /** lines */
-    const mesh = new THREE.Group()
-    for (let i = 0; i < resultArr.length; ++i) {
-        const materialW = new THREE.LineBasicMaterial({
-            color: Math.random() * 0xFFFFFF
-        })
-        for (let key in resultArr[i].walls) {
-            const {p0, p1, doors} = resultArr[i].walls[key]
-            const y = -50
-            const p = [p0[0], y, p0[1], p1[0], y, p1[1]]
-            const geometry = new THREE.BufferGeometry()
-            geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(p), 3))
-            const line = new THREE.Line(geometry, materialW);
-            mesh.add(line)
 
-            if (doors) {
-                if (key === 'n') {
-                    for (let i = 0; i < doors.length; ++i) {
-                        const p = [
-                            doors[i]['x0'], y, p0[1],
-                            doors[i]['x0'], y, p0[1] + 5,
-                            doors[i]['x1'], y, p0[1] + 5,
-                            doors[i]['x1'], y, p0[1],
-                        ]
-                        const geometry = new THREE.BufferGeometry()
-                        geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(p), 3))
-                        const line = new THREE.Line(geometry, materialW);
-                        mesh.add(line)
-                    }
-                }
-                if (key === 's') {
-                    for (let i = 0; i < doors.length; ++i) {
-                        const p = [
-                            doors[i]['x0'], y, p0[1],
-                            doors[i]['x0'], y, p0[1] - 5,
-                            doors[i]['x1'], y, p0[1] - 5,
-                            doors[i]['x1'], y, p0[1],
-                        ]
-                        const geometry = new THREE.BufferGeometry()
-                        geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(p), 3))
-                        const line = new THREE.Line(geometry, materialW);
-                        mesh.add(line)
-                    }
-                }
-                if (key === 'e') {
-                    for (let i = 0; i < doors.length; ++i) {
-                        const p = [
-                            p0[0], y, doors[i]['z0'],
-                            p0[0] - 5, y, doors[i]['z0'],
-                            p0[0] - 5, y, doors[i]['z1'],
-                            p0[0], y, doors[i]['z1'],
-                        ]
-                        const geometry = new THREE.BufferGeometry()
-                        geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(p), 3))
-                        const line = new THREE.Line(geometry, materialW);
-                        mesh.add(line)
-                    }
-                }
-                if (key === 'w') {
-                    for (let i = 0; i < doors.length; ++i) {
-                        const p = [
-                            p0[0], y, doors[i]['z0'],
-                            p0[0] + 5, y, doors[i]['z0'],
-                            p0[0] + 5, y, doors[i]['z1'],
-                            p0[0], y, doors[i]['z1'],
-                        ]
-                        const geometry = new THREE.BufferGeometry()
-                        geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(p), 3))
-                        const line = new THREE.Line(geometry, materialW);
-                        mesh.add(line)
-                    }
-                }
-            }
-        }
-    }
-
+    /** ROOMS MESHES */
     for (let i = 0; i < resultArr.length; ++i) {
         const m = createRoom(resultArr[i], root)
         root.studio.addToScene(m)
     }
 
 
+    /** CREATE DOORS DATA */
     const doors = {}
     for (let i = 0; i < resultArr.length; ++i) {
         for (let key in resultArr[i].walls) {
@@ -393,6 +294,8 @@ export const createTown2 = (root) => {
         }
     }
 
+
+    /** DOORS MESH **/
     const vDoors = []
     const cDoors = []
 
@@ -413,24 +316,95 @@ export const createTown2 = (root) => {
             translateArr(door.v, doors[key].x, y0, doors[key].z0)
         }
 
-
         vDoors.push(...door.v)
         cDoors.push(...door.c)
-
     }
 
-    const vertices = new Float32Array(vDoors)
-    const colors = new Float32Array(cDoors)
-    /** mesh main */
-    const g = new THREE.BufferGeometry()
-    g.setAttribute('position', new THREE.BufferAttribute(vertices, 3))
-    g.setAttribute('color', new THREE.BufferAttribute(colors, 3))
-    g.computeVertexNormals()
-    const m = new THREE.Mesh(g, new THREE.MeshPhongMaterial({ color: 0xFFFFFF, vertexColors: true }))
-    root.studio.addToScene(m)
+    const doorsMesh = createMeshFromBuffer({ v: vDoors, c: cDoors })
+    root.studio.addToScene(doorsMesh)
+
+
+
+
+    /** OUTER WALLS */
+    {
+        const outerWallsData = JSON.parse(JSON.stringify(roomStart))
+        const v = []
+        const c = []
+
+        for (let key in outerWallsData.walls) {
+            if (key === 'n') {
+                outerDoors.sort((a, b) => a.x0 - b.x0)
+                const arrWalls = []
+                const doorOffset = 10
+                for (let i = outerDoors.length - 1; i > -1; --i) {
+                    if (i === outerDoors.length - 1) {
+                        arrWalls.push({
+                            p0: [...outerWallsData.walls[key].p1],
+                            p1: [outerDoors[i].x1 + doorOffset, outerWallsData.walls[key].p1[1]]
+                        })
+                    }
+                    if (outerDoors[i - 1]) {
+                        arrWalls.push({
+                            p0: [outerDoors[i].x0 - doorOffset, outerWallsData.walls[key].p1[1]],
+                            p1: [outerDoors[i - 1].x1 + doorOffset, outerWallsData.walls[key].p1[1]]
+                        })
+                    }
+                    if (i === 0) {
+                        arrWalls.push({
+                            p0: [outerDoors[i].x0 - doorOffset, outerWallsData.walls[key].p1[1]],
+                            p1: [...outerWallsData.walls[key].p0]
+                        })
+                    }
+                }
+                console.log(outerWallsData)
+                for (let i = 0; i < arrWalls.length; ++i) {
+                    const wall = createOuterWall(arrWalls[i], root.assets['walls'].children[2])
+                    v.push(...wall.v)
+                    c.push(...wall.c)
+
+                }
+            }
+
+            if (key === 's') {
+                const wall = createOuterWall(
+                    { p0: outerWallsData.walls[key].p0, p1: outerWallsData.walls[key].p1 },
+                    root.assets['walls'].children[2]
+                )
+                v.push(...wall.v)
+                c.push(...wall.c)
+            }
+
+            if (key === 'e') {
+                const wall = createOuterWall(
+                    { p0: outerWallsData.walls[key].p1, p1: outerWallsData.walls[key].p0 },
+                    root.assets['walls'].children[2]
+                )
+                v.push(...wall.v)
+                c.push(...wall.c)
+            }
+
+            if (key === 'w') {
+                const wall = createOuterWall(
+                    { p0: outerWallsData.walls[key].p0, p1: outerWallsData.walls[key].p1 },
+                    root.assets['walls'].children[2]
+                )
+                v.push(...wall.v)
+                c.push(...wall.c)
+            }
+        }
+
+        const mesh = createMeshFromBuffer({ v, c })
+        root.studio.addToScene(mesh)
+    }
+
+
+    /** HELP LINES */
+    // const meshLines = createHelpLines(resultArr)
+    // root.studio.addToScene(meshLines)
 
 
     return {
-        mesh
+    //    mesh
     }
 }

@@ -16,7 +16,6 @@ let leftPr = null
 let rightPr = null
 
 export const createOuterWall = (dataWall, line) => {
-    console.log(dataWall)
     if (!pos) {
         pos = line.geometry.attributes.position.array
         leftPr = [...pos]
@@ -24,8 +23,6 @@ export const createOuterWall = (dataWall, line) => {
         rightPr = [...pos]
         rotateArrY(rightPr, Math.PI / 4)
     }
-
-    //console.log(line)
 
     const v = []
     const c = []

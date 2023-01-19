@@ -17,7 +17,8 @@ export class system_PlayerMoveOnLevel {
 
 
         //player.mesh.position.fromArray([0, -40, 0])
-        player.mesh.position.fromArray([0, 0, 0])
+        //player.mesh.position.fromArray([0, 0, 0])
+        //player.mesh.position.fromArray([500, 0, -100])
 
 
         const collisionsWalls = new helper_CollisionsItems_v02()

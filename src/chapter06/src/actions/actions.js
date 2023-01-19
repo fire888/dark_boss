@@ -58,7 +58,10 @@ export class actions {
             CONSTANTS,
         } = this._root
 
-        player.setToPos(...CONSTANTS.playerConfig.startPos)
+        //player.setToPos(...CONSTANTS.playerConfig.startPos)
+        //player.setToPos(...CONSTANTS.playerConfig.startPos)
+        player.setToPos(200, -40, -150)
+        player.mesh.rotation.y = -Math.PI
 
 
 
