@@ -43,7 +43,7 @@ export const lW = .2
 
 
 export const START_ENV_CONFIG = { fogNear: 0, fogFar: 0, color: 0x4a0a46, backgroundImgKey: null }
-export const ENV_CONFIG_WORD_1 = { fogNear: 100, fogFar: 1500, color: 0x4a0a46, backgroundImgKey: 'skyBox2' }
+export const ENV_CONFIG_WORD_1 = { fogNear: 100000, fogFar: 1500000, color: 0x4a0a46, backgroundImgKey: 'skyBox2' }
 export const ENV_CONFIG_WORD_2 = { fogNear: 1500, fogFar: 3000, color: 0x000000, backgroundImgKey: 'skyBox' }
 
 

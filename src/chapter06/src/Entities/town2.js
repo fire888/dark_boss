@@ -4,7 +4,7 @@ import { createRoom } from './geometryRoom/geomRoom'
 import { createDoorData } from './geometryRoom/geomDoor'
 import { createOuterWall } from './geometryRoom/outerWall'
 import {rotateArrY, translateArr} from "./geometry/helpers";
-import { createMeshFromBuffer } from '../helpers/createBufferGeom'
+import { createMeshFromBuffer } from '../helpers/createBufferMesh'
 import { createHelpLines }  from './geometryRoom/helpLines'
 
 const DOOR_SIZE = 30
@@ -21,7 +21,7 @@ export const createTown2 = (root) => {
             const lX = arr[i].walls['s'].p1[0] - arr[i].walls['s'].p0[0]
             const lZ = arr[i].walls['e'].p1[1] - arr[i].walls['e'].p0[1]
 
-            if (lX < 1000 && lZ < 1000 && Math.random() < .15) {
+            if (lX < 500 && lZ < 500 && Math.random() < .15) {
                 arr[i].notDivide = true
             }
 
@@ -255,12 +255,6 @@ export const createTown2 = (root) => {
 
 
 
-    /** ROOMS MESHES */
-    for (let i = 0; i < resultArr.length; ++i) {
-        const m = createRoom(resultArr[i], root)
-        root.studio.addToScene(m)
-    }
-
 
     /** CREATE DOORS DATA */
     const doors = {}
@@ -286,11 +280,59 @@ export const createTown2 = (root) => {
         }
     }
 
+    /** CREATE OUTER WALLS DATA **/
+    const outerWallsData = JSON.parse(JSON.stringify(roomStart))
+    const arrOuterWalls = []
+    for (let key in outerWallsData.walls) {
+        if (key === 'n') {
+            outerDoors.sort((a, b) => a.x0 - b.x0)
+            const doorOffset = 10
+            for (let i = outerDoors.length - 1; i > -1; --i) {
+                if (i === outerDoors.length - 1) {
+                    arrOuterWalls.push({
+                        p0: [...outerWallsData.walls[key].p1],
+                        p1: [outerDoors[i].x1 + doorOffset, outerWallsData.walls[key].p1[1]]
+                    })
+                }
+                if (outerDoors[i - 1]) {
+                    arrOuterWalls.push({
+                        p0: [outerDoors[i].x0 - doorOffset, outerWallsData.walls[key].p1[1]],
+                        p1: [outerDoors[i - 1].x1 + doorOffset, outerWallsData.walls[key].p1[1]]
+                    })
+                }
+                if (i === 0) {
+                    arrOuterWalls.push({
+                        p0: [outerDoors[i].x0 - doorOffset, outerWallsData.walls[key].p1[1]],
+                        p1: [...outerWallsData.walls[key].p0]
+                    })
+                }
+            }
+
+        }
+        if (key === 's') {
+            arrOuterWalls.push({ p0: outerWallsData.walls[key].p0, p1: outerWallsData.walls[key].p1 })
+        }
+        if (key === 'e') {
+            arrOuterWalls.push({ p0: outerWallsData.walls[key].p1, p1: outerWallsData.walls[key].p0 })
+        }
+        if (key === 'w') {
+            arrOuterWalls.push({ p0: outerWallsData.walls[key].p0, p1: outerWallsData.walls[key].p1 })
+        }
+    }
+
+
+    const v = []
+    const c = []
+
+
+    /** ROOMS MESHES */
+    for (let i = 0; i < resultArr.length; ++i) {
+        const dataRoom = createRoom(resultArr[i], root)
+        v.push(...dataRoom.v)
+        c.push(...dataRoom.c)
+    }
 
     /** DOORS MESH **/
-    const vDoors = []
-    const cDoors = []
-
     for (let key in doors) {
         let l
         if (doors[key].x0) {
@@ -308,87 +350,22 @@ export const createTown2 = (root) => {
             translateArr(door.v, doors[key].x, y0, doors[key].z0)
         }
 
-        vDoors.push(...door.v)
-        cDoors.push(...door.c)
+        v.push(...door.v)
+        c.push(...door.c)
     }
 
-    const doorsMesh = createMeshFromBuffer({ v: vDoors, c: cDoors })
-    root.studio.addToScene(doorsMesh)
 
 
+    /** OUTER WALLS MESH */
+    for (let i = 0; i < arrOuterWalls.length; ++i) {
+        const wall = createOuterWall(arrOuterWalls[i], root.assets['walls'].children[2])
+        v.push(...wall.v)
+        c.push(...wall.c)
 
-
-    /** OUTER WALLS */
-    {
-        const outerWallsData = JSON.parse(JSON.stringify(roomStart))
-        const v = []
-        const c = []
-
-        for (let key in outerWallsData.walls) {
-            if (key === 'n') {
-                outerDoors.sort((a, b) => a.x0 - b.x0)
-                const arrWalls = []
-                const doorOffset = 10
-                for (let i = outerDoors.length - 1; i > -1; --i) {
-                    if (i === outerDoors.length - 1) {
-                        arrWalls.push({
-                            p0: [...outerWallsData.walls[key].p1],
-                            p1: [outerDoors[i].x1 + doorOffset, outerWallsData.walls[key].p1[1]]
-                        })
-                    }
-                    if (outerDoors[i - 1]) {
-                        arrWalls.push({
-                            p0: [outerDoors[i].x0 - doorOffset, outerWallsData.walls[key].p1[1]],
-                            p1: [outerDoors[i - 1].x1 + doorOffset, outerWallsData.walls[key].p1[1]]
-                        })
-                    }
-                    if (i === 0) {
-                        arrWalls.push({
-                            p0: [outerDoors[i].x0 - doorOffset, outerWallsData.walls[key].p1[1]],
-                            p1: [...outerWallsData.walls[key].p0]
-                        })
-                    }
-                }
-                console.log(outerWallsData)
-                for (let i = 0; i < arrWalls.length; ++i) {
-                    const wall = createOuterWall(arrWalls[i], root.assets['walls'].children[2])
-                    v.push(...wall.v)
-                    c.push(...wall.c)
-
-                }
-            }
-
-            if (key === 's') {
-                const wall = createOuterWall(
-                    { p0: outerWallsData.walls[key].p0, p1: outerWallsData.walls[key].p1 },
-                    root.assets['walls'].children[2]
-                )
-                v.push(...wall.v)
-                c.push(...wall.c)
-            }
-
-            if (key === 'e') {
-                const wall = createOuterWall(
-                    { p0: outerWallsData.walls[key].p1, p1: outerWallsData.walls[key].p0 },
-                    root.assets['walls'].children[2]
-                )
-                v.push(...wall.v)
-                c.push(...wall.c)
-            }
-
-            if (key === 'w') {
-                const wall = createOuterWall(
-                    { p0: outerWallsData.walls[key].p0, p1: outerWallsData.walls[key].p1 },
-                    root.assets['walls'].children[2]
-                )
-                v.push(...wall.v)
-                c.push(...wall.c)
-            }
-        }
-
-        const mesh = createMeshFromBuffer({ v, c })
-        root.studio.addToScene(mesh)
     }
+
+    const mesh = createMeshFromBuffer({ v, c })
+    root.studio.addToScene(mesh)
 
 
     /** HELP LINES */

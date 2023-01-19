@@ -1,6 +1,8 @@
 import * as THREE from "three";
 import { createTopPartWall } from './wallTopPart'
 import { translateArr, rotateArrY } from '../geometry/helpers'
+import { createMeshFromBuffer } from "../../helpers/createBufferMesh";
+
 const y0 = -62
 const y1 = 50
 
@@ -197,15 +199,5 @@ export const createRoom = (data, root) => {
     }
 
 
-
-    const vertices = new Float32Array(v)
-    const colors = new Float32Array(c)
-    /** mesh main */
-    const g = new THREE.BufferGeometry()
-    g.setAttribute('position', new THREE.BufferAttribute(vertices, 3))
-    g.setAttribute('color', new THREE.BufferAttribute(colors, 3))
-    g.computeVertexNormals()
-    const mesh = new THREE.Mesh(g, new THREE.MeshPhongMaterial({ color: 0xFFFFFF, vertexColors: true }))
-
-    return mesh
+    return { v, c }
 }
