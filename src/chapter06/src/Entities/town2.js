@@ -252,6 +252,25 @@ export const createTown2 = (root) => {
         }
     }
 
+    /** prepare ResultArr to make walls */
+    const arrWallsPrepared = []
+    for (let i = 0; i < resultArr.length; ++i) {
+        const nData = resultArr[i].walls['n']
+        {
+            const data = {
+                p0: nData.p0,
+                p1: nData.p1,
+                arr: [],
+            }
+            if (nData.wallSegments) {
+                for (let i = 0; i < nData.wallSegments.length; ++i) {
+                    data.arr.push(nData.wallSegments[i])
+                }
+            }
+            arrWallsPrepared.push(data)
+        }
+    }
+
 
 
 
@@ -307,7 +326,6 @@ export const createTown2 = (root) => {
                     })
                 }
             }
-
         }
         if (key === 's') {
             arrOuterWalls.push({ p0: outerWallsData.walls[key].p0, p1: outerWallsData.walls[key].p1 })
@@ -326,8 +344,13 @@ export const createTown2 = (root) => {
 
 
     /** ROOMS MESHES */
-    for (let i = 0; i < resultArr.length; ++i) {
-        const dataRoom = createRoom(resultArr[i], root)
+    // for (let i = 0; i < resultArr.length; ++i) {
+    //     const dataRoom = createRoom(resultArr[i], root)
+    //     v.push(...dataRoom.v)
+    //     c.push(...dataRoom.c)
+    // }
+    for (let i = 0; i < arrWallsPrepared.length; ++i) {
+        const dataRoom = createRoom(arrWallsPrepared[i], root)
         v.push(...dataRoom.v)
         c.push(...dataRoom.c)
     }
