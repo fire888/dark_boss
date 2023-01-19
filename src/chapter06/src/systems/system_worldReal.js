@@ -1,8 +1,4 @@
 import * as THREE from 'three'
-import { createMeshWall } from '../Entities/meshWall'
-import { createMeshTown } from '../Entities/meshTown'
-import { createMeshPath } from '../Entities/meshPath'
-
 import {createTown2} from '../Entities/town2'
 
 export const createWorldReal = (root) => {

@@ -8,11 +8,9 @@ import {
 } from '../geometry/helpers'
 
 
-export const createRoom = (data, root) => {
+export const createWall = (data, root) => {
     const v = []
     const c = []
-
-    console.log(data)
 
     const { p0, p1, arr } = data
 
@@ -43,12 +41,13 @@ export const createRoom = (data, root) => {
             const topPart = createTopPartWall({
                 l,
                 asset: root.assets['walls'].children[0],
-                leftOffset: true,
+                leftOffset: i === 0,
+                rightOffset: i === arr.length - 1,
                 segment: 'bottom',
             })
             const angle = angleFromCoords(lX, lZ)
             rotateArrY(topPart.v, angle)
-            translateArr(topPart.v, p0[0], -62, p0[1])
+            translateArr(topPart.v, p0[0], -61, p0[1])
             v.push(...topPart.v)
             c.push(...topPart.c)
         }
@@ -69,7 +68,8 @@ const white6 = [
     ...white1,
 ]
 
-const gr1 = [0, .5, .7]
+//const gr1 = [0, .5, .7]
+const gr1 = [0, 0, 0]
 const gr6 = [
     ...gr1,
     ...gr1,
@@ -117,6 +117,7 @@ export const createTopPartWall = ({
         if (
             p === 2 ||
             p === 6 ||
+            p === 10 ||
             p === 16
         ) {
             c.push(...gr6)

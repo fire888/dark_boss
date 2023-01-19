@@ -54,7 +54,7 @@ export const studioConfig = {
     },
     amb: {
         color: 0xffffff,
-        strength: 1,
+        strength: 0.1,
     },
     sceneEnvironment: START_ENV_CONFIG,
     composerAddPass: 'Saturate',
@@ -85,7 +85,7 @@ export const playerConfig = {
     backObjPos: [0, 0, 1],
     // lightDataOne: {
     //     color: 0xffffff,
-    //     strength: .5,
+    //     strength: .1,
     //     pos: [0, 0, 0],
     // },
 }

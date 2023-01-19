@@ -239,9 +239,12 @@ export const createTown2Scheme = () => {
         }
     }
 
+    const floors = []
+
     /** prepare ResultArr to make walls */
     const arrWallsPrepared = []
     for (let i = 0; i < resultArr.length; ++i) {
+        
         const nData = resultArr[i].walls['n']
         {
             const data = {
@@ -298,6 +301,14 @@ export const createTown2Scheme = () => {
             }
             arrWallsPrepared.push(data)
         }
+
+        const floorData = { 
+            p0: sData.p0,
+            p1: sData.p1,
+            p2: nData.p1,
+            p3: nData.p0 
+        }
+        floors.push(floorData)    
     }
 
     /** CREATE DOORS DATA */
@@ -383,5 +394,6 @@ export const createTown2Scheme = () => {
         arrOuterWalls,
         doors,
         arrWallsPrepared,
+        floors,
     }
 }

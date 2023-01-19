@@ -21,7 +21,8 @@ const white6 = [
     ...white1,
 ]
 
-const gr1 = [0, .5, .7]
+//const gr1 = [0, .5, .7]
+const gr1 = [0, 0, 0]
 const gr6 = [
     ...gr1,
     ...gr1,

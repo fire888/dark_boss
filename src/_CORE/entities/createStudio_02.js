@@ -36,17 +36,17 @@ export class Studio {
         // this._lightA = null
         {
             const { color, strength } = amb
-            this._lightA = new THREE.AmbientLight(0xffffff, .2)
+            this._lightA = new THREE.AmbientLight(0xffffff, .25)
             this._scene.add( this._lightA )
         }
         {
-            const directionalLight = new THREE.DirectionalLight(0xffffff, .6);
-            directionalLight.position.set(1, 1, .5)
+            const directionalLight = new THREE.DirectionalLight(0xffffff, .5);
+            directionalLight.position.set(.5, .3, -.5)
             this._scene.add(directionalLight);
         }
         {
-            const directionalLight = new THREE.DirectionalLight(0xffffff, .4);
-            directionalLight.position.set(-1, -.1, -.4)
+            const directionalLight = new THREE.DirectionalLight(0xffffff, .5);
+            directionalLight.position.set(-.5, .1, .5)
             this._scene.add(directionalLight);
         }
 
