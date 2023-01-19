@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { tryToDivideRoom, roomStart } from './town2TryToDivide'
+import {tryToDivideRoom, roomStart, getId} from './town2TryToDivide'
 import { createRoom } from './geometryRoom/geomRoom'
 import { createDoorData } from './geometryRoom/geomDoor'
 import { createOuterWall } from './geometryRoom/outerWall'
@@ -68,23 +68,19 @@ export const createTown2 = (root) => {
             ) {
                 const d = xx[1] - xx[0]
                 if (d > DOOR_SIZE_FULL) {
-                    const id = Math.random() * 100000000000000
+                    const doorData = {
+                        id: getId(),
+                        x0: xx[0] + (d / 2) - DOOR_SIZE * .5,
+                        x1: xx[0] + (d / 2) + DOOR_SIZE * .5,
+                    }
                     if (!sData.doors) {
                         sData.doors = []
                     }
-                    sData.doors.push({
-                        id,
-                        x0: xx[0] + (d / 2) - DOOR_SIZE * .5,
-                        x1: xx[0] + (d / 2) + DOOR_SIZE * .5,
-                    })
+                    sData.doors.push(doorData)
                     if (!nData.doors) {
                         nData.doors = []
                     }
-                    nData.doors.push({
-                        id,
-                        x0: xx[0] + (d / 2) - DOOR_SIZE * .5,
-                        x1: xx[0] + (d / 2) + DOOR_SIZE * .5,
-                    })
+                    nData.doors.push(doorData)
                 }
             }
 
@@ -134,21 +130,17 @@ export const createTown2 = (root) => {
             const xx = [sData.p0[0], sData.p1[0]]
             const d = xx[1] - xx[0]
             if (d > DOOR_SIZE_FULL) {
-                const id = Math.random() * 100000000000000
+                const doorData = {
+                    id: getId(),
+                    x0: xx[0] + (d / 2) - DOOR_SIZE * .5,
+                    x1: xx[0] + (d / 2) + DOOR_SIZE * .5,
+                    keyMode: 'bigDoor',
+                }
                 if (!sData.doors) {
                     sData.doors = []
                 }
-                sData.doors.push({
-                    id,
-                    x0: xx[0] + (d / 2) - DOOR_SIZE * .5,
-                    x1: xx[0] + (d / 2) + DOOR_SIZE * .5,
-                })
-
-                outerDoors.push({
-                    id,
-                    x0: xx[0] + (d / 2) - DOOR_SIZE * .5,
-                    x1: xx[0] + (d / 2) + DOOR_SIZE * .5,
-                })
+                sData.doors.push(doorData)
+                outerDoors.push(doorData)
             }
         }
     }
@@ -307,7 +299,7 @@ export const createTown2 = (root) => {
             l = doors[key].z1 - doors[key].z0
         }
 
-        const door = createDoorData(root, root.assets['walls'].children[1], l)
+        const door = createDoorData(root, root.assets['walls'].children[1], l, doors[key].keyMode || null)
 
         if (doors[key].dir === 'n' || doors[key].dir === 's') {
             translateArr(door.v, doors[key].x0, y0, doors[key].z)

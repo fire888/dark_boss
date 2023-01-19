@@ -35,7 +35,7 @@ let leftProfile = null
 let rightProfile = null
 
 
-export const createDoorData = (root, lineData, l) => {
+export const createDoorData = (root, lineData, l, mode = 'simple') => {
     if (pos === null) {
         pos = lineData.geometry.attributes.position.array
         leftProfile = [...pos]
@@ -52,6 +52,10 @@ export const createDoorData = (root, lineData, l) => {
 
     for (let i = 3; i < pos.length; i += 3) {
         ++count
+
+        if (mode !== 'bigDoor' && count > 13) {
+            continue;
+        }
 
         v.push(
             ...createFace(
