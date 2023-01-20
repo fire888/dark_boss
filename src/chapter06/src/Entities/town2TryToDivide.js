@@ -1,8 +1,8 @@
 const minS = 200
 //const S1 = 500
-//const S2 = 5000
-const S1 = 2000
 const S2 = 2000
+const S1 = 2000
+//const S2 = 2000
 //const S2 = 1500
 
 
