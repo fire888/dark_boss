@@ -41,19 +41,16 @@ export class Studio {
         }
         {
             const directionalLight = new THREE.DirectionalLight(0xffffff, .5);
-            directionalLight.position.set(.5, .3, -.5)
+            directionalLight.position.set(.5, .7, -.5)
             this._scene.add(directionalLight);
         }
         {
             const directionalLight = new THREE.DirectionalLight(0xffffff, .5);
-            directionalLight.position.set(-.5, .1, .5)
+            directionalLight.position.set(-.5, -.3, .5)
             this._scene.add(directionalLight);
         }
 
-
         this._playerCamera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 5000)
-
-
         this._controlsCamera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 5000)
         this._controlsCamera.position.set(0, 0, 20)
         const controls = new OrbitControls(this._controlsCamera, this._renderer.domElement)

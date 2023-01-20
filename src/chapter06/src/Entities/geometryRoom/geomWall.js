@@ -11,24 +11,31 @@ import {
 export const createWall = (data, root) => {
     const v = []
     const c = []
+    const b = []
 
-    const { p0, p1, arr } = data
+    const { p0, p1, arr, colorRoom } = data
 
     const lX = p1[0] - p0[0]
     const lZ = p0[1] - p1[1]
     const l = Math.sqrt(lX * lX + lZ * lZ)
 
-    const topPart = createTopPartWall({
+    const izSegmentsDoors = arr.length > 0
+
+    const segment = createSegment({
         l,
         asset: root.assets['walls'].children[0],
         leftOffset: true,
-        segment: arr.length > 0 ? 'top' : 'full',
+        segment: izSegmentsDoors ? 'top' : 'full',
+        colorRoom,
     })
     const angle = angleFromCoords(lX, lZ)
-    rotateArrY(topPart.v, angle)
-    translateArr(topPart.v, p0[0], -62, p0[1])
-    v.push(...topPart.v)
-    c.push(...topPart.c)
+    rotateArrY(segment.v, angle)
+    translateArr(segment.v, p0[0], -62, p0[1])
+    v.push(...segment.v)
+    c.push(...segment.c)
+    if (!izSegmentsDoors) {
+        b.push(...segment.b)
+    }
 
     if (arr && arr.length > 0) {
         for (let i = 0; i < arr.length; ++i) {
@@ -38,22 +45,28 @@ export const createWall = (data, root) => {
             const lZ = p0[1] - p1[1]
             const l = Math.sqrt(lX * lX + lZ * lZ)
 
-            const topPart = createTopPartWall({
+            const segment = createSegment({
                 l,
                 asset: root.assets['walls'].children[0],
                 leftOffset: i === 0,
                 rightOffset: i === arr.length - 1,
                 segment: 'bottom',
+                colorRoom,
             })
             const angle = angleFromCoords(lX, lZ)
-            rotateArrY(topPart.v, angle)
-            translateArr(topPart.v, p0[0], -61, p0[1])
-            v.push(...topPart.v)
-            c.push(...topPart.c)
+
+            rotateArrY(segment.v, angle)
+            translateArr(segment.v, p0[0], -61, p0[1])
+            v.push(...segment.v)
+            c.push(...segment.c)
+
+            rotateArrY(segment.b, angle)
+            translateArr(segment.b, p0[0], -61, p0[1])
+            b.push(...segment.b)
         }
     }
 
-    return { v, c }
+    return { v, c, b }
 }
 
 
@@ -69,7 +82,7 @@ const white6 = [
 ]
 
 //const gr1 = [0, .5, .7]
-const gr1 = [0, 0, 0]
+const gr1 = [1, 0, 0]
 const gr6 = [
     ...gr1,
     ...gr1,
@@ -79,21 +92,26 @@ const gr6 = [
     ...gr1,
 ]
 
-
-
-export const createTopPartWall = ({
+export const createSegment = ({
                                       l,
                                       asset,
                                       leftOffset,
                                       rightOffset,
                                       segment,
+                                    colorRoom,
                                   }) => {
     if (!pos) {
         pos = asset.geometry.attributes.position.array
     }
 
+    const colorRoom6 = [
+        ...colorRoom, ...colorRoom, ...colorRoom,
+        ...colorRoom, ...colorRoom, ...colorRoom,
+    ]
+
     const c = []
     const v = []
+    const b = []
 
     let p = -1
 
@@ -105,6 +123,18 @@ export const createTopPartWall = ({
         if (segment === 'bottom' && p > 10) {
             continue;
         }
+
+        if (p === 0) {
+            b.push(
+                ...createFace(
+                    [-3.6, pos[i + 1 - 3], pos[i + 2 - 3]],
+                    [l + 3.6, pos[i + 1 - 3], pos[i + 2 - 3]],
+                    [l + 3.6, 30, pos[i + 2]],
+                    [- 3.6, 30, pos[i + 2]],
+                )
+            )
+        }
+
         v.push(
             ...createFace(
                 [0, pos[i + 1 - 3], pos[i + 2 - 3]],
@@ -120,7 +150,7 @@ export const createTopPartWall = ({
             p === 10 ||
             p === 16
         ) {
-            c.push(...gr6)
+            c.push(...colorRoom6)
         } else {
             c.push(...white6)
         }
@@ -146,7 +176,7 @@ export const createTopPartWall = ({
                         [currentX + r, h1, 11],
                         [currentX + r, h2, 11],
                         [currentX - r, h2, 11],
-                        gr1,
+                        colorRoom,
                         white1,
                         .5
                     )
@@ -316,5 +346,5 @@ export const createTopPartWall = ({
         }
     }
 
-    return { v, c }
+    return { v, c, b }
 }

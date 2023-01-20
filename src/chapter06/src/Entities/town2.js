@@ -15,7 +15,7 @@ const white6 = [
     ...white1,
     ...white1,
 ]
-const gr1 = [0, 0, 0]
+const gr1 = [1, 0, 0]
 const gr6 = [
     ...gr1,
     ...gr1,
@@ -37,12 +37,14 @@ export const createTown2 = (root) => {
 
     const v = []
     const c = []
+    const b = []
 
     /** ROOMS MESHES */
     for (let i = 0; i < arrWallsPrepared.length; ++i) {
-        const dataRoom = createWall(arrWallsPrepared[i], root)
-        v.push(...dataRoom.v)
-        c.push(...dataRoom.c)
+        const dataWall = createWall(arrWallsPrepared[i], root)
+        v.push(...dataWall.v)
+        c.push(...dataWall.c)
+        b.push(...dataWall.b)
     }
 
     /** DOORS MESH **/
@@ -50,8 +52,12 @@ export const createTown2 = (root) => {
         const door = createDoorData(root, root.assets['walls'].children[1], doors[key].l, doors[key].keyMode || null)
         rotateArrY(door.v,  doors[key].angle)
         translateArr(door.v, doors[key].p0[0], y0, doors[key].p0[1])
-
         v.push(...door.v)
+
+        rotateArrY(door.b,  doors[key].angle)
+        translateArr(door.b, doors[key].p0[0], y0, doors[key].p0[1])
+        b.push(...door.b)
+
         c.push(...door.c)
     }
 
@@ -73,7 +79,14 @@ export const createTown2 = (root) => {
                 [floors[i].p3[0], y0, floors[i].p3[1]],
             )
         )
-        c.push(...gr6)
+        c.push(
+            ...floors[i].colorRoom,
+            ...floors[i].colorRoom,
+            ...floors[i].colorRoom,
+            ...floors[i].colorRoom,
+            ...floors[i].colorRoom,
+            ...floors[i].colorRoom,
+            )
     }
 
     const h = 26.5
@@ -86,14 +99,27 @@ export const createTown2 = (root) => {
                 [floors[i].p0[0], h, floors[i].p0[1]],
             )
         )
-        c.push(...white6)
+        c.push(//...gr6
+            ...floors[i].colorRoom,
+            ...floors[i].colorRoom,
+            ...floors[i].colorRoom,
+            ...floors[i].colorRoom,
+            ...floors[i].colorRoom,
+            ...floors[i].colorRoom,
+        )
     }
 
     const mesh = createMeshFromBuffer({ v, c })
     root.studio.addToScene(mesh)
 
+    const mCollision = createMeshFromBuffer({ v: b })
+    //mCollision.position.y = -30
+    mCollision.visible = false
+    root.studio.addToScene(mCollision)
+
 
     return {
-    //    mesh
+        mesh,
+        mCollision,
     }
 }

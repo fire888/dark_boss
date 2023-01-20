@@ -46,6 +46,7 @@ export const createWorldReal = (root) => {
         addWorld: () => {
             system_PlayerMoveOnLevel.addItemToPlayerCollision(groundStart)
             //system_PlayerMoveOnLevel.addItemToPlayerCollision(mTown.mesh)
+            system_PlayerMoveOnLevel.addItemToPlayerCollision(t2.mCollision)
             studio.addToScene(groundStart)
             //studio.addToScene(mTown.mesh)
         },

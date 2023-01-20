@@ -48,6 +48,7 @@ export const createDoorData = (root, lineData, l, mode = 'simple') => {
     }
     const v = []
     const c = []
+    const b = []
 
     let count = -1
 
@@ -114,6 +115,17 @@ export const createDoorData = (root, lineData, l, mode = 'simple') => {
             )
             c.push(...white6)
         }
+
+        if (count === 0) {
+            b.push(
+                ...createFace(
+                    [rightProfile[i - 3], 0, rightProfile[i - 1]],
+                    [rightProfile[i - 3], 0, 0],
+                    [rightProfile[i - 3], 50, 0],
+                    [rightProfile[i - 3], 50, rightProfile[i - 1]],
+                )
+            )
+        }
     }
 
     const copyV = [...v]
@@ -136,5 +148,19 @@ export const createDoorData = (root, lineData, l, mode = 'simple') => {
 
 
 
-    return { v, c }
+    const copyB = [...b]
+    inverseVertexOrder(copyB)
+    scaleArr(copyB, -1, 1, 1)
+    translateArr(copyB, l, 0, 0)
+    b.push(...copyB)
+    const mirrorB = [...b]
+    inverseVertexOrder(mirrorB)
+    scaleArr(mirrorB, 1, 1, -1)
+    b.push(...mirrorB)
+
+
+
+
+
+    return { v, c, b }
 }

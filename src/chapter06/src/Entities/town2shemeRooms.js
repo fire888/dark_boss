@@ -244,6 +244,7 @@ export const createTown2Scheme = () => {
     /** prepare ResultArr to make walls */
     const arrWallsPrepared = []
     for (let i = 0; i < resultArr.length; ++i) {
+        const colorRoom = [Math.random(), Math.random(), Math.random()]
         
         const nData = resultArr[i].walls['n']
         {
@@ -251,6 +252,7 @@ export const createTown2Scheme = () => {
                 p0: nData.p0,
                 p1: nData.p1,
                 arr: [],
+                colorRoom,
             }
             if (nData.wallSegments) {
                 for (let i = 0; i < nData.wallSegments.length; ++i) {
@@ -265,6 +267,7 @@ export const createTown2Scheme = () => {
                 p0: sData.p1,
                 p1: sData.p0,
                 arr: [],
+                colorRoom,
             }
             if (sData.wallSegments) {
                 for (let i = 0; i < sData.wallSegments.length; ++i) {
@@ -279,6 +282,7 @@ export const createTown2Scheme = () => {
                  p0: eData.p0,
                  p1: eData.p1,
                  arr: [],
+                colorRoom,
             }
             if (eData.wallSegments) {
                 for (let i = 0; i < eData.wallSegments.length; ++i) {
@@ -293,6 +297,7 @@ export const createTown2Scheme = () => {
                 p0: wData.p1,
                 p1: wData.p0,
                 arr: [],
+                colorRoom,
             }
             if (wData.wallSegments) {
                 for (let i = 0; i < wData.wallSegments.length; ++i) {
@@ -306,7 +311,8 @@ export const createTown2Scheme = () => {
             p0: sData.p0,
             p1: sData.p1,
             p2: nData.p1,
-            p3: nData.p0 
+            p3: nData.p0,
+            colorRoom,
         }
         floors.push(floorData)    
     }
