@@ -67,6 +67,7 @@ export const createTown2 = (root) => {
         const wall = createOuterWall(arrOuterWalls[i], root.assets['walls'].children[2])
         v.push(...wall.v)
         c.push(...wall.c)
+        b.push(...wall.b)
     }
 
     /** floor */

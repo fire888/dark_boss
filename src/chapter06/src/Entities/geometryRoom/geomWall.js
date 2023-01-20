@@ -30,12 +30,14 @@ export const createWall = (data, root) => {
     })
     const angle = angleFromCoords(lX, lZ)
     rotateArrY(segment.v, angle)
-    translateArr(segment.v, p0[0], -62, p0[1])
+    translateArr(segment.v, p0[0], -61, p0[1])
     v.push(...segment.v)
     c.push(...segment.c)
-    if (!izSegmentsDoors) {
-        b.push(...segment.b)
-    }
+
+    rotateArrY(segment.b, angle)
+    translateArr(segment.b, p0[0], -61, p0[1])
+    b.push(...segment.b)
+
 
     if (arr && arr.length > 0) {
         for (let i = 0; i < arr.length; ++i) {
@@ -124,7 +126,7 @@ export const createSegment = ({
             continue;
         }
 
-        if (p === 0) {
+        if (p === 0 && (segment === 'bottom' || segment === 'full') ) {
             b.push(
                 ...createFace(
                     [-3.6, pos[i + 1 - 3], pos[i + 2 - 3]],

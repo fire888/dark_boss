@@ -26,6 +26,7 @@ export const createOuterWall = (dataWall, line) => {
 
     const v = []
     const c = []
+    const b = []
 
     const lX = dataWall.p1[0] - dataWall.p0[0]
     const lZ = dataWall.p0[1] - dataWall.p1[1]
@@ -34,26 +35,35 @@ export const createOuterWall = (dataWall, line) => {
     for (let i = 3; i < pos.length; i += 3) {
         v.push(
             ...createFace(
-            [leftPr[i - 3], leftPr[i - 2], leftPr[i - 1]],
-            [rightPr[i - 3] + l, rightPr[i - 2], rightPr[i - 1]],
-            [rightPr[i] + l, rightPr[i + 1], rightPr[i + 2]],
-            [leftPr[i], leftPr[i + 1], leftPr[i + 2]],
+                [leftPr[i - 3], leftPr[i - 2], leftPr[i - 1]],
+                [rightPr[i - 3] + l, rightPr[i - 2], rightPr[i - 1]],
+                [rightPr[i] + l, rightPr[i + 1], rightPr[i + 2]],
+                [leftPr[i], leftPr[i + 1], leftPr[i + 2]],
             )
         )
         c.push(...white6)
+        if (i === 3) {
+            b.push(
+                ...createFace(
+                    [leftPr[i - 3] - 2, 0, leftPr[i - 1] + 2],
+                    [rightPr[i - 3] + l + 2, 0, rightPr[i - 1] + 2],
+                    [rightPr[i] + l + 2, 20, rightPr[i + 2] + 2],
+                    [leftPr[i] - 2, 20, leftPr[i + 2] + 2],
+                )
+            )
+        }
+
     }
 
     const angle = angleFromCoords(lX, lZ)
+
     rotateArrY(v, angle)
     translateArr(v, dataWall.p0[0], -62, dataWall.p0[1])
 
-    return { v, c }
+    rotateArrY(b, angle)
+    translateArr(b, dataWall.p0[0], -62, dataWall.p0[1])
 
-
-    // return new THREE.Mesh(
-    //     new THREE.BoxGeometry(5, 5, 5),
-    //     new THREE.MeshBasicMaterial({ color: 0xff0000 })
-    // )
+    return { v, c, b }
 }
 
 
