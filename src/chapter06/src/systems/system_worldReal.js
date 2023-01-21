@@ -14,7 +14,8 @@ export const createWorldReal = (root) => {
         new THREE.PlaneGeometry(5000, 5000),
         materials.floorMat1
     )
-    materials.floorMat1.map.repeat.set(180, 180)
+    //materials.floorMat1.map.repeat.set(180, 180)
+    materials.floorMat1.vertexColors = true
     groundStart.rotation.x = -Math.PI / 2
     groundStart.position.y = -62
 

@@ -4,14 +4,25 @@ import {
     rotateArrY,
     createFace,
     angleFromCoords,
-    createFaceWithSquare
+    createFaceWithSquare,
+    createUv,
 } from '../geometry/helpers'
+
+const uv6 = [
+    0, 0, 
+    1, 0, 
+    1, 1,
+    0, 0,
+    1, 1,
+    0, 1
+]
 
 
 export const createWall = (data, root) => {
     const v = []
     const c = []
     const b = []
+    const u = []
 
     const { p0, p1, arr, colorRoom } = data
 
@@ -33,6 +44,7 @@ export const createWall = (data, root) => {
     translateArr(segment.v, p0[0], -61, p0[1])
     v.push(...segment.v)
     c.push(...segment.c)
+    u.push(...segment.u)
 
     rotateArrY(segment.b, angle)
     translateArr(segment.b, p0[0], -61, p0[1])
@@ -61,6 +73,7 @@ export const createWall = (data, root) => {
             translateArr(segment.v, p0[0], -61, p0[1])
             v.push(...segment.v)
             c.push(...segment.c)
+            u.push(...segment.u)
 
             rotateArrY(segment.b, angle)
             translateArr(segment.b, p0[0], -61, p0[1])
@@ -68,7 +81,7 @@ export const createWall = (data, root) => {
         }
     }
 
-    return { v, c, b }
+    return { v, c, b, u }
 }
 
 
@@ -114,6 +127,7 @@ export const createSegment = ({
     const c = []
     const v = []
     const b = []
+    const u = []
 
     let p = -1
 
@@ -145,7 +159,7 @@ export const createSegment = ({
                 [0, pos[i + 1], pos[i + 2]],
             )
         )
-
+        u.push(...uv6)
         if (
             p === 2 ||
             p === 6 ||
@@ -184,6 +198,7 @@ export const createSegment = ({
                     )
                     v.push(...dt.vArr)
                     c.push(...dt.cArr)
+                    u.push(...dt.uArr)
                     v.push(
                         ...createFace(
                             [currentX - r, h0, 1.8],
@@ -192,6 +207,7 @@ export const createSegment = ({
                             [currentX - r, h1, 11],
                         )
                     )
+                    u.push(...uv6)
                     v.push(
                         ...createFace(
                             [currentX - r, h0, 1.8],
@@ -200,6 +216,7 @@ export const createSegment = ({
                             [currentX - r, h2, 1.8],
                         )
                     )
+                    u.push(...uv6)
                     v.push(
                         ...createFace(
                             [currentX + r, h1, 11],
@@ -208,6 +225,7 @@ export const createSegment = ({
                             [currentX + r, h2, 11],
                         )
                     )
+                    u.push(...uv6)
                     c.push(...white6)
                     c.push(...white6)
                     c.push(...white6)
@@ -242,6 +260,7 @@ export const createSegment = ({
                             [currentX - r, h2, 16.5],
                         )
                     )
+                    u.push(...uv6)
                     c.push(...white6)
                     v.push(
                         ...createFace(
@@ -251,6 +270,7 @@ export const createSegment = ({
                             [currentX - r - 1.5, h2, 10],
                         )
                     )
+                    u.push(...uv6)
                     c.push(...white6)
                     v.push(
                         ...createFace(
@@ -260,6 +280,7 @@ export const createSegment = ({
                             [currentX + r, h2, 16.5],
                         )
                     )
+                    u.push(...uv6)
                     c.push(...white6)
 
 
@@ -271,6 +292,7 @@ export const createSegment = ({
                             [currentX - r - 3, h2, 16],
                         )
                     )
+                    u.push(...uv6)
                     c.push(...white6)
 
 
@@ -282,6 +304,7 @@ export const createSegment = ({
                             [currentX - r - 3 - 1, h2, 11],
                         )
                     )
+                    u.push(...uv6)
                     c.push(...white6)
 
 
@@ -293,11 +316,10 @@ export const createSegment = ({
                             [currentX + r + 3, h2, 16],
                         )
                     )
+                    u.push(...uv6)
                     c.push(...white6)
-
                 }
             }
-
         }
 
         /** bottom items */
@@ -323,6 +345,7 @@ export const createSegment = ({
                             [currentX - r, h2, 18],
                         )
                     )
+                    u.push(...uv6)
                     c.push(...white6)
                     v.push(
                         ...createFace(
@@ -332,6 +355,7 @@ export const createSegment = ({
                             [currentX - r, h2, 11],
                         )
                     )
+                    u.push(...uv6)
                     c.push(...white6)
                     v.push(
                         ...createFace(
@@ -341,6 +365,7 @@ export const createSegment = ({
                             [currentX + r, h2, 18],
                         )
                     )
+                    u.push(...uv6)
                     c.push(...white6)
                 }
             }
@@ -348,5 +373,5 @@ export const createSegment = ({
         }
     }
 
-    return { v, c, b }
+    return { v, c, b, u }
 }

@@ -32,6 +32,18 @@ const gr6 = [
     ...gr1,
 ]
 
+
+const uv6 = [
+    0, 0, 
+    1, 0, 
+    1, 1,
+    0, 0,
+    1, 1,
+    0, 1
+]
+
+
+
 let leftProfile = null
 let rightProfile = null
 
@@ -49,6 +61,7 @@ export const createDoorData = (root, lineData, l, mode = 'simple') => {
     const v = []
     const c = []
     const b = []
+    const u = []
 
     let count = -1
 
@@ -67,6 +80,7 @@ export const createDoorData = (root, lineData, l, mode = 'simple') => {
                 [leftProfile[i], leftProfile[i + 1], 0],
             )
         )
+        u.push(...uv6)
         c.push(...white6)
 
 
@@ -78,6 +92,7 @@ export const createDoorData = (root, lineData, l, mode = 'simple') => {
                 [leftProfile[i], leftProfile[i + 1], leftProfile[i + 2]],
             )
         )
+        u.push(...uv6)
         c.push(...white6)
 
 
@@ -91,6 +106,7 @@ export const createDoorData = (root, lineData, l, mode = 'simple') => {
                     [rightProfile[i], rightProfile[i + 1], rightProfile[i + 2]],
                 )
             )
+            u.push(...uv6)
             c.push(...white6)
         } else {
             v.push(
@@ -101,6 +117,7 @@ export const createDoorData = (root, lineData, l, mode = 'simple') => {
                     [rightProfile[i], rightProfile[i + 1], rightProfile[i + 2]],
                 )
             )
+            u.push(...uv6)
             c.push(...white6)
         }
 
@@ -113,6 +130,7 @@ export const createDoorData = (root, lineData, l, mode = 'simple') => {
                     [rightProfile[i], rightProfile[i + 1], rightProfile[i + 2]],
                 )
             )
+            u.push(...uv6)
             c.push(...white6)
         }
 
@@ -133,6 +151,7 @@ export const createDoorData = (root, lineData, l, mode = 'simple') => {
     scaleArr(copyV, -1, 1, 1)
     translateArr(copyV, l, 0, 0)
     v.push(...copyV)
+    u.push(...u)
 
 
     const copyC = [...c]
@@ -145,6 +164,7 @@ export const createDoorData = (root, lineData, l, mode = 'simple') => {
     scaleArr(mirrorV, 1, 1, -1)
     v.push(...mirrorV)
     c.push(...c)
+    u.push(...u)
 
 
 
@@ -160,7 +180,5 @@ export const createDoorData = (root, lineData, l, mode = 'simple') => {
 
 
 
-
-
-    return { v, c, b }
+    return { v, c, b, u }
 }

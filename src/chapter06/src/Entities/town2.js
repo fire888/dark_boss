@@ -4,6 +4,7 @@ import { createOuterWall } from './geometryRoom/outerWall'
 import {rotateArrY, translateArr, createFace} from "./geometry/helpers";
 import { createMeshFromBuffer } from '../helpers/createBufferMesh'
 import { createTown2Scheme } from './town2shemeRooms'
+import * as THREE from 'three' 
 
 const y0 = -61
 const white1 = [1, 1, 1]
@@ -38,6 +39,7 @@ export const createTown2 = (root) => {
     const v = []
     const c = []
     const b = []
+    const u = []
 
     /** ROOMS MESHES */
     for (let i = 0; i < arrWallsPrepared.length; ++i) {
@@ -45,6 +47,7 @@ export const createTown2 = (root) => {
         v.push(...dataWall.v)
         c.push(...dataWall.c)
         b.push(...dataWall.b)
+        u.push(...dataWall.u)
     }
 
     /** DOORS MESH **/
@@ -58,6 +61,7 @@ export const createTown2 = (root) => {
         translateArr(door.b, doors[key].p0[0], y0, doors[key].p0[1])
         b.push(...door.b)
 
+        u.push(...door.u)
         c.push(...door.c)
     }
 
@@ -68,6 +72,7 @@ export const createTown2 = (root) => {
         v.push(...wall.v)
         c.push(...wall.c)
         b.push(...wall.b)
+        u.push(...wall.u)
     }
 
     /** floor */
@@ -87,7 +92,15 @@ export const createTown2 = (root) => {
             ...floors[i].colorRoom,
             ...floors[i].colorRoom,
             ...floors[i].colorRoom,
-            )
+        )
+        u.push(
+            0, 0, 
+            1, 0, 
+            1, 1,
+            0, 0,
+            1, 1,
+            0, 1
+        ) 
     }
 
     const h = 26.5
@@ -108,9 +121,24 @@ export const createTown2 = (root) => {
             ...floors[i].colorRoom,
             ...floors[i].colorRoom,
         )
+        u.push(
+            0, 0, 
+            1, 0, 
+            1, 1,
+            0, 0,
+            1, 1,
+            0, 1
+        ) 
     }
 
-    const mesh = createMeshFromBuffer({ v, c })
+    console.log(root)
+
+    const mesh = createMeshFromBuffer({ 
+        v, 
+        c, 
+        u, 
+        mat: root.materials.floorMat1
+    })
     root.studio.addToScene(mesh)
 
     const mCollision = createMeshFromBuffer({ v: b })

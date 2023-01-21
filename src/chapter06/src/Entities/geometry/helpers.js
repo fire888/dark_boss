@@ -15,11 +15,6 @@ export const fillColorFace = c => [...c, ...c, ...c, ...c, ...c, ...c]
 export const fillColor6 = c => [...c, ...c, ...c, ...c, ...c, ...c]
 export const getAngle = (x, y) => {
     let inRads = Math.atan2(y, x);
-    //if (inRads < 0)
-    //    inRads = Math.abs(inRads);
-    //else
-    //    inRads = 2 * Math.PI - inRads;
-
     return inRads - Math.PI / 2
 }
 

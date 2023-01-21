@@ -40,12 +40,12 @@ export class Studio {
             this._scene.add( this._lightA )
         }
         {
-            const directionalLight = new THREE.DirectionalLight(0xffffff, .5);
+            const directionalLight = new THREE.DirectionalLight(0xffffff, .8);
             directionalLight.position.set(.5, .7, -.5)
             this._scene.add(directionalLight);
         }
         {
-            const directionalLight = new THREE.DirectionalLight(0xffffff, .5);
+            const directionalLight = new THREE.DirectionalLight(0xffffff, .8);
             directionalLight.position.set(-.5, -.3, .5)
             this._scene.add(directionalLight);
         }

@@ -69,12 +69,12 @@ export const MATERIALS_CONF = {
     'floorMat1': {
         mat: 'MeshPhongMaterial',
         props: {
-            color: 0xff77ff,
+            color: 0xffffff,
             map: 'mapTop',
             bumpMap: 'mapTop',
             bumpScale: 3,
-            envMap: 'skyBox2',
-            reflectivity: .01,
+            envMap: 'skyBox',
+            reflectivity: 0.1,
             shininess: .01,
             specular: 0xffffff,
         },

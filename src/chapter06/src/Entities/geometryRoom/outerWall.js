@@ -15,6 +15,15 @@ const white6 = [
 let leftPr = null
 let rightPr = null
 
+const uv6 = [
+    0, 0, 
+    1, 0, 
+    1, 1,
+    0, 0,
+    1, 1,
+    0, 1
+]
+
 export const createOuterWall = (dataWall, line) => {
     if (!pos) {
         pos = line.geometry.attributes.position.array
@@ -27,6 +36,7 @@ export const createOuterWall = (dataWall, line) => {
     const v = []
     const c = []
     const b = []
+    const u = [] 
 
     const lX = dataWall.p1[0] - dataWall.p0[0]
     const lZ = dataWall.p0[1] - dataWall.p1[1]
@@ -41,6 +51,7 @@ export const createOuterWall = (dataWall, line) => {
                 [leftPr[i], leftPr[i + 1], leftPr[i + 2]],
             )
         )
+        u.push(...uv6)
         c.push(...white6)
         if (i === 3) {
             b.push(
@@ -63,7 +74,7 @@ export const createOuterWall = (dataWall, line) => {
     rotateArrY(b, angle)
     translateArr(b, dataWall.p0[0], -62, dataWall.p0[1])
 
-    return { v, c, b }
+    return { v, c, b, u }
 }
 
 
