@@ -85,7 +85,7 @@ export const MATERIALS_CONF = {
             reflectivity: 0,
             shininess: 100,
             specular: 0x000000,
-            //vertexColors: true,
+            vertexColors: true,
         },
     },
     'floorMat1': {

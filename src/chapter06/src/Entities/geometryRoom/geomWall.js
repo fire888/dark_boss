@@ -6,7 +6,7 @@ import {
     angleFromCoords,
     createFaceWithSquare,
     createUv,
-} from '../geometry/helpers'
+} from '../../helpers/geomHelpers'
 
 const uv6 = [
     0, 0, 
@@ -164,7 +164,7 @@ export const createSegment = ({
         if (
             p === 2 ||
             p === 6 ||
-            p === 10 ||
+            //p === 10 ||
             p === 16
         ) {
             c.push(...colorRoom6)

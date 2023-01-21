@@ -1,7 +1,7 @@
 import { createWall } from './geometryRoom/geomWall'
 import { createDoorData } from './geometryRoom/geomDoor'
 import { createOuterWall } from './geometryRoom/outerWall'
-import {rotateArrY, translateArr, createFace} from "./geometry/helpers";
+import {rotateArrY, translateArr, createFace} from "../helpers/geomHelpers";
 import { createMeshFromBuffer } from '../helpers/createBufferMesh'
 import { createTown2Scheme } from './town2shemeRooms'
 import * as THREE from 'three' 
@@ -85,14 +85,7 @@ export const createTown2 = (root) => {
                 [floors[i].p3[0], y0, floors[i].p3[1]],
             )
         )
-        c.push(
-            ...floors[i].colorRoom,
-            ...floors[i].colorRoom,
-            ...floors[i].colorRoom,
-            ...floors[i].colorRoom,
-            ...floors[i].colorRoom,
-            ...floors[i].colorRoom,
-        )
+        c.push(...white6)
         u.push(
             0, 0, 
             1, 0, 
@@ -113,14 +106,7 @@ export const createTown2 = (root) => {
                 [floors[i].p0[0], h, floors[i].p0[1]],
             )
         )
-        c.push(//...gr6
-            ...floors[i].colorRoom,
-            ...floors[i].colorRoom,
-            ...floors[i].colorRoom,
-            ...floors[i].colorRoom,
-            ...floors[i].colorRoom,
-            ...floors[i].colorRoom,
-        )
+        c.push(...white6)
         u.push(
             0, 0, 
             1, 0, 

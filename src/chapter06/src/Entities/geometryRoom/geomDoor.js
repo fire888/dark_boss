@@ -5,7 +5,7 @@ import {
     translateArr,
     scaleArr,
     inverseVertexOrder,
-} from '../geometry/helpers'
+} from '../../helpers/geomHelpers'
 const H0 = 50
 const H1 = 70
 
@@ -70,6 +70,28 @@ export const createDoorData = (root, lineData, l, mode = 'simple') => {
 
         if (mode !== 'bigDoor' && count > 13) {
             continue;
+        }
+
+        /** doorstep ***/
+        if (i === 3 && mode === 'bigDoor') {
+            v.push(
+                ...createFace(
+                [0, -3, 10],
+                [l / 2, -3, 10],
+                [l / 2, 1, 10],
+                [0, 1, 10],
+            ))
+            c.push(...white6)
+            u.push(...uv6)
+            v.push(
+                ...createFace(
+                    [0, 1, 10],
+                    [l / 2, 1, 10],
+                    [l / 2, 1, 0],
+                    [0, 1, 0],
+                ))
+            c.push(...white6)
+            u.push(...uv6)
         }
 
         v.push(
