@@ -36,6 +36,7 @@ export const createWall = (data, root) => {
         l,
         asset: root.assets['walls'].children[0],
         leftOffset: true,
+        rightOffset: true,
         segment: izSegmentsDoors ? 'top' : 'full',
         colorRoom,
     })
@@ -175,14 +176,15 @@ export const createSegment = ({
     /** top items */
     if (segment === 'top' || segment === 'full') {
         {
-            const leftOffsetVal = leftOffset ? 15 : 7
-            const rightOffsetVal = rightOffset ? 15 : 7
-            const n = Math.floor((l - (leftOffsetVal + rightOffsetVal)) / 10)
+            const leftOffsetVal = leftOffset ? 25 : 7
+            const rightOffsetVal = rightOffset ? 25 : 7
+            const n = Math.floor((l - (leftOffsetVal + rightOffsetVal)) / 30)
 
-            const r = 1.5
+            //const r = 1.5
+            const r = 5
             const h2 = 87
-            const h1 = 83
-            const h0 = 78
+            const h1 = 80
+            const h0 = 72
             let step = (l - (leftOffsetVal + rightOffsetVal)) / n
             if (n > 0) {
                 for (let i = 0; i < n + 1; ++i) {

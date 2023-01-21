@@ -137,7 +137,7 @@ export const createTown2 = (root) => {
         v, 
         c, 
         u, 
-        mat: root.materials.floorMat1
+        mat: root.materials.iron
     })
     root.studio.addToScene(mesh)
 

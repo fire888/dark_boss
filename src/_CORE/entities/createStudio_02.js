@@ -36,19 +36,30 @@ export class Studio {
         // this._lightA = null
         {
             const { color, strength } = amb
-            this._lightA = new THREE.AmbientLight(0xffffff, .25)
+            this._lightA = new THREE.AmbientLight(0x455861, .4)
             this._scene.add( this._lightA )
         }
-        {
-            const directionalLight = new THREE.DirectionalLight(0xffffff, .8);
-            directionalLight.position.set(.5, .7, -.5)
-            this._scene.add(directionalLight);
-        }
-        {
-            const directionalLight = new THREE.DirectionalLight(0xffffff, .8);
-            directionalLight.position.set(-.5, -.3, .5)
-            this._scene.add(directionalLight);
-        }
+        // {
+        //     const directionalLight = new THREE.DirectionalLight(0xffffff, .5);
+        //     directionalLight.position.set(.5, .7, -.5)
+        //     this._scene.add(directionalLight);
+        // }
+        // {
+        //     const directionalLight = new THREE.DirectionalLight(0xffffff, .5);
+        //     directionalLight.position.set(-.5, -.3, .5)
+        //     this._scene.add(directionalLight);
+        // }
+        // {
+        //     const directionalLight = new THREE.PointLight(0xffffff, .5);
+        //     directionalLight.position.set(200, 1000, 200)
+        //     this._scene.add(directionalLight);
+        // }
+        // {
+        //     const directionalLight = new THREE.PointLight(0xffffff, .3);
+        //     directionalLight.position.set(-.5, -.3, .5)
+        //     this._scene.add(directionalLight);
+        // }
+
 
         this._playerCamera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 5000)
         this._controlsCamera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 5000)

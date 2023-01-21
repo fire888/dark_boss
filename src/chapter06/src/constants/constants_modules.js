@@ -13,7 +13,7 @@ import { SystemAssets } from "../systems/systems_assets";
 //import levelRoomsSrc from '../../../assets/chapter05/level.obj'
 import mapFloorOuter from '../../../assets/chapter04/floor_outer_map3.jpg'
 import mapVirt2 from '../../../assets/chapter05/map02.jpg'
-import mapTop from '../../../assets/chapter05/floor_outer_map.jpg'
+import mapTop from '../../../assets/chapter06/mapGround.jpg'
 import mapTxt from '../../../assets/chapter05/txt1.jpg'
 
 //import mapBody from '../../../assets/chapter05/botMap.png'
@@ -49,6 +49,15 @@ import soundAmbientSrc from '../../../assets/chapter05/audio/ambient.mp3'
 //import carStart from '../../../assets/chapter05/audio/ambient_intro.mp3'
 //import carLoop from '../../../assets/chapter05/audio/ambient_loop.mp3'
 
+//import ironNormal from '../../../assets/chapter06/spaceShip/spaceship-panels1-normal-ogl.jpg'
+//import ironAO from '../../../assets/chapter06/spaceShip/spaceship-panels1-ao.jpg'
+//import ironHeight from '../../../assets/chapter06/spaceShip/spaceship-panels1-height.jpg'
+//import ironAlbedo from '../../../assets/chapter06/spaceShip/spaceship-panels1-albedo.jpg'
+
+import ironNormal from '../../../assets/chapter06/concrete/broken_down_concrete2_Normal-dx.png'
+import ironAO from '../../../assets/chapter06/concrete/broken_down_concrete2_ao.png'
+import ironHeight from '../../../assets/chapter06/concrete/broken_down_concrete2_Height.png'
+import ironAlbedo from '../../../assets/chapter06/concrete/broken_down_concrete2_albedo.png'
 
 
 
@@ -114,8 +123,12 @@ export const GAME_MODULES = [
         //    { type: 'obj', path: levelRoomsSrc, key: 'level-rooms' },
         //    { type: 'cubeTextures', path: [ nxjpg, nxjpg, nxjpg, nxjpg, nxjpg, nxjpg, ], key: 'skyBox' },
             { type: 'cubeTextures', path: [ px2jpg, nx2jpg, py2jpg, ny2jpg, pz2jpg, nz2jpg, ], key: 'skyBox2' },
-            { type: 'img', path: mapFloorOuter, key: 'mapFloorOuter', wrap: true },
+            //{ type: 'img', path: mapFloorOuter, key: 'mapFloorOuter', wrap: true },
             { type: 'img', path: mapTop, key: 'mapTop', wrap: true },
+            { type: 'img', path: ironNormal, key: 'ironNormal', wrap: true },
+            { type: 'img', path: ironAlbedo, key: 'ironAlbedo', wrap: true },
+            { type: 'img', path: ironHeight, key: 'ironHeight', wrap: true },
+            { type: 'img', path: ironAO, key: 'ironAO', wrap: true },
             { type: 'obj', path: levelWallsSrc, key: 'walls' },
         //    { type: 'img', path: mapVirt2, key: 'mapVirtual2', wrap: true },
         //    { type: 'img', path: mapTxt, key: 'mapParams' },

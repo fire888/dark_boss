@@ -12,58 +12,80 @@ export const COLOR3_6 = [...COLOR3_1, ...COLOR3_1, ...COLOR3_1, ...COLOR3_1, ...
 
 
 export const MATERIALS_CONF = {
-    'unit': {
+    // 'unit': {
+    //     mat: 'MeshPhongMaterial',
+    //     props: {
+    //         color: 0xffffff,
+    //         emissive: 0x000000,
+    //         reflectivity: 5,
+    //         shininess: 5,
+    //         vertexColors: true,
+    //         flatShading: false,
+    //         side: THREE.DoubleSide,
+    //     },
+    // },
+    // 'wallVirtual': {
+    //     mat: 'MeshStandardMaterial',
+    //     props: {
+    //         color: 0xff00ff,
+    //         emissive: 0x000000,
+    //     },
+    // },
+    // 'wallVirtualColor': {
+    //     mat: 'MeshStandardMaterial',
+    //     props: {
+    //         color: 0xffffff,
+    //         emissive: 0x000000,
+    //         //map: 'mapParams',
+    //         //bumpMap: 'mapParams',
+    //         //bumpScale: .1,
+    //         flatShading: false,
+    //         specular: 0xffffff,
+    //         vertexColors: true,
+    //     },
+    // },
+    // 'body': {
+    //     mat: 'MeshPhongMaterial',
+    //     props: {
+    //         color: 0xaaaaff,
+    //         emissive: 0x000000,
+    //         map: 'mapBody',
+    //         bumpMap: 'mapBody',
+    //         bumpScale: .1,
+    //         reflectivity: .005,
+    //         shininess: .005,
+    //         specular: 0xffffff,
+    //     },
+    // },
+    // 'body_sh': {
+    //     mat: 'MeshPhongMaterial',
+    //     props: {
+    //         color: 0x000000,
+    //         emissive: 0x000000,
+    //         transparent: true,
+    //         alphaMap: 'mapBodySh',
+    //     },
+    // },
+    'iron': {
         mat: 'MeshPhongMaterial',
         props: {
-            color: 0xffffff,
-            emissive: 0x000000,
-            reflectivity: 5,
-            shininess: 5,
-            vertexColors: true,
-            flatShading: false,
-            side: THREE.DoubleSide,
-        },
-    },
-    'wallVirtual': {
-        mat: 'MeshStandardMaterial',
-        props: {
-            color: 0xff00ff,
-            emissive: 0x000000,
-        },
-    },
-    'wallVirtualColor': {
-        mat: 'MeshStandardMaterial',
-        props: {
-            color: 0xffffff,
-            emissive: 0x000000,
-            //map: 'mapParams',
-            //bumpMap: 'mapParams',
-            //bumpScale: .1,
-            flatShading: false,
-            specular: 0xffffff,
-            vertexColors: true,
-        },
-    },
-    'body': {
-        mat: 'MeshPhongMaterial',
-        props: {
-            color: 0xaaaaff,
-            emissive: 0x000000,
-            map: 'mapBody',
-            bumpMap: 'mapBody',
-            bumpScale: .1,
-            reflectivity: .005,
-            shininess: .005,
-            specular: 0xffffff,
-        },
-    },
-    'body_sh': {
-        mat: 'MeshPhongMaterial',
-        props: {
-            color: 0x000000,
-            emissive: 0x000000,
-            transparent: true,
-            alphaMap: 'mapBodySh',
+            color: 0xcccccc,
+            //map: 'mapTop',
+            //map: '',
+            bumpMap: 'ironHeight',
+            lightMap: 'ironAO',
+            lightMapIntensity: .2,
+            normalMap: 'ironNormal',
+            normalScale: new THREE.Vector2(1, 1),
+            //normalScale: new THREE.Vector2(.5, .5),
+            //normalScale: new THREE.Vector2(.1, .1),
+            //specularMap: 'ironAlbedo',
+            bumpScale: 3,
+            envMap: 'skyBox',
+            reflectivity: 0,
+            shininess: 100,
+            specular: 0x000000,
+            //vertexColors: true,
         },
     },
     'floorMat1': {
@@ -72,64 +94,12 @@ export const MATERIALS_CONF = {
             color: 0xffffff,
             map: 'mapTop',
             bumpMap: 'mapTop',
-            bumpScale: 3,
+            bumpScale: 2,
             envMap: 'skyBox',
             reflectivity: 0.1,
             shininess: .01,
             specular: 0xffffff,
-        },
-    },
-    'floorMat': {
-        mat: 'MeshPhongMaterial',
-        props: {
-            color: 0x00ff00,
-            map: 'mapVirtual2',
-            bumpMap: 'mapVirtual2',
-            bumpScale: 3,
-        },
-    },
-    'testWhite': {
-        mat: 'MeshBasicMaterial',
-        props: {
-            color: 0xffff55,
-        },
-    },
-    'testRed': {
-        mat: 'MeshBasicMaterial',
-        props: {
-            color: 0xff0000,
-        },
-    },
-    'carNorm': {
-        mat: 'MeshStandardMaterial',
-        props: {
-            color: 0xaa00aa,
-        },
-    },
-    'carBattery': {
-        mat: 'MeshBasicMaterial',
-        props: {
-            color: 0xaa0000,
-            transparent: true,
-        },
-    },
-    'testGreen': {
-        mat: 'MeshBasicMaterial',
-        props: {
-            color: 0x00aa00,
-        },
-    },
-    'testGreen1': {
-        mat: 'MeshBasicMaterial',
-        props: {
-            color: 0x009900,
-        },
-    },
-    'testBlack': {
-        mat: 'MeshBasicMaterial',
-        props: {
-            color: 0x000000,
-            side: THREE.DoubleSide,
+            emissive: 0x555555,
         },
     },
 }

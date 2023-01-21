@@ -59,8 +59,8 @@ export class Player {
         }
 
         {
-            const { color, strenth, pos } = lightDataOne
-            const light = new THREE.PointLight(color, strenth)
+            const { color, strenth, pos, dist, decay } = lightDataOne
+            const light = new THREE.PointLight(color, strenth, dist, decay)
             light.position.fromArray(pos)
             this._mainObj.add(light)
         }
