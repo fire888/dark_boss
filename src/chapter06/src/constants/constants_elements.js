@@ -89,6 +89,6 @@ export const playerConfig = {
         strength: 1,
         dist: 0,
         decay: .001,
-        pos: [0, 40, 40],
+        pos: [0, 10, 0],
     },
 }

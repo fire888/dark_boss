@@ -328,8 +328,8 @@ export const createSegment = ({
         {
             //let offset = 19
             //let offset = 2
-            const leftOffsetVal = leftOffset ? 19 : 2
-            const rightOffsetVal = rightOffset ? 19 : 2
+            const leftOffsetVal = leftOffset ? 22 : 2
+            const rightOffsetVal = rightOffset ? 22 : 2
             const n = Math.floor((l - (leftOffsetVal + rightOffsetVal)) / 5)
 
             const r = .5

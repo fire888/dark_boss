@@ -33,6 +33,13 @@ import ny2jpg from '../../../assets/sky2/ny.jpg'
 import pz2jpg from '../../../assets/sky2/pz.jpg'
 import nz2jpg from '../../../assets/sky2/nz.jpg'
 
+import pxjpg2 from '../../../assets/matIronBox/posx.jpg'
+import nxjpg2 from '../../../assets/matIronBox/negx.jpg'
+import pyjpg2 from '../../../assets/matIronBox/posy.jpg'
+import nyjpg2 from '../../../assets/matIronBox/negy.jpg'
+import pzjpg2 from '../../../assets/matIronBox/posz.jpg'
+import nzjpg2 from '../../../assets/matIronBox/negz.jpg'
+
 //import { Car } from '../Entities/Car'
 
 import { system_PlayerMoveOnLevel } from '../systems/system_PlayerMoveOnLevel'
@@ -123,6 +130,7 @@ export const GAME_MODULES = [
         //    { type: 'obj', path: levelRoomsSrc, key: 'level-rooms' },
         //    { type: 'cubeTextures', path: [ nxjpg, nxjpg, nxjpg, nxjpg, nxjpg, nxjpg, ], key: 'skyBox' },
             { type: 'cubeTextures', path: [ px2jpg, nx2jpg, py2jpg, ny2jpg, pz2jpg, nz2jpg, ], key: 'skyBox2' },
+            { type: 'cubeTextures', path: [ pxjpg2, nxjpg2, pyjpg2, nyjpg2, pzjpg2, nzjpg2, ], key: 'skyBox3' },
             //{ type: 'img', path: mapFloorOuter, key: 'mapFloorOuter', wrap: true },
             { type: 'img', path: mapTop, key: 'mapTop', wrap: true },
             { type: 'img', path: ironNormal, key: 'ironNormal', wrap: true },
