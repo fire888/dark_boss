@@ -81,7 +81,6 @@ export const createTown2 = (root) => {
         const f = createFloor(floors[i])
         v.push(...f.v)
         c.push(...f.c)
-        //b.push(...wall.b)
         u.push(...f.u)
     }
 
@@ -117,7 +116,6 @@ export const createTown2 = (root) => {
     root.studio.addToScene(mesh)
 
     const mCollision = createMeshFromBuffer({ v: b })
-    //mCollision.position.y = -30
     mCollision.visible = false
     root.studio.addToScene(mCollision)
 

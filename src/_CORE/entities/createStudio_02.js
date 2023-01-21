@@ -50,8 +50,8 @@ export class Studio {
         //     this._scene.add(directionalLight);
         // }
         // {
-        //     const directionalLight = new THREE.PointLight(0xffffff, .5);
-        //     directionalLight.position.set(200, 1000, 200)
+        //     const directionalLight = new THREE.PointLight(0xffffff, .3);
+        //     directionalLight.position.set(1000, 10, 1000)
         //     this._scene.add(directionalLight);
         // }
         // {

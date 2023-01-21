@@ -10,7 +10,7 @@ export const createTown2Scheme = () => {
             const lX = arr[i].walls['s'].p1[0] - arr[i].walls['s'].p0[0]
             const lZ = arr[i].walls['e'].p1[1] - arr[i].walls['e'].p0[1]
 
-            if (lX < 500 && lZ < 500 && Math.random() < .15) {
+            if (lX < 500 && lZ < 500 && Math.random() < .4) {
                 arr[i].notDivide = true
             }
 
@@ -244,8 +244,10 @@ export const createTown2Scheme = () => {
     /** prepare ResultArr to make walls */
     const arrWallsPrepared = []
     for (let i = 0; i < resultArr.length; ++i) {
-        const colorRoom = [Math.random(), Math.random(), Math.random()]
-        
+        //const colorRoom = [Math.random(), Math.random(), Math.random()]
+        //const colorRoom = [0, 0, 0]
+        const colorRoom = [Math.random() * .4, Math.random() * .4, Math.random() * .4]
+
         const nData = resultArr[i].walls['n']
         {
             const data = {

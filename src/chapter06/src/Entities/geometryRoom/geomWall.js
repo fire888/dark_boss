@@ -7,6 +7,7 @@ import {
     createFaceWithSquare,
     createUv,
 } from '../../helpers/geomHelpers'
+import { createPanel } from './geomWallPanno'
 
 const uv6 = [
     0, 0, 
@@ -114,7 +115,7 @@ export const createSegment = ({
                                       leftOffset,
                                       rightOffset,
                                       segment,
-                                    colorRoom,
+                                      colorRoom,
                                   }) => {
     if (!pos) {
         pos = asset.geometry.attributes.position.array
@@ -131,6 +132,18 @@ export const createSegment = ({
     const u = []
 
     let p = -1
+
+    if (segment === 'bottom' || segment === 'full') {
+        const panel = createPanel({
+            l,
+            colorRoom,
+            leftOffset: leftOffset ? 11 : 0,
+            rightOffset: rightOffset ? 11 : 0,
+        })
+        c.push(...panel.c)
+        v.push(...panel.v)
+        u.push(...panel.u)
+    }
 
     for (let i = 3; i < pos.length; i += 3) {
         ++p
@@ -182,18 +195,19 @@ export const createSegment = ({
 
             //const r = 1.5
             const r = 5
-            const h2 = 87
+            const h2 = 86
             const h1 = 80
             const h0 = 72
+            const z = 12.5
             let step = (l - (leftOffsetVal + rightOffsetVal)) / n
             if (n > 0) {
                 for (let i = 0; i < n + 1; ++i) {
                     let currentX = (leftOffsetVal) + (i * step)
                     const dt = createFaceWithSquare(
-                        [currentX - r, h1, 11],
-                        [currentX + r, h1, 11],
-                        [currentX + r, h2, 11],
-                        [currentX - r, h2, 11],
+                        [currentX - r, h1, z],
+                        [currentX + r, h1, z],
+                        [currentX + r, h2, z],
+                        [currentX - r, h2, z],
                         colorRoom,
                         white1,
                         .5
@@ -205,26 +219,26 @@ export const createSegment = ({
                         ...createFace(
                             [currentX - r, h0, 1.8],
                             [currentX + r, h0, 1.8],
-                            [currentX + r, h1, 11],
-                            [currentX - r, h1, 11],
+                            [currentX + r, h1, z],
+                            [currentX - r, h1, z],
                         )
                     )
                     u.push(...uv6)
                     v.push(
                         ...createFace(
                             [currentX - r, h0, 1.8],
-                            [currentX - r, h1, 11],
-                            [currentX - r, h2, 11],
+                            [currentX - r, h1, z],
+                            [currentX - r, h2, z],
                             [currentX - r, h2, 1.8],
                         )
                     )
                     u.push(...uv6)
                     v.push(
                         ...createFace(
-                            [currentX + r, h1, 11],
+                            [currentX + r, h1, z],
                             [currentX + r, h0, 1.8],
                             [currentX + r, h2, 1.8],
-                            [currentX + r, h2, 11],
+                            [currentX + r, h2, z],
                         )
                     )
                     u.push(...uv6)
