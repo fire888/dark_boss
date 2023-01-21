@@ -20,6 +20,7 @@ const uv6 = [
 
 
 export const createWall = (data, root) => {
+
     const v = []
     const c = []
     const b = []
@@ -35,7 +36,7 @@ export const createWall = (data, root) => {
 
     const segment = createSegment({
         l,
-        asset: root.assets['walls'].children[0],
+        //asset: root.assets['walls'].children[0],
         leftOffset: true,
         rightOffset: true,
         segment: izSegmentsDoors ? 'top' : 'full',
@@ -63,7 +64,7 @@ export const createWall = (data, root) => {
 
             const segment = createSegment({
                 l,
-                asset: root.assets['walls'].children[0],
+                //asset: root.assets['walls'].children[0],
                 leftOffset: i === 0,
                 rightOffset: i === arr.length - 1,
                 segment: 'bottom',
@@ -87,7 +88,9 @@ export const createWall = (data, root) => {
 }
 
 
-let pos = null
+//let pos = null
+let pos = [0, -0.000699999975040555, 20.271699905395508, 0, 0.9347000122070312, 20.271699905395508, 0, 1.8353999853134155, 17.028799057006836, 0, 7.440899848937988, 17.028799057006836, 0, 7.844900131225586, 19.12459945678711, 0, 8.748000144958496, 19.12459945678711, 0, 9.527199745178223, 13.83530044555664, 0, 20.66309928894043, 13.83530044555664, 0, 21.29990005493164, 17.426300048828125, 0, 23.96380043029785, 17.426300048828125, 0, 24.70680046081543, 10.646400451660156, 0, 67.68000030517578, 10.646400451660156, 0, 67.68000030517578, 13.190500259399414, 0, 70.5458984375, 13.190500259399414, 0, 70.5458984375, 4.975500106811523, 0, 72.16529846191406, 4.975500106811523, 0, 72.16529846191406, 2.640399932861328, 0, 82.96610260009766, 2.6317999362945557, 0, 86.24569702148438, 14.853300094604492, 0, 89.66629791259766, 14.853300094604492, ]
+
 const white1 = [1, 1, 1]
 const white6 = [
     ...white1,
@@ -111,15 +114,24 @@ const gr6 = [
 
 export const createSegment = ({
                                       l,
-                                      asset,
+                                      //asset,
                                       leftOffset,
                                       rightOffset,
                                       segment,
                                       colorRoom,
                                   }) => {
-    if (!pos) {
-        pos = asset.geometry.attributes.position.array
-    }
+    // if (!pos) {
+    //     let s = ''
+    //     const arr = asset.geometry.attributes.position.array
+
+    //     for (let i = 0; i < arr.length; ++i) {
+    //         s += arr[i] + ', '
+    //     }
+
+    //     console.log(s)
+    //     console.log(JSON.stringify(asset.geometry.attributes.position.array))
+    //     pos = asset.geometry.attributes.position.array
+    // }
 
     const colorRoom6 = [
         ...colorRoom, ...colorRoom, ...colorRoom,
@@ -344,9 +356,9 @@ export const createSegment = ({
             //let offset = 2
             const leftOffsetVal = leftOffset ? 22 : 2
             const rightOffsetVal = rightOffset ? 22 : 2
-            const n = Math.floor((l - (leftOffsetVal + rightOffsetVal)) / 5)
+            const n = Math.floor((l - (leftOffsetVal + rightOffsetVal)) / 10)
 
-            const r = .5
+            const r = 1
             const h2 = 8.3
             const h0 = 0.6
             let step = (l - (leftOffsetVal + rightOffsetVal)) / n

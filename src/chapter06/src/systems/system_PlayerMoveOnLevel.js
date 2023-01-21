@@ -25,7 +25,7 @@ export class system_PlayerMoveOnLevel {
 
         const {
             speed,
-            speedDown,
+            //speedDown,
             speedRot,
         } = CONSTANTS.playerConfig
 
@@ -43,31 +43,31 @@ export class system_PlayerMoveOnLevel {
         let keys = {}
 
         const OFFSET_FROM_PLANES = 17
-        const OFFSET_FROM_PLANES_TO_DROP = 17.2
+        //const OFFSET_FROM_PLANES_TO_DROP = 17.2
 
 
 
 
 
 
-        const checkBottomAndDropDownPlayer = data => {
-            const [isCollision, collision] = collisionsWalls.checkCollisions(player.mesh, player.bottomObj, OFFSET_FROM_PLANES_TO_DROP)
+        // const checkBottomAndDropDownPlayer = data => {
+        //     const [isCollision, collision] = collisionsWalls.checkCollisions(player.mesh, player.bottomObj, OFFSET_FROM_PLANES_TO_DROP)
 
-            /** move player to top if on stairs */
-            if (isCollision && OFFSET_FROM_PLANES > collision.distance) {
-                player.mesh.translateY(OFFSET_FROM_PLANES - collision.distance)
+        //     /** move player to top if on stairs */
+        //     if (isCollision && OFFSET_FROM_PLANES > collision.distance) {
+        //         player.mesh.translateY(OFFSET_FROM_PLANES - collision.distance)
 
-                return;
-            }
+        //         return;
+        //     }
 
 
-            /** free down without intercepts */
-            if (!isCollision) {
-                /** if player not up - rotated to up */
-                player.mesh.position.y += (speedDown * data.count)
-            }
+        //     /** free down without intercepts */
+        //     if (!isCollision) {
+        //         /** if player not up - rotated to up */
+        //         player.mesh.position.y += (speedDown * data.count)
+        //     }
 
-        }
+        // }
 
 
         const checkAndMoveFront = data => {
@@ -108,7 +108,7 @@ export class system_PlayerMoveOnLevel {
 
             if (isBlocked) return;
 
-            checkBottomAndDropDownPlayer(data)
+            //checkBottomAndDropDownPlayer(data)
             keys['up'] && this.isCanMove['forward'] && checkAndMoveFront(data)
             keys['down'] && this.isCanMove['back'] && checkAndMoveBack(data)
             keys['p'] && console.log(`player.mesh.position.fromArray([${player.mesh.position.x}, ${player.mesh.position.y}, ${player.mesh.position.z}])`)

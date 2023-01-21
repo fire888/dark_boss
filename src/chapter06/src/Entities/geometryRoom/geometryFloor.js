@@ -62,23 +62,41 @@ export const createFloor = (data) => {
     const offset1 = 30
     const offset0 = 30 + 5
 
-    v.push(
-        ...createFace(
-            [data.p0[0] + offset0, y0, data.p0[1] - offset0],
-            [data.p1[0] - offset0, y0, data.p1[1] - offset0],
-            [data.p2[0] - offset0, y0, data.p2[1] + offset0],
-            [data.p3[0] + offset0, y0, data.p3[1] + offset0],
-        )
-    )
-    c.push(...white6)
-    u.push(
-        0, 0,
-        1, 0,
-        1, 1,
-        0, 0,
-        1, 1,
-        0, 1
-    )
+    const lX = (data.p1[0] - offset0) - (data.p0[0] + offset0)
+    const lZ = (data.p2[1] + offset0) - (data.p1[1] - offset0) 
+
+    const nX = Math.ceil(Math.abs(lX / 100))
+    const nZ = Math.ceil(Math.abs(lZ / 100))
+
+    const stepX = lX / nX
+    const stepZ = lZ / nZ
+
+    for (let i = 0; i < nX; ++i) {
+        for (let j = 0; j < nZ; ++j) {
+            v.push(
+                ...createFace(
+                    [data.p0[0] + offset0 + i * stepX,          y0,     data.p0[1] - offset0 + (j) * stepZ],
+                    [data.p0[0] + offset0 + (i + 1) * stepX,    y0,     data.p0[1] - offset0 + (j) * stepZ],
+                    [data.p0[0] + offset0 + (i + 1) * stepX,    y0,     data.p0[1] - offset0 + (j + 1) * stepZ],
+                    [data.p0[0] + offset0 + i * stepX,          y0,     data.p0[1] - offset0 + (j + 1) * stepZ],
+                )
+            )
+            c.push(...white6)
+            u.push(0, 0,1, 0,1, 1,0, 0,1, 1,0, 1)
+        }
+    }
+
+
+    // v.push(
+    //     ...createFace(
+    //         [data.p0[0] + offset0, y0, data.p0[1] - offset0],
+    //         [data.p1[0] - offset0, y0, data.p1[1] - offset0],
+    //         [data.p2[0] - offset0, y0, data.p2[1] + offset0],
+    //         [data.p3[0] + offset0, y0, data.p3[1] + offset0],
+    //     )
+    // )
+    // c.push(...white6)
+    // u.push(0, 0,1, 0,1, 1,0, 0,1, 1,0, 1)
 
     v.push(
         ...createFace(

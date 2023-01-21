@@ -1,7 +1,7 @@
-const minS = 200
+const minS = 250
 //const S1 = 500
-const S2 = 2000
-const S1 = 2000
+const S2 = 3000
+const S1 = 3000
 //const S2 = 2000
 //const S2 = 1500
 

@@ -90,7 +90,7 @@ export const playerConfig = {
         // dist: 0,
         // decay: .001,
         // pos: [0, 10, 0],
-        color: 0x777777,
+        color: 0x555555,
         strength: 1,
         dist: 0,
         decay: .001,

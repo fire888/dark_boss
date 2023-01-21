@@ -74,7 +74,7 @@ export const MATERIALS_CONF = {
             //map: '',
             //bumpMap: 'ironHeight',
             lightMap: 'ironAO',
-            lightMapIntensity: .2,
+            lightMapIntensity: .35,
             normalMap: 'ironNormal',
             //normalScale: new THREE.Vector2(1, 1),
             //normalScale: new THREE.Vector2(.5, .5),
@@ -87,6 +87,7 @@ export const MATERIALS_CONF = {
             shininess: 100,
             specular: 0x020201,
             vertexColors: true,
+            //wireframe: true,
         },
     },
     'floorMat1': {

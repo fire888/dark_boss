@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { createFace, rotateArrY, angleFromCoords, translateArr} from '../../helpers/geomHelpers'
 
-let pos = null
+//let pos = null
 const white1 = [1, 1, 1]
 const white6 = [
     ...white1,
@@ -12,8 +12,6 @@ const white6 = [
     ...white1,
 ]
 
-let leftPr = null
-let rightPr = null
 
 const uv6 = [
     0, 0, 
@@ -24,9 +22,21 @@ const uv6 = [
     0, 1
 ]
 
+let leftPr = null
+let rightPr = null
+const pos = [0, -28.033300399780273, 18.110000610351562, 0, 24.523099899291992, 16.341800689697266, 0, 26.22130012512207, 15.079400062561035, 0, 73.4574966430664, 15.079400062561035, 0, 89.42109680175781, 30.165700912475586, 0, 108.39409637451172, 30.165700912475586, ]
+
 export const createOuterWall = (dataWall, line) => {
-    if (!pos) {
-        pos = line.geometry.attributes.position.array
+    if (!leftPr) {
+        //         let s = ''
+        // const arr = line.geometry.attributes.position.array
+
+        // for (let i = 0; i < arr.length; ++i) {
+        //     s += arr[i] + ', '
+        // }
+        // console.log(s)
+
+        // pos = line.geometry.attributes.position.array
         leftPr = [...pos]
         rotateArrY(leftPr, -Math.PI / 4)
         rightPr = [...pos]
@@ -58,8 +68,8 @@ export const createOuterWall = (dataWall, line) => {
                 ...createFace(
                     [leftPr[i - 3] - 2, 0, leftPr[i - 1] + 2],
                     [rightPr[i - 3] + l + 2, 0, rightPr[i - 1] + 2],
-                    [rightPr[i] + l + 2, 20, rightPr[i + 2] + 2],
-                    [leftPr[i] - 2, 20, leftPr[i + 2] + 2],
+                    [rightPr[i] + l + 2, 30, rightPr[i + 2] + 2],
+                    [leftPr[i] - 2, 30, leftPr[i + 2] + 2],
                 )
             )
         }

@@ -10,7 +10,7 @@ export const createTown2Scheme = () => {
             const lX = arr[i].walls['s'].p1[0] - arr[i].walls['s'].p0[0]
             const lZ = arr[i].walls['e'].p1[1] - arr[i].walls['e'].p0[1]
 
-            if (lX < 500 && lZ < 500 && Math.random() < .4) {
+            if (lX < 800 && lZ < 800 && Math.random() < .5) {
                 arr[i].notDivide = true
             }
 

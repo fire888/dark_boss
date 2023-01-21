@@ -53,7 +53,7 @@ export const createTown2 = (root) => {
 
     /** DOORS MESH **/
     for (let key in doors) {
-        const door = createDoorData(root, root.assets['walls'].children[1], doors[key].l, doors[key].keyMode || null)
+        const door = createDoorData(root, null, doors[key].l, doors[key].keyMode || null)
         rotateArrY(door.v,  doors[key].angle)
         translateArr(door.v, doors[key].p0[0], y0, doors[key].p0[1])
         v.push(...door.v)
@@ -69,7 +69,7 @@ export const createTown2 = (root) => {
 
     /** OUTER WALLS MESH */
     for (let i = 0; i < arrOuterWalls.length; ++i) {
-        const wall = createOuterWall(arrOuterWalls[i], root.assets['walls'].children[2])
+        const wall = createOuterWall(arrOuterWalls[i], null)
         v.push(...wall.v)
         c.push(...wall.c)
         b.push(...wall.b)
@@ -84,25 +84,51 @@ export const createTown2 = (root) => {
         u.push(...f.u)
     }
 
+    /** ceil */
     const h = 26.5
     for (let i = 0; i < floors.length; ++i) {
-        v.push(
-            ...createFace(
-                [floors[i].p3[0], h, floors[i].p3[1]],
-                [floors[i].p2[0], h, floors[i].p2[1]],
-                [floors[i].p1[0], h, floors[i].p1[1]],
-                [floors[i].p0[0], h, floors[i].p0[1]],
-            )
-        )
-        c.push(...white6)
-        u.push(
-            0, 0, 
-            1, 0, 
-            1, 1,
-            0, 0,
-            1, 1,
-            0, 1
-        ) 
+        const data = floors[i]
+        const lX = (data.p1[0]) - (data.p0[0])
+        const lZ = (data.p2[1]) - (data.p1[1]) 
+    
+        const nX = Math.ceil(Math.abs(lX / 100))
+        const nZ = Math.ceil(Math.abs(lZ / 100))
+    
+        const stepX = lX / nX
+        const stepZ = lZ / nZ
+    
+        for (let i = 0; i < nX; ++i) {
+            for (let j = 0; j < nZ; ++j) {
+                v.push(
+                    ...createFace(
+                        [data.p0[0] + i * stepX,          h,     data.p2[1] - (j) * stepZ],
+                        [data.p0[0] + (i + 1) * stepX,    h,     data.p2[1] - (j) * stepZ],
+                        [data.p0[0] + (i + 1) * stepX,    h,     data.p2[1] - (j + 1) * stepZ],
+                        [data.p0[0] + i * stepX,          h,     data.p2[1] - (j + 1) * stepZ],
+                    )
+                )
+                c.push(...white6)
+                u.push(0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1)
+            }
+        }
+
+        // v.push(
+        //     ...createFace(
+        //         [floors[i].p3[0], h, floors[i].p3[1]],
+        //         [floors[i].p2[0], h, floors[i].p2[1]],
+        //         [floors[i].p1[0], h, floors[i].p1[1]],
+        //         [floors[i].p0[0], h, floors[i].p0[1]],
+        //     )
+        // )
+        // c.push(...white6)
+        // u.push(
+        //     0, 0, 
+        //     1, 0, 
+        //     1, 1,
+        //     0, 0,
+        //     1, 1,
+        //     0, 1
+        // ) 
     }
 
     console.log(root)

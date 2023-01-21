@@ -61,8 +61,8 @@ import soundAmbientSrc from '../../../assets/chapter05/audio/ambient.mp3'
 //import ironHeight from '../../../assets/chapter06/spaceShip/spaceship-panels1-height.jpg'
 //import ironAlbedo from '../../../assets/chapter06/spaceShip/spaceship-panels1-albedo.jpg'
 
-import ironNormal from '../../../assets/chapter06/concrete/broken_down_concrete2_Normal-dx.png'
-import ironAO from '../../../assets/chapter06/concrete/broken_down_concrete2_ao.png'
+import ironNormal from '../../../assets/chapter06/concrete/broken_down_concrete2_Normal-dx.jpg'
+import ironAO from '../../../assets/chapter06/concrete/broken_down_concrete2_ao.jpg'
 import ironHeight from '../../../assets/chapter06/concrete/broken_down_concrete2_Height.png'
 import ironAlbedo from '../../../assets/chapter06/concrete/broken_down_concrete2_albedo.png'
 
@@ -134,10 +134,10 @@ export const GAME_MODULES = [
             //{ type: 'img', path: mapFloorOuter, key: 'mapFloorOuter', wrap: true },
             { type: 'img', path: mapTop, key: 'mapTop', wrap: true },
             { type: 'img', path: ironNormal, key: 'ironNormal', wrap: true },
-            { type: 'img', path: ironAlbedo, key: 'ironAlbedo', wrap: true },
-            { type: 'img', path: ironHeight, key: 'ironHeight', wrap: true },
+            //{ type: 'img', path: ironAlbedo, key: 'ironAlbedo', wrap: true },
+            //{ type: 'img', path: ironHeight, key: 'ironHeight', wrap: true },
             { type: 'img', path: ironAO, key: 'ironAO', wrap: true },
-            { type: 'obj', path: levelWallsSrc, key: 'walls' },
+        //    { type: 'obj', path: levelWallsSrc, key: 'walls' },
         //    { type: 'img', path: mapVirt2, key: 'mapVirtual2', wrap: true },
         //    { type: 'img', path: mapTxt, key: 'mapParams' },
         //    { type: 'img', path: mapBody, key: 'mapBody' },
