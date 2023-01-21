@@ -97,7 +97,7 @@ export const MATERIALS_CONF = {
             map: 'mapTop',
             bumpMap: 'mapTop',
             bumpScale: 2,
-            envMap: 'skyBox',
+            //envMap: 'skyBox3',
             reflectivity: 0.1,
             shininess: .01,
             specular: 0xffffff,
