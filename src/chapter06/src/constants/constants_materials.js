@@ -104,4 +104,8 @@ export const MATERIALS_CONF = {
             emissive: 0x555555,
         },
     },
+    'testBlack': {
+        mat: 'MeshBasicMaterial',
+        props: { color: 0x000000, side: THREE.DoubleSide, },
+    }
 }

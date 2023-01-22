@@ -85,7 +85,7 @@ export const createTown2 = (root) => {
     }
 
     /** ceil */
-    const h = 26.5
+    const h = 30
     for (let i = 0; i < floors.length; ++i) {
         const data = floors[i]
         const lX = (data.p1[0]) - (data.p0[0])
@@ -111,24 +111,6 @@ export const createTown2 = (root) => {
                 u.push(0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1)
             }
         }
-
-        // v.push(
-        //     ...createFace(
-        //         [floors[i].p3[0], h, floors[i].p3[1]],
-        //         [floors[i].p2[0], h, floors[i].p2[1]],
-        //         [floors[i].p1[0], h, floors[i].p1[1]],
-        //         [floors[i].p0[0], h, floors[i].p0[1]],
-        //     )
-        // )
-        // c.push(...white6)
-        // u.push(
-        //     0, 0, 
-        //     1, 0, 
-        //     1, 1,
-        //     0, 0,
-        //     1, 1,
-        //     0, 1
-        // ) 
     }
 
     console.log(root)

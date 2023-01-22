@@ -1,5 +1,8 @@
 import * as THREE from 'three'
 import {createTown2} from '../Entities/town2'
+import {createFractions} from '../Entities/meshTrunck'
+import * as TWEEN from "@tweenjs/tween.js";
+
 
 export const createWorldReal = (root) => {
     const {
@@ -8,6 +11,7 @@ export const createWorldReal = (root) => {
         studio,
         system_Assets,
         system_PlayerMoveOnLevel,
+        frameUpdater
     } = root
 
     const groundStart = new THREE.Mesh(
@@ -18,6 +22,28 @@ export const createWorldReal = (root) => {
     //materials.floorMat1.vertexColors = true
     groundStart.rotation.x = -Math.PI / 2
     groundStart.position.y = -62
+
+    const fractions = createFractions(root)
+    fractions.position.x = 1500
+    fractions.position.z = 1500
+    studio.addToScene(fractions)
+    let count = 0
+    frameUpdater.on(data => {
+         count += 0.01
+         fractions.position.y = Math.sin(count) * 40
+    })
+
+    // for (let i = 0; i < 140; ++i) {
+    //     const m = new THREE.Mesh(
+    //         new THREE.ConeBufferGeometry(Math.random() * 30, Math.random() * 100 + 50),
+    //         root.materials.testBlack,
+    //     )
+    //     m.position.set(Math.random() * 3000, - 62, Math.random() * 3000)
+    //     root.studio.addToScene(m)
+    // }
+
+
+
 
 
 

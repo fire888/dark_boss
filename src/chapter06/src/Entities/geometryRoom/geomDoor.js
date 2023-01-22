@@ -77,7 +77,7 @@ export const createDoorData = (root, lineData, l, mode = 'simple') => {
     for (let i = 3; i < pos.length; i += 3) {
         ++count
 
-        if (mode !== 'bigDoor' && count > 13) {
+        if (mode !== 'bigDoor' && count > 12) {
             continue;
         }
 

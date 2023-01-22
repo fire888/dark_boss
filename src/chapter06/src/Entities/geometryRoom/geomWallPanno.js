@@ -37,41 +37,39 @@ export const createPanel = ({
     const v = []
     const u = []
 
-    v.push(
-        ...createFace(
-            [x0, h0, z],
-            [x1, h0, z],
-            [x1, h1, z],
-            [x0, h1, z],
-        )
-    )
-    c.push(...white6)
-    u.push(
-        0, 0,
-        1, 0,
-        1, 1,
-        0, 0,
-        1, 1,
-        0, 1
-    )
 
-    v.push(
-        ...createFace(
-            [x0, h0, z - 5],
-            [x1, h0, z - 5],
-            [x1, h0, z],
-            [x0, h0, z],
+    if (l < 30) {
+        v.push(
+            ...createFace(
+                [x0, h0, z],
+                [x1, h0, z],
+                [x1, h1, z],
+                [x0, h1, z],
+            )
         )
-    )
-    c.push(...white6)
-    u.push(
-        0, 0,
-        1, 0,
-        1, 1,
-        0, 0,
-        1, 1,
-        0, 1
-    )
+        c.push(...white6)
+        u.push(0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1)
+
+        v.push(
+            ...createFace(
+                [x0, h0 - 5, z - 10],
+                [x1, h0 - 5, z - 10],
+                [x1, h0, z],
+                [x0, h0, z],
+            )
+        )
+        c.push(...white6)
+        u.push(
+            0, 0,
+            1, 0,
+            1, 1,
+            0, 0,
+            1, 1,
+            0, 1
+        )
+    }
+
+
 
     if (l > 30) {
         const lengthWall =  l - (leftOffset + rightOffset)
@@ -106,18 +104,11 @@ export const createPanel = ({
             )
         )
         c.push(...white6)
-        u.push(
-            0, 0,
-            1, 0,
-            1, 1,
-            0, 0,
-            1, 1,
-            0, 1
-        )
+        u.push(0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1)
         v.push(
             ...createFace(
-                [center - rPanel - frameW, ph0 - frameW - 1, z],
-                [center + rPanel + frameW, ph0 - frameW - 1, z],
+                [center - rPanel - frameW, ph0 - frameW - 1, z - 10],
+                [center + rPanel + frameW, ph0 - frameW - 1, z - 10],
                 [center + rPanel + frameW, ph0 - frameW, z + 2],
                 [center - rPanel - frameW, ph0 - frameW, z + 2],
             )
@@ -146,8 +137,8 @@ export const createPanel = ({
         v.push(
             ...createFace(
                 [center + rPanel + frameW, ph0 - frameW, z + 2],
-                [center + rPanel + frameW, ph0 - frameW - 1, z],
-                [center + rPanel + frameW, ph1 + frameW + 1, z],
+                [center + rPanel + frameW, ph0 - frameW - 1, z - 10],
+                [center + rPanel + frameW, ph1 + frameW + 1, z - 10],
                 [center + rPanel + frameW, ph1 + frameW, z + 2],
             )
         )
@@ -169,10 +160,10 @@ export const createPanel = ({
 
         v.push(
             ...createFace(
-                [center - rPanel - frameW, ph0 - frameW - 1, z],
+                [center - rPanel - frameW, ph0 - frameW - 1, z  - 10],
                 [center - rPanel - frameW, ph0 - frameW, z + 2],
                 [center - rPanel - frameW, ph1 + frameW, z + 2],
-                [center - rPanel - frameW, ph1 + frameW, z],
+                [center - rPanel - frameW, ph1 + frameW, z  - 10],
             )
         )
         c.push(...white6)
@@ -192,6 +183,51 @@ export const createPanel = ({
 
 
 
+
+        /** gor */
+        v.push(
+            ...createFace(
+                [x0, h0, z],
+                [center - rPanel - frameW, h0, z],
+                [center - rPanel - frameW, h1, z],
+                [x0, h1, z],
+            )
+        )
+        c.push(...white6)
+        u.push(0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1)
+
+        v.push(
+            ...createFace(
+                [x0, h0 - 5, z - 10],
+                [center - rPanel - frameW, h0 - 5, z - 10],
+                [center - rPanel - frameW, h0, z],
+                [x0, h0, z],
+            )
+        )
+        c.push(...white6)
+        u.push(0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1)
+
+        v.push(
+            ...createFace(
+                [center + rPanel + frameW, h0, z],
+                [x1, h0, z],
+                [x1, h1, z],
+                [center + rPanel + frameW, h1, z],
+            )
+        )
+        c.push(...white6)
+        u.push(0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1)
+
+        v.push(
+            ...createFace(
+                [center + rPanel + frameW, h0 - 5, z - 10],
+                [x1, h0 - 5, z - 10],
+                [x1, h0, z],
+                [center + rPanel + frameW, h0, z],
+            )
+        )
+        c.push(...white6)
+        u.push(0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1)
 
     }
 

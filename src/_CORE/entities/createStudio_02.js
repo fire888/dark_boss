@@ -94,10 +94,11 @@ export class Studio {
             }
 
             if (isPlayerView) {
-//                saveFogData = { ...this._scene.fog }
-                // this._scene.fog.near = 1000
-                // this._scene.fog.far = 2000
+                saveFogData = { ...this._scene.fog }
+                this._scene.fog.near = 10000
+                this._scene.fog.far = 20000
                 isPlayerView = false
+
                 this._renderPass.camera = this._controlsCamera
                 this._playerCamera.getWorldPosition(vec3)
                 this._controlsCamera.position.x = vec3.x + 100
@@ -105,9 +106,13 @@ export class Studio {
                 this._controlsCamera.position.z = vec3.z
                 controls.target.set(vec3.x, vec3.y, vec3.z)
                 controls.update()
-            } else {
+
                 // this._scene.fog.near = saveFogData.near
                 // this._scene.fog.far = saveFogData.far
+
+            } else {
+                this._scene.fog.near = saveFogData.near
+                this._scene.fog.far = saveFogData.far
                 isPlayerView = true
                 this._renderPass.camera = this._playerCamera
             }
