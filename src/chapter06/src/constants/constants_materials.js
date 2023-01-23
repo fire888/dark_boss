@@ -68,6 +68,7 @@ export const MATERIALS_CONF = {
     // },
     'iron': {
         mat: 'MeshPhongMaterial',
+        //mat: 'MeshStandardMaterial',
         props: {
             color: 0xcccccc,
             //map: 'mapTop',
@@ -75,12 +76,16 @@ export const MATERIALS_CONF = {
             //bumpMap: 'ironHeight',
             lightMap: 'ironAO',
             lightMapIntensity: .35,
+
+            //aoMap: 'ironAO',
+            //aoMap: 'ironAlbedo',
+            //aoMapIntensity: 5,
+
             normalMap: 'ironNormal',
-            //normalScale: new THREE.Vector2(1, 1),
-            //normalScale: new THREE.Vector2(.5, .5),
             normalScale: new THREE.Vector2(.1, .1),
-            //normalScale: new THREE.Vector2(.3, .3),
+
             //specularMap: 'ironAlbedo',
+
             //bumpScale: 0,
             envMap: 'skyBox3',
             reflectivity: .02,
@@ -88,10 +93,13 @@ export const MATERIALS_CONF = {
             specular: 0x020201,
             vertexColors: true,
             //wireframe: true,
+            //metalnessMap: 'ironAlbedo',
+            //roughnessMap: 'ironAlbedo',
         },
     },
     'floorMat1': {
         mat: 'MeshPhongMaterial',
+        //mat: 'MeshStandardMaterial',
         props: {
             color: 0xffffff,
             map: 'mapTop',
@@ -102,6 +110,8 @@ export const MATERIALS_CONF = {
             shininess: .01,
             specular: 0xffffff,
             emissive: 0x555555,
+            //metalnessMap: 'ironAlbedo',
+            //roughnessMap: 'ironAlbedo',
         },
     },
     'testBlack': {

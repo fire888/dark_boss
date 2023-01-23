@@ -64,7 +64,7 @@ import { Ui } from "../ui/Ui";
 import ironNormal from '../../../assets/chapter06/concrete/broken_down_concrete2_Normal-dx.jpg'
 import ironAO from '../../../assets/chapter06/concrete/broken_down_concrete2_ao.jpg'
 //import ironHeight from '../../../assets/chapter06/concrete/broken_down_concrete2_Height.png'
-//import ironAlbedo from '../../../assets/chapter06/concrete/broken_down_concrete2_albedo.png'
+import ironAlbedo from '../../../assets/chapter06/concrete/broken_down_concrete2_albedo.jpg'
 
 
 
@@ -134,7 +134,7 @@ export const GAME_MODULES = [
             //{ type: 'img', path: mapFloorOuter, key: 'mapFloorOuter', wrap: true },
             { type: 'img', path: mapTop, key: 'mapTop', wrap: true },
             { type: 'img', path: ironNormal, key: 'ironNormal', wrap: true },
-            //{ type: 'img', path: ironAlbedo, key: 'ironAlbedo', wrap: true },
+            { type: 'img', path: ironAlbedo, key: 'ironAlbedo', wrap: true },
             //{ type: 'img', path: ironHeight, key: 'ironHeight', wrap: true },
             { type: 'img', path: ironAO, key: 'ironAO', wrap: true },
         //    { type: 'obj', path: levelWallsSrc, key: 'walls' },

@@ -23,15 +23,7 @@ export const createWorldReal = (root) => {
     groundStart.rotation.x = -Math.PI / 2
     groundStart.position.y = -62
 
-    const fractions = createFractions(root)
-    fractions.position.x = 1500
-    fractions.position.z = 1500
-    studio.addToScene(fractions)
-    let count = 0
-    frameUpdater.on(data => {
-         count += 0.01
-         fractions.position.y = Math.sin(count) * 40
-    })
+
 
     // for (let i = 0; i < 140; ++i) {
     //     const m = new THREE.Mesh(

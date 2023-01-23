@@ -11,6 +11,7 @@ import {
     playerConfig,
 } from '../constants/constants_elements';
 import { createWorldReal } from '../systems/system_worldReal'
+import {createFractions} from "../Entities/meshTrunck";
 
 
 export class actions {
@@ -37,10 +38,27 @@ export class actions {
         this._worldReal = createWorldReal(root)
         this._worldReal.addWorld()
 
+
+
+        const fractions = createFractions(root)
+        fractions.m.position.x = 200//1500
+        fractions.m.position.z = 150//1500
+        studio.addToScene(fractions.m)
+
+
+
+
+
+        let count = 0
         frameUpdater.on(data => {
             TWEEN.update()
 
+            count += 0.01
+            fractions.update()
+            //fractions.position.y = Math.sin(count) * 40
+
             system_PlayerMoveOnLevel.update(data)
+
             studio.drawFrame()
         })
 
@@ -60,8 +78,18 @@ export class actions {
 
         //player.setToPos(...CONSTANTS.playerConfig.startPos)
         //player.setToPos(...CONSTANTS.playerConfig.startPos)
-        player.setToPos(200, -40, -150)
-        player.mesh.rotation.y = -Math.PI
+        player.setToPos(-30, -40, -150)
+        player.mesh.rotation.y = Math.PI * 1.3
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -70,6 +98,7 @@ export class actions {
             player.toggleBlocked(false)
             //this._root.system_Sound && this._root.system_Sound.playAmbient()
         })
+
     }
 
 }
