@@ -12,60 +12,6 @@ export const COLOR3_6 = [...COLOR3_1, ...COLOR3_1, ...COLOR3_1, ...COLOR3_1, ...
 
 
 export const MATERIALS_CONF = {
-    // 'unit': {
-    //     mat: 'MeshPhongMaterial',
-    //     props: {
-    //         color: 0xffffff,
-    //         emissive: 0x000000,
-    //         reflectivity: 5,
-    //         shininess: 5,
-    //         vertexColors: true,
-    //         flatShading: false,
-    //         side: THREE.DoubleSide,
-    //     },
-    // },
-    // 'wallVirtual': {
-    //     mat: 'MeshStandardMaterial',
-    //     props: {
-    //         color: 0xff00ff,
-    //         emissive: 0x000000,
-    //     },
-    // },
-    // 'wallVirtualColor': {
-    //     mat: 'MeshStandardMaterial',
-    //     props: {
-    //         color: 0xffffff,
-    //         emissive: 0x000000,
-    //         //map: 'mapParams',
-    //         //bumpMap: 'mapParams',
-    //         //bumpScale: .1,
-    //         flatShading: false,
-    //         specular: 0xffffff,
-    //         vertexColors: true,
-    //     },
-    // },
-    // 'body': {
-    //     mat: 'MeshPhongMaterial',
-    //     props: {
-    //         color: 0xaaaaff,
-    //         emissive: 0x000000,
-    //         map: 'mapBody',
-    //         bumpMap: 'mapBody',
-    //         bumpScale: .1,
-    //         reflectivity: .005,
-    //         shininess: .005,
-    //         specular: 0xffffff,
-    //     },
-    // },
-    // 'body_sh': {
-    //     mat: 'MeshPhongMaterial',
-    //     props: {
-    //         color: 0x000000,
-    //         emissive: 0x000000,
-    //         transparent: true,
-    //         alphaMap: 'mapBodySh',
-    //     },
-    // },
     'iron': {
         mat: 'MeshPhongMaterial',
         //mat: 'MeshStandardMaterial',
@@ -116,6 +62,10 @@ export const MATERIALS_CONF = {
     },
     'testBlack': {
         mat: 'MeshBasicMaterial',
-        props: { color: 0x000000, side: THREE.DoubleSide, },
+        props: {
+            color: 0xffffff,
+            vertexColors: true,
+            //side: THREE.DoubleSide,
+        },
     }
 }

@@ -35,6 +35,7 @@ export const createTown2 = (root) => {
         doors,
         arrWallsPrepared,
         floors,
+        roomsArr,
     } = createTown2Scheme()
 
     const v = []
@@ -131,5 +132,6 @@ export const createTown2 = (root) => {
     return {
         mesh,
         mCollision,
+        roomsArr,
     }
 }

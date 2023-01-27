@@ -43,31 +43,6 @@ export class system_PlayerMoveOnLevel {
         let keys = {}
 
         const OFFSET_FROM_PLANES = 17
-        //const OFFSET_FROM_PLANES_TO_DROP = 17.2
-
-
-
-
-
-
-        // const checkBottomAndDropDownPlayer = data => {
-        //     const [isCollision, collision] = collisionsWalls.checkCollisions(player.mesh, player.bottomObj, OFFSET_FROM_PLANES_TO_DROP)
-
-        //     /** move player to top if on stairs */
-        //     if (isCollision && OFFSET_FROM_PLANES > collision.distance) {
-        //         player.mesh.translateY(OFFSET_FROM_PLANES - collision.distance)
-
-        //         return;
-        //     }
-
-
-        //     /** free down without intercepts */
-        //     if (!isCollision) {
-        //         /** if player not up - rotated to up */
-        //         player.mesh.position.y += (speedDown * data.count)
-        //     }
-
-        // }
 
 
         const checkAndMoveFront = data => {

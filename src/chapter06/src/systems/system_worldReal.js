@@ -1,6 +1,5 @@
 import * as THREE from 'three'
 import {createTown2} from '../Entities/town2'
-import {createFractions} from '../Entities/meshTrunck'
 import * as TWEEN from "@tweenjs/tween.js";
 
 
@@ -72,7 +71,8 @@ export const createWorldReal = (root) => {
         removeWorld: () => {
             system_PlayerMoveOnLevel.removeItemFromPlayerCollision(groundStart)
             studio.removeFromScene(groundStart)
-        }
+        },
+        roomsArr: t2.roomsArr,
     }
 }
 

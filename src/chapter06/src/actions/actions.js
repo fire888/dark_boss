@@ -13,6 +13,8 @@ import {
 import { createWorldReal } from '../systems/system_worldReal'
 import {createFractions} from "../Entities/meshTrunck";
 
+import { createCheckerRoom } from '../helpers/checkerPlayerRoom'
+
 
 export class actions {
     constructor (root) {
@@ -41,11 +43,14 @@ export class actions {
 
 
         const fractions = createFractions(root)
-        fractions.m.position.x = 200//1500
-        fractions.m.position.z = 150//1500
+        fractions.m.position.x = 0//200//1500
+        fractions.m.position.z = -40//150//1500
+        fractions.m.position.y = -61//150//1500
+        fractions.m.rotation.y = Math.PI
         studio.addToScene(fractions.m)
 
 
+        const checkerPlayerRoom = createCheckerRoom(root, this._worldReal.roomsArr)
 
 
 
@@ -54,7 +59,7 @@ export class actions {
             TWEEN.update()
 
             count += 0.01
-            fractions.update()
+            //fractions.update()
             //fractions.position.y = Math.sin(count) * 40
 
             system_PlayerMoveOnLevel.update(data)

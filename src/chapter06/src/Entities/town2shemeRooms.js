@@ -403,5 +403,6 @@ export const createTown2Scheme = () => {
         doors,
         arrWallsPrepared,
         floors,
+        roomsArr: resultArr,
     }
 }

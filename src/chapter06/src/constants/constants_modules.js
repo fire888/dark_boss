@@ -66,6 +66,8 @@ import ironAO from '../../../assets/chapter06/concrete/broken_down_concrete2_ao.
 //import ironHeight from '../../../assets/chapter06/concrete/broken_down_concrete2_Height.png'
 import ironAlbedo from '../../../assets/chapter06/concrete/broken_down_concrete2_albedo.jpg'
 
+import bodySrc from '../../../assets/chapter06/body.obj'
+
 
 
 export const GAME_MODULES = [
@@ -137,6 +139,7 @@ export const GAME_MODULES = [
             { type: 'img', path: ironAlbedo, key: 'ironAlbedo', wrap: true },
             //{ type: 'img', path: ironHeight, key: 'ironHeight', wrap: true },
             { type: 'img', path: ironAO, key: 'ironAO', wrap: true },
+            { type: 'obj', path: bodySrc, key: 'bodyModel' },
         //    { type: 'obj', path: levelWallsSrc, key: 'walls' },
         //    { type: 'img', path: mapVirt2, key: 'mapVirtual2', wrap: true },
         //    { type: 'img', path: mapTxt, key: 'mapParams' },
