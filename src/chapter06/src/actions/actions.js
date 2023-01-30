@@ -51,6 +51,10 @@ export class actions {
 
 
         const checkerPlayerRoom = createCheckerRoom(root, this._worldReal.roomsArr)
+        checkerPlayerRoom.onChangeRoom(r => {
+            console.log('---!!!', r)
+            fractions.setRoom(r)
+        })
 
 
 

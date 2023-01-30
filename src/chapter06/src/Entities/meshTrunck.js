@@ -31,7 +31,6 @@ export const createFractions = (root) => {
     const modelSrc = root.assets.bodyModel.children[0]
 
     // !! 33048
-
     const c = []
     for (let i = 0; i < modelSrc.geometry.attributes.position.array.length; i += 3) {
         if (i > modelSrc.geometry.attributes.position.array.length / 2) {
@@ -49,7 +48,6 @@ export const createFractions = (root) => {
 
     const mesh = new THREE.Mesh(modelSrc.geometry, root.materials.testBlack)
 
-    console.log(arr)
     for (let i = 0; i < 5; ++i) {
          //const n = generate(mesh.geometry.attributes.position.array.length / 3, 150 * Math.random() + 20, Math.random() * 10)
          const n = generate(
@@ -59,6 +57,11 @@ export const createFractions = (root) => {
          )
          arr.push(n)
     }
+
+
+    let room = null
+    let x = -100
+    let z = -100
 
 
     const T = 800
@@ -72,6 +75,16 @@ export const createFractions = (root) => {
         let oldIndex = arr[n - 1] ? n - 1 : arr.length - 1
         let newIndex = arr[n] ? n : 0
         if (!arr[n]) {
+            if (room) {
+                const minX = room.walls.n.p0[0]
+                const maxX = room.walls.n.p1[0]
+                const minZ = room.walls.e.p0[1]
+                const maxZ = room.walls.e.p1[1]
+                const diffX = maxX - minX
+                const diffZ = maxZ - minZ
+                x = minX + diffX * 0.2 + Math.random() * diffX * 0.6
+                z = minZ + diffZ * 0.2 + Math.random() * diffZ * 0.6
+            }
             n = 0
         }
 
@@ -81,12 +94,11 @@ export const createFractions = (root) => {
             x: mesh.position.x,
             z: mesh.position.z,
         }
-        console.log(mesh.position.x, mesh.position.z)
         new TWEEN.Tween(v)
             .to({
                 v: 1,
-                x: Math.random() * 30 + 70,
-                z: Math.random() * 30 + 70,
+                x: x,
+                z: z,
             }, T)
             .onUpdate(() => {
                 for (let i = 0; i < mesh.geometry.attributes.position.array.length; ++i) {
@@ -107,5 +119,8 @@ export const createFractions = (root) => {
     return {
         m: mesh,
         update: () => {},
+        setRoom: r => {
+            room = r
+        }
     }
 }
