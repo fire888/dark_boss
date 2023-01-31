@@ -60,12 +60,30 @@ export const MATERIALS_CONF = {
             //roughnessMap: 'ironAlbedo',
         },
     },
+    // 'testBlack': {
+    //     mat: 'MeshBasicMaterial',
+    //     props: {
+    //         color: 0xffffff,
+    //         vertexColors: true,
+    //         //side: THREE.DoubleSide,
+    //     },
+    // }
     'testBlack': {
-        mat: 'MeshBasicMaterial',
+        mat: 'MeshPhongMaterial',
+        //mat: 'MeshStandardMaterial',
         props: {
             color: 0xffffff,
+            //map: 'mapTop',
+            //bumpMap: 'mapTop',
+            //bumpScale: 2,
+            envMap: 'skyBox3',
+            reflectivity: 3,
+            //shininess: .01,
+            specular: 0xffffff,
+            //emissive: 0x555555,
             vertexColors: true,
-            //side: THREE.DoubleSide,
+            //metalnessMap: 'ironAlbedo',
+            //roughnessMap: 'ironAlbedo',
         },
-    }
+    },
 }

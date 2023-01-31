@@ -33,12 +33,17 @@ export const createFractions = (root) => {
     // !! 33048
     const c = []
     for (let i = 0; i < modelSrc.geometry.attributes.position.array.length; i += 3) {
-        if (i > modelSrc.geometry.attributes.position.array.length / 2) {
-            c.push(0, 0, 0)
-        } else {
-            c.push(.4, .47, .49)
-        }
-
+        // if (i > modelSrc.geometry.attributes.position.array.length / 2) {
+        //     c.push(0, 0, 0)
+        // } else {
+        //     c.push(.4, .47, .49)
+        // }
+        //if (i < modelSrc.geometry.attributes.position.array.length / 2) {
+        //    c.push(0, 0, 0)
+        //} else {
+        //    c.push(1, 1, 1)
+        //}
+        c.push(1, 1, 1)
     }
     const colors = new Float32Array(c)
     modelSrc.geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3))
