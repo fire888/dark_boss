@@ -43,8 +43,8 @@ export class actions {
 
 
         const fractions = createFractions(root)
-        fractions.m.position.x = 0
-        fractions.m.position.z = -40
+        fractions.m.position.x = -100
+        fractions.m.position.z = -400
         fractions.m.position.y = -61
         fractions.m.rotation.y = Math.PI
         studio.addToScene(fractions.m)
@@ -53,13 +53,14 @@ export class actions {
 
         const checkerPlayerRoom = createCheckerRoom(root, this._worldReal.roomsArr)
         let count = 0
-        let countShowed = 8
+        let countShowed = 0
         checkerPlayerRoom.onChangeRoom(r => {
             ++count
             if (count > 5 && countShowed < 10) {
-                fractions.setRoom(r, (count - 5) / 20)
+
                if (Math.random() < .5) {
-                    fractions.setRoom(r, 1)
+                    fractions.setRoom(r, (count - 5) / 20, false)
+                    //fractions.setRoom(r, 1, false)
                     ++countShowed
                 }
             }
