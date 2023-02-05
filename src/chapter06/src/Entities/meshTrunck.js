@@ -183,7 +183,7 @@ export const createFractions = (root) => {
             //console.log(phaseComplete)
             stopWaitAnimationHide && stopWaitAnimationHide()
             const coords = getRandomCoordsOfRoom(r)
-            stopperTween = startIterate('show', arrAppear, coords.x, coords.z, phaseComplete, () => {})
+            stopperTween = startIterate('show', arrAppear, coords.x, coords.z, 1, () => {})
             if (isMustHide) {
                 let t =(Math.random() * 20000 * phaseComplete) + 1300
                 stopWaitAnimationHide = startWaiter(t, () => {
