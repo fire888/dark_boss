@@ -13,6 +13,7 @@ import { Helper_MaterialsLib } from '../../../_CORE/helpers/helper_MaterialsLib'
 //import mapFloorOuter from '../../../assets/chapter04/floor_outer_map3.jpg'
 //import mapVirt2 from '../../../assets/chapter05/map02.jpg'
 import mapTop from '../../../assets/chapter06/mapGround.jpg'
+import bodyShadow from '../../../assets/chapter06/mapShadowBody.jpg'
 //import mapTxt from '../../../assets/chapter05/txt1.jpg'
 
 //import mapBody from '../../../assets/chapter05/botMap.png'
@@ -159,6 +160,7 @@ export const GAME_MODULES = [
                 //{ type: 'img', path: ironHeight, key: 'ironHeight', wrap: true },
                 { type: 'img', path: ironAO, key: 'ironAO', wrap: true },
                 { type: 'obj', path: bodySrc, key: 'bodyModel' },
+                { type: 'img', path: bodyShadow, key: 'bodyDropShadow' },
             //    { type: 'obj', path: levelWallsSrc, key: 'walls' },
             //    { type: 'img', path: mapVirt2, key: 'mapVirtual2', wrap: true },
             //    { type: 'img', path: mapTxt, key: 'mapParams' },

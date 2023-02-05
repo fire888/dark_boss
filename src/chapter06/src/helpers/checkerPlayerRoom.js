@@ -7,8 +7,6 @@ export const createCheckerRoom = (root, roomsData) => {
 
     const arrFs = []
 
-    console.log(roomsObj)
-
     let oldPlayerRoomId = null
     let currentPlayerRoomId = null
 
