@@ -1,4 +1,4 @@
-import * as THREE from 'three'
+// import * as THREE from 'three'
 import { createFace, rotateArrY, angleFromCoords, translateArr} from '../../helpers/geomHelpers'
 
 //let pos = null

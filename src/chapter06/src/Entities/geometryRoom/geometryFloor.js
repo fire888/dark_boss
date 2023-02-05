@@ -1,21 +1,21 @@
 
 import {
-    translateArr,
-    rotateArrY,
+    //translateArr,
+    //rotateArrY,
     createFace,
-    angleFromCoords,
-    createFaceWithSquare,
-    createUv,
+    //angleFromCoords,
+    //createFaceWithSquare,
+    //createUv,
 } from '../../helpers/geomHelpers'
 
-const uv6 = [
-    0, 0,
-    1, 0,
-    1, 1,
-    0, 0,
-    1, 1,
-    0, 1
-]
+//const uv6 = [
+//    0, 0,
+//    1, 0,
+//    1, 1,
+//    0, 0,
+//    1, 1,
+//    0, 1
+//]
 
 const y0 = -61
 
@@ -32,15 +32,15 @@ const white6 = [
 ]
 
 //const gr1 = [0, .5, .7]
-const gr1 = [1, 0, 0]
-const gr6 = [
-    ...gr1,
-    ...gr1,
-    ...gr1,
-    ...gr1,
-    ...gr1,
-    ...gr1,
-]
+//const gr1 = [1, 0, 0]
+//const gr6 = [
+//    ...gr1,
+//    ...gr1,
+//    ...gr1,
+//    ...gr1,
+//    ...gr1,
+//    ...gr1,
+//]
 
 export const createFloor = (data) => {
 

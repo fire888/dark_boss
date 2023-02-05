@@ -1,4 +1,6 @@
-import {createFace, createFaceWithSquare} from "../../helpers/geomHelpers";
+import {
+    createFace,
+} from "../../helpers/geomHelpers";
 
 const white1 = [1, 1, 1]
 const white6 = [

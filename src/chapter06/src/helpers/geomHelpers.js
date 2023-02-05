@@ -1,10 +1,10 @@
 import { m4 } from './m4'
 
 const {
-    floor,
+    //floor,
     random,
 } = Math
-const ranN = (start, end) => start + floor(random() * (end - start))
+//const ranN = (start, end) => start + floor(random() * (end - start))
 export const ran = (start, end) => start + random() * (end - start)
 
 

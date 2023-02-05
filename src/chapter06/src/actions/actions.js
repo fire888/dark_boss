@@ -1,14 +1,14 @@
 import * as TWEEN from '@tweenjs/tween.js'
-import * as THREE from 'three'
+//import * as THREE from 'three'
 import {
-    START_ENV_CONFIG,
+    //START_ENV_CONFIG,
     //START_ENV_CONFIG_2,
     //START_ENV_CONFIG_3,
     ENV_CONFIG_WORD_1,
-    ENV_CONFIG_WORD_2,
-    LOCATIONS_QUADRANTS,
-    SIZE_QUADRANT,
-    playerConfig,
+    //ENV_CONFIG_WORD_2,
+    //LOCATIONS_QUADRANTS,
+    //SIZE_QUADRANT,
+    //playerConfig,
 } from '../constants/constants_elements';
 import { createWorldReal } from '../systems/system_worldReal'
 import {createFractions} from "../Entities/meshTrunck";
@@ -58,11 +58,11 @@ export class actions {
 
 
 
-        let count = 0
+       //let count = 0
         frameUpdater.on(data => {
             TWEEN.update()
 
-            count += 0.01
+            //count += 0.01
             //fractions.update()
             //fractions.position.y = Math.sin(count) * 40
 
@@ -80,9 +80,9 @@ export class actions {
             player,
             ui,
             studio,
-            system_PlayerMoveOnLevel,
-            system_PlayerNearLevelItems,
-            CONSTANTS,
+            //system_PlayerMoveOnLevel,
+            //system_PlayerNearLevelItems,
+            //CONSTANTS,
         } = this._root
 
         //player.setToPos(...CONSTANTS.playerConfig.startPos)

@@ -3,13 +3,12 @@ import { EventEmitter } from "../../../_CORE/helpers/helper_Emitter"
 import { DeviceResizer } from "../../../_CORE/helpers/helper_DeviceResizer"
 import { FrameUpdater } from "../../../_CORE/helpers/helper_FrameUpdater_02"
 import { Helper_TweenUpdater } from "../../../_CORE/helpers/helper_TweenUpdater"
-import { Studio } from '../../../_CORE/entities/createStudio_02'
+import { Studio } from '../Entities/Studio'
 import { KeyBoard } from "../../../_CORE/helpers/helper_KeyBoard"
 import { Player } from '../../../_CORE/entities/createPlayer_v02'
 
 
 import { Helper_MaterialsLib } from '../../../_CORE/helpers/helper_MaterialsLib'
-import { SystemAssets } from "../systems/systems_assets";
 //import levelRoomsSrc from '../../../assets/chapter05/level.obj'
 //import mapFloorOuter from '../../../assets/chapter04/floor_outer_map3.jpg'
 //import mapVirt2 from '../../../assets/chapter05/map02.jpg'
@@ -125,34 +124,6 @@ export const GAME_MODULES = [
         initStateKey: 'beforeStartPlay',
     },
     {
-        key: 'system_Assets',
-        constr: SystemAssets,
-        initStateKey: 'beforeStartPlay',
-        assetsToLoad: [
-        //    { type: 'obj', path: levelRoomsSrc, key: 'level-rooms' },
-        //    { type: 'cubeTextures', path: [ nxjpg, nxjpg, nxjpg, nxjpg, nxjpg, nxjpg, ], key: 'skyBox' },
-            //{ type: 'cubeTextures', path: [ px2jpg, nx2jpg, py2jpg, ny2jpg, pz2jpg, nz2jpg, ], key: 'skyBox2' },
-            { type: 'cubeTextures', path: [ pxjpg2, nxjpg2, pyjpg2, nyjpg2, pzjpg2, nzjpg2, ], key: 'skyBox3' },
-            //{ type: 'img', path: mapFloorOuter, key: 'mapFloorOuter', wrap: true },
-            { type: 'img', path: mapTop, key: 'mapTop', wrap: true },
-            { type: 'img', path: ironNormal, key: 'ironNormal', wrap: true },
-            { type: 'img', path: ironAlbedo, key: 'ironAlbedo', wrap: true },
-            //{ type: 'img', path: ironHeight, key: 'ironHeight', wrap: true },
-            { type: 'img', path: ironAO, key: 'ironAO', wrap: true },
-            { type: 'obj', path: bodySrc, key: 'bodyModel' },
-        //    { type: 'obj', path: levelWallsSrc, key: 'walls' },
-        //    { type: 'img', path: mapVirt2, key: 'mapVirtual2', wrap: true },
-        //    { type: 'img', path: mapTxt, key: 'mapParams' },
-        //    { type: 'img', path: mapBody, key: 'mapBody' },
-         //   { type: 'img', path: mapBodyShadow, key: 'mapBodySh' },
-        ],
-    },
-    // {
-    //     key: 'car',
-    //     constr: Car,
-    //     initStateKey: 'beforeStartPlay',
-    // },
-    {
         key: 'system_PlayerMoveOnLevel',
         constr: system_PlayerMoveOnLevel,
         initStateKey: 'beforeStartPlay',
@@ -176,5 +147,24 @@ export const GAME_MODULES = [
         key: 'actions',
         constr: actions,
         initStateKey: 'beforeStartPlay',
+            assetsToLoad: [
+            //    { type: 'obj', path: levelRoomsSrc, key: 'level-rooms' },
+            //    { type: 'cubeTextures', path: [ nxjpg, nxjpg, nxjpg, nxjpg, nxjpg, nxjpg, ], key: 'skyBox' },
+                //{ type: 'cubeTextures', path: [ px2jpg, nx2jpg, py2jpg, ny2jpg, pz2jpg, nz2jpg, ], key: 'skyBox2' },
+                { type: 'cubeTextures', path: [ pxjpg2, nxjpg2, pyjpg2, nyjpg2, pzjpg2, nzjpg2, ], key: 'skyBox3' },
+                //{ type: 'img', path: mapFloorOuter, key: 'mapFloorOuter', wrap: true },
+                { type: 'img', path: mapTop, key: 'mapTop', wrap: true },
+                { type: 'img', path: ironNormal, key: 'ironNormal', wrap: true },
+                { type: 'img', path: ironAlbedo, key: 'ironAlbedo', wrap: true },
+                //{ type: 'img', path: ironHeight, key: 'ironHeight', wrap: true },
+                { type: 'img', path: ironAO, key: 'ironAO', wrap: true },
+                { type: 'obj', path: bodySrc, key: 'bodyModel' },
+            //    { type: 'obj', path: levelWallsSrc, key: 'walls' },
+            //    { type: 'img', path: mapVirt2, key: 'mapVirtual2', wrap: true },
+            //    { type: 'img', path: mapTxt, key: 'mapParams' },
+            //    { type: 'img', path: mapBody, key: 'mapBody' },
+             //   { type: 'img', path: mapBodyShadow, key: 'mapBodySh' },
+            ],
+
     },
 ]

@@ -1,13 +1,13 @@
 import {
     createFace,
-    createFaceWithSquare,
+    //createFaceWithSquare,
     rotateArrY,
     translateArr,
     scaleArr,
     inverseVertexOrder,
 } from '../../helpers/geomHelpers'
-const H0 = 50
-const H1 = 70
+// const H0 = 50
+// const H1 = 70
 
 
 let pos = null
@@ -22,15 +22,15 @@ const white6 = [
 ]
 
 //const gr1 = [0, .5, .7]
-const gr1 = [0, 0, 0]
-const gr6 = [
-    ...gr1,
-    ...gr1,
-    ...gr1,
-    ...gr1,
-    ...gr1,
-    ...gr1,
-]
+// const gr1 = [0, 0, 0]
+// const gr6 = [
+//     ...gr1,
+//     ...gr1,
+//     ...gr1,
+//     ...gr1,
+//     ...gr1,
+//     ...gr1,
+// ]
 
 
 const uv6 = [

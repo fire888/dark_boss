@@ -5,7 +5,7 @@ import {
     createFace,
     angleFromCoords,
     createFaceWithSquare,
-    createUv,
+    //createUv,
 } from '../../helpers/geomHelpers'
 import { createPanel } from './geomWallPanno'
 
@@ -19,7 +19,7 @@ const uv6 = [
 ]
 
 
-export const createWall = (data, root) => {
+export const createWall = (data) => {
 
     const v = []
     const c = []
@@ -102,15 +102,15 @@ const white6 = [
 ]
 
 //const gr1 = [0, .5, .7]
-const gr1 = [1, 0, 0]
-const gr6 = [
-    ...gr1,
-    ...gr1,
-    ...gr1,
-    ...gr1,
-    ...gr1,
-    ...gr1,
-]
+// const gr1 = [1, 0, 0]
+// const gr6 = [
+//     ...gr1,
+//     ...gr1,
+//     ...gr1,
+//     ...gr1,
+//     ...gr1,
+//     ...gr1,
+// ]
 
 export const createSegment = ({
                                       l,
@@ -200,64 +200,62 @@ export const createSegment = ({
 
     /** top items */
     if (segment === 'top' || segment === 'full') {
-        {
-            const leftOffsetVal = leftOffset ? 25 : 7
-            const rightOffsetVal = rightOffset ? 25 : 7
-            const n = Math.floor((l - (leftOffsetVal + rightOffsetVal)) / 30)
+        const leftOffsetVal = leftOffset ? 25 : 7
+        const rightOffsetVal = rightOffset ? 25 : 7
+        const n = Math.floor((l - (leftOffsetVal + rightOffsetVal)) / 30)
 
-            //const r = 1.5
-            const r = 5
-            const h2 = 87
-            const h1 = 80
-            const h0 = 72
-            const z = 12.5
-            let step = (l - (leftOffsetVal + rightOffsetVal)) / n
-            if (n > 0) {
-                for (let i = 0; i < n + 1; ++i) {
-                    let currentX = (leftOffsetVal) + (i * step)
-                    const dt = createFaceWithSquare(
-                        [currentX - r, h1, z],
+        //const r = 1.5
+        const r = 5
+        const h2 = 87
+        const h1 = 80
+        const h0 = 72
+        const z = 12.5
+        let step = (l - (leftOffsetVal + rightOffsetVal)) / n
+        if (n > 0) {
+            for (let i = 0; i < n + 1; ++i) {
+                let currentX = (leftOffsetVal) + (i * step)
+                const dt = createFaceWithSquare(
+                    [currentX - r, h1, z],
+                    [currentX + r, h1, z],
+                    [currentX + r, h2, z],
+                    [currentX - r, h2, z],
+                    colorRoom,
+                    white1,
+                    .5
+                )
+                v.push(...dt.vArr)
+                c.push(...dt.cArr)
+                u.push(...dt.uArr)
+                v.push(
+                    ...createFace(
+                        [currentX - r, h0, 1.8],
+                        [currentX + r, h0, 1.8],
                         [currentX + r, h1, z],
-                        [currentX + r, h2, z],
+                        [currentX - r, h1, z],
+                    )
+                )
+                u.push(...uv6)
+                v.push(
+                    ...createFace(
+                        [currentX - r, h0, 1.8],
+                        [currentX - r, h1, z],
                         [currentX - r, h2, z],
-                        colorRoom,
-                        white1,
-                        .5
+                        [currentX - r, h2, 1.8],
                     )
-                    v.push(...dt.vArr)
-                    c.push(...dt.cArr)
-                    u.push(...dt.uArr)
-                    v.push(
-                        ...createFace(
-                            [currentX - r, h0, 1.8],
-                            [currentX + r, h0, 1.8],
-                            [currentX + r, h1, z],
-                            [currentX - r, h1, z],
-                        )
+                )
+                u.push(...uv6)
+                v.push(
+                    ...createFace(
+                        [currentX + r, h1, z],
+                        [currentX + r, h0, 1.8],
+                        [currentX + r, h2, 1.8],
+                        [currentX + r, h2, z],
                     )
-                    u.push(...uv6)
-                    v.push(
-                        ...createFace(
-                            [currentX - r, h0, 1.8],
-                            [currentX - r, h1, z],
-                            [currentX - r, h2, z],
-                            [currentX - r, h2, 1.8],
-                        )
-                    )
-                    u.push(...uv6)
-                    v.push(
-                        ...createFace(
-                            [currentX + r, h1, z],
-                            [currentX + r, h0, 1.8],
-                            [currentX + r, h2, 1.8],
-                            [currentX + r, h2, z],
-                        )
-                    )
-                    u.push(...uv6)
-                    c.push(...white6)
-                    c.push(...white6)
-                    c.push(...white6)
-                }
+                )
+                u.push(...uv6)
+                c.push(...white6)
+                c.push(...white6)
+                c.push(...white6)
             }
         }
     }
@@ -274,7 +272,7 @@ export const createSegment = ({
 
             const r = 3
             const h2 = 21
-            const h1 = 83
+            //const h1 = 83
             const h0 = 8.7
             let step = (l - (leftOffsetVal + rightOffsetVal)) / n
             if (n > 0) {

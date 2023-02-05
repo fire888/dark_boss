@@ -6,11 +6,11 @@ export class Player {
         const { studio, CONSTANTS } = root
 
         const {
-            startPos,
-            startRot,
+            //startPos,
+            //startRot,
             cameraData,
-            frontObjPos,
-            backObjPos,
+            //frontObjPos,
+            //backObjPos,
             lightDataOne,
         } = CONSTANTS.playerConfig
 
@@ -38,19 +38,17 @@ export class Player {
 
 
         {
-            const { fov, ratio, near, far, pos } = cameraData
+            const { fov, ratio, near, far } = cameraData
             this._camera = new THREE.PerspectiveCamera(fov, ratio, near, far)
             this._camera.position.fromArray([0, 0, -2])
             this.mesh.add(this._camera)
         }
 
-        {
-            if (lightDataOne) {
-                const { color, strenth, pos } = lightDataOne
-                const light = new THREE.PointLight(color, strenth)
-                light.position.fromArray(pos)
-                this.mesh.add(light)
-            }
+        if (lightDataOne) {
+            const { color, strenth, pos } = lightDataOne
+            const light = new THREE.PointLight(color, strenth)
+            light.position.fromArray(pos)
+            this.mesh.add(light)
         }
 
         ///////////// TEST /////////////

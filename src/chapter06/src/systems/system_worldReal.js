@@ -1,16 +1,12 @@
 import * as THREE from 'three'
 import {createTown2} from '../Entities/town2'
-import * as TWEEN from "@tweenjs/tween.js";
 
 
 export const createWorldReal = (root) => {
     const {
-        assets,
         materials,
         studio,
-        system_Assets,
         system_PlayerMoveOnLevel,
-        frameUpdater
     } = root
 
     const groundStart = new THREE.Mesh(

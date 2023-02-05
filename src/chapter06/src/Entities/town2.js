@@ -5,7 +5,7 @@ import {rotateArrY, translateArr, createFace} from "../helpers/geomHelpers";
 import { createMeshFromBuffer } from '../helpers/createBufferMesh'
 import { createTown2Scheme } from './town2shemeRooms'
 import { createFloor } from './geometryRoom/geometryFloor'
-import * as THREE from 'three' 
+// import * as THREE from 'three'
 
 const y0 = -61
 const white1 = [1, 1, 1]
@@ -17,15 +17,15 @@ const white6 = [
     ...white1,
     ...white1,
 ]
-const gr1 = [1, 0, 0]
-const gr6 = [
-    ...gr1,
-    ...gr1,
-    ...gr1,
-    ...gr1,
-    ...gr1,
-    ...gr1,
-]
+//const gr1 = [1, 0, 0]
+//const gr6 = [
+//    ...gr1,
+//    ...gr1,
+//    ...gr1,
+//    ...gr1,
+//    ...gr1,
+//    ...gr1,
+//]
 
 
 

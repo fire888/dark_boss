@@ -45,9 +45,8 @@ export class KeyBoard {
                     break;                
                 case 80: 
                     keys['p'] = isDown
-                default:
                     break;
-
+                default:
             }
             emitter.emit('keyEvent')(keys)
         }

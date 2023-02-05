@@ -112,7 +112,7 @@ export const createCustomStore = root => {
             const { event } = action.phrase
 
             if (event === 'nextReply') {
-                const { isComplete, phraseIndex, phrases } = state.phrasesData[state.currentLocation]
+                const { phraseIndex, phrases } = state.phrasesData[state.currentLocation]
                 const nextPhraseIndex = phraseIndex + 1
                 const userReplicies = [phrases[nextPhraseIndex]]
 

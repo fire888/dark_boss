@@ -11,8 +11,8 @@ export class system_PlayerMoveOnLevel {
             emitter, 
             CONSTANTS,
             player,
-            assets,
-            studio,
+            //assets,
+            //studio,
         } = root
 
 
