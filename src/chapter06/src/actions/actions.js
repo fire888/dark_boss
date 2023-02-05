@@ -43,31 +43,38 @@ export class actions {
 
 
         const fractions = createFractions(root)
-        fractions.m.position.x = 0//200//1500
-        fractions.m.position.z = -40//150//1500
-        fractions.m.position.y = -61//150//1500
+        fractions.m.position.x = 0
+        fractions.m.position.z = -40
+        fractions.m.position.y = -61
         fractions.m.rotation.y = Math.PI
         studio.addToScene(fractions.m)
 
+        //root.system_PlayerMoveOnLevel.addItemToPlayerCollision(fractions.mCollision)
 
         const checkerPlayerRoom = createCheckerRoom(root, this._worldReal.roomsArr)
+        let count = 0
+        let countShowed = 8
         checkerPlayerRoom.onChangeRoom(r => {
-            console.log('---!!!', r)
-            fractions.setRoom(r)
+            ++count
+            if (count > 5 && countShowed < 10) {
+                fractions.setRoom(r, (count - 5) / 20)
+               if (Math.random() < .5) {
+                    fractions.setRoom(r, 1)
+                    ++countShowed
+                }
+            }
+            if (countShowed > 9) {
+                if (countShowed === 10) {
+                    root.system_PlayerMoveOnLevel.addItemToPlayerCollision(fractions.mCollision)
+                }
+                fractions.setRoom(r, 1, 'notHide')
+            }
         })
 
 
-
-       //let count = 0
         frameUpdater.on(data => {
             TWEEN.update()
-
-            //count += 0.01
-            //fractions.update()
-            //fractions.position.y = Math.sin(count) * 40
-
             system_PlayerMoveOnLevel.update(data)
-
             studio.drawFrame()
         })
 
@@ -80,26 +87,10 @@ export class actions {
             player,
             ui,
             studio,
-            //system_PlayerMoveOnLevel,
-            //system_PlayerNearLevelItems,
-            //CONSTANTS,
         } = this._root
 
-        //player.setToPos(...CONSTANTS.playerConfig.startPos)
-        //player.setToPos(...CONSTANTS.playerConfig.startPos)
         player.setToPos(-30, -40, -150)
         player.mesh.rotation.y = Math.PI * 1.3
-
-
-
-
-
-
-
-
-
-
-
 
 
         ui.showStartButton(() => {

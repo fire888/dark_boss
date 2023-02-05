@@ -1,6 +1,8 @@
 import * as THREE from "three";
 import * as TWEEN from '@tweenjs/tween.js'
 
+
+
 const getRandomCoordsOfRoom = (room) => {
     const minX = room.walls.n.p0[0]
     const maxX = room.walls.n.p1[0]
@@ -13,6 +15,7 @@ const getRandomCoordsOfRoom = (room) => {
 
     return { x, z }
 }
+
 
 
 const generate = (count, r, s = 1) => {
@@ -30,15 +33,27 @@ const generate = (count, r, s = 1) => {
 
         for (let i = 0; i < 3; ++i) {
             v.push(
-                x + Math.random() * s + 2,
-                y + Math.random() * s + 2,
-                z + Math.random() * s + 2,
+                x + Math.random() * s,
+                y + Math.random() * s,
+                z + Math.random() * s,
             )
         }
     }
 
     return v
 }
+
+
+
+const startWaiter = (time, onWait) => {
+    const timer = setTimeout(() => {
+        onWait()
+    }, time)
+
+    return () => clearTimeout(timer)
+}
+
+
 
 
 export const createFractions = (root) => {
@@ -53,127 +68,130 @@ export const createFractions = (root) => {
     shadow.position.y = .1
     shadow.position.z = -.8
     mesh.add(shadow)
+    const meshCollision = new THREE.Mesh(
+        new THREE.BoxGeometry(10, 140, 10),
+        root.materials.bodyShadow,
+    )
+    mesh.add(meshCollision)
+    meshCollision.visible = false
 
 
-
-    const arr = [[...modelSrc.geometry.attributes.position.array]]
-    for (let i = 0; i < 5; ++i) {
-         const n = generate(
-             mesh.geometry.attributes.position.array.length / 9,
-             50 * Math.random() + 20,
-             Math.random() * 3
-         )
-         arr.push(n)
-    }
-
-
-    // let room = null
-    // let x = -100
-    // let z = -100
-    // const T = 800
-    // const iterate = n => {
-    //     mesh.rotation.y = Math.random() * 2 * Math.PI
-    //
-    //     let oldIndex = arr[n - 1] ? n - 1 : arr.length - 1
-    //     let newIndex = arr[n] ? n : 0
-    //     if (!arr[n]) {
-    //         if (room) {
-    //             const minX = room.walls.n.p0[0]
-    //             const maxX = room.walls.n.p1[0]
-    //             const minZ = room.walls.e.p0[1]
-    //             const maxZ = room.walls.e.p1[1]
-    //             const diffX = maxX - minX
-    //             const diffZ = maxZ - minZ
-    //             x = minX + diffX * 0.2 + Math.random() * diffX * 0.6
-    //             z = minZ + diffZ * 0.2 + Math.random() * diffZ * 0.6
-    //         }
-    //         n = 0
-    //     }
-    //     const v = {
-    //         v : 0,
-    //         x: mesh.position.x,
-    //         z: mesh.position.z,
-    //     }
-    //     new TWEEN.Tween(v)
-    //         .to({
-    //             v: 1,
-    //             x: x,
-    //             z: z,
-    //         }, T)
-    //         .onUpdate(() => {
-    //             for (let i = 0; i < mesh.geometry.attributes.position.array.length; ++i) {
-    //                 mesh.geometry.attributes.position.array[i] = v.v * arr[newIndex][i] + (1 - v.v) * arr[oldIndex][i]
-    //             }
-    //             if (newIndex === 0) {
-    //                 shadow.material.opacity = v.v
-    //             }
-    //             if (newIndex === 1) {
-    //                 shadow.material.opacity = 1 - v.v
-    //             }
-    //             mesh.geometry.attributes.position.needsUpdate = true
-    //             mesh.position.x = v.x
-    //             mesh.position.z = v.z
-    //         })
-    //         .start()
-    //     setTimeout(() => {
-    //         iterate(++n)
-    //     }, T + (newIndex === 0 ? 3000 : 0))
-    // }
-    //
-    //iterate(1)
 
     const arrAppear = [
         generate(mesh.geometry.attributes.position.array.length / 9, 200 * Math.random(), 0),
-        generate(mesh.geometry.attributes.position.array.length / 9, 200 * Math.random(), Math.random() + 1),
-        generate(mesh.geometry.attributes.position.array.length / 9, 50 * Math.random(), Math.random() + 2),
+        generate(mesh.geometry.attributes.position.array.length / 9, 50 * Math.random(), Math.random() + 1),
+        generate(mesh.geometry.attributes.position.array.length / 9, 20 * Math.random(), Math.random() + 2),
         [...modelSrc.geometry.attributes.position.array],
     ]
+    const arrHide = [
+        [...modelSrc.geometry.attributes.position.array],
+        generate(mesh.geometry.attributes.position.array.length / 9, 15 * Math.random(), Math.random() + 2),
+        generate(mesh.geometry.attributes.position.array.length / 9, 2 * Math.random(), Math.random() + 1),
+        generate(mesh.geometry.attributes.position.array.length / 9, 1 * Math.random(), 0),
+    ]
 
-    const t = 300
 
-    const startAppear = (x, z) => {
+    const startIterate = (key, arr, x, z, phaseComplete = 1, onComplete = null) => {
+        const TIME_SINGLE_ITERATION = 300
+        let tween = null
+
         const iterate = (n) => {
-            if (!arrAppear[n]) {
+            if (!arr[n]) {
+                //onComplete && onComplete()
                 return;
             }
 
             const v = { v : 0 }
-            new TWEEN.Tween(v)
+            tween = new TWEEN.Tween(v)
                 .to({
                     v: 1,
-                }, t)
+                }, TIME_SINGLE_ITERATION)
                 .onUpdate(() => {
                     for (let i = 0; i < mesh.geometry.attributes.position.array.length; ++i) {
-                        mesh.geometry.attributes.position.array[i] = v.v * arrAppear[n][i] + (1 - v.v) * arrAppear[n - 1][i]
+                        mesh.geometry.attributes.position.array[i] = v.v * arr[n][i] + (1 - v.v) * arr[n - 1][i]
                     }
-                    if (n === arrAppear.length - 1) {
+                    if (key === 'show' && n === arrAppear.length - 1) {
                         shadow.material.opacity = v.v
+                    }
+                    if (key === 'hide' && n === 1) {
+                        shadow.material.opacity = 1 - v.v
                     }
                     mesh.geometry.attributes.position.needsUpdate = true
                 })
+                .onComplete(() => {
+                    iterate(n + 1)
+                })
                 .start()
-
-            setTimeout(() => { iterate(n + 1)}, t)
         }
 
         iterate(1)
 
+        const t = TIME_SINGLE_ITERATION * arr.length * phaseComplete
         setTimeout(() => {
+            tween && tween.stop && tween.stop()
+            onComplete && onComplete()
+        }, t)
+
+        setTimeout(() => {
+            if (!x && !z) {
+                return;
+            }
             shadow.material.opacity = 0
             mesh.position.x = x
             mesh.position.z = z
             mesh.rotation.y = Math.random() * Math.PI * 2
-        }, 100)
+        }, 50)
 
+        return () => {
+            tween.stop()
+        }
     }
 
 
+    let stopWaitAnimationHide = null
+    let stopperTween = () => {}
+    let isMustHide = true
+
+    root.emitter.subscribe('playerMove')(dir => {
+        if (isMustHide && stopWaitAnimationHide) {
+            if (
+                Math.abs(root.player.mesh.position.x - mesh.position.x) < 45 &&
+                Math.abs(root.player.mesh.position.z - mesh.position.z) < 45
+            ) {
+                stopperTween()
+                stopWaitAnimationHide()
+                stopWaitAnimationHide = null
+                startIterate('hide', arrHide, null, null, 1,null)
+            }
+        }
+        // if (!isMustHide) {
+        //     if (
+        //         Math.abs(root.player.mesh.position.x - mesh.position.x) < 15 &&
+        //         Math.abs(root.player.mesh.position.z - mesh.position.z) < 15
+        //     ) {
+        //         //root.player.
+        //     }
+        // }
+    })
+
     return {
         m: mesh,
+        mCollision: meshCollision,
         update: () => {},
-        setRoom: r => {
+        setRoom: (r, phaseComplete, isNotHide = null) => {
+            isMustHide = !isNotHide
+            //console.log(phaseComplete)
+            stopWaitAnimationHide && stopWaitAnimationHide()
             const coords = getRandomCoordsOfRoom(r)
-            startAppear( coords.x, coords.z)
+            stopperTween = startIterate('show', arrAppear, coords.x, coords.z, phaseComplete, () => {})
+            if (isMustHide) {
+                let t = Math.random() * 20000 + 1300
+                stopWaitAnimationHide = startWaiter(t, () => {
+                    startIterate('hide', arrHide, null, null, 1, () => {
+                        stopWaitAnimationHide = null
+                    })
+                })
+            }
         }
     }
 }

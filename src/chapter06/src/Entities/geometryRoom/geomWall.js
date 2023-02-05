@@ -91,15 +91,27 @@ export const createWall = (data) => {
 //let pos = null
 let pos = [0, -0.000699999975040555, 20.271699905395508, 0, 0.9347000122070312, 20.271699905395508, 0, 1.8353999853134155, 17.028799057006836, 0, 7.440899848937988, 17.028799057006836, 0, 7.844900131225586, 19.12459945678711, 0, 8.748000144958496, 19.12459945678711, 0, 9.527199745178223, 13.83530044555664, 0, 20.66309928894043, 13.83530044555664, 0, 21.29990005493164, 17.426300048828125, 0, 23.96380043029785, 17.426300048828125, 0, 24.70680046081543, 10.646400451660156, 0, 67.68000030517578, 10.646400451660156, 0, 67.68000030517578, 13.190500259399414, 0, 70.5458984375, 13.190500259399414, 0, 70.5458984375, 4.975500106811523, 0, 72.16529846191406, 4.975500106811523, 0, 72.16529846191406, 2.640399932861328, 0, 82.96610260009766, 2.6317999362945557, 0, /*86.24569702148438*/ 88, 14.853300094604492, 0, /*89.66629791259766*/ 110, 14.853300094604492, ]
 
-const white1 = [1, 1, 1]
-const white6 = [
-    ...white1,
-    ...white1,
-    ...white1,
-    ...white1,
-    ...white1,
-    ...white1,
+// const white1 = [1, 1, 1]
+// const white6 = [
+//     ...white1,
+//     ...white1,
+//     ...white1,
+//     ...white1,
+//     ...white1,
+//     ...white1,
+// ]
+
+ const white1 = [1, 1, 1]
+ const white6 = [
+     ...white1,
+     ...white1,
+     ...white1,
+     ...white1,
+     ...white1,
+     ...white1,
 ]
+
+
 
 //const gr1 = [0, .5, .7]
 // const gr1 = [1, 0, 0]
@@ -111,6 +123,9 @@ const white6 = [
 //     ...gr1,
 //     ...gr1,
 // ]
+const swap = (v1, v2) => {
+    return [[...v2], [...v1]]
+}
 
 export const createSegment = ({
                                       l,
@@ -120,23 +135,22 @@ export const createSegment = ({
                                       segment,
                                       colorRoom,
                                   }) => {
-    // if (!pos) {
-    //     let s = ''
-    //     const arr = asset.geometry.attributes.position.array
-
-    //     for (let i = 0; i < arr.length; ++i) {
-    //         s += arr[i] + ', '
-    //     }
-
-    //     console.log(s)
-    //     console.log(JSON.stringify(asset.geometry.attributes.position.array))
-    //     pos = asset.geometry.attributes.position.array
-    // }
-
     const colorRoom6 = [
         ...colorRoom, ...colorRoom, ...colorRoom,
         ...colorRoom, ...colorRoom, ...colorRoom,
     ]
+
+    // let colorW1Use = [...white1]
+    // let colorW6Use = [...white6]
+    // let colorRoomUse = [...colorRoom]
+    // let colorRoom6Use = [...colorRoom6]
+    // if (Math.random() < .5) {
+    //      [ colorW1Use, colorRoomUse ] = swap(colorRoomUse, colorW1Use)
+    //      [ colorW6Use, colorRoom6Use ] = swap(colorRoom6, white6)
+    // }
+
+    //console.log('--', colorRoomUse)
+
 
     const c = []
     const v = []
