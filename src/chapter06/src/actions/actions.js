@@ -54,22 +54,36 @@ export class actions {
         const checkerPlayerRoom = createCheckerRoom(root, this._worldReal.roomsArr)
         let count = 0
         let countShowed = 0
+
+        const countNotShow = 5
+        const countShowedMustHide = 10
+        const countShowedComplete = 20
+
         checkerPlayerRoom.onChangeRoom(r => {
             ++count
-            if (count > 5 && countShowed < 10) {
-
+            //if (count === 2) {
+            //    this._worldReal.invertColor()
+            //}
+            if (count > countNotShow && countShowed < countShowedMustHide) {
                if (Math.random() < .5) {
                     fractions.setRoom(r, (count - 5) / 20, false)
-                    //fractions.setRoom(r, 1, false)
                     ++countShowed
                 }
             }
-            if (countShowed > 9) {
-                if (countShowed === 10) {
-                    root.system_PlayerMoveOnLevel.addItemToPlayerCollision(fractions.mCollision)
-                }
-                fractions.setRoom(r, 1, 'notHide')
+            if (countShowed === countShowedMustHide) {
+                root.system_PlayerMoveOnLevel.addItemToPlayerCollision(fractions.mCollision)
             }
+            if (countShowed > countShowedMustHide - 1 && countShowed < countShowedComplete) {
+                fractions.setRoom(r, 1, 'notHide')
+                ++countShowed
+            }
+            //if (countShowed === countShowedComplete) {
+                console.log('#@#@#@#_')
+                this._worldReal.invertColor()
+                fractions.m.position.x = 500
+                fractions.m.position.z = -100
+                ++countShowed
+            //}
         })
 
 

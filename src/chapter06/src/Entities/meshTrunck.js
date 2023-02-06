@@ -164,14 +164,6 @@ export const createFractions = (root) => {
                 startIterate('hide', arrHide, null, null, 1,null)
             }
         }
-        // if (!isMustHide) {
-        //     if (
-        //         Math.abs(root.player.mesh.position.x - mesh.position.x) < 15 &&
-        //         Math.abs(root.player.mesh.position.z - mesh.position.z) < 15
-        //     ) {
-        //         //root.player.
-        //     }
-        // }
     })
 
     return {
@@ -187,7 +179,7 @@ export const createFractions = (root) => {
             if (isMustHide) {
                 let t =(Math.random() * 20000 * phaseComplete) + 1300
                 stopWaitAnimationHide = startWaiter(t, () => {
-                    startIterate('hide', arrHide, null, null, 1, () => {
+                    stopWaitAnimationHide && startIterate('hide', arrHide, null, null, 1, () => {
                         stopWaitAnimationHide = null
                     })
                 })

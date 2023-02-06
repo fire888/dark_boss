@@ -128,10 +128,30 @@ export const createTown2 = (root) => {
     mCollision.visible = false
     root.studio.addToScene(mCollision)
 
+    console.log(mesh)
+
+    const cF = new Float32Array(c)
+    const copy = [...c]
+    for (let i = 0; i < copy.length; ++i) {
+        if (copy[i] === 1) {
+            copy[i] = 0        
+        } else {
+            copy[i] = 1
+        }
+    }
+    const copyF = new Float32Array(copy)
+    let inverted = false
+
 
     return {
         mesh,
         mCollision,
         roomsArr,
+        invertColor: () => {
+            mesh.geometry.attributes.color.array = inverted ? cF : copyF
+            mesh.geometry.attributes.color.needsUpdate = true
+            
+            inverted = !inverted
+        }
     }
 }

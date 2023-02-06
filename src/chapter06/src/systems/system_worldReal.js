@@ -33,6 +33,9 @@ export const createWorldReal = (root) => {
             studio.removeFromScene(groundStart)
         },
         roomsArr: t2.roomsArr,
+        invertColor: () => {
+            t2.invertColor()
+        }
     }
 }
 
