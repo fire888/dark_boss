@@ -42,14 +42,13 @@ export class actions {
 
 
 
-        const fractions = createFractions(root)
-        fractions.m.position.x = -100
-        fractions.m.position.z = -400
-        fractions.m.position.y = -61
-        fractions.m.rotation.y = Math.PI
-        studio.addToScene(fractions.m)
-
-        //root.system_PlayerMoveOnLevel.addItemToPlayerCollision(fractions.mCollision)
+        const statue = createFractions(root)
+        statue.m.position.x = -100
+        statue.m.position.z = -400
+        statue.m.position.y = -61
+        statue.m.rotation.y = Math.PI
+        studio.addToScene(statue.m)
+        //root.system_PlayerMoveOnLevel.addItemToPlayerCollision(statue.mCollision)
 
         const checkerPlayerRoom = createCheckerRoom(root, this._worldReal.roomsArr)
         let count = 0
@@ -65,23 +64,24 @@ export class actions {
             //    this._worldReal.invertColor()
             //}
             if (count > countNotShow && countShowed < countShowedMustHide) {
-               if (Math.random() < .5) {
-                    fractions.setRoom(r, (count - 5) / 20, false)
+                if (Math.random() < .5) {
+                    statue.setRoom(r, (count - 5) / 20, false)
                     ++countShowed
                 }
             }
             if (countShowed === countShowedMustHide) {
-                root.system_PlayerMoveOnLevel.addItemToPlayerCollision(fractions.mCollision)
+                root.system_PlayerMoveOnLevel.addItemToPlayerCollision(statue.mCollision)
             }
             if (countShowed > countShowedMustHide - 1 && countShowed < countShowedComplete) {
-                fractions.setRoom(r, 1, 'notHide')
+                statue.setRoom(r, 1, 'notHide')
                 ++countShowed
             }
             //if (countShowed === countShowedComplete) {
                 console.log('#@#@#@#_')
                 this._worldReal.invertColor()
-                fractions.m.position.x = 500
-                fractions.m.position.z = -100
+                statue.m.position.x = 500
+                statue.m.position.z = -100
+                statue.invert()
                 ++countShowed
             //}
         })

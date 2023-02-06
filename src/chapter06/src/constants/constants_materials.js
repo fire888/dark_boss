@@ -57,5 +57,18 @@ export const MATERIALS_CONF = {
             alphaMap: 'bodyDropShadow',
             opacity: 1,
         },
+    },
+    'whiteBasic': {
+        mat: 'MeshBasicMaterial',
+        props: {
+            color: 0x999999,
+            vertexColors: true,
+        }
+    },
+    'whiteBasic2': {
+        mat: 'MeshBasicMaterial',
+        props: {
+            color: 0xaaaaaa,
+        }
     }
 }

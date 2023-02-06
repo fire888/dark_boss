@@ -166,13 +166,14 @@ export const createFractions = (root) => {
         }
     })
 
+    let inverted = false
+
     return {
         m: mesh,
         mCollision: meshCollision,
         update: () => {},
         setRoom: (r, phaseComplete, isNotHide = null) => {
             isMustHide = !isNotHide
-            //console.log(phaseComplete)
             stopWaitAnimationHide && stopWaitAnimationHide()
             const coords = getRandomCoordsOfRoom(r)
             stopperTween = startIterate('show', arrAppear, coords.x, coords.z, 1, () => {})
@@ -184,6 +185,15 @@ export const createFractions = (root) => {
                     })
                 })
             }
-        }
+        },
+        invert: () => {
+              if (inverted) {
+                  mesh.material = root.materials.body
+              } else {
+                  mesh.material = root.materials.whiteBasic2
+              }
+              mesh.material.needsUpdate = true
+              inverted = !inverted
+        },
     }
 }
