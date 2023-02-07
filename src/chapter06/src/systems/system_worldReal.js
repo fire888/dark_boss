@@ -20,6 +20,16 @@ export const createWorldReal = (root) => {
 
     const t2 = createTown2(root)
 
+
+    const centralItem = new THREE.Mesh(
+        new THREE.BoxGeometry(40, 1600, 5),
+        root.materials.bodyRed,
+    )
+    centralItem.position.x = 1500
+    centralItem.position.z = 1500
+    root.studio.addToScene(centralItem)
+
+
     return {
         addWorld: () => {
             system_PlayerMoveOnLevel.addItemToPlayerCollision(groundStart)

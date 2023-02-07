@@ -15,6 +15,9 @@ import {createFractions} from "../Entities/meshTrunck";
 
 import { createCheckerRoom } from '../helpers/checkerPlayerRoom'
 
+const ENV_RED = { fogNear: 0, fogFar: 1000, colorFog: 0x880000, colorBack: 0x010101, backgroundImgKey: null }
+const ENV_NORMAL =  { fogNear: 0, fogFar: 1000, colorFog: 0x455861, colorBack: 0x455861, backgroundImgKey: null }
+
 
 export class actions {
     constructor (root) {
@@ -54,34 +57,66 @@ export class actions {
         let count = 0
         let countShowed = 0
 
-        const countNotShow = 5
+        //const countNotShow = 5
+        const countNotShow = 0
         const countShowedMustHide = 10
         const countShowedComplete = 20
 
+        // statue.m.position.x = 1500
+        // statue.m.position.y = -45
+        // statue.m.position.z = 1495
+        // statue.m.rotation.y = 0
+        // statue.m.rotation.x = -Math.PI / 2
+
+        let isInverted = false
         checkerPlayerRoom.onChangeRoom(r => {
             ++count
-            //if (count === 2) {
-            //    this._worldReal.invertColor()
-            //}
-            if (count > countNotShow && countShowed < countShowedMustHide) {
-                if (Math.random() < .5) {
-                    statue.setRoom(r, (count - 5) / 20, false)
-                    ++countShowed
+            if (count > countNotShow) {
+                if (countShowed < countShowedMustHide) {
+                    statue.setRoom(r, 1, false)
                 }
+
+                ++countShowed
             }
             if (countShowed === countShowedMustHide) {
                 root.system_PlayerMoveOnLevel.addItemToPlayerCollision(statue.mCollision)
             }
-            if (countShowed > countShowedMustHide - 1 && countShowed < countShowedComplete) {
-                statue.setRoom(r, 1, 'notHide')
+            if (countShowed > countShowedMustHide - 1) {
+                if (countShowed < countShowedComplete) {
+                    statue.setRoom(r, 1, 'notHide')
+                } else {
+                        statue.m.position.x = 1500
+                        statue.m.position.y = -45
+                        statue.m.position.z = 1495
+                        statue.m.rotation.y = 0
+                        statue.m.rotation.x = -Math.PI / 2
+                }
+
                 ++countShowed
             }
+            if (count < 2) {
+                return;
+            }
+            if (count)
             //if (countShowed === countShowedComplete) {
-                console.log('#@#@#@#_')
                 this._worldReal.invertColor()
-                statue.m.position.x = 500
-                statue.m.position.z = -100
+                //statue.m.position.x = 500
+                //statue.m.position.z = -100
                 statue.invert()
+
+                if (!isInverted) {
+                    root.studio.changeEnvironment(
+                        ENV_RED,
+                        { time: 100 },
+                    )
+                }  else {
+                    root.studio.changeEnvironment(
+                       ENV_NORMAL,
+                        { time: 100 },
+                    )
+                }
+
+                isInverted = !isInverted
                 ++countShowed
             //}
         })
@@ -109,7 +144,7 @@ export class actions {
 
 
         ui.showStartButton(() => {
-            studio.changeEnvironment(ENV_CONFIG_WORD_1, { updateAmb: false, time: 1000 })
+            studio.changeEnvironment(ENV_NORMAL, { updateAmb: false, time: 1000 })
             player.toggleBlocked(false)
             //this._root.system_Sound && this._root.system_Sound.playAmbient()
         })

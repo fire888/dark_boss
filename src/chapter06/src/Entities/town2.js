@@ -84,14 +84,15 @@ export const createTown2 = (root) => {
         b.push(...wall.b)
         u.push(...wall.u)
 
-        v2.push(...wall.v)
-        c2.push(...wall.c)
-        u2.push(...wall.u)
+        v2.push(...wall.v2)
+        c2.push(...wall.c2)
+        u2.push(...wall.u2)
     }
 
     /** floor */
     for (let i = 0; i < floors.length; ++i) {
-        const f = createFloor(floors[i], white1, gr1)
+        //const f = createFloor(floors[i], white1, gr1)
+        const f = createFloor(floors[i], white1, [0, 1, 0])
         v.push(...f.v)
         c.push(...f.c)
         u.push(...f.u)
@@ -128,14 +129,12 @@ export const createTown2 = (root) => {
                 c.push(...white6)
                 u.push(0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1)
 
-                v2.push(...vertex)
-                c2.push(...gr1)
-                u2.push(0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1)
+                //v2.push(...vertex)
+                //c2.push(...gr1)
+                //u2.push(0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1)
             }
         }
     }
-
-    console.log(root)
 
     const mesh = createMeshFromBuffer({ 
         v, 
@@ -146,48 +145,35 @@ export const createTown2 = (root) => {
     root.studio.addToScene(mesh)
 
 
-    const mesh2 = createMeshFromBuffer({
+    const meshBlack = createMeshFromBuffer({
         v: v2,
         c: c2,
         u: u2,
-        mat: root.materials.whiteBasic,
+        //mat: root.materials.whiteBasic,
+        mat: root.materials.iron2,
     })
 
 
-    const mCollision = createMeshFromBuffer({ v: b })
-    mCollision.visible = false
-    root.studio.addToScene(mCollision)
+    const meshCollision = createMeshFromBuffer({ v: b })
+    meshCollision.visible = false
+    root.studio.addToScene(meshCollision)
 
-    console.log(mesh)
 
-    // const cF = new Float32Array(c)
-    // const copy = [...c]
-    // for (let i = 0; i < copy.length; ++i) {
-    //     if (copy[i] === 1) {
-    //         copy[i] = 0
-    //     } else {
-    //         copy[i] = 1
-    //     }
-    // }
-    // const copyF = new Float32Array(copy)
     let inverted = false
 
 
     return {
         mesh,
-        mCollision,
+        mCollision: meshCollision,
         roomsArr,
         invertColor: () => {
-            //mesh.geometry.attributes.color.array = inverted ? cF : copyF
-            //mesh.geometry.attributes.color.needsUpdate = true
             if (inverted) {
-                root.studio.removeFromScene(mesh2)
+                root.studio.removeFromScene(meshBlack)
                 root.studio.addToScene(mesh)
             } else {
                 root.studio.removeFromScene(mesh)
-                root.studio.addToScene(mesh2)
+                root.studio.addToScene(meshBlack)
             }
-
             inverted = !inverted
         }
     }

@@ -190,7 +190,7 @@ export const createFractions = (root) => {
               if (inverted) {
                   mesh.material = root.materials.body
               } else {
-                  mesh.material = root.materials.whiteBasic2
+                  mesh.material = root.materials.bodyRed
               }
               mesh.material.needsUpdate = true
               inverted = !inverted

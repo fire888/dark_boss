@@ -27,6 +27,21 @@ export const MATERIALS_CONF = {
             vertexColors: true,
         },
     },
+    'iron2': {
+        mat: 'MeshPhongMaterial',
+        props: {
+            color: 0xff0000,
+            lightMap: 'ironAO',
+            lightMapIntensity: .35,
+            normalMap: 'ironNormal',
+            normalScale: new THREE.Vector2(.1, .1),
+            envMap: 'skyBox3',
+            reflectivity: .02,
+            shininess: 100,
+            specular: 0x020201,
+            vertexColors: true,
+        },
+    },
     'floorMat1': {
         mat: 'MeshPhongMaterial',
         props: {
@@ -47,6 +62,16 @@ export const MATERIALS_CONF = {
             envMap: 'skyBox3',
             reflectivity: 3,
             specular: 0xffffff,
+        },
+    },
+    'bodyRed': {
+        mat: 'MeshPhongMaterial',
+        props: {
+            color: 0xaa0000,
+            envMap: 'skyBox3',
+            emissive: 0x770000,
+            reflectivity: .01,
+            specular: 0xff0000,
         },
     },
     'bodyShadow': {
@@ -70,5 +95,5 @@ export const MATERIALS_CONF = {
         props: {
             color: 0xaaaaaa,
         }
-    }
+    },
 }
