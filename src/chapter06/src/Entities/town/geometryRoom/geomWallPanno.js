@@ -1,6 +1,6 @@
 import {
     createFace,
-} from "../../helpers/geomHelpers";
+} from "../../../helpers/geomHelpers";
 
 const white1 = [1, 1, 1]
 const white6 = [

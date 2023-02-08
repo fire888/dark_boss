@@ -4,19 +4,22 @@ import {
     //START_ENV_CONFIG,
     //START_ENV_CONFIG_2,
     //START_ENV_CONFIG_3,
-    ENV_CONFIG_WORD_1,
+    //ENV_CONFIG_WORD_1,
     //ENV_CONFIG_WORD_2,
     //LOCATIONS_QUADRANTS,
     //SIZE_QUADRANT,
     //playerConfig,
 } from '../constants/constants_elements';
 import { createWorldReal } from '../systems/system_worldReal'
-import {createFractions} from "../Entities/meshTrunck";
+import { createStatue } from "../Entities/statue";
 
 import { createCheckerRoom } from '../helpers/checkerPlayerRoom'
+import { getRandomCoordsOfRoom } from '../Entities/town/help'
 
 const ENV_RED = { fogNear: 0, fogFar: 1000, colorFog: 0x880000, colorBack: 0x010101, backgroundImgKey: null }
 const ENV_NORMAL =  { fogNear: 0, fogFar: 1000, colorFog: 0x455861, colorBack: 0x455861, backgroundImgKey: null }
+
+
 
 
 export class actions {
@@ -45,13 +48,12 @@ export class actions {
 
 
 
-        const statue = createFractions(root)
+        const statue = createStatue(root)
         statue.m.position.x = -100
         statue.m.position.z = -400
         statue.m.position.y = -61
         statue.m.rotation.y = Math.PI
         studio.addToScene(statue.m)
-        //root.system_PlayerMoveOnLevel.addItemToPlayerCollision(statue.mCollision)
 
         const checkerPlayerRoom = createCheckerRoom(root, this._worldReal.roomsArr)
         let count = 0
@@ -73,7 +75,8 @@ export class actions {
             ++count
             if (count > countNotShow) {
                 if (countShowed < countShowedMustHide) {
-                    statue.setRoom(r, 1, false)
+                    const coord = getRandomCoordsOfRoom(r)
+                    statue.appear(coord.x, coord.z, false)
                 }
 
                 ++countShowed
@@ -126,6 +129,24 @@ export class actions {
             TWEEN.update()
             system_PlayerMoveOnLevel.update(data)
             studio.drawFrame()
+        })
+
+
+        const STATUE_PLAYER_OFFSET = 45
+        root.emitter.subscribe('playerMove')(dir => {
+            //if (isMustHide && stopWaitAnimationHide) {
+                if (
+                    Math.abs(root.player.mesh.position.x - statue.m.position.x) < STATUE_PLAYER_OFFSET &&
+                    Math.abs(root.player.mesh.position.z - statue.m.position.z) < STATUE_PLAYER_OFFSET
+                ) {
+                    statue.hide()
+                    console.log('!')
+                    //stopperTween()
+                    //stopWaitAnimationHide()
+                    //stopWaitAnimationHide = null
+                    //startIterate('hide', arrHide, null, null, 1,null)
+                }
+            //}
         })
 
         this._startPlay()

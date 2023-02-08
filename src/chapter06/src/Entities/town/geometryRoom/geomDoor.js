@@ -5,7 +5,7 @@ import {
     translateArr,
     scaleArr,
     inverseVertexOrder,
-} from '../../helpers/geomHelpers'
+} from '../../../helpers/geomHelpers'
 // const H0 = 50
 // const H1 = 70
 

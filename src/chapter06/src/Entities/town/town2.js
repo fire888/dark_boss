@@ -1,8 +1,8 @@
 import { createWall } from './geometryRoom/geomWall'
 import { createDoorData } from './geometryRoom/geomDoor'
 import { createOuterWall } from './geometryRoom/outerWall'
-import {rotateArrY, translateArr, createFace} from "../helpers/geomHelpers";
-import { createMeshFromBuffer } from '../helpers/createBufferMesh'
+import {rotateArrY, translateArr, createFace} from "../../helpers/geomHelpers";
+import { createMeshFromBuffer } from '../../helpers/createBufferMesh'
 import { createTown2Scheme } from './town2shemeRooms'
 import { createFloor } from './geometryRoom/geometryFloor'
 // import * as THREE from 'three'

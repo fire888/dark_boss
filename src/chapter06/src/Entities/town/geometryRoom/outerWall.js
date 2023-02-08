@@ -1,5 +1,5 @@
 // import * as THREE from 'three'
-import { createFace, rotateArrY, angleFromCoords, translateArr} from '../../helpers/geomHelpers'
+import { createFace, rotateArrY, angleFromCoords, translateArr} from '../../../helpers/geomHelpers'
 
 //let pos = null
 const white1 = [1, 1, 1]

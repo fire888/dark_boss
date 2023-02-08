@@ -6,7 +6,7 @@ import {
     angleFromCoords,
     createFaceWithSquare,
     //createUv,
-} from '../../helpers/geomHelpers'
+} from '../../../helpers/geomHelpers'
 import { createPanel } from './geomWallPanno'
 
 const uv6 = [

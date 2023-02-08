@@ -1,5 +1,5 @@
 
-import { createFace } from '../../helpers/geomHelpers'
+import { createFace } from '../../../helpers/geomHelpers'
 const uv6 = [0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1]
 
 const y0 = -61

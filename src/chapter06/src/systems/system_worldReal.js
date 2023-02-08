@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import {createTown2} from '../Entities/town2'
+import {createTown2} from '../Entities/town/town2'
 
 
 export const createWorldReal = (root) => {

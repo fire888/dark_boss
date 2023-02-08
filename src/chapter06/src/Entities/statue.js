@@ -3,18 +3,7 @@ import * as TWEEN from '@tweenjs/tween.js'
 
 
 
-const getRandomCoordsOfRoom = (room) => {
-    const minX = room.walls.n.p0[0]
-    const maxX = room.walls.n.p1[0]
-    const minZ = room.walls.e.p0[1]
-    const maxZ = room.walls.e.p1[1]
-    const diffX = maxX - minX
-    const diffZ = maxZ - minZ
-    const x = minX + diffX * 0.2 + Math.random() * diffX * 0.6
-    const z = minZ + diffZ * 0.2 + Math.random() * diffZ * 0.6
 
-    return { x, z }
-}
 
 
 
@@ -56,7 +45,7 @@ const startWaiter = (time, onWait) => {
 
 
 
-export const createFractions = (root) => {
+export const createStatue = (root) => {
     /** mesh */
     const modelSrc = root.assets.bodyModel.children[0]
     const mesh = new THREE.Mesh(modelSrc.geometry, root.materials.body)
@@ -97,7 +86,6 @@ export const createFractions = (root) => {
 
         const iterate = (n) => {
             if (!arr[n]) {
-                //onComplete && onComplete()
                 return;
             }
 
@@ -152,39 +140,62 @@ export const createFractions = (root) => {
     let stopperTween = () => {}
     let isMustHide = true
 
-    root.emitter.subscribe('playerMove')(dir => {
-        if (isMustHide && stopWaitAnimationHide) {
-            if (
-                Math.abs(root.player.mesh.position.x - mesh.position.x) < 45 &&
-                Math.abs(root.player.mesh.position.z - mesh.position.z) < 45
-            ) {
-                stopperTween()
-                stopWaitAnimationHide()
-                stopWaitAnimationHide = null
-                startIterate('hide', arrHide, null, null, 1,null)
-            }
-        }
-    })
+    // root.emitter.subscribe('playerMove')(dir => {
+    //     if (isMustHide && stopWaitAnimationHide) {
+    //         if (
+    //             Math.abs(root.player.mesh.position.x - mesh.position.x) < 45 &&
+    //             Math.abs(root.player.mesh.position.z - mesh.position.z) < 45
+    //         ) {
+    //             stopperTween()
+    //             stopWaitAnimationHide()
+    //             stopWaitAnimationHide = null
+    //             startIterate('hide', arrHide, null, null, 1,null)
+    //         }
+    //     }
+    // })
 
     let inverted = false
+    let isHidden = true
 
     return {
         m: mesh,
         mCollision: meshCollision,
         update: () => {},
-        setRoom: (r, phaseComplete, isNotHide = null) => {
-            isMustHide = !isNotHide
+        appear: (x, z, isNotHide = null) => {
+            isHidden = false
+            //isMustHide = !isNotHide
+            //stopWaitAnimationHide && stopWaitAnimationHide()
+            stopperTween = startIterate('show', arrAppear, x, z, 1, () => {})
+            //if (isMustHide) {
+            //    let t = Math.random() * 10000  + 1300
+            //    stopWaitAnimationHide = startWaiter(t, () => {
+            //        stopWaitAnimationHide && startIterate('hide', arrHide, null, null, 1, () => {
+            //            stopWaitAnimationHide = null
+            //        })
+            //    })
+            //}
+        },
+        hide: () => {
+            isHidden = true
             stopWaitAnimationHide && stopWaitAnimationHide()
-            const coords = getRandomCoordsOfRoom(r)
-            stopperTween = startIterate('show', arrAppear, coords.x, coords.z, 1, () => {})
-            if (isMustHide) {
-                let t =(Math.random() * 20000 * phaseComplete) + 1300
-                stopWaitAnimationHide = startWaiter(t, () => {
-                    stopWaitAnimationHide && startIterate('hide', arrHide, null, null, 1, () => {
-                        stopWaitAnimationHide = null
-                    })
-                })
-            }
+            stopperTween && stopperTween()
+            stopWaitAnimationHide && startIterate('hide', arrHide, null, null, 1, () => {
+                stopWaitAnimationHide = null
+            })
+        },
+        setRoom: (r, phaseComplete, isNotHide = null) => {
+            // isMustHide = !isNotHide
+            // stopWaitAnimationHide && stopWaitAnimationHide()
+            // const coords = getRandomCoordsOfRoom(r)
+            // stopperTween = startIterate('show', arrAppear, coords.x, coords.z, 1, () => {})
+            // if (isMustHide) {
+            //     let t =(Math.random() * 20000 * phaseComplete) + 1300
+            //     stopWaitAnimationHide = startWaiter(t, () => {
+            //         stopWaitAnimationHide && startIterate('hide', arrHide, null, null, 1, () => {
+            //             stopWaitAnimationHide = null
+            //         })
+            //     })
+            // }
         },
         invert: () => {
               if (inverted) {
