@@ -76,16 +76,17 @@ export const createStatue = (root) => {
         [...modelSrc.geometry.attributes.position.array],
         generate(mesh.geometry.attributes.position.array.length / 9, 15 * Math.random(), Math.random() + 2),
         generate(mesh.geometry.attributes.position.array.length / 9, 2 * Math.random(), Math.random() + 1),
-        generate(mesh.geometry.attributes.position.array.length / 9, 1 * Math.random(), 0),
+        generate(mesh.geometry.attributes.position.array.length / 9, Math.random(), 0),
     ]
 
 
-    const startIterate = (key, arr, x, z, phaseComplete = 1, onComplete = null) => {
+    const startIterate = (key, arr, x, z, onComplete = () => {}) => {
         const TIME_SINGLE_ITERATION = 300
         let tween = null
 
         const iterate = (n) => {
             if (!arr[n]) {
+                onComplete()
                 return;
             }
 
@@ -114,12 +115,6 @@ export const createStatue = (root) => {
 
         iterate(1)
 
-        const t = TIME_SINGLE_ITERATION * arr.length * phaseComplete
-        setTimeout(() => {
-            tween && tween.stop && tween.stop()
-            onComplete && onComplete()
-        }, t)
-
         setTimeout(() => {
             if (!x && !z) {
                 return;
@@ -136,66 +131,20 @@ export const createStatue = (root) => {
     }
 
 
-    let stopWaitAnimationHide = null
     let stopperTween = () => {}
-    let isMustHide = true
-
-    // root.emitter.subscribe('playerMove')(dir => {
-    //     if (isMustHide && stopWaitAnimationHide) {
-    //         if (
-    //             Math.abs(root.player.mesh.position.x - mesh.position.x) < 45 &&
-    //             Math.abs(root.player.mesh.position.z - mesh.position.z) < 45
-    //         ) {
-    //             stopperTween()
-    //             stopWaitAnimationHide()
-    //             stopWaitAnimationHide = null
-    //             startIterate('hide', arrHide, null, null, 1,null)
-    //         }
-    //     }
-    // })
-
     let inverted = false
-    let isHidden = true
 
     return {
         m: mesh,
         mCollision: meshCollision,
         update: () => {},
-        appear: (x, z, isNotHide = null) => {
-            isHidden = false
-            //isMustHide = !isNotHide
-            //stopWaitAnimationHide && stopWaitAnimationHide()
-            stopperTween = startIterate('show', arrAppear, x, z, 1, () => {})
-            //if (isMustHide) {
-            //    let t = Math.random() * 10000  + 1300
-            //    stopWaitAnimationHide = startWaiter(t, () => {
-            //        stopWaitAnimationHide && startIterate('hide', arrHide, null, null, 1, () => {
-            //            stopWaitAnimationHide = null
-            //        })
-            //    })
-            //}
+        appear: (x, z) => {
+            stopperTween()
+            stopperTween = startIterate('show', arrAppear, x, z,() => {})
         },
         hide: () => {
-            isHidden = true
-            stopWaitAnimationHide && stopWaitAnimationHide()
-            stopperTween && stopperTween()
-            stopWaitAnimationHide && startIterate('hide', arrHide, null, null, 1, () => {
-                stopWaitAnimationHide = null
-            })
-        },
-        setRoom: (r, phaseComplete, isNotHide = null) => {
-            // isMustHide = !isNotHide
-            // stopWaitAnimationHide && stopWaitAnimationHide()
-            // const coords = getRandomCoordsOfRoom(r)
-            // stopperTween = startIterate('show', arrAppear, coords.x, coords.z, 1, () => {})
-            // if (isMustHide) {
-            //     let t =(Math.random() * 20000 * phaseComplete) + 1300
-            //     stopWaitAnimationHide = startWaiter(t, () => {
-            //         stopWaitAnimationHide && startIterate('hide', arrHide, null, null, 1, () => {
-            //             stopWaitAnimationHide = null
-            //         })
-            //     })
-            // }
+            stopperTween()
+            stopperTween = startIterate('hide', arrHide, null, null,() => {})
         },
         invert: () => {
               if (inverted) {

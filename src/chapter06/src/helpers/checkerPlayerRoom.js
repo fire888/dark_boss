@@ -5,7 +5,7 @@ export const createCheckerRoom = (root, roomsData) => {
         roomsObj[roomsData[i].id] = roomsData[i]
     }
 
-    const arrFs = []
+    let arrFs = []
 
     let oldPlayerRoomId = null
     let currentPlayerRoomId = null
@@ -35,6 +35,11 @@ export const createCheckerRoom = (root, roomsData) => {
 
 
     return {
-        onChangeRoom: f => { arrFs.push(f) },
+        onChangeRoom: f => {
+            arrFs.push(f)
+            return () => {
+                arrFs = arrFs.filter(item => item !== f)
+            }
+        },
     }
 }
