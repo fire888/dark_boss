@@ -12,7 +12,7 @@ const ENV_NORMAL =  { fogNear: 0, fogFar: 1000, colorFog: 0x455861, colorBack: 0
 const STATUE_PLAYER_OFFSET = 45
 
 
-const updateEmptyRooms = (root, statue) => {
+const updateEmptyRooms = root => {
     let count = 0
     let fOnComplete = () => {}
 
@@ -32,17 +32,24 @@ const updateEmptyRooms = (root, statue) => {
 }
 
 
-const updateRoomsStatueHide = (root, statue) => {
+const updateRoomsStatueHide = root => {
+    const {
+        statue,
+        system_PlayerMoveOnLevel,
+        player,
+        emitter,
+    } = root
+
     let count = 0
     let fOnComplete = () => {}
     let timer = null
 
     let isCanHide = true
-    const stopperListen = root.emitter.subscribe('playerMove')(dir => {
+    const stopperListen = emitter.subscribe('playerMove')(dir => {
         if (isCanHide)
             if (
-                Math.abs(root.player.mesh.position.x - statue.m.position.x) < STATUE_PLAYER_OFFSET &&
-                Math.abs(root.player.mesh.position.z - statue.m.position.z) < STATUE_PLAYER_OFFSET
+                Math.abs(player.mesh.position.x - statue.m.position.x) < STATUE_PLAYER_OFFSET &&
+                Math.abs(player.mesh.position.z - statue.m.position.z) < STATUE_PLAYER_OFFSET
             ) {
                 statue.hide()
                 clearTimeout(timer)
@@ -70,22 +77,30 @@ const updateRoomsStatueHide = (root, statue) => {
         },
         onComplete: f => {
             fOnComplete = f
-        }
+        },
+        name: 'updateRoomsStatueHide',
     }
 }
 
 
-const updateRoomsStatueNotHide = (root, statue) => {
+const updateRoomsStatueNotHide = (root) => {
+    const {
+        statue,
+        system_PlayerMoveOnLevel,
+        player,
+        emitter,
+    } = root
+
     let count = 0
     let fOnComplete = () => {}
 
 
     let isCanHide = true
-    const stopperListen = root.emitter.subscribe('playerMove')(dir => {
+    const stopperListen = emitter.subscribe('playerMove')(dir => {
         if (isCanHide)
             if (
-                Math.abs(root.player.mesh.position.x - statue.m.position.x) < STATUE_PLAYER_OFFSET &&
-                Math.abs(root.player.mesh.position.z - statue.m.position.z) < STATUE_PLAYER_OFFSET
+                Math.abs(player.mesh.position.x - statue.m.position.x) < STATUE_PLAYER_OFFSET &&
+                Math.abs(player.mesh.position.z - statue.m.position.z) < STATUE_PLAYER_OFFSET
             ) {
                 statue.hide()
                 isCanHide = false
@@ -107,16 +122,23 @@ const updateRoomsStatueNotHide = (root, statue) => {
         },
         onComplete: f => {
             fOnComplete = f
-        }
+        },
+        name: 'updateRoomsStatueNotHide',
     }
 }
 
 
-const updateRoomsStatueNotHideCollision= (root, statue) => {
+const updateRoomsStatueNotHideCollision = root => {
+    const {
+        statue,
+        system_PlayerMoveOnLevel,
+    } = root
+
+
     let count = 0
     let fOnComplete = () => {}
 
-    root.system_PlayerMoveOnLevel.addItemToPlayerCollision(statue.mCollision)
+    system_PlayerMoveOnLevel.addItemToPlayerCollision(statue.mCollision)
 
 
     return {
@@ -131,50 +153,131 @@ const updateRoomsStatueNotHideCollision= (root, statue) => {
         },
         onComplete: f => {
             fOnComplete = f
-        }
+        },
+        name: 'updateRoomsStatueNotHideCollision',
     }
 }
 
 
-const invertWorld = (root, statue) => {
+const invertWorld = root => {
+    console.log('invert!!!')
+    const {
+        statue,
+        system_PlayerMoveOnLevel,
+        studio,
+        worldReal,
+    } = root
+
+
     let count = 0
     let fOnComplete = () => {}
 
-    root.system_PlayerMoveOnLevel.addItemToPlayerCollision(statue.mCollision)
+    system_PlayerMoveOnLevel.addItemToPlayerCollision(statue.mCollision)
 
 
     let isInverted = false
 
     return {
         update: (r) => {
-
-            root.worldReal.invertColor()
+            console.log('invert', count)
+            worldReal.invertColor()
             statue.invert()
             if (!isInverted) {
-                     root.studio.changeEnvironment(ENV_RED, { time: 100 })
-                 }  else {
-                     root.studio.changeEnvironment(ENV_NORMAL, { time: 100 },)
+                studio.changeEnvironment(ENV_RED, { time: 100 })
+            }  else {
+                studio.changeEnvironment(ENV_NORMAL, { time: 100 },)
             }
+            isInverted = !isInverted
 
-            console.log('invert', count)
             const coord = getRandomCoordsOfRoom(r)
             statue.appear(coord.x, coord.z)
             ++count
             if (count === 6) {
                 statue.hide()
-                root.studio.changeEnvironment(ENV_NORMAL, { time: 100 },)
-                root.system_PlayerMoveOnLevel.removeItemFromPlayerCollision(statue.mCollision)
+                studio.changeEnvironment(ENV_NORMAL, { time: 100 },)
+                system_PlayerMoveOnLevel.removeItemFromPlayerCollision(statue.mCollision)
                 fOnComplete()
             }
         },
         onComplete: f => {
             fOnComplete = f
-        }
+        },
+        name: 'invertWorld',
     }
 }
 
 
-const logComplete = (root) => {
+const addEndStone = root => {
+    let fOnComplete = () => {}
+    let count = 0
+
+    const {
+        worldReal,
+    } = root
+
+    return {
+        update: r => {
+            if (count === 1) {
+                worldReal.addCentralItem()
+                fOnComplete()
+            }
+            ++count
+
+        },
+        onComplete: f => {
+            fOnComplete = f
+        },
+        name: 'addEndStone',
+    }
+}
+
+
+const setStatueOnEndStone = root => {
+    let fOnComplete = () => {}
+
+    const {
+        statue,
+        emitter,
+        player,
+        worldReal,
+        studio,
+    } = root
+
+    worldReal.invertColor()
+    statue.invert()
+    studio.changeEnvironment(ENV_RED, { time: 100 })
+    statue.m.position.x = 1500
+    statue.m.position.y = -45
+    statue.m.position.z = 1495
+    statue.m.rotation.y = 0
+    statue.m.rotation.x = -Math.PI / 2
+    statue.appear()
+
+
+    const stopperListen = emitter.subscribe('playerMove')(dir => {
+        if (
+            Math.abs(player.mesh.position.x - statue.m.position.x) > STATUE_PLAYER_OFFSET ||
+            Math.abs(player.mesh.position.z - statue.m.position.z) > STATUE_PLAYER_OFFSET
+        ) {
+            return;
+        }
+        stopperListen()
+        fOnComplete()
+        alert('!!!')
+    })
+
+    return {
+        update: r => {},
+        onComplete: f => {
+            fOnComplete = f
+        },
+        name: 'setStatueOnEndStone',
+    }
+}
+
+
+
+const logComplete = root => {
     let fOnComplete = () => {}
     return {
         update: () => {
@@ -187,16 +290,24 @@ const logComplete = (root) => {
 
 
 export const ARR_STATES = [
-    invertWorld,
     updateEmptyRooms,
     //logComplete,
+
     updateRoomsStatueHide,
     //logComplete,
+
     updateRoomsStatueNotHide,
     //logComplete,
+
     updateRoomsStatueNotHideCollision,
-    //logComplete,
+    //logComplete
+    addEndStone,
+    logComplete,
+
     invertWorld,
+    logComplete,
+
+    setStatueOnEndStone,
     logComplete,
 ]
 

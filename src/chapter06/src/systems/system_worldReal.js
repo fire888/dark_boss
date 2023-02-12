@@ -25,9 +25,7 @@ export const createWorldReal = (root) => {
         new THREE.BoxGeometry(40, 1600, 5),
         root.materials.bodyRed,
     )
-    centralItem.position.x = 1500
-    centralItem.position.z = 1500
-    root.studio.addToScene(centralItem)
+
 
 
     return {
@@ -45,6 +43,11 @@ export const createWorldReal = (root) => {
         roomsArr: t2.roomsArr,
         invertColor: () => {
             t2.invertColor()
+        },
+        addCentralItem: () => {
+            centralItem.position.x = 1500
+            centralItem.position.z = 1500
+            root.studio.addToScene(centralItem)
         }
     }
 }

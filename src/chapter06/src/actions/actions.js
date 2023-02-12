@@ -60,6 +60,7 @@ export class actions {
         statue.m.position.y = -61
         statue.m.rotation.y = Math.PI
         studio.addToScene(statue.m)
+        root.statue = statue
 
 
         /** game state */
@@ -68,16 +69,19 @@ export class actions {
         let gameState = null
         const iterate = i => {
             if (!ARR_STATES[i]) {
+                console.log('pipeline-complete')
                 return;
             }
-            console.log('stateIndex: ', i)
-            gameState = ARR_STATES[i](root, statue)
+            console.log('stateIndex: ', i, ARR_STATES[i].name)
+            gameState = ARR_STATES[i](root)
             gameState.onComplete(() => {
                 iterate(i + 1)
             })
         }
         iterate(0)
-        checkerPlayerRoom.onChangeRoom(gameState.update)
+        checkerPlayerRoom.onChangeRoom(r => {
+            gameState.update(r)
+        })
 
 
         /** update */
