@@ -1,15 +1,12 @@
 import {getRandomCoordsOfRoom} from "../Entities/town/help";
 
-// statue.m.position.x = 1500
-// statue.m.position.y = -45
-// statue.m.position.z = 1495
-// statue.m.rotation.y = 0
-// statue.m.rotation.x = -Math.PI / 2
 
 const ENV_RED = { fogNear: 0, fogFar: 1000, colorFog: 0x880000, colorBack: 0x010101, backgroundImgKey: null }
 const ENV_NORMAL =  { fogNear: 0, fogFar: 1000, colorFog: 0x455861, colorBack: 0x455861, backgroundImgKey: null }
 
 const STATUE_PLAYER_OFFSET = 45
+
+const pause = t => new Promise(res => setTimeout(res, t))
 
 
 const updateEmptyRooms = root => {
@@ -67,6 +64,7 @@ const updateRoomsStatueHide = root => {
             statue.appear(coord.x, coord.z)
             isCanHide = true
             timer = setTimeout(() => {
+                isCanHide = false
                 statue.hide()
             }, Math.random() * 3000)
             ++count
@@ -213,16 +211,49 @@ const addEndStone = root => {
 
     const {
         worldReal,
+        statue,
+        emitter,
+        player,
+        studio,
+        system_PlayerMoveOnLevel,
     } = root
+
+    statue.hide()
+
+    async function pipelineToRed () {
+        console.log('@@@---')
+        system_PlayerMoveOnLevel.toggleFreeze(true)
+        worldReal.addCentralItem()
+        await pause(2000)
+        //statue.m.position.y = -70
+        statue.hide()
+        await pause(2000)
+        statue.invert()
+        statue.appear()
+        await pause(2000)
+        worldReal.invertColor()
+        studio.changeEnvironment(ENV_RED, { time: 100 })
+        system_PlayerMoveOnLevel.toggleFreeze(false)
+        await pause(1000)
+        statue.hide()
+    }
+
+
+    const stopperListen = emitter.subscribe('playerMove')(dir => {
+        if (
+            Math.abs(player.mesh.position.x - statue.m.position.x) < STATUE_PLAYER_OFFSET &&
+            Math.abs(player.mesh.position.z - statue.m.position.z) < STATUE_PLAYER_OFFSET
+        ) {
+            stopperListen()
+            pipelineToRed().then(fOnComplete)
+        }
+    })
+
 
     return {
         update: r => {
-            if (count === 1) {
-                worldReal.addCentralItem()
-                fOnComplete()
-            }
-            ++count
-
+            const coord = getRandomCoordsOfRoom(r)
+            statue.appear(coord.x, coord.z)
         },
         onComplete: f => {
             fOnComplete = f
@@ -290,8 +321,13 @@ const logComplete = root => {
 
 
 export const ARR_STATES = [
+    //addEndStone,
+
+
     updateEmptyRooms,
     //logComplete,
+
+
 
     updateRoomsStatueHide,
     //logComplete,
