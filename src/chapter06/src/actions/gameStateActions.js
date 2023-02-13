@@ -1,12 +1,11 @@
-import {getRandomCoordsOfRoom} from "../Entities/town/help";
-
-
-const ENV_RED = { fogNear: 0, fogFar: 1000, colorFog: 0x880000, colorBack: 0x010101, backgroundImgKey: null }
-const ENV_NORMAL =  { fogNear: 0, fogFar: 1000, colorFog: 0x455861, colorBack: 0x455861, backgroundImgKey: null }
+import { getRandomCoordsOfRoom } from "../Entities/town/help";
+import { pipelineToRed } from './catScenes'
+import {
+    ENV_RED,
+    ENV_NORMAL,
+} from '../constants/constants_elements'
 
 const STATUE_PLAYER_OFFSET = 45
-
-const pause = t => new Promise(res => setTimeout(res, t))
 
 
 const updateEmptyRooms = root => {
@@ -32,7 +31,7 @@ const updateEmptyRooms = root => {
 const updateRoomsStatueHide = root => {
     const {
         statue,
-        system_PlayerMoveOnLevel,
+        //system_PlayerMoveOnLevel,
         player,
         emitter,
     } = root
@@ -84,7 +83,7 @@ const updateRoomsStatueHide = root => {
 const updateRoomsStatueNotHide = (root) => {
     const {
         statue,
-        system_PlayerMoveOnLevel,
+        //system_PlayerMoveOnLevel,
         player,
         emitter,
     } = root
@@ -107,7 +106,7 @@ const updateRoomsStatueNotHide = (root) => {
 
     return {
         update: (r) => {
-            console.log('room walk - appear hot hide', count)
+            console.log('room walk - appear, hide near', count)
             const coord = getRandomCoordsOfRoom(r)
             statue.appear(coord.x, coord.z)
             isCanHide = true
@@ -207,46 +206,30 @@ const invertWorld = root => {
 
 const addEndStone = root => {
     let fOnComplete = () => {}
-    let count = 0
+
+    const NEAR = 15
 
     const {
-        worldReal,
+        //worldReal,
         statue,
         emitter,
         player,
-        studio,
-        system_PlayerMoveOnLevel,
+        //studio,
+        //system_PlayerMoveOnLevel,
     } = root
 
     statue.hide()
 
-    async function pipelineToRed () {
-        console.log('@@@---')
-        system_PlayerMoveOnLevel.toggleFreeze(true)
-        worldReal.addCentralItem()
-        await pause(2000)
-        //statue.m.position.y = -70
-        statue.hide()
-        await pause(2000)
-        statue.invert()
-        statue.appear()
-        await pause(2000)
-        worldReal.invertColor()
-        studio.changeEnvironment(ENV_RED, { time: 100 })
-        system_PlayerMoveOnLevel.toggleFreeze(false)
-        await pause(1000)
-        statue.hide()
-    }
-
-
     const stopperListen = emitter.subscribe('playerMove')(dir => {
         if (
-            Math.abs(player.mesh.position.x - statue.m.position.x) < STATUE_PLAYER_OFFSET &&
-            Math.abs(player.mesh.position.z - statue.m.position.z) < STATUE_PLAYER_OFFSET
+            Math.abs(player.mesh.position.x - statue.m.position.x) > NEAR ||
+            Math.abs(player.mesh.position.z - statue.m.position.z) > NEAR
         ) {
-            stopperListen()
-            pipelineToRed().then(fOnComplete)
+            return
         }
+
+        stopperListen()
+        pipelineToRed(root).then(fOnComplete)
     })
 
 
@@ -294,7 +277,7 @@ const setStatueOnEndStone = root => {
         }
         stopperListen()
         fOnComplete()
-        alert('!!!')
+        //alert('!!!')
     })
 
     return {
@@ -321,7 +304,7 @@ const logComplete = root => {
 
 
 export const ARR_STATES = [
-    //addEndStone,
+    addEndStone,
 
 
     updateEmptyRooms,
