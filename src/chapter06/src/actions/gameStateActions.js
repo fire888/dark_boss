@@ -169,6 +169,7 @@ const invertWorld = root => {
     let count = 0
     let fOnComplete = () => {}
 
+    system_PlayerMoveOnLevel.removeItemFromPlayerCollision(statue.mCollision)
     system_PlayerMoveOnLevel.addItemToPlayerCollision(statue.mCollision)
 
 
@@ -218,7 +219,7 @@ const addEndStone = root => {
         //system_PlayerMoveOnLevel,
     } = root
 
-    statue.hide()
+    //statue.hide()
 
     const stopperListen = emitter.subscribe('playerMove')(dir => {
         if (
@@ -304,7 +305,7 @@ const logComplete = root => {
 
 
 export const ARR_STATES = [
-    addEndStone,
+    //addEndStone,
 
 
     updateEmptyRooms,
@@ -322,6 +323,8 @@ export const ARR_STATES = [
     //logComplete
     addEndStone,
     logComplete,
+
+    updateEmptyRooms,
 
     invertWorld,
     logComplete,
