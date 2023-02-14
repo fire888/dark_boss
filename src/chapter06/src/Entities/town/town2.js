@@ -166,15 +166,13 @@ export const createTown2 = (root) => {
         mesh,
         mCollision: meshCollision,
         roomsArr,
-        invertColor: () => {
-            if (inverted) {
-                root.studio.removeFromScene(meshBlack)
-                root.studio.addToScene(mesh)
-            } else {
-                root.studio.removeFromScene(mesh)
-                root.studio.addToScene(meshBlack)
-            }
-            inverted = !inverted
-        }
+        toNormal: () => {
+            root.studio.removeFromScene(meshBlack)
+            root.studio.addToScene(mesh)
+        },
+        toNotWalls: () => {
+            root.studio.removeFromScene(mesh)
+            root.studio.addToScene(meshBlack)
+        },
     }
 }

@@ -4,6 +4,7 @@ import {
     ENV_RED,
     ENV_NORMAL,
 } from '../constants/constants_elements'
+import {set} from "ramda";
 
 const STATUE_PLAYER_OFFSET = 45
 
@@ -178,11 +179,13 @@ const invertWorld = root => {
     return {
         update: (r) => {
             console.log('invert', count)
-            worldReal.invertColor()
-            statue.invert()
             if (!isInverted) {
+                statue.toRed()
+                worldReal.toNotWalls()
                 studio.changeEnvironment(ENV_RED, { time: 100 })
             }  else {
+                worldReal.toNormal()
+                statue.toBlack()
                 studio.changeEnvironment(ENV_NORMAL, { time: 100 },)
             }
             isInverted = !isInverted
@@ -258,9 +261,10 @@ const setStatueOnEndStone = root => {
         studio,
     } = root
 
-    worldReal.invertColor()
-    statue.invert()
+    worldReal.toNotWalls()
+    statue.toRed()
     studio.changeEnvironment(ENV_RED, { time: 100 })
+
     statue.m.position.x = 1500
     statue.m.position.y = -45
     statue.m.position.z = 1495
@@ -278,7 +282,6 @@ const setStatueOnEndStone = root => {
         }
         stopperListen()
         fOnComplete()
-        //alert('!!!')
     })
 
     return {

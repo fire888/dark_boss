@@ -155,5 +155,13 @@ export const createStatue = (root) => {
               mesh.material.needsUpdate = true
               inverted = !inverted
         },
+        toRed: () => {
+            mesh.material = root.materials.bodyRed
+            mesh.material.needsUpdate = true
+        },
+        toBlack: () => {
+            mesh.material = root.materials.body
+            mesh.material.needsUpdate = true
+        },
     }
 }

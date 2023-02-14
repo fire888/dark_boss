@@ -41,8 +41,11 @@ export const createWorldReal = (root) => {
             studio.removeFromScene(groundStart)
         },
         roomsArr: t2.roomsArr,
-        invertColor: () => {
-            t2.invertColor()
+        toNormal: () => {
+            t2.toNormal()
+        },
+        toNotWalls: () => {
+            t2.toNotWalls()
         },
         addCentralItem: () => {
             centralItem.position.x = 1500

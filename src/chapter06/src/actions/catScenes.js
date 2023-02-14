@@ -73,7 +73,6 @@ const lookPlayerNormal = (p, s) => {
             .to({ phase: 1, }, 1500)
             .onUpdate(() => {
                 p.quaternion.slerpQuaternions(qPlayerSaved, q, vals.phase)
-                //s.position.y = y - ((1 - vals.phase) * 10)    
             })
             .onComplete(res)
             .start()
@@ -86,7 +85,6 @@ export async function pipelineToRed (root) {
     const {
         worldReal,
         statue,
-        emitter,
         player,
         studio,
         system_PlayerMoveOnLevel,
@@ -96,8 +94,8 @@ export async function pipelineToRed (root) {
     worldReal.addCentralItem()
     studio.changeEnvironment(ENV_RED_NEAR, { time: 1500 })
     await lookTogether(root, player.mesh, statue.m)
-    statue.invert()
-    worldReal.invertColor()
+    statue.toRed()
+    worldReal.toNotWalls()
     system_PlayerMoveOnLevel.toggleFreeze(false)
     studio.changeEnvironment(ENV_RED, { time: 1500 })
     await lookPlayerNormal(player.mesh, statue.m)
