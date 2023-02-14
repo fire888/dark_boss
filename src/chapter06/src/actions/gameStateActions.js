@@ -9,7 +9,7 @@ import {set} from "ramda";
 const STATUE_PLAYER_OFFSET = 45
 
 
-const updateEmptyRooms = root => {
+const updateEmptyRooms = countMax => root => {
     let count = 0
     let fOnComplete = () => {}
 
@@ -18,7 +18,7 @@ const updateEmptyRooms = root => {
             console.log('room walk', count)
 
             ++count
-            if (count === 5) {
+            if (count === countMax) {
                 fOnComplete()
             }
         },
@@ -114,6 +114,7 @@ const updateRoomsStatueNotHide = (root) => {
             ++count
             if (count === 5) {
                 statue.hide()
+                setTimeout(() => { statue.m.position.z = 5000}, 2000)
                 stopperListen()
                 fOnComplete()
             }
@@ -214,15 +215,10 @@ const addEndStone = root => {
     const NEAR = 15
 
     const {
-        //worldReal,
         statue,
         emitter,
         player,
-        //studio,
-        //system_PlayerMoveOnLevel,
     } = root
-
-    //statue.hide()
 
     const stopperListen = emitter.subscribe('playerMove')(dir => {
         if (
@@ -310,11 +306,8 @@ const logComplete = root => {
 export const ARR_STATES = [
     //addEndStone,
 
-
-    updateEmptyRooms,
+    updateEmptyRooms(6),
     //logComplete,
-
-
 
     updateRoomsStatueHide,
     //logComplete,
@@ -327,7 +320,7 @@ export const ARR_STATES = [
     addEndStone,
     logComplete,
 
-    updateEmptyRooms,
+    updateEmptyRooms(2),
 
     invertWorld,
     logComplete,

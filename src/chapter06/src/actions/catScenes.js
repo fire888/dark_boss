@@ -103,3 +103,43 @@ export async function pipelineToRed (root) {
     statue.m.position.y = y
     statue.m.position.y = y
 }
+
+
+
+
+const movePlayer = (root) => {
+    const {
+        player,
+    } = root
+
+    return new Promise(res => {
+        const vals = { z: player.mesh.position.z }
+        new TWEEN.Tween(vals)
+            .easing(TWEEN.Easing.Quadratic.Out)
+            .to({ z: -300, }, 4000)
+            .onUpdate(() => {
+                player.mesh.position.z = vals.z
+            })
+            .onComplete(() => {
+                res()
+            })
+            .start()
+    }) 
+}
+
+export async function startPipeline (root) {
+    const {
+        worldReal,
+        statue,
+        player,
+        studio,
+        system_PlayerMoveOnLevel,
+    } = root
+
+    player.mesh.position.set(1060.4553029932501, -40, -500)
+    player.mesh.rotation.y = Math.PI// * 1.3
+
+    studio.changeEnvironment(ENV_NORMAL, { time: 15000 },)
+    await movePlayer(root)
+    player.toggleBlocked(false)
+}

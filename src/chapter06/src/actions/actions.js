@@ -16,9 +16,15 @@ import { createStatue } from "../Entities/statue";
 import { createCheckerRoom } from '../helpers/checkerPlayerRoom'
 import { ARR_STATES } from './gameStateActions'
 
+import {
+    ENV_START
+} from '../constants/constants_elements'
 
-const ENV_RED = { fogNear: 0, fogFar: 1000, colorFog: 0x880000, colorBack: 0x010101, backgroundImgKey: null }
-const ENV_NORMAL =  { fogNear: 0, fogFar: 1000, colorFog: 0x455861, colorBack: 0x455861, backgroundImgKey: null }
+import { startPipeline } from './catScenes'
+
+
+//const ENV_RED = { fogNear: 0, fogFar: 1000, colorFog: 0x880000, colorBack: 0x010101, backgroundImgKey: null }
+//const ENV_NORMAL =  { fogNear: 0, fogFar: 1000, colorFog: 0x455861, colorBack: 0x455861, backgroundImgKey: null }
 
 
 
@@ -47,16 +53,14 @@ export class actions {
 
 
         /** world */
-        player.setToPos(-30, -40, -150)
-        player.mesh.rotation.y = Math.PI * 1.3
-
+        //player.setToPos(-30, -40, -150)
         this._worldReal = createWorldReal(root)
         this._worldReal.addWorld()
         root.worldReal = this._worldReal
 
         const statue = createStatue(root)
-        statue.m.position.x = -100
-        statue.m.position.z = -400
+        statue.m.position.x = 1000
+        statue.m.position.z = 3000
         statue.m.position.y = -61
         statue.m.rotation.y = Math.PI
         studio.addToScene(statue.m)
@@ -91,10 +95,12 @@ export class actions {
             studio.drawFrame()
         })
 
+        studio.changeEnvironment(ENV_START, { time: 1 })
+
 
         ui.showStartButton(() => {
-            studio.changeEnvironment(ENV_NORMAL, { updateAmb: false, time: 1000 })
-            player.toggleBlocked(false)
+            startPipeline(root).then()
+            //player.toggleBlocked(false)
             //this._root.system_Sound && this._root.system_Sound.playAmbient()
         })
     }
