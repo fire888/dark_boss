@@ -29,6 +29,18 @@ export const createWorldReal = (root) => {
     )
     centralItem.position.y = -62
 
+    const centralItemBounds = root.assets.endWayModel.children[1]
+    centralItemBounds.visible = false
+    centralItem.add(centralItemBounds)
+
+    const endItemObj = //new THREE.Object3D()
+        new THREE.Mesh(
+            new THREE.BoxGeometry(5, 5, 5),
+            new THREE.MeshBasicMaterial({ color: 0xFFFFFF })
+        )
+    endItemObj.position.set(0, 0, -35)
+    centralItem.add(endItemObj)
+
 
 
     return {
@@ -55,7 +67,9 @@ export const createWorldReal = (root) => {
             centralItem.position.z = z
             centralItem.position.y = y
             root.studio.addToScene(centralItem)
-        }
+        },
+        centralItemBounds,
+        endItemObj,
     }
 }
 

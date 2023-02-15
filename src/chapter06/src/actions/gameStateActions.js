@@ -4,7 +4,7 @@ import {
     ENV_RED,
     ENV_NORMAL,
 } from '../constants/constants_elements'
-import {set} from "ramda";
+import * as THREE from 'three'
 
 const STATUE_PLAYER_OFFSET = 45
 
@@ -255,6 +255,7 @@ const setStatueOnEndStone = root => {
         player,
         worldReal,
         studio,
+        system_PlayerMoveOnLevel,
     } = root
 
     worldReal.toNotWalls()
@@ -266,21 +267,25 @@ const setStatueOnEndStone = root => {
     const P_END = [1500, 1500]
     worldReal.setEndWayPos(P_END[0], -61, P_END[1])
     statue.m.position.set(P_END[0], -43.5, P_END[1])
+    system_PlayerMoveOnLevel.addItemToPlayerCollision(worldReal.centralItemBounds)
 
     statue.m.rotation.set(0, 0, 0)
 
-    //statue.m.rotation.z = Math.PI
-    statue.m.rotation.x = Math.PI / 2 - 0.027
+    statue.m.rotation.x = -Math.PI / 2 - 0.027
     statue.appear()
+    const posEnd = new THREE.Vector3()
 
 
     const stopperListen = emitter.subscribe('playerMove')(dir => {
+        worldReal.endItemObj.getWorldPosition(posEnd)
+
         if (
-            Math.abs(player.mesh.position.x - statue.m.position.x) > STATUE_PLAYER_OFFSET ||
-            Math.abs(player.mesh.position.z - statue.m.position.z) > STATUE_PLAYER_OFFSET
+            Math.abs(player.mesh.position.x - posEnd.x) > 20 ||
+            Math.abs(player.mesh.position.z - posEnd.z) > 20
         ) {
             return;
         }
+        console.log('!!!-end')
         stopperListen()
         fOnComplete()
     })
