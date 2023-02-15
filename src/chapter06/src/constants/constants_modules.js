@@ -32,6 +32,7 @@ import ironAO from '../../../assets/chapter06/concrete/broken_down_concrete2_ao.
 import ironAlbedo from '../../../assets/chapter06/concrete/broken_down_concrete2_albedo.jpg'
 
 import bodySrc from '../../../assets/chapter06/body.obj'
+import endWaySrc from '../../../assets/chapter06/endWay.obj'
 
 
 
@@ -121,6 +122,7 @@ export const GAME_MODULES = [
                 { type: 'img', path: ironAO, key: 'ironAO', wrap: true },
                 { type: 'obj', path: bodySrc, key: 'bodyModel' },
                 { type: 'img', path: bodyShadow, key: 'bodyDropShadow' },
+                { type: 'obj', path: endWaySrc, key: 'endWayModel' },
             ],
 
     },

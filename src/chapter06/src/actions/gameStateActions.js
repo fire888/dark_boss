@@ -261,11 +261,16 @@ const setStatueOnEndStone = root => {
     statue.toRed()
     studio.changeEnvironment(ENV_RED, { time: 100 })
 
-    statue.m.position.x = 1500
-    statue.m.position.y = -45
-    statue.m.position.z = 1495
-    statue.m.rotation.y = 0
-    statue.m.rotation.x = -Math.PI / 2
+
+    //const P_END = [1000, -200]
+    const P_END = [1500, 1500]
+    worldReal.setEndWayPos(P_END[0], -61, P_END[1])
+    statue.m.position.set(P_END[0], -43.5, P_END[1])
+
+    statue.m.rotation.set(0, 0, 0)
+
+    //statue.m.rotation.z = Math.PI
+    statue.m.rotation.x = Math.PI / 2 - 0.027
     statue.appear()
 
 
@@ -304,6 +309,7 @@ const logComplete = root => {
 
 
 export const ARR_STATES = [
+    //setStatueOnEndStone,
     //addEndStone,
 
     updateEmptyRooms(6),

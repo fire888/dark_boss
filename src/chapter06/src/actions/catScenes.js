@@ -91,17 +91,22 @@ export async function pipelineToRed (root) {
     } = root
 
     system_PlayerMoveOnLevel.toggleFreeze(true)
-    worldReal.addCentralItem()
+    const P_END = [1500, 1500]
+    worldReal.setEndWayPos(P_END[0], -61, P_END[1])
+    //worldReal.addCentralItem()
     studio.changeEnvironment(ENV_RED_NEAR, { time: 1500 })
     await lookTogether(root, player.mesh, statue.m)
-    statue.toRed()
+    //statue.toRed()
     worldReal.toNotWalls()
     system_PlayerMoveOnLevel.toggleFreeze(false)
     studio.changeEnvironment(ENV_RED, { time: 1500 })
     await lookPlayerNormal(player.mesh, statue.m)
     statue.hide()
+    await pause(3000)
     statue.m.position.y = y
     statue.m.position.y = y
+    statue.m.position.z = 6000
+
 }
 
 
