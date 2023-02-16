@@ -5,6 +5,7 @@ import {
     ENV_RED,
     ENV_NORMAL,
     ENV_RED_NEAR,
+    ENV_END,
 } from '../constants/constants_elements'
 
 const pause = t => new Promise(res => setTimeout(res, t))
@@ -81,7 +82,7 @@ const lookPlayerNormal = (p, s) => {
 
 
 
-export async function pipelineToRed (root) {
+export async function pipelineToRed (root, P_END) {
     const {
         worldReal,
         statue,
@@ -91,7 +92,7 @@ export async function pipelineToRed (root) {
     } = root
 
     system_PlayerMoveOnLevel.toggleFreeze(true)
-    const P_END = [1500, 1500]
+    //const P_END = [1500, 1500]
     worldReal.setEndWayPos(P_END[0], -61, P_END[1])
     //worldReal.addCentralItem()
     studio.changeEnvironment(ENV_RED_NEAR, { time: 1500 })
@@ -147,4 +148,74 @@ export async function startPipeline (root) {
     studio.changeEnvironment(ENV_NORMAL, { time: 15000 },)
     await movePlayer(root)
     player.toggleBlocked(false)
+}
+
+
+
+
+
+
+
+
+const lookPlayerTop = (root, meshPlayer, meshStatue) => {
+    const vStartPos = meshPlayer.position.clone()
+    const vEndPos = meshStatue.position.clone()
+    vEndPos.z -= 20
+    vEndPos.y += 5
+
+    const qPlayerSaved = meshPlayer.quaternion.clone()
+    const obP = new THREE.Object3D()
+    obP.rotation.x = -Math.PI / 2
+    obP.rotation.y += Math.PI
+    const qPlayerTarget = obP.quaternion.clone()
+
+    return new Promise(res => {
+        const vals = { phase : 0 }
+        new TWEEN.Tween(vals)
+            .to({ phase: 1, }, 1500)
+            .onUpdate(() => {
+                meshPlayer.quaternion.slerpQuaternions(qPlayerSaved, qPlayerTarget, vals.phase)
+                meshPlayer.position.lerpVectors(vStartPos, vEndPos, vals.phase)
+            })
+            .onComplete(res)
+            .start()
+    })
+}
+
+
+const moveTop = (m) => {
+    const vStartPos = m.position.clone()
+    const vEndPos = m.position.clone()
+    vEndPos.y = 1000 
+
+
+    return new Promise(res => {
+        const vals = { phase : 0 }
+        new TWEEN.Tween(vals)
+            .to({ phase: 1, }, 1500)
+            .onUpdate(() => {
+                m.position.lerpVectors(vStartPos, vEndPos, vals.phase)
+            })
+            .onComplete(res)
+            .start()
+    })
+}
+
+
+export async function endPipeLine (root) {
+    const {
+        worldReal,
+        statue,
+        player,
+        studio,
+        system_PlayerMoveOnLevel,
+    } = root
+
+    console.log('!!!-endPipeLine')
+    await lookPlayerTop(root, player.mesh, statue.m)
+    await moveTop(player.mesh)
+    studio.changeEnvironment(ENV_END, { time: 3000 },)
+    await pause(5000)
+    //alert('!!!')
+
 }

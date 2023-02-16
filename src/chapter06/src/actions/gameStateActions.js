@@ -1,5 +1,5 @@
 import { getRandomCoordsOfRoom } from "../Entities/town/help";
-import { pipelineToRed } from './catScenes'
+import { pipelineToRed, endPipeLine } from './catScenes'
 import {
     ENV_RED,
     ENV_NORMAL,
@@ -7,7 +7,8 @@ import {
 import * as THREE from 'three'
 
 const STATUE_PLAYER_OFFSET = 45
-
+//const P_END = [1000, -200]
+const P_END = [1500, 1500]
 
 const updateEmptyRooms = countMax => root => {
     let count = 0
@@ -159,7 +160,6 @@ const updateRoomsStatueNotHideCollision = root => {
 
 
 const invertWorld = root => {
-    console.log('invert!!!')
     const {
         statue,
         system_PlayerMoveOnLevel,
@@ -229,7 +229,7 @@ const addEndStone = root => {
         }
 
         stopperListen()
-        pipelineToRed(root).then(fOnComplete)
+        pipelineToRed(root, P_END).then(fOnComplete)
     })
 
 
@@ -263,8 +263,7 @@ const setStatueOnEndStone = root => {
     studio.changeEnvironment(ENV_RED, { time: 100 })
 
 
-    //const P_END = [1000, -200]
-    const P_END = [1500, 1500]
+
     worldReal.setEndWayPos(P_END[0], -61, P_END[1])
     statue.m.position.set(P_END[0], -43.5, P_END[1])
     system_PlayerMoveOnLevel.addItemToPlayerCollision(worldReal.centralItemBounds)
@@ -285,9 +284,11 @@ const setStatueOnEndStone = root => {
         ) {
             return;
         }
-        console.log('!!!-end')
         stopperListen()
-        fOnComplete()
+        endPipeLine(root).then(() => {
+            root.dispatcher.dispatch({ type: 'SHOW_FINAL_MESSAGE' })
+            fOnComplete()
+        })
     })
 
     return {
@@ -315,7 +316,6 @@ const logComplete = root => {
 
 export const ARR_STATES = [
     //setStatueOnEndStone,
-    //addEndStone,
 
     updateEmptyRooms(6),
     //logComplete,
