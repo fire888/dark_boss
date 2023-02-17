@@ -80,16 +80,22 @@ export const createOuterWall = (dataWall) => {
             )
         }
 
-        v2.push(
-            ...createFace(
-                [l + 6, 0, 0],
-                [-6, 0, 0],
-                [-6, 120, 0],
-                [l + 6, 120, 0],
-            )
-        )
-        u2.push(...uv6)
-        c2.push(...black6)
+        //v2.push(
+            // ...createFace(
+            //     [l + 6, 0, 0],
+            //     [-6, 0, 0],
+            //     [-6, 120, 0],
+            //     [l + 6, 120, 0],
+            // )
+            // ...createFace(
+            //     [l + 30, 0, 0],
+            //     [-30, 0, 0],
+            //     [-30, 120, 0],
+            //     [l + 30, 120, 0],
+            // )
+        //)
+        //u2.push(...uv6)
+        //c2.push(...black6)
 
     }
 

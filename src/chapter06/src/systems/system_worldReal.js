@@ -24,7 +24,6 @@ export const createWorldReal = (root) => {
     console.log(root.assets.endWayModel)
     const centralItem = new THREE.Mesh(
         root.assets.endWayModel.children[0].geometry,
-        //new THREE.BoxGeometry(40, 1600, 5),
         root.materials.bodyRed,
     )
     centralItem.position.y = -62
@@ -33,11 +32,7 @@ export const createWorldReal = (root) => {
     centralItemBounds.visible = false
     centralItem.add(centralItemBounds)
 
-    const endItemObj = //new THREE.Object3D()
-        new THREE.Mesh(
-            new THREE.BoxGeometry(5, 5, 5),
-            new THREE.MeshBasicMaterial({ color: 0xFFFFFF })
-        )
+    const endItemObj = new THREE.Object3D()
     endItemObj.position.set(0, 0, -35)
     centralItem.add(endItemObj)
 
@@ -46,10 +41,8 @@ export const createWorldReal = (root) => {
     return {
         addWorld: () => {
             system_PlayerMoveOnLevel.addItemToPlayerCollision(groundStart)
-            //system_PlayerMoveOnLevel.addItemToPlayerCollision(mTown.mesh)
             system_PlayerMoveOnLevel.addItemToPlayerCollision(t2.mCollision)
             studio.addToScene(groundStart)
-            //studio.addToScene(mTown.mesh)
         },
         removeWorld: () => {
             system_PlayerMoveOnLevel.removeItemFromPlayerCollision(groundStart)
@@ -61,6 +54,7 @@ export const createWorldReal = (root) => {
         },
         toNotWalls: () => {
             t2.toNotWalls()
+            root.studio.removeFromScene(groundStart)
         },
         setEndWayPos: (x, y, z) => {
             centralItem.position.x = x

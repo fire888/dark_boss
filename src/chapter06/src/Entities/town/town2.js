@@ -82,6 +82,9 @@ export const createTown2 = (root) => {
         u.push(...door.u)
         c.push(...door.c)
 
+        if (doors[key].dir === 'n' && doors[key].p0[1] === 0) {
+            continue;
+        }
         v2.push(...door.v)
         c2.push(...door.c)
         u2.push(...door.u)
@@ -108,9 +111,9 @@ export const createTown2 = (root) => {
         c.push(...f.c)
         u.push(...f.u)
 
-        v2.push(...f.v)
+        v2.push(...f.v2)
         c2.push(...f.c2)
-        u2.push(...f.u)
+        //u2.push(...f.u)
     }
 
     /** ceil */

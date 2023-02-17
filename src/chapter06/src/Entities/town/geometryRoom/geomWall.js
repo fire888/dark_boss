@@ -64,7 +64,6 @@ export const createWall = (data) => {
 
             const segment = createSegment({
                 l,
-                //asset: root.assets['walls'].children[0],
                 leftOffset: i === 0,
                 rightOffset: i === arr.length - 1,
                 segment: 'bottom',

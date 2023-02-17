@@ -3,6 +3,7 @@ import { createFace } from '../../../helpers/geomHelpers'
 const uv6 = [0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1]
 
 const y0 = -61
+const y00 = -64
 
 
 
@@ -32,9 +33,12 @@ export const createFloor = (data, colorW, colorB) => {
 
     const v = []
     const c = []
-    const c2 = []
     const b = []
     const u = []
+
+
+    const v2 = []
+    const c2 = []
 
 
     const offset1 = 30
@@ -60,7 +64,7 @@ export const createFloor = (data, colorW, colorB) => {
                 )
             )
             c.push(...colorW6)
-            c2.push(...colorB6)
+            //c2.push(...colorB6)
             u.push(...uv6)
         }
     }
@@ -74,8 +78,19 @@ export const createFloor = (data, colorW, colorB) => {
         )
     )
     c.push(...colorRoom6)
-    c2.push(...colorW6)
     u.push(...uv6)
+    v2.push(
+        ...createFace(
+            [data.p0[0] + offset1, y00, data.p0[1] - offset1],
+            [data.p0[0] + offset0, y00, data.p0[1] - offset0],
+            [data.p3[0] + offset0, y00, data.p3[1] + offset0],
+            [data.p3[0] + offset1, y00, data.p3[1] + offset1],
+        )
+    )
+    c2.push(...colorW6)
+
+
+
 
     v.push(
         ...createFace(
@@ -86,8 +101,18 @@ export const createFloor = (data, colorW, colorB) => {
         )
     )
     c.push(...colorRoom6)
-    c2.push(...colorW6)
     u.push(...uv6)
+    v2.push(
+        ...createFace(
+            [data.p0[0] + offset1, y00, data.p0[1] - offset1],
+            [data.p1[0] - offset1, y00, data.p1[1] - offset1],
+            [data.p1[0] - offset0, y00, data.p1[1] - offset0],
+            [data.p0[0] + offset0, y00, data.p0[1] - offset0],
+        )
+    )
+    c2.push(...colorW6)
+
+
 
     v.push(
         ...createFace(
@@ -98,8 +123,16 @@ export const createFloor = (data, colorW, colorB) => {
         )
     )
     c.push(...colorRoom6)
-    c2.push(...colorW6)
     u.push(...uv6)
+    v2.push(
+        ...createFace(
+            [data.p3[0] + offset0, y00, data.p3[1] + offset0],
+            [data.p2[0] - offset0, y00, data.p2[1] + offset0],
+            [data.p2[0] - offset1, y00, data.p2[1] + offset1],
+            [data.p3[0] + offset1, y00, data.p3[1] + offset1],
+        )
+    )
+    c2.push(...colorW6)
 
     v.push(
         ...createFace(
@@ -110,8 +143,16 @@ export const createFloor = (data, colorW, colorB) => {
         )
     )
     c.push(...colorRoom6)
-    c2.push(...colorW6)
     u.push(...uv6)
+    v2.push(
+        ...createFace(
+            [data.p1[0] - offset0, y00, data.p1[1] - offset0],
+            [data.p1[0] - offset1, y00, data.p1[1] - offset1],
+            [data.p2[0] - offset1, y00, data.p2[1] + offset1],
+            [data.p2[0] - offset0, y00, data.p3[1] + offset0],
+        )
+    )
+    c2.push(...colorW6)
 
 
     /** outer white **/
@@ -124,7 +165,7 @@ export const createFloor = (data, colorW, colorB) => {
         )
     )
     c.push(...white6)
-    c2.push(...colorB6)
+    //c2.push(...colorB6)
     u.push(...uv6)
 
     v.push(
@@ -136,7 +177,7 @@ export const createFloor = (data, colorW, colorB) => {
         )
     )
     c.push(...white6)
-    c2.push(...colorB6)
+    //c2.push(...colorB6)
     u.push(...uv6)
 
     v.push(
@@ -148,7 +189,7 @@ export const createFloor = (data, colorW, colorB) => {
         )
     )
     c.push(...white6)
-    c2.push(...colorB6)
+    //c2.push(...colorB6)
     u.push(...uv6)
 
     v.push(
@@ -160,8 +201,8 @@ export const createFloor = (data, colorW, colorB) => {
          )
     )
     c.push(...white6)
-    c2.push(...colorB6)
+    //c2.push(...colorB6)
     u.push(...uv6)
 
-    return { v, c, b, u, c2 }
+    return { v, c, b, u, c2, v2 }
 }

@@ -213,7 +213,7 @@ const invertWorld = root => {
 const addEndStone = root => {
     let fOnComplete = () => {}
 
-    const NEAR = 15
+    const NEAR = 25
 
     const {
         statue,
@@ -235,7 +235,6 @@ const addEndStone = root => {
         if (COORD_END) {
             pipelineToRed(root, [COORD_END.x, COORD_END.z]).then(fOnComplete)
         }
-        //pipelineToRed(root, P_END).then(fOnComplete)
     })
 
 
@@ -283,8 +282,8 @@ const setStatueOnEndStone = root => {
         worldReal.endItemObj.getWorldPosition(posEnd)
 
         if (
-            Math.abs(player.mesh.position.x - posEnd.x) > 20 ||
-            Math.abs(player.mesh.position.z - posEnd.z) > 20
+            Math.abs(player.mesh.position.x - posEnd.x) > 30 ||
+            Math.abs(player.mesh.position.z - posEnd.z) > 30
         ) {
             return;
         }
