@@ -264,22 +264,19 @@ const setStatueOnEndStone = root => {
         system_PlayerMoveOnLevel,
     } = root
 
+
     worldReal.toNotWalls()
     statue.toRed()
     studio.changeEnvironment(ENV_RED, { time: 100 })
 
-
-
-    //const x = worldReal.
-    //worldReal.setEndWayPos(P_END[0], -61, P_END[1])
     statue.m.position.set(COORD_END.x, -43.5, COORD_END.z)
     system_PlayerMoveOnLevel.addItemToPlayerCollision(worldReal.centralItemBounds)
-
     statue.m.rotation.set(0, 0, 0)
-
     statue.m.rotation.x = -Math.PI / 2 - 0.027
     statue.appear()
     const posEnd = new THREE.Vector3()
+
+
 
 
     const stopperListen = emitter.subscribe('playerMove')(dir => {
@@ -322,28 +319,11 @@ const logComplete = root => {
 
 
 export const ARR_STATES = [
-    //setStatueOnEndStone,
-    //updateRoomsStatueNotHideCollision,
-    //addEndStone,
-
-
     updateEmptyRooms(6),
-    //logComplete,
-
     updateRoomsStatueHide,
-    //logComplete,
-
     updateRoomsStatueNotHide,
-    //logComplete,
-
     updateRoomsStatueNotHideCollision,
-    //logComplete
     addEndStone,
-    logComplete,
-
-    updateEmptyRooms(2),
-
-    invertWorld,
     logComplete,
 
     setStatueOnEndStone,

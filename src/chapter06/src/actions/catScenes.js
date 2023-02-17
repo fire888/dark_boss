@@ -214,7 +214,7 @@ const moveTop = (m) => {
     return new Promise(res => {
         const vals = { phase : 0 }
         new TWEEN.Tween(vals)
-            .to({ phase: 1, }, 1500)
+            .to({ phase: 1, }, 500)
             .onUpdate(() => {
                 m.position.lerpVectors(vStartPos, vEndPos, vals.phase)
             })
