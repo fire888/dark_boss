@@ -19,7 +19,6 @@ export class Studio {
         rendererCon.canvas = document.getElementById(canId)
 
         this._renderer = new THREE.WebGLRenderer(rendererCon)
-        //this._renderer.outputEncoding = THREE.sRGBEncoding;
         //this._renderer.setClearColor(clearColor)
         this._renderer.setClearColor(0x000000)
         this._renderer.setPixelRatio(window.devicePixelRatio)
@@ -37,32 +36,24 @@ export class Studio {
         // this._lightA = null
         {
             const { color, strength } = amb
-            this._lightA = new THREE.AmbientLight(0x455861, .4)
+            this._lightA = new THREE.AmbientLight(0xffffff, .2)
             this._scene.add( this._lightA )
         }
-        // {
-        //     const directionalLight = new THREE.DirectionalLight(0xffffff, .5);
-        //     directionalLight.position.set(.5, .7, -.5)
-        //     this._scene.add(directionalLight);
-        // }
-        // {
-        //     const directionalLight = new THREE.DirectionalLight(0xffffff, .5);
-        //     directionalLight.position.set(-.5, -.3, .5)
-        //     this._scene.add(directionalLight);
-        // }
-        // {
-        //     const directionalLight = new THREE.PointLight(0xffffff, .3);
-        //     directionalLight.position.set(1000, 10, 1000)
-        //     this._scene.add(directionalLight);
-        // }
-        // {
-        //     const directionalLight = new THREE.PointLight(0xffffff, .3);
-        //     directionalLight.position.set(-.5, -.3, .5)
-        //     this._scene.add(directionalLight);
-        // }
+        {
+            const directionalLight = new THREE.DirectionalLight(0xffffff, .6);
+            directionalLight.position.set(1, 1, .5)
+            this._scene.add(directionalLight);
+        }
+        {
+            const directionalLight = new THREE.DirectionalLight(0xffffff, .4);
+            directionalLight.position.set(-1, -.1, -.4)
+            this._scene.add(directionalLight);
+        }
 
 
         this._playerCamera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 5000)
+
+
         this._controlsCamera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 5000)
         this._controlsCamera.position.set(0, 0, 20)
         const controls = new OrbitControls(this._controlsCamera, this._renderer.domElement)
@@ -94,11 +85,10 @@ export class Studio {
             }
 
             if (isPlayerView) {
-                saveFogData = { ...this._scene.fog }
-                this._scene.fog.near = 10000
-                this._scene.fog.far = 20000
+//                saveFogData = { ...this._scene.fog }
+                // this._scene.fog.near = 1000
+                // this._scene.fog.far = 2000
                 isPlayerView = false
-
                 this._renderPass.camera = this._controlsCamera
                 this._playerCamera.getWorldPosition(vec3)
                 this._controlsCamera.position.x = vec3.x + 100
@@ -106,13 +96,9 @@ export class Studio {
                 this._controlsCamera.position.z = vec3.z
                 controls.target.set(vec3.x, vec3.y, vec3.z)
                 controls.update()
-
+            } else {
                 // this._scene.fog.near = saveFogData.near
                 // this._scene.fog.far = saveFogData.far
-
-            } else {
-                this._scene.fog.near = saveFogData.near
-                this._scene.fog.far = saveFogData.far
                 isPlayerView = true
                 this._renderPass.camera = this._playerCamera
             }

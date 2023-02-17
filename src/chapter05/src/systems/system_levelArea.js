@@ -1,41 +1,41 @@
-// import * as THREE from 'three'
-// import {
-//     SIZE_QUADRANT,
-// } from '../constants/constants_elements';
-// import { createMeshGallery } from '../Entities/meshGallery'
-//
-//
-//
-// const createManagerBuilds = (root) => {
-//     const arr = []
-//     for (let i = 0; i < 30; ++i) {
-//         const data = createMeshGallery(root)
-//         const id = 'build_' + i
-//         arr.push({...data, id, inScene: false })
-//     }
-//
-//     return {
-//         getItem: () => {
-//             for (let i = 0; i < arr.length; ++i) {
-//                 if (!arr[i].inScene) {
-//                     arr[i].inScene = true
-//                     return arr[i]
-//                 }
-//             }
-//
-//             return null
-//         },
-//         setFlagAsFree: id => {
-//             for (let i = 0; i < arr.length; ++i) {
-//                 if (arr[i].id === id) {
-//                     arr[i].inScene = false
-//                     break;
-//                 }
-//             }
-//
-//         }
-//     }
-// }
+import * as THREE from 'three'
+import {
+    SIZE_QUADRANT,
+} from '../constants/constants_elements';
+import { createMeshGallery } from '../Entities/meshGallery'
+
+
+
+const createManagerBuilds = (root) => {
+    const arr = []
+    for (let i = 0; i < 30; ++i) {
+        const data = createMeshGallery(root)
+        const id = 'build_' + i
+        arr.push({...data, id, inScene: false })
+    }
+
+    return {
+        getItem: () => {
+            for (let i = 0; i < arr.length; ++i) {
+                if (!arr[i].inScene) {
+                    arr[i].inScene = true
+                    return arr[i]
+                }
+            }
+
+            return null
+        },
+        setFlagAsFree: id => {
+            for (let i = 0; i < arr.length; ++i) {
+                if (arr[i].id === id) {
+                    arr[i].inScene = false
+                    break;
+                }
+            }
+
+        }
+    }
+}
 
 
 
