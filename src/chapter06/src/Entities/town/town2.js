@@ -5,7 +5,7 @@ import {rotateArrY, translateArr, createFace} from "../../helpers/geomHelpers";
 import { createMeshFromBuffer } from '../../helpers/createBufferMesh'
 import { createTown2Scheme } from './town2shemeRooms'
 import { createFloor } from './geometryRoom/geometryFloor'
-// import * as THREE from 'three'
+import * as THREE from 'three'
 
 const y0 = -61
 const white1 = [1, 1, 1]
@@ -37,6 +37,27 @@ export const createTown2 = (root) => {
         floors,
         roomsArr,
     } = createTown2Scheme()
+
+
+    const bigRooms = []
+    //console.log(roomsArr)
+    for (let i = 0; i < roomsArr.length; ++i) {
+        if (
+            Math.abs(roomsArr[i].walls.n.p1[0] - roomsArr[i].walls.n.p0[0]) > 300 &&
+            Math.abs(roomsArr[i].walls.e.p1[1] - roomsArr[i].walls.e.p0[1]) > 300
+        ) {
+            bigRooms.push(roomsArr[i])
+            const m = new THREE.Mesh(
+                new THREE.BoxGeometry(20, 20, 20),
+                root.materials.whiteBasic
+            )
+            m.position.set(roomsArr[i].walls.n.p0[0] + 100, 100, roomsArr[i].walls.n.p0[1] + 100)
+            root.studio.addToScene(m)
+        }
+    }
+    console.log(bigRooms)
+
+
 
     const v = []
     const c = []
@@ -91,7 +112,6 @@ export const createTown2 = (root) => {
 
     /** floor */
     for (let i = 0; i < floors.length; ++i) {
-        //const f = createFloor(floors[i], white1, gr1)
         const f = createFloor(floors[i], white1, [0, 1, 0])
         v.push(...f.v)
         c.push(...f.c)
@@ -123,15 +143,9 @@ export const createTown2 = (root) => {
                     [data.p0[0] + (i + 1) * stepX,    h,     data.p2[1] - (j + 1) * stepZ],
                     [data.p0[0] + i * stepX,          h,     data.p2[1] - (j + 1) * stepZ],
                 )
-
-
                 v.push(...vertex)
                 c.push(...white6)
                 u.push(0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1)
-
-                //v2.push(...vertex)
-                //c2.push(...gr1)
-                //u2.push(0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1)
             }
         }
     }
@@ -149,7 +163,6 @@ export const createTown2 = (root) => {
         v: v2,
         c: c2,
         u: u2,
-        //mat: root.materials.whiteBasic,
         mat: root.materials.iron2,
     })
 
@@ -157,9 +170,6 @@ export const createTown2 = (root) => {
     const meshCollision = createMeshFromBuffer({ v: b })
     meshCollision.visible = false
     root.studio.addToScene(meshCollision)
-
-
-    let inverted = false
 
 
     return {
@@ -174,5 +184,40 @@ export const createTown2 = (root) => {
             root.studio.removeFromScene(mesh)
             root.studio.addToScene(meshBlack)
         },
+        getCoordsForFinalBox: (x, z) => {
+            let dX = 0
+            let dZ = 0
+            let currentR = null
+            for (let i = 0; i < bigRooms.length; ++i) {
+                if (
+                    Math.abs(x - bigRooms[i].walls.n.p0[0]) > dX &&
+                    Math.abs(z - bigRooms[i].walls.n.p0[1]) > dZ
+                ) {
+                    currentR = bigRooms[i]
+                    dX = Math.abs(x - bigRooms[i].walls.n.p0[0])
+                    dZ = Math.abs(z - bigRooms[i].walls.n.p0[1])
+                }
+            }
+
+            if (currentR) {
+                const m = new THREE.Mesh(
+                    new THREE.BoxGeometry(20, 40, 20),
+                    root.materials.whiteBasic
+                )
+                m.position.set(
+                    currentR.walls.n.p0[0] + (currentR.walls.n.p1[0] - currentR.walls.n.p0[0]) / 2,
+                    200,
+                    currentR.walls.e.p0[1] + (currentR.walls.e.p1[1] - currentR.walls.e.p0[1]) / 2)
+                root.studio.addToScene(m)
+
+
+                return {
+                    x: currentR.walls.n.p0[0] + (currentR.walls.n.p1[0] - currentR.walls.n.p0[0]) / 2,
+                    z: currentR.walls.e.p0[1] + (currentR.walls.e.p1[1] - currentR.walls.e.p0[1]) / 2,
+                }
+            }
+
+            return null
+        }
     }
 }

@@ -124,7 +124,6 @@ export async function pipelineToRed (root, P_END) {
     worldReal.toNotWalls()
     system_PlayerMoveOnLevel.toggleFreeze(false)
     studio.changeEnvironment(ENV_RED, { time: 1500 })
-    //await lookPlayerNormal(player.mesh, statue.m)
     await lookPlayerTo(player.mesh, worldReal.endItemObj)
     statue.hide()
     await pause(3000)

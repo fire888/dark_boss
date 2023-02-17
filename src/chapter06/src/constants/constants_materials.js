@@ -86,8 +86,8 @@ export const MATERIALS_CONF = {
     'whiteBasic': {
         mat: 'MeshBasicMaterial',
         props: {
-            color: 0x999999,
-            vertexColors: true,
+            color: 0xffffff,
+            //vertexColors: true,
         }
     },
     'whiteBasic2': {

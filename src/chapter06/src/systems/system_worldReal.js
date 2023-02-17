@@ -64,10 +64,11 @@ export const createWorldReal = (root) => {
         },
         setEndWayPos: (x, y, z) => {
             centralItem.position.x = x
-            centralItem.position.z = z
             centralItem.position.y = y
+            centralItem.position.z = z
             root.studio.addToScene(centralItem)
         },
+        getCoordsForFinalBox: t2.getCoordsForFinalBox,
         centralItemBounds,
         endItemObj,
     }

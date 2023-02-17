@@ -8,7 +8,8 @@ import * as THREE from 'three'
 
 const STATUE_PLAYER_OFFSET = 45
 //const P_END = [1000, -200]
-const P_END = [1500, 1500]
+//const P_END = [1500, 1500]
+let COORD_END = null
 
 const updateEmptyRooms = countMax => root => {
     let count = 0
@@ -218,6 +219,7 @@ const addEndStone = root => {
         statue,
         emitter,
         player,
+        worldReal,
     } = root
 
     const stopperListen = emitter.subscribe('playerMove')(dir => {
@@ -229,7 +231,11 @@ const addEndStone = root => {
         }
 
         stopperListen()
-        pipelineToRed(root, P_END).then(fOnComplete)
+        COORD_END = worldReal.getCoordsForFinalBox(player.mesh.position.x, player.mesh.position.z)
+        if (COORD_END) {
+            pipelineToRed(root, [COORD_END.x, COORD_END.z]).then(fOnComplete)
+        }
+        //pipelineToRed(root, P_END).then(fOnComplete)
     })
 
 
@@ -264,8 +270,9 @@ const setStatueOnEndStone = root => {
 
 
 
-    worldReal.setEndWayPos(P_END[0], -61, P_END[1])
-    statue.m.position.set(P_END[0], -43.5, P_END[1])
+    //const x = worldReal.
+    //worldReal.setEndWayPos(P_END[0], -61, P_END[1])
+    statue.m.position.set(COORD_END.x, -43.5, COORD_END.z)
     system_PlayerMoveOnLevel.addItemToPlayerCollision(worldReal.centralItemBounds)
 
     statue.m.rotation.set(0, 0, 0)
@@ -316,6 +323,9 @@ const logComplete = root => {
 
 export const ARR_STATES = [
     //setStatueOnEndStone,
+    //updateRoomsStatueNotHideCollision,
+    //addEndStone,
+
 
     updateEmptyRooms(6),
     //logComplete,
