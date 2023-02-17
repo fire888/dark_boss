@@ -18,12 +18,12 @@ export const uiState = {
     isShowButtonToggleOpenLocationsList: false,
     isLocationListOpened: false,
 
-    currentLocationOfList: 'location01',
-    locationsList: [
-        'location01',
-        'location02',
-        'location03',
-    ],
+    // currentLocationOfList: 'location01',
+    // locationsList: [
+    //     'location01',
+    //     'location02',
+    //     'location03',
+    // ],
     // "botAnswers":[
     //     {
     //         "q":"What's happening?",

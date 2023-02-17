@@ -45,7 +45,7 @@ export class actions {
         /** prepare ui ******/
         dispatcher.dispatch({
             type: 'CHANGE_INFO_CHAPTER',
-            currentChapterIndex: 4,
+            currentChapterIndex: 5,
         })
         dispatcher.dispatch({
             type: 'ENABLE_CONTROL_SOUND',
