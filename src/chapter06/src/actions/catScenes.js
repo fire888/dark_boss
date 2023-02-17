@@ -80,6 +80,32 @@ const lookPlayerNormal = (p, s) => {
     })
 }
 
+const  lookPlayerTo = (pM, toM) => {
+    const qPlayerSaved = pM.quaternion.clone()
+
+    const obP = new THREE.Object3D()
+    obP.position.copy(pM.position)
+    obP.position.y = 0
+
+    const obS = new THREE.Object3D()
+    obS.position.copy(toM.position)
+    obS.position.y = 0
+    obP.lookAt(obS.position)
+    obP.rotateOnWorldAxis(new THREE.Vector3(0, 1, 0), Math.PI)
+    const qPlayerTarget = obP.quaternion.clone()
+
+    return new Promise(res => {
+        const vals = { phase : 0 }
+        new TWEEN.Tween(vals)
+            .to({ phase: 1, }, 1500)
+            .onUpdate(() => {
+                pM.quaternion.slerpQuaternions(qPlayerSaved, qPlayerTarget, vals.phase)
+            })
+            .onComplete(res)
+            .start()
+    })
+}
+
 
 
 export async function pipelineToRed (root, P_END) {
@@ -92,22 +118,19 @@ export async function pipelineToRed (root, P_END) {
     } = root
 
     system_PlayerMoveOnLevel.toggleFreeze(true)
-    //const P_END = [1500, 1500]
     worldReal.setEndWayPos(P_END[0], -61, P_END[1])
-    //worldReal.addCentralItem()
     studio.changeEnvironment(ENV_RED_NEAR, { time: 1500 })
     await lookTogether(root, player.mesh, statue.m)
-    //statue.toRed()
     worldReal.toNotWalls()
     system_PlayerMoveOnLevel.toggleFreeze(false)
     studio.changeEnvironment(ENV_RED, { time: 1500 })
-    await lookPlayerNormal(player.mesh, statue.m)
+    //await lookPlayerNormal(player.mesh, statue.m)
+    await lookPlayerTo(player.mesh, worldReal.endItemObj)
     statue.hide()
     await pause(3000)
     statue.m.position.y = y
     statue.m.position.y = y
     statue.m.position.z = 6000
-
 }
 
 
