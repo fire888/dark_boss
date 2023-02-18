@@ -9,7 +9,7 @@ import * as THREE from 'three'
 const STATUE_PLAYER_OFFSET = 45
 //const P_END = [1000, -200]
 //const P_END = [1500, 1500]
-let COORD_END = null
+let COORD_END = { x: 0, z: 0 }
 
 const updateEmptyRooms = countMax => root => {
     let count = 0
@@ -213,7 +213,7 @@ const invertWorld = root => {
 const addEndStone = root => {
     let fOnComplete = () => {}
 
-    const NEAR = 25
+    const NEAR = 20
 
     const {
         statue,
@@ -264,9 +264,13 @@ const setStatueOnEndStone = root => {
     } = root
 
 
-    worldReal.toNotWalls()
-    statue.toRed()
-    studio.changeEnvironment(ENV_RED, { time: 100 })
+    setTimeout(() => {
+        worldReal.toNotWalls()
+        statue.toRed()
+        studio.changeEnvironment(ENV_RED, { time: 100 })
+    
+
+    }, 7000)
 
     statue.m.position.set(COORD_END.x, -43.5, COORD_END.z)
     system_PlayerMoveOnLevel.addItemToPlayerCollision(worldReal.centralItemBounds)
@@ -274,9 +278,6 @@ const setStatueOnEndStone = root => {
     statue.m.rotation.x = -Math.PI / 2 - 0.027
     statue.appear()
     const posEnd = new THREE.Vector3()
-
-
-
 
     const stopperListen = emitter.subscribe('playerMove')(dir => {
         worldReal.endItemObj.getWorldPosition(posEnd)

@@ -113,7 +113,7 @@ export const createTown2 = (root) => {
 
         v2.push(...f.v2)
         c2.push(...f.c2)
-        //u2.push(...f.u)
+        u2.push(...f.u2)
     }
 
     /** ceil */

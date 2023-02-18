@@ -39,6 +39,7 @@ export const createFloor = (data, colorW, colorB) => {
 
     const v2 = []
     const c2 = []
+    const u2 = []
 
 
     const offset1 = 30
@@ -88,6 +89,7 @@ export const createFloor = (data, colorW, colorB) => {
         )
     )
     c2.push(...colorW6)
+    u2.push(...uv6)
 
 
 
@@ -111,6 +113,8 @@ export const createFloor = (data, colorW, colorB) => {
         )
     )
     c2.push(...colorW6)
+    u2.push(...uv6)
+
 
 
 
@@ -133,6 +137,9 @@ export const createFloor = (data, colorW, colorB) => {
         )
     )
     c2.push(...colorW6)
+    u2.push(...uv6)
+
+
 
     v.push(
         ...createFace(
@@ -153,6 +160,7 @@ export const createFloor = (data, colorW, colorB) => {
         )
     )
     c2.push(...colorW6)
+    u2.push(...uv6)
 
 
     /** outer white **/
@@ -204,5 +212,9 @@ export const createFloor = (data, colorW, colorB) => {
     //c2.push(...colorB6)
     u.push(...uv6)
 
-    return { v, c, b, u, c2, v2 }
+    return { 
+        v, c, u, 
+        c2, v2, u2,
+        b, 
+    }
 }
