@@ -264,13 +264,10 @@ const setStatueOnEndStone = root => {
     } = root
 
 
-    setTimeout(() => {
-        worldReal.toNotWalls()
-        statue.toRed()
-        studio.changeEnvironment(ENV_RED, { time: 100 })
+    worldReal.toNotWalls()
+    statue.toRed()        
+    studio.changeEnvironment(ENV_RED, { time: 100 })
     
-
-    }, 7000)
 
     statue.m.position.set(COORD_END.x, -43.5, COORD_END.z)
     system_PlayerMoveOnLevel.addItemToPlayerCollision(worldReal.centralItemBounds)
