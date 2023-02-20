@@ -61,19 +61,23 @@ const updateRoomsStatueHide = root => {
     return {
         update: (r) => {
             console.log('room walk - appear hide', count)
+            clearTimeout(timer)
 
-            const coord = getRandomCoordsOfRoom(r)
-            statue.appear(coord.x, coord.z)
-            isCanHide = true
             timer = setTimeout(() => {
-                isCanHide = false
-                statue.hide()
+                const coord = getRandomCoordsOfRoom(r)
+                statue.appear(coord.x, coord.z)
+                isCanHide = true
+                timer = setTimeout(() => {
+                    isCanHide = false
+                    statue.hide()
+                }, Math.random() * 3000)
+
+                ++count
+                if (count === 5) {
+                    stopperListen()
+                    fOnComplete()
+                }
             }, Math.random() * 3000)
-            ++count
-            if (count === 5) {
-                stopperListen()
-                fOnComplete()
-            }
         },
         onComplete: f => {
             fOnComplete = f
@@ -93,6 +97,7 @@ const updateRoomsStatueNotHide = (root) => {
 
     let count = 0
     let fOnComplete = () => {}
+    let timer = null
 
 
     let isCanHide = true
@@ -110,16 +115,20 @@ const updateRoomsStatueNotHide = (root) => {
     return {
         update: (r) => {
             console.log('room walk - appear, hide near', count)
-            const coord = getRandomCoordsOfRoom(r)
-            statue.appear(coord.x, coord.z)
-            isCanHide = true
-            ++count
-            if (count === 5) {
-                statue.hide()
-                setTimeout(() => { statue.m.position.z = 5000}, 2000)
-                stopperListen()
-                fOnComplete()
-            }
+            clearTimeout(timer)
+
+            timer = setTimeout(() => {
+                const coord = getRandomCoordsOfRoom(r)
+                statue.appear(coord.x, coord.z)
+                isCanHide = true
+                ++count
+                if (count === 5) {
+                    statue.hide()
+                    setTimeout(() => { statue.m.position.z = 5000}, 2000)
+                    stopperListen()
+                    fOnComplete()
+                }
+            }, Math.random() * 5000)
         },
         onComplete: f => {
             fOnComplete = f
@@ -138,6 +147,7 @@ const updateRoomsStatueNotHideCollision = root => {
 
     let count = 0
     let fOnComplete = () => {}
+    let timer = null
 
     system_PlayerMoveOnLevel.addItemToPlayerCollision(statue.mCollision)
 
@@ -145,12 +155,15 @@ const updateRoomsStatueNotHideCollision = root => {
     return {
         update: (r) => {
             console.log('room walk - appear hot hide', count)
-            const coord = getRandomCoordsOfRoom(r)
-            statue.appear(coord.x, coord.z)
-            ++count
-            if (count === 5) {
-                fOnComplete()
-            }
+
+            timer = setTimeout(() => {
+                const coord = getRandomCoordsOfRoom(r)
+                statue.appear(coord.x, coord.z)
+                ++count
+                if (count === 5) {
+                    fOnComplete()
+                }
+            }, Math.random() * 5000)
         },
         onComplete: f => {
             fOnComplete = f
