@@ -6,6 +6,7 @@ export const INFO_VOC = {
         'Cube': 'Куб',
         'Endways': 'Напрямик',
         'Machine': 'Машина',
+        'Rooms': 'Комнаты',
         'in production': 'скоро..',
         ' (current)': ' (тут)',
         'Author: ': 'от: ',
