@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import {createTown2} from '../Entities/town/town2'
+import { createTown3 } from '../Entities/town3/town3'
 
 
 export const createWorldReal = (root) => {
@@ -17,14 +17,14 @@ export const createWorldReal = (root) => {
     //groundStart.rotation.x = -Math.PI / 2
     //groundStart.position.y = -62
 
-    const t2 = createTown2(root)
+    const t2 = createTown3(root)
 
 
 
     return {
         addWorld: () => {
             //system_PlayerMoveOnLevel.addItemToPlayerCollision(groundStart)
-            system_PlayerMoveOnLevel.addItemToPlayerCollision(t2.mCollision)
+            //system_PlayerMoveOnLevel.addItemToPlayerCollision(t2.mCollision)
             //studio.addToScene(groundStart)
         },
         removeWorld: () => {
