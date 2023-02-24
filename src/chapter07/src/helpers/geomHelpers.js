@@ -68,8 +68,6 @@ export const createFaceWithSquare = (v1, v2, v3, v4, color1, color2, offset) => 
             [.5, 1],
         ),
 
-
-        
         ...createUv(
             [0, .5],
             [.5, .5],

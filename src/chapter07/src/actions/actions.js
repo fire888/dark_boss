@@ -44,7 +44,8 @@ export class actions {
         root.worldReal = this._worldReal
 
         player.mesh.position.set(0, -40, 0)
-        player.mesh.rotation.y = Math.PI
+        player.mesh.position.set(0, -40, -120)
+        //player.mesh.rotation.y = Math.PI
 
         studio.changeEnvironment(ENV_NORMAL, { time: 1 },)
         player.toggleBlocked(false)

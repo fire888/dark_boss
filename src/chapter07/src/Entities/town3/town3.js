@@ -4,17 +4,19 @@ import * as THREE from 'three'
 import { wall_00_easy } from './geom/wall_00_easy'
 
 
-const materials = [
-    new THREE.MeshBasicMaterial({ color: 0xFF0000, side: THREE.DoubleSide }),
-    new THREE.MeshBasicMaterial({ color: 0x00FF00, side: THREE.DoubleSide  }),
-    new THREE.MeshBasicMaterial({ color: 0x0000FF, side: THREE.DoubleSide  }),
-]
+
 
 
 export const createTown3 = (root) => {
     const {
         walls,
     } = createTown3Scheme()
+
+    const materials = [
+        root.materials.iron2,
+        root.materials.iron,
+        root.materials.whiteBasic,
+    ]
 
     console.log(walls)
 
@@ -28,12 +30,9 @@ export const createTown3 = (root) => {
     const ind02 = []
 
 
-    let count = 0
-
-
     for (let i = 0; i < walls.length; ++i) {
+
         const data = wall_00_easy(walls[i])
-        console.log(data)
 
         vM00.push(...data.vM00)
         const start0 = (ind00[ind00.length - 1] + 1) || 0
@@ -88,7 +87,7 @@ export const createTown3 = (root) => {
 
 
     const mesh = new THREE.Mesh(g, materials)
-    mesh.position.set(0, -50, 200)
+    mesh.position.set(0, -20, -200)
     root.studio.addToScene(mesh)
 
 

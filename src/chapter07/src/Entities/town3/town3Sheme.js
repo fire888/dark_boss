@@ -14,16 +14,29 @@ export const createTown3Scheme = () => {
             return;
         }
         const newPoint = [
-            point[0] + Math.random() * 100 + 50,
-            point[1] + Math.random() * 100 + 50,
+            point[0] + Math.random() * 50 + 50,
+            Math.random() * 50,
         ]
-        walls.push({
+        const leftWall = {
             p0: [...point],
             p1: [...newPoint],
             type: 'wall_00_easy',
             h0: 0,
-            h1: 30,
+            h1: 50,
+        }
+        walls.push(leftWall)
+
+
+        walls.push({
+            p0: [leftWall.p1[0], leftWall.p1[1] + 100],
+            p1: [leftWall.p0[0], leftWall.p0[1] + 100],
+            type: 'wall_00_easy',
+            h0: 0,
+            h1: 50,
         })
+
+
+
         point = newPoint
         iterate(n + 1)
     }
