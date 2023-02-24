@@ -2,13 +2,15 @@
 // const DOOR_SIZE = 30
 // const DOOR_SIZE_FULL = 60
 
+const MAX_N = 10
+
 export const createTown3Scheme = () => {
     const walls = []
 
     let point = [0, 0]
 
     const iterate = n => {
-        if (n > 10) {
+        if (n > MAX_N) {
             return;
         }
         const newPoint = [
