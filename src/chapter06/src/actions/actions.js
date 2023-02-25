@@ -21,6 +21,7 @@ import {
 } from '../constants/constants_elements'
 
 import { startPipeline } from './catScenes'
+import { createParticles } from '../Entities/particles'
 
 
 //const ENV_RED = { fogNear: 0, fogFar: 1000, colorFog: 0x880000, colorBack: 0x010101, backgroundImgKey: null }
@@ -67,6 +68,10 @@ export class actions {
         root.statue = statue
 
 
+        const p = createParticles(root)
+        studio.addToScene(p.m)
+
+
         /** game state */
         const checkerPlayerRoom = createCheckerRoom(root, this._worldReal.roomsArr)
 
@@ -88,10 +93,23 @@ export class actions {
         })
 
 
+
+
+        root.emitter.subscribe('playerMove')(() => {
+            p.setCenterPos(
+                player.mesh.position.x,
+                player.mesh.position.y,
+                player.mesh.position.z,
+            )
+        })
+
+
+
         /** update */
         frameUpdater.on(data => {
             TWEEN.update()
             system_PlayerMoveOnLevel.update(data)
+            p.update()
             studio.drawFrame()
         })
 

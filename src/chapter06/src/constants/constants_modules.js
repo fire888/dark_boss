@@ -34,6 +34,8 @@ import ironAlbedo from '../../../assets/chapter06/concrete/broken_down_concrete2
 import bodySrc from '../../../assets/chapter06/body.obj'
 import endWaySrc from '../../../assets/chapter06/endWay.obj'
 
+import flareSrc from '../../../assets/chapter06/flare.png'
+
 
 
 export const GAME_MODULES = [
@@ -123,6 +125,7 @@ export const GAME_MODULES = [
                 { type: 'obj', path: bodySrc, key: 'bodyModel' },
                 { type: 'img', path: bodyShadow, key: 'bodyDropShadow' },
                 { type: 'obj', path: endWaySrc, key: 'endWayModel' },
+                { type: 'img', path: bodyShadow, key: 'flareSrc' },
             ],
 
     },
