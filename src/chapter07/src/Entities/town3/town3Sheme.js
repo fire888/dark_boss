@@ -4,10 +4,11 @@
 
 const MAX_N = 10
 
-export const createTown3Scheme = () => {
-    const walls = []
 
-    let point = [0, 0]
+const createRoadLeftRightWall = () => {
+    const walls = []
+    let Z = 400
+    let point = [0, Z]
 
     const iterate = n => {
         if (n > MAX_N) {
@@ -15,7 +16,7 @@ export const createTown3Scheme = () => {
         }
         const newPoint = [
             point[0] + Math.random() * 50 + 50,
-            Math.random() * 50,
+            Math.random() * 50 + Z,
         ]
         const leftWall = {
             p0: [...point],
@@ -42,6 +43,178 @@ export const createTown3Scheme = () => {
     }
     iterate(0)
 
+    return walls
+}
+
+export const createTown3Scheme = () => {
+    const OFFSET_W = 6
+    const walls = []
+
+    const roadArr = createRoadLeftRightWall()
+    walls.push(...roadArr)
+
+
+    const createHouse = (center) => {
+        const pNW = [
+            center[0] - Math.random() * 150 + 40,
+            center[1] + Math.random() * 150 + 40,
+        ]
+        const pNE = [
+            center[0] + Math.random() * 150 + 40,
+            center[1] + Math.random() * 150 + 40,
+        ]
+        const pSW = [
+            center[0] - Math.random() * 150 + 40,
+            center[1] - Math.random() * 150 + 40,
+        ]
+        const pSE = [
+            center[0] + Math.random() * 150 + 40,
+            center[1] - Math.random() * 150 + 40,
+        ]
+
+        const arr = []
+        for (let i = 0; i < 3; ++i) {
+            const h0 = i * 50
+            const h1 = i * 50 + 50
+
+            const outerWalls = []
+            const innerWalls = []
+
+            if (i !== 0) {
+                outerWalls.push({
+                    p0: [...pSE],
+                    p1: [...pSW],
+                    type: 'wall_00_easy',
+                    h0,
+                    h1,
+                })
+
+                innerWalls.push(
+                    {
+                        p0: [pSW[0] + OFFSET_W, pSW[1] + OFFSET_W],
+                        p1: [pSE[0] - OFFSET_W, pSE[1] + OFFSET_W],
+                        type: 'wall_00_easy',
+                        h0,
+                        h1,
+                    },
+                )
+            } else {
+                const doorLeftP = [
+                    pSW[0] + 0.4 * (pSE[0] - pSW[0]),
+                    pSW[1] + 0.4 * (pSE[1] - pSW[1]),
+                ]
+                const doorRightP = [
+                    pSW[0] + 0.6 * (pSE[0] - pSW[0]),
+                    pSW[1] + 0.6 * (pSE[1] - pSW[1]),
+                ]
+
+                outerWalls.push(
+                    {
+                        p0: [...pSE],
+                        p1: [...doorRightP],
+                        type: 'wall_00_easy',
+                        h0,
+                        h1,
+                    },
+                    {
+                        p0: [...doorLeftP],
+                        p1: [...pSW],
+                        type: 'wall_00_easy',
+                        h0,
+                        h1,
+                    },
+                )
+
+                const doorLeftP_ = [
+                    pSW[0] + OFFSET_W + 0.4 * (pSE[0] - pSW[0]),
+                    pSW[1] + OFFSET_W + 0.4 * (pSE[1] + OFFSET_W - pSW[1] + OFFSET_W),
+                ]
+                const doorRightP_ = [
+                    pSW[0] + OFFSET_W + 0.6 * (pSE[0] - pSW[0]),
+                    pSW[1] + OFFSET_W + 0.6 * (pSE[1] +  OFFSET_W - pSW[1] + OFFSET_W),
+                ]
+
+                innerWalls.push(
+                    {
+                        p0: [pSW[0] + OFFSET_W, pSW[1] + OFFSET_W],
+                        p1: [...doorLeftP_],
+                        type: 'wall_00_easy',
+                        h0,
+                        h1,
+                    },
+                    {
+                        p0: [...doorRightP_],
+                        p1: [pSE[0] - OFFSET_W, pSE[1] + OFFSET_W],
+                        type: 'wall_00_easy',
+                        h0,
+                        h1,
+                    },
+                )
+            }
+
+
+            /** outer */
+            outerWalls.push(
+                {
+                    p0: [...pNE],
+                    p1: [...pSE],
+                    type: 'wall_00_easy',
+                    h0,
+                    h1,
+                },
+                {
+                    p0: [...pNW],
+                    p1: [...pNE],
+                    type: 'wall_00_easy',
+                    h0,
+                    h1,
+                },
+                {
+                    p0: [...pSW],
+                    p1: [...pNW],
+                    type: 'wall_00_easy',
+                    h0,
+                    h1,
+                },)
+            arr.push(...outerWalls)
+
+
+            /** inner */
+            innerWalls.push(
+                {
+                    p0: [pSE[0] - OFFSET_W, pSE[1] + OFFSET_W],
+                    p1: [pNE[0] - OFFSET_W, pNE[1] - OFFSET_W],
+                    type: 'wall_00_easy',
+                    h0,
+                    h1,
+                },
+                {
+                    p0: [pNE[0] - OFFSET_W, pNE[1] - OFFSET_W],
+                    p1: [pNW[0] - OFFSET_W, pNW[1] - OFFSET_W],
+                    type: 'wall_00_easy',
+                    h0,
+                    h1,
+                },
+                {
+                    p0: [pNW[0] + OFFSET_W, pNW[1] - OFFSET_W],
+                    p1: [pSW[0] + OFFSET_W, pSW[1] + OFFSET_W],
+                    type: 'wall_00_easy',
+                    h0,
+                    h1,
+                },
+            )
+
+            arr.push (...innerWalls)
+        }
+
+        return arr
+    }
+
+
+    for (let i = 0; i < 5; ++i) {
+        const r = createHouse([-300 + i * 300, 0])
+        walls.push(...r)
+    }
 
 
     return {
