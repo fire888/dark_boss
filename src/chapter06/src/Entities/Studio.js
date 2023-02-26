@@ -3,8 +3,8 @@ import * as TWEEN from '@tweenjs/tween.js'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
-import { Saturate } from '../../../_CORE/shaders/saturate'
-import { Saturate2 } from '../../../_CORE/shaders/saturate2'
+//import { Saturate } from '../../../_CORE/shaders/saturate'
+import { Saturate3 } from '../../../_CORE/shaders/saturate3'
 
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
@@ -47,15 +47,8 @@ export class Studio {
         this._composer = new EffectComposer(this._renderer)
         this._renderPass = new RenderPass(this._scene, this._controlsCamera)
         this._composer.addPass(this._renderPass)
-        if (this._root.CONSTANTS.studioConfig.composerAddPass) {
-            if (this._root.CONSTANTS.studioConfig.composerAddPass === 'Saturate') {
-                this._composer.addPass(new ShaderPass(Saturate))
-            }
-            if (this._root.CONSTANTS.studioConfig.composerAddPass === 'Saturate2') {
-                this._composer.addPass(new ShaderPass(Saturate2))
-            }
-        }
-
+        this._shader = new ShaderPass(Saturate3)
+        this._composer.addPass(this._shader)
 
 
         /** toggle view camera to debug by orbitControls */
@@ -127,6 +120,9 @@ export class Studio {
         emitter.subscribe('changeSceneEnvironment')(sceneEnvironment => {
             console.log('deprecated!!', 'studio', 'changeSceneEnvironment', sceneEnvironment)
         })
+
+
+        console.log(this._shader)
     }
 
 
@@ -195,6 +191,10 @@ export class Studio {
             this._backgroundImgKey = backgroundImgKey
             this._scene.background = this._root.assets[backgroundImgKey] || null
         }
+    }
+
+    setEffectStrength (s) {
+        this._shader.uniforms.effect.value = s
     }
 }
 

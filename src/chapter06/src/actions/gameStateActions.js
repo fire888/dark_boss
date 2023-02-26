@@ -5,11 +5,32 @@ import {
     ENV_NORMAL,
 } from '../constants/constants_elements'
 import * as THREE from 'three'
+import * as TWEEN from '@tweenjs/tween.js'
 
 const STATUE_PLAYER_OFFSET = 45
 //const P_END = [1000, -200]
 //const P_END = [1500, 1500]
 let COORD_END = { x: 0, z: 0 }
+
+
+const changeGlobalEffect = (toVal, root, onComplete) => {
+    if (toVal === 1) {
+        root.points.m.visible = true
+    } else {
+        root.points.m.visible = false
+    }
+
+
+    const vals = { phase : toVal === 0 ? 1 : 0  }
+    new TWEEN.Tween(vals)
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .to({ phase: toVal === 0 ? 0 : 1, }, 1000)
+        .onUpdate(() => {
+            root.studio.setEffectStrength(vals.phase)
+        })
+        .onComplete(onComplete)
+        .start()
+}
 
 const updateEmptyRooms = countMax => root => {
     let count = 0
@@ -21,7 +42,7 @@ const updateEmptyRooms = countMax => root => {
 
             ++count
             if (count === countMax) {
-                fOnComplete()
+                changeGlobalEffect(1, root, fOnComplete)
             }
         },
         onComplete: f => {
@@ -63,6 +84,10 @@ const updateRoomsStatueHide = root => {
             console.log('room walk - appear hide', count)
             clearTimeout(timer)
 
+            if (count === 0) {
+                changeGlobalEffect(0, root, () => {})
+            }
+
             timer = setTimeout(() => {
                 const coord = getRandomCoordsOfRoom(r)
                 statue.appear(coord.x, coord.z)
@@ -74,8 +99,10 @@ const updateRoomsStatueHide = root => {
 
                 ++count
                 if (count === 5) {
-                    stopperListen()
-                    fOnComplete()
+                    changeGlobalEffect(1, root, () => {
+                        stopperListen()
+                        fOnComplete()
+                    })
                 }
             }, Math.random() * 3000)
         },
@@ -117,16 +144,22 @@ const updateRoomsStatueNotHide = (root) => {
             console.log('room walk - appear, hide near', count)
             clearTimeout(timer)
 
+            if (count === 1) {
+                changeGlobalEffect(0, root, () => {})
+            }
+
             timer = setTimeout(() => {
                 const coord = getRandomCoordsOfRoom(r)
                 statue.appear(coord.x, coord.z)
                 isCanHide = true
                 ++count
                 if (count === 5) {
-                    statue.hide()
-                    setTimeout(() => { statue.m.position.z = 5000}, 2000)
-                    stopperListen()
-                    fOnComplete()
+                    changeGlobalEffect(1, root, () => {
+                        statue.hide()
+                        setTimeout(() => { statue.m.position.z = 5000}, 2000)
+                        stopperListen()
+                        fOnComplete()
+                    })
                 }
             }, Math.random() * 5000)
         },
@@ -156,12 +189,13 @@ const updateRoomsStatueNotHideCollision = root => {
         update: (r) => {
             console.log('room walk - appear hot hide', count)
 
+
             timer = setTimeout(() => {
                 const coord = getRandomCoordsOfRoom(r)
                 statue.appear(coord.x, coord.z)
                 ++count
                 if (count === 5) {
-                    fOnComplete()
+                        fOnComplete()
                 }
             }, Math.random() * 5000)
         },
@@ -246,7 +280,12 @@ const addEndStone = root => {
         stopperListen()
         COORD_END = worldReal.getCoordsForFinalBox(player.mesh.position.x, player.mesh.position.z)
         if (COORD_END) {
-            pipelineToRed(root, [COORD_END.x, COORD_END.z]).then(fOnComplete)
+            pipelineToRed(root, [COORD_END.x, COORD_END.z]).then(() => {
+                changeGlobalEffect(1, root, () => {
+                    fOnComplete()
+                })
+
+            })
         }
     })
 

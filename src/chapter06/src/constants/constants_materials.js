@@ -19,7 +19,7 @@ export const MATERIALS_CONF = {
             lightMap: 'ironAO',
             lightMapIntensity: .35,
             normalMap: 'ironNormal',
-            normalScale: new THREE.Vector2(.1, .1),
+            normalScale: new THREE.Vector2(.2, .2),
             envMap: 'skyBox3',
             reflectivity: .02,
             shininess: 100,

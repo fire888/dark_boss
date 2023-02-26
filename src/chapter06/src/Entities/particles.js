@@ -11,9 +11,9 @@ export const createParticles = (root) => {
 
     const material = new THREE.PointsMaterial( {
         fog: false,
-        size: 10,
+        size: 35,
         color: 0x000000,
-        //alphaTest: .5,
+        alphaTest: 0.,
         map: root.assets.flareSrc,
         //blending: THREE.AdditiveBlending,
         depthTest: true,

@@ -69,7 +69,9 @@ export class actions {
 
 
         const points = createParticles(root)
+        points.m.visible = false
         studio.addToScene(points.m)
+        root.points = points
 
 
         /** game state */
