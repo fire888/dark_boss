@@ -15,8 +15,10 @@ let COORD_END = { x: 0, z: 0 }
 
 const changeGlobalEffect = (toVal, root, onComplete) => {
     if (toVal === 1) {
+        root.statue.toWhite()
         root.points.m.visible = true
     } else {
+        root.statue.toBlack()
         root.points.m.visible = false
     }
 

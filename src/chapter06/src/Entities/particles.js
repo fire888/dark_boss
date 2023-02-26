@@ -48,9 +48,9 @@ export const createParticles = (root) => {
     const vertices = []
     const colors = []
     for ( let i = 0; i < N; i ++ ) {
-        const x = Math.random() * (W) + centerPoint[0]
-        const y = Math.random() * (H) + centerPoint[1]
-        const z = Math.random() * (Z) + 200 + centerPoint[2]
+        const x = Math.random() * W
+        const y = Math.random() * H + centerPoint[1]
+        const z = Math.random() * Z + 200 + centerPoint[2]
         vertices.push( x, y, z )
 
         colors.push(0, 0, 0, 1)
@@ -90,9 +90,9 @@ export const createParticles = (root) => {
                     data.countIterations--
                     if (data.countIterations === 0) {
                         Object.assign(data, resetSingleData())
-                        geometry.attributes.position.array[i * 3] = Math.random() * (W) //- (W / 2) + centerPoint[0]
-                        geometry.attributes.position.array[i * 3 + 1] = Math.random() * (H) - (H / 2) + centerPoint[1]
-                        geometry.attributes.position.array[i * 3 + 2] = Math.random() * (Z) + 200 //- (Z / 2) + centerPoint[2]
+                        geometry.attributes.position.array[i * 3] = Math.random() * W
+                        geometry.attributes.position.array[i * 3 + 1] = Math.random() * H - H / 2 + centerPoint[1]
+                        geometry.attributes.position.array[i * 3 + 2] = Math.random() * Z + 200
                     }
                 }
             }

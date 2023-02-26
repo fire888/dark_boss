@@ -74,6 +74,16 @@ export const MATERIALS_CONF = {
             specular: 0xff0000,
         },
     },
+    'bodyWhite': {
+        mat: 'MeshPhongMaterial',
+        props: {
+            color: 0xFFFFFF,
+            envMap: 'skyBox3',
+            emissive: 0x222222,
+            reflectivity: .5,
+            specular: 0xffffff,
+        },
+    },
     'bodyShadow': {
         mat: 'MeshBasicMaterial',
         props: {
