@@ -68,8 +68,8 @@ export class actions {
         root.statue = statue
 
 
-        const p = createParticles(root)
-        studio.addToScene(p.m)
+        const points = createParticles(root)
+        studio.addToScene(points.m)
 
 
         /** game state */
@@ -96,7 +96,7 @@ export class actions {
 
 
         root.emitter.subscribe('playerMove')(() => {
-            p.setCenterPos(
+            points.setCenterPos(
                 player.mesh.position.x,
                 player.mesh.position.y,
                 player.mesh.position.z,
@@ -109,7 +109,7 @@ export class actions {
         frameUpdater.on(data => {
             TWEEN.update()
             system_PlayerMoveOnLevel.update(data)
-            p.update()
+            points.update()
             studio.drawFrame()
         })
 
