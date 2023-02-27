@@ -163,5 +163,9 @@ export const createStatue = (root) => {
             mesh.material = root.materials.body
             mesh.material.needsUpdate = true
         },
+        toWhite: () => {
+            mesh.material = root.materials.bodyWhite
+            mesh.material.needsUpdate = true
+        }
     }
 }
