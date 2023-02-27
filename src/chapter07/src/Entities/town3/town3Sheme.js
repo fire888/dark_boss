@@ -2,7 +2,7 @@
 // const DOOR_SIZE = 30
 // const DOOR_SIZE_FULL = 60
 
-const MAX_N = 10
+const MAX_N = 40
 
 
 const createRoadLeftRightWall = () => {
@@ -73,7 +73,7 @@ export const createTown3Scheme = () => {
         ]
 
         const arr = []
-        for (let i = 0; i < 3; ++i) {
+        for (let i = 0; i < Math.floor(Math.random() * 10); ++i) {
             const h0 = i * 50
             const h1 = i * 50 + 50
 
@@ -211,9 +211,11 @@ export const createTown3Scheme = () => {
     }
 
 
-    for (let i = 0; i < 5; ++i) {
-        const r = createHouse([-300 + i * 300, 0])
-        walls.push(...r)
+    for (let i = 0; i < 30; ++i) {
+        for (let j = 0; j < 30; ++j) {
+            const r = createHouse([-300 + i * 300, -300 + j * 300])
+            walls.push(...r)
+        }
     }
 
 
