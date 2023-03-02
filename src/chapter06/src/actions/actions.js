@@ -121,7 +121,7 @@ export class actions {
         ui.showStartButton(() => {
             startPipeline(root).then()
             //player.toggleBlocked(false)
-            //this._root.system_Sound && this._root.system_Sound.playAmbient()
+            this._root.system_Sound && this._root.system_Sound.playAmbient()
         })
     }
 
