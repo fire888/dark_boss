@@ -25,6 +25,12 @@ export class system_Sound {
         //this._soundCar.setVolume(0.09)
 
 
+        this._soundSteps = new THREE.Audio(listener)
+        this._soundSteps.setBuffer(root.assets.soundStep)
+        this._soundSteps.setLoop(true)
+        this._soundSteps.setVolume(0.5)
+
+
         this._isMuted = false
 
         root.emitter.subscribe('toggleSound')(isMute => {
@@ -39,6 +45,7 @@ export class system_Sound {
             }      
         })
 
+        //soundStep
 
         this._timer = null
 
@@ -68,4 +75,24 @@ export class system_Sound {
         this._soundCar.isPlaying && this._soundCar.stop()
         clearTimeout(this._timer)
     }
+
+    startSteps () {
+        if (this._isMuted) {
+            return;
+        } 
+
+        this._soundSteps.play()
+
+    }
+
+    stopSteps () {
+        if (this._isMuted) {
+            return;
+        } 
+
+        this._soundSteps.stop()
+
+    }
+
+
 }

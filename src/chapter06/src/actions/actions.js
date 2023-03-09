@@ -40,6 +40,7 @@ export class actions {
             system_PlayerMoveOnLevel,
             player,
             ui,
+            system_Sound,
         } = this._root
 
 
@@ -96,8 +97,20 @@ export class actions {
 
 
 
+        let isMove = false
+        let timer = null
 
         root.emitter.subscribe('playerMove')(() => {
+            if (!isMove) {
+                isMove = true
+                system_Sound.startSteps()
+            }
+            clearTimeout(timer)
+            timer = setTimeout(() => {
+                isMove = false
+                system_Sound.stopSteps()                    
+            }, 100)
+
             points.setCenterPos(
                 player.mesh.position.x,
                 player.mesh.position.y,
