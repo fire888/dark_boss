@@ -17,23 +17,46 @@ const vSh = /* glsl */`
      gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
 }`
 
+
 const fSh = /* glsl */`
 varying float l;
 void main() {
-    gl_FragColor = vec4(l, l, l, 1.);
+    vec3 c = vec3(l * 0.8, l * .25, l * .8);
+    gl_FragColor = vec4(c, 1.);
+}
+`
+
+const fSh02 = /* glsl */`
+varying float l;
+void main() {
+    vec3 c = vec3(l * 0., l * .5, l * .25);
+    gl_FragColor = vec4(c, 1.);
 }
 `
 
 
 export const createMaterials = root => {
-    const shaderMaterial = new THREE.ShaderMaterial( {
+    const shaderMaterialGray = new THREE.ShaderMaterial( {
         vertexShader: vSh,
         fragmentShader: fSh,
     })
 
+    shaderMaterialGray.flatShading = true
+    shaderMaterialGray.needsUpdate = true
+
+    const shaderMaterialBlack = new THREE.ShaderMaterial( {
+        vertexShader: vSh,
+        fragmentShader: fSh02,
+    })
+
+    shaderMaterialBlack.flatShading = true
+    shaderMaterialBlack.needsUpdate = true
+
     const mats = {
-        shaderMaterial,
+        shaderMaterialGray,
+        shaderMaterialBlack,
     }
+
 
     return mats
 }

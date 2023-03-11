@@ -46,12 +46,16 @@ const createRoadLeftRightWall = () => {
     return walls
 }
 
+
+
+
+
 export const createTown3Scheme = () => {
     const OFFSET_W = 6
     const walls = []
 
-    const roadArr = createRoadLeftRightWall()
-    walls.push(...roadArr)
+    // const roadArr = createRoadLeftRightWall()
+    // walls.push(...roadArr)
 
 
     const createHouse = (center) => {
@@ -73,32 +77,44 @@ export const createTown3Scheme = () => {
         ]
 
         const arr = []
-        for (let i = 0; i < Math.floor(Math.random() * 10); ++i) {
-            const h0 = i * 50
-            const h1 = i * 50 + 50
+        const floorsNum = Math.floor(Math.random() * 10)
+        const height = Math.random() * 30 + 50
+        for (let i = 0; i < floorsNum; ++i) {
+            const h0 = i * height
+            const h1 = i * height + height
 
             const outerWalls = []
             const innerWalls = []
 
-            if (i !== 0) {
-                outerWalls.push({
+            /** cap House */
+            if (i === floorsNum - 1) {
+                arr.push({
+                    type: 'ceiling_00_easy',
                     p0: [...pSE],
                     p1: [...pSW],
-                    type: 'wall_00_easy',
-                    h0,
-                    h1,
+                    p2: [...pNW],
+                    p3: [...pNE],
+                    h0: h1,
                 })
+            }
 
-                innerWalls.push(
-                    {
-                        p0: [pSW[0] + OFFSET_W, pSW[1] + OFFSET_W],
-                        p1: [pSE[0] - OFFSET_W, pSE[1] + OFFSET_W],
-                        type: 'wall_00_easy',
-                        h0,
-                        h1,
-                    },
-                )
-            } else {
+            /** ceil first floor */
+            if (i === 0) {
+                arr.push({
+                    type: 'ceiling_00_easy',
+                    p0: [...pSW],
+                    p1: [...pSE],
+                    p2: [...pNE],
+                    p3: [...pNW],
+                    h0: h1,
+                })
+            }
+
+
+            /** first floor walls inner / outer door ******************************/
+            if (i === 0) {
+                /** DOOR *******/
+
                 const doorLeftP = [
                     pSW[0] + 0.4 * (pSE[0] - pSW[0]),
                     pSW[1] + 0.4 * (pSE[1] - pSW[1]),
@@ -108,6 +124,14 @@ export const createTown3Scheme = () => {
                     pSW[1] + 0.6 * (pSE[1] - pSW[1]),
                 ]
 
+                arr.push({
+                    type: 'door_00_easy',
+                    h0,
+                    h1,
+                    p0: doorLeftP,
+                    p1: doorRightP,
+                })
+
                 outerWalls.push(
                     {
                         p0: [...pSE],
@@ -115,6 +139,7 @@ export const createTown3Scheme = () => {
                         type: 'wall_00_easy',
                         h0,
                         h1,
+                        isCapTop: i === floorsNum - 1,
                     },
                     {
                         p0: [...doorLeftP],
@@ -122,16 +147,17 @@ export const createTown3Scheme = () => {
                         type: 'wall_00_easy',
                         h0,
                         h1,
+                        isCapTop: i === floorsNum - 1,
                     },
                 )
 
                 const doorLeftP_ = [
-                    pSW[0] + OFFSET_W + 0.4 * (pSE[0] - pSW[0]),
-                    pSW[1] + OFFSET_W + 0.4 * (pSE[1] + OFFSET_W - pSW[1] + OFFSET_W),
+                    pSW[0] + 0.4 * (pSE[0] - pSW[0]),
+                    pSW[1] + 0.4 * (pSE[1] + OFFSET_W - pSW[1] + OFFSET_W),
                 ]
                 const doorRightP_ = [
-                    pSW[0] + OFFSET_W + 0.6 * (pSE[0] - pSW[0]),
-                    pSW[1] + OFFSET_W + 0.6 * (pSE[1] +  OFFSET_W - pSW[1] + OFFSET_W),
+                    pSW[0] + 0.6 * (pSE[0] - pSW[0]),
+                    pSW[1] + 0.6 * (pSE[1] +  OFFSET_W - pSW[1] + OFFSET_W),
                 ]
 
                 innerWalls.push(
@@ -150,10 +176,48 @@ export const createTown3Scheme = () => {
                         h1,
                     },
                 )
+
+
+                /** inner first floor */
+                innerWalls.push(
+                    {
+                        p0: [pSE[0] - OFFSET_W, pSE[1] + OFFSET_W],
+                        p1: [pNE[0] - OFFSET_W, pNE[1] - OFFSET_W],
+                        type: 'wall_00_easy',
+                        h0,
+                        h1,
+                    },
+                    {
+                        p0: [pNE[0] - OFFSET_W, pNE[1] - OFFSET_W],
+                        p1: [pNW[0] + OFFSET_W, pNW[1] - OFFSET_W],
+                        type: 'wall_00_easy',
+                        h0,
+                        h1,
+                    },
+                    {
+                        p0: [pNW[0] + OFFSET_W, pNW[1] - OFFSET_W],
+                        p1: [pSW[0] + OFFSET_W, pSW[1] + OFFSET_W],
+                        type: 'wall_00_easy',
+                        h0,
+                        h1,
+                    },
+                )
             }
 
 
-            /** outer */
+            /** normal walls *****************************/
+            if (i !== 0) {
+                /** south not door */
+                outerWalls.push({
+                    p0: [...pSE],
+                    p1: [...pSW],
+                    type: 'wall_00_easy',
+                    h0,
+                    h1,
+                    isCapTop: i === floorsNum - 1,
+                })
+            }
+
             outerWalls.push(
                 {
                     p0: [...pNE],
@@ -161,6 +225,7 @@ export const createTown3Scheme = () => {
                     type: 'wall_00_easy',
                     h0,
                     h1,
+                    isCapTop: i === floorsNum - 1,
                 },
                 {
                     p0: [...pNW],
@@ -168,6 +233,7 @@ export const createTown3Scheme = () => {
                     type: 'wall_00_easy',
                     h0,
                     h1,
+                    isCapTop: i === floorsNum - 1,
                 },
                 {
                     p0: [...pSW],
@@ -175,34 +241,54 @@ export const createTown3Scheme = () => {
                     type: 'wall_00_easy',
                     h0,
                     h1,
-                },)
-            arr.push(...outerWalls)
-
-
-            /** inner */
-            innerWalls.push(
-                {
-                    p0: [pSE[0] - OFFSET_W, pSE[1] + OFFSET_W],
-                    p1: [pNE[0] - OFFSET_W, pNE[1] - OFFSET_W],
-                    type: 'wall_00_easy',
-                    h0,
-                    h1,
-                },
-                {
-                    p0: [pNE[0] - OFFSET_W, pNE[1] - OFFSET_W],
-                    p1: [pNW[0] - OFFSET_W, pNW[1] - OFFSET_W],
-                    type: 'wall_00_easy',
-                    h0,
-                    h1,
-                },
-                {
-                    p0: [pNW[0] + OFFSET_W, pNW[1] - OFFSET_W],
-                    p1: [pSW[0] + OFFSET_W, pSW[1] + OFFSET_W],
-                    type: 'wall_00_easy',
-                    h0,
-                    h1,
+                    isCapTop: i === floorsNum - 1,
                 },
             )
+
+
+            const cornersOuter = [
+                {
+                    p0: [...pNW],
+                    p1: [...pSW],
+                    p2: [...pSE],
+                    type: 'corner_00_easy',
+                    h0,
+                    h1,
+                    isCapTop: i === floorsNum - 1,
+                },
+                {
+                    p0: [...pSW],
+                    p1: [...pSE],
+                    p2: [...pNE],
+                    type: 'corner_00_easy',
+                    h0,
+                    h1,
+                    isCapTop: i === floorsNum - 1,
+                },
+                {
+                    p0: [...pSE],
+                    p1: [...pNE],
+                    p2: [...pNW],
+                    type: 'corner_00_easy',
+                    h0,
+                    h1,
+                    isCapTop: i === floorsNum - 1,
+                },
+                {
+                    p0: [...pNE],
+                    p1: [...pNW],
+                    p2: [...pSW],
+                    type: 'corner_00_easy',
+                    h0,
+                    h1,
+                    isCapTop: i === floorsNum - 1,
+                },
+            ]
+            arr.push(
+                ...outerWalls,
+                ...cornersOuter,
+            )
+
 
             arr.push (...innerWalls)
         }
@@ -211,8 +297,10 @@ export const createTown3Scheme = () => {
     }
 
 
-    for (let i = 0; i < 30; ++i) {
-        for (let j = 0; j < 30; ++j) {
+
+
+    for (let i = 0; i < 10; ++i) {
+        for (let j = 0; j < 10; ++j) {
             const r = createHouse([-300 + i * 300, -300 + j * 300])
             walls.push(...r)
         }

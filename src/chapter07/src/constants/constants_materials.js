@@ -90,6 +90,13 @@ export const MATERIALS_CONF = {
             //vertexColors: true,
         }
     },
+    'greenBasic': {
+        mat: 'MeshBasicMaterial',
+        props: {
+            color: 0x33ff55,
+            //vertexColors: true,
+        }
+    },
     'whiteBasic2': {
         mat: 'MeshBasicMaterial',
         props: {
