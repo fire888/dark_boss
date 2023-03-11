@@ -40,6 +40,7 @@ export class actions {
             system_PlayerMoveOnLevel,
             player,
             ui,
+            system_Sound,
         } = this._root
 
 
@@ -96,8 +97,20 @@ export class actions {
 
 
 
+        let isMove = false
+        let timer = null
 
         root.emitter.subscribe('playerMove')(() => {
+            if (!isMove) {
+                isMove = true
+                system_Sound.startSteps()
+            }
+            clearTimeout(timer)
+            timer = setTimeout(() => {
+                isMove = false
+                system_Sound.stopSteps()                    
+            }, 100)
+
             points.setCenterPos(
                 player.mesh.position.x,
                 player.mesh.position.y,
@@ -121,7 +134,7 @@ export class actions {
         ui.showStartButton(() => {
             startPipeline(root).then()
             //player.toggleBlocked(false)
-            //this._root.system_Sound && this._root.system_Sound.playAmbient()
+            this._root.system_Sound && this._root.system_Sound.playAmbient()
         })
     }
 

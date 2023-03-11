@@ -36,6 +36,10 @@ import endWaySrc from '../../../assets/chapter06/endWay.obj'
 
 import flareSrc from '../../../assets/chapter06/flare.png'
 
+import soundAmbientSrc from '../../../assets/chapter06/ambient_loop.mp3'
+import soundStepsSrc from '../../../assets/chapter06/steps.mp3'
+import { system_Sound } from '../systems/system_Sound'
+
 
 
 export const GAME_MODULES = [
@@ -97,16 +101,16 @@ export const GAME_MODULES = [
         constr: system_PlayerMoveOnLevel,
         initStateKey: 'beforeStartPlay',
     },
-    // {
-    //     key: 'system_Sound',
-    //     constr: system_Sound,
-    //     initStateKey: 'beforeStartPlay',
-    //     assetsToLoad: [
-    //         { type: 'soundMp3', path: soundAmbientSrc, key: 'soundAmbient' },
-    //         //{ type: 'soundMp3', path: carStart, key: 'carStart' },
+    {
+        key: 'system_Sound',
+        constr: system_Sound,
+        initStateKey: 'beforeStartPlay',
+        assetsToLoad: [
+            { type: 'soundMp3', path: soundAmbientSrc, key: 'soundAmbient' },
+            { type: 'soundMp3', path: soundStepsSrc, key: 'soundStep' },
     //         //{ type: 'soundMp3', path: carLoop, key: 'carLoop' },
-    //     ]
-    // },
+        ]
+    },
     {
         key: 'customUi',
         constr: Ui,
