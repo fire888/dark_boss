@@ -1,16 +1,20 @@
 import * as THREE from 'three'
 
+// const vSh = /* glsl */`
+// #define lPos vec3(1., 1., -1.)
+// #define lPos2 vec3(-1., -1., 1.)
+// varying float l;
+// void main() {
+//     l = min(max(dot(lPos, normal), 0.) + max(dot(lPos2, normal), 0.), 0.75);
+//     gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+// }`
+
 const vSh = /* glsl */`
-varying float l;
-void main() {    
-
-    vec4 lPos = vec4(1000., 50., 0., 1.);  
-
-    vec4 eyeCoords = projectionMatrix * modelViewMatrix * vec4(position, 1.);
-    vec3 s = normalize(vec3(lPos - eyeCoords));
-    l = max(dot(s, normal), 0.);
-    
-    gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+#define lPos vec3(1., 1., -1.)
+ varying float l;
+ void main() {    
+     l = min(max(dot(lPos, normal), 0.5), 0.75);
+     gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
 }`
 
 const fSh = /* glsl */`
