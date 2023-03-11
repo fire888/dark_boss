@@ -2,7 +2,7 @@ import { createMeshFromBuffer } from '../../helpers/createBufferMesh'
 import { createTown3Scheme } from './town3Sheme'
 import * as THREE from 'three'
 import { wall_00_easy } from './geom/wall_00_easy'
-
+import { createMaterials } from './materials'
 
 
 
@@ -12,8 +12,12 @@ export const createTown3 = (root) => {
         walls,
     } = createTown3Scheme()
 
+    const m = createMaterials(root)
+
+
     const materials = [
-        root.materials.iron2,
+        //root.materials.iron2,
+        m.shaderMaterial,
         root.materials.iron,
         root.materials.whiteBasic,
     ]
@@ -89,6 +93,9 @@ export const createTown3 = (root) => {
     const mesh = new THREE.Mesh(g, materials)
     mesh.position.set(0, -20, -200)
     root.studio.addToScene(mesh)
+
+
+    console.log(mesh)
 
 
     return {

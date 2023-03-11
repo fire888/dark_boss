@@ -21,17 +21,17 @@ export class Studio {
         this._renderer = new THREE.WebGLRenderer(rendererCon)
         //this._renderer.outputEncoding = THREE.sRGBEncoding;
         //this._renderer.setClearColor(clearColor)
-        this._renderer.setClearColor(0x000000)
+        this._renderer.setClearColor(0x999999)
         this._renderer.setPixelRatio(window.devicePixelRatio)
         this._renderer.setSize(window.innerWidth, window.innerHeight)
 
         this._scene = new THREE.Scene()
 
-        {
-            const { color, fogNear, fogFar, backgroundImgKey } = root.CONSTANTS.studioConfig.sceneEnvironment
-            this._scene.background = assets[backgroundImgKey] || null
-            this._scene.fog = new THREE.Fog(color, fogNear, fogFar)
-        }
+        // {
+        //     const { color, fogNear, fogFar, backgroundImgKey } = root.CONSTANTS.studioConfig.sceneEnvironment
+        //     this._scene.background = assets[backgroundImgKey] || null
+        //     this._scene.fog = new THREE.Fog(color, fogNear, fogFar)
+        // }
 
         this._lightA = new THREE.AmbientLight(0x455861, .4)
         this._scene.add( this._lightA )
@@ -68,9 +68,9 @@ export class Studio {
             }
 
             if (isPlayerView) {
-                saveFogData = { ...this._scene.fog }
-                this._scene.fog.near = 10000
-                this._scene.fog.far = 20000
+                //saveFogData = { ...this._scene.fog }
+                //this._scene.fog.near = 10000
+                //this._scene.fog.far = 20000
                 isPlayerView = false
 
                 this._renderPass.camera = this._controlsCamera
@@ -85,8 +85,8 @@ export class Studio {
                 // this._scene.fog.far = saveFogData.far
 
             } else {
-                this._scene.fog.near = saveFogData.near
-                this._scene.fog.far = saveFogData.far
+                //this._scene.fog.near = saveFogData.near
+                //this._scene.fog.far = saveFogData.far
                 isPlayerView = true
                 this._renderPass.camera = this._playerCamera
             }
@@ -149,52 +149,52 @@ export class Studio {
     /** INTERNAL ****************************************/
 
     _changeFog (sceneEnvironment, conf) {
-        const { fogNear, fogFar, colorFog } = sceneEnvironment
-        if (
-            this._scene.fog.near !== fogNear ||
-            this._scene.fog.far !== fogFar ||
-            this._scene.fog.color !== fogFar
-        ) {
-            const startData = {
-                colorFog: this._scene.fog.color,
-                near: this._scene.fog.near,
-                far: this._scene.fog.far,
-            }
-            const endData = {
-                colorFog: new THREE.Color(colorFog),
-                near: fogNear,
-                far: fogFar,
-            }
-
-            new TWEEN.Tween(startData)
-                .to(endData, (conf && conf.time) || 3000)
-                .onUpdate(() => {
-                    this._scene.fog.color = startData.colorFog
-                    this._scene.fog.near = startData.near
-                    this._scene.fog.far = startData.far
-                    if (conf) {
-                        //                 if (conf.updateAmb) this._lightA.color = startData.color
-                    } else {
-                        //                 this._lightA.color = startData.color
-                    }
-                    //this._renderer.setClearColor(startData.color)
-                })
-                .onComplete(() => {
-                    this._renderer.setClearColor(sceneEnvironment.colorBack)
-                })
-                .start()
-        }
+        // const { fogNear, fogFar, colorFog } = sceneEnvironment
+        // if (
+        //     this._scene.fog.near !== fogNear ||
+        //     this._scene.fog.far !== fogFar ||
+        //     this._scene.fog.color !== fogFar
+        // ) {
+        //     const startData = {
+        //         colorFog: this._scene.fog.color,
+        //         near: this._scene.fog.near,
+        //         far: this._scene.fog.far,
+        //     }
+        //     const endData = {
+        //         colorFog: new THREE.Color(colorFog),
+        //         near: fogNear,
+        //         far: fogFar,
+        //     }
+        //
+        //     new TWEEN.Tween(startData)
+        //         .to(endData, (conf && conf.time) || 3000)
+        //         .onUpdate(() => {
+        //             this._scene.fog.color = startData.colorFog
+        //             this._scene.fog.near = startData.near
+        //             this._scene.fog.far = startData.far
+        //             if (conf) {
+        //                 //                 if (conf.updateAmb) this._lightA.color = startData.color
+        //             } else {
+        //                 //                 this._lightA.color = startData.color
+        //             }
+        //             //this._renderer.setClearColor(startData.color)
+        //         })
+        //         .onComplete(() => {
+        //             this._renderer.setClearColor(sceneEnvironment.colorBack)
+        //         })
+        //         .start()
+        // }
 
     }
 
 
     _changeBackground (sceneEnvironment) {
-        const { backgroundImgKey } = sceneEnvironment
-
-        if (backgroundImgKey !== this._backgroundImgKey) {
-            this._backgroundImgKey = backgroundImgKey
-            this._scene.background = this._root.assets[backgroundImgKey] || null
-        }
+        // const { backgroundImgKey } = sceneEnvironment
+        //
+        // if (backgroundImgKey !== this._backgroundImgKey) {
+        //     this._backgroundImgKey = backgroundImgKey
+        //     this._scene.background = this._root.assets[backgroundImgKey] || null
+        // }
     }
 }
 
