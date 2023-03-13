@@ -64,6 +64,13 @@ export const createStatue = (root) => {
     mesh.add(meshCollision)
     meshCollision.visible = false
 
+    if (
+        root.system_Sound &&
+        root.system_Sound.setMeshStatue
+    ) {
+        root.system_Sound.setMeshStatue(mesh)
+    }
+
 
 
     const arrAppear = [
@@ -139,10 +146,12 @@ export const createStatue = (root) => {
         mCollision: meshCollision,
         update: () => {},
         appear: (x, z) => {
+            root.system_Sound.playStatue()
             stopperTween()
             stopperTween = startIterate('show', arrAppear, x, z,() => {})
         },
         hide: () => {
+            root.system_Sound.playStatue()
             stopperTween()
             stopperTween = startIterate('hide', arrHide, null, null,() => {})
         },

@@ -12,23 +12,15 @@ export class system_Sound {
         this._sound.setVolume(0.35)
 
 
-
-
-        //this._soundCarStart = new THREE.Audio(listener)
-        //this._soundCarStart.setBuffer(root.assets.carStart)
-        //this._soundCarStart.setLoop(false)
-        //this._soundCarStart.setVolume(0.09)
-
-        //this._soundCar = new THREE.Audio(listener)
-        //this._soundCar.setBuffer(root.assets.carLoop)
-        //this._soundCar.setLoop(true)
-        //this._soundCar.setVolume(0.09)
-
-
         this._soundSteps = new THREE.Audio(listener)
         this._soundSteps.setBuffer(root.assets.soundStep)
         this._soundSteps.setLoop(true)
         this._soundSteps.setVolume(0.5)
+
+        this._statue = new THREE.PositionalAudio(listener)
+        this._statue.setBuffer(root.assets.soundStatue)
+        this._statue.setRefDistance(200)
+        this._statue.setVolume(1)
 
 
         this._isMuted = false
@@ -38,8 +30,6 @@ export class system_Sound {
             if (isMute) {
 
                 this._sound.isPlaying && this._sound.stop()
-                //this._soundCarStart.isPlaying && this._soundCarStart.stop()
-                //this._soundCar.isPlaying && this._soundCar.stop()
             } else {
                 this._sound.play()
             }      
@@ -53,27 +43,6 @@ export class system_Sound {
 
     playAmbient () {
         this._sound.play()
-    }
-
-    startCar () {
-        if (this._isMuted) {
-            return;
-        } 
-
-        this._soundCarStart.play()
-        this._timer = setTimeout(() => {
-            this._soundCar.play()
-        }, 4000)
-    }
-
-    stopCar () {
-        if (this._isMuted) {
-            return;
-        } 
-
-        this._soundCarStart.isPlaying && this._soundCarStart.stop()
-        this._soundCar.isPlaying && this._soundCar.stop()
-        clearTimeout(this._timer)
     }
 
     startSteps () {
@@ -91,8 +60,17 @@ export class system_Sound {
         } 
 
         this._soundSteps.stop()
-
     }
 
 
+    setMeshStatue (m) {
+        m.add(this._statue)
+    }
+
+    playStatue () {
+        if (this._isMuted) {
+            return;
+        }
+        this._statue.play()
+    }
 }
