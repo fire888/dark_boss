@@ -12,6 +12,8 @@ import {
     //playerConfig,
 } from '../constants/constants_elements';
 import { createWorldReal } from '../systems/system_worldReal'
+import { createMap } from "../Entities/GeneratorWave/createGeneratorWave";
+import { createMeshByMap } from '../Entities/GeneratorWave/treeModel'
 
 
 export class actions {
@@ -37,11 +39,18 @@ export class actions {
             type: 'ENABLE_CONTROL_SOUND',
         })
 
+        const map = createMap()
+        const m = createMeshByMap(map)
+        console.log("!!", m)
+        root.studio.addToScene(m)
+
+
+
 
         /** world */
-        this._worldReal = createWorldReal(root)
-        this._worldReal.addWorld()
-        root.worldReal = this._worldReal
+        //this._worldReal = createWorldReal(root)
+        //this._worldReal.addWorld()
+        //root.worldReal = this._worldReal
 
         player.mesh.position.set(0, -40, 0)
         player.mesh.position.set(0, -40, -120)
