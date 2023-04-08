@@ -8,9 +8,9 @@ const MAP = []
 
 
 export const createMap = () => {
-    for (let i = 0; i < S_X; ++i) {
+    for (let i = 0; i < S_Z; ++i) {
         const arr = []
-        for (let j = 0; j < S_Z; ++j) {
+        for (let j = 0; j < S_X; ++j) {
             arr.push(10)
         }
         MAP.push(arr)
@@ -45,7 +45,6 @@ export const createMap = () => {
             e = MAP[i + 1][j].w
         }
         const startIndex = Math.floor(Math.random() * ARR_TILES.length)
-        console.log(startIndex)
 
         for (let ind = startIndex; ind < ARR_TILES.length; ++ind) {
             let isCompare = true
@@ -65,24 +64,24 @@ export const createMap = () => {
                 return ARR_TILES[ind]
             }
         }
-        // for (let ind = 0; ind < startIndex; ++ind) {
-        //     let isCompare = true
-        //     if (n && !compareSide(ARR_TILES[ind].n, n)) {
-        //         isCompare = false
-        //     }
-        //     if (s && !compareSide(ARR_TILES[ind].s, s)) {
-        //         isCompare = false
-        //     }
-        //     if (w && !compareSide(ARR_TILES[ind].w, w)) {
-        //         isCompare = false
-        //     }
-        //     if (e && !compareSide(ARR_TILES[ind].e, e)) {
-        //         isCompare = false
-        //     }
-        //     if (isCompare) {
-        //         return ARR_TILES[ind]
-        //     }
-        // }
+        for (let ind = 0; ind < startIndex; ++ind) {
+            let isCompare = true
+            if (n && !compareSide(ARR_TILES[ind].n, n)) {
+                isCompare = false
+            }
+            if (s && !compareSide(ARR_TILES[ind].s, s)) {
+                isCompare = false
+            }
+            if (w && !compareSide(ARR_TILES[ind].w, w)) {
+                isCompare = false
+            }
+            if (e && !compareSide(ARR_TILES[ind].e, e)) {
+                isCompare = false
+            }
+            if (isCompare) {
+                return ARR_TILES[ind]
+            }
+        }
         return 10
     }
 
@@ -102,6 +101,3 @@ export const createMap = () => {
     return MAP
 
 }
-
-//console.log('MAP', MAP)
-
