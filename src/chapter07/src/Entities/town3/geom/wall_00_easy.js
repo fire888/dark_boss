@@ -5,7 +5,7 @@ import {
 } from '../../../helpers/geomHelpers'
 
 export const wall_00_easy = data => {
-    const { p0, p1, h0, h1, } = data
+    const { p0, p1, h0, h1, isCapTop } = data
 
     const h0_0 = h0 + (h1 - h0) * 0.3
     const h0_1 = h1 - (h1 - h0) * 0.3
@@ -81,6 +81,18 @@ export const wall_00_easy = data => {
         0, h1, 5,
     )
     ind00.push(20, 21, 22, 20, 22, 23)
+
+    /** top */
+    if (isCapTop) {
+        vM00.push(
+            0, h1, 5,
+            l, h1, 5,
+            l, h1, 0,
+            0, h1, 0,
+        )
+
+        ind00.push(24, 25, 26, 24, 26, 27)
+    }
 
 
 
