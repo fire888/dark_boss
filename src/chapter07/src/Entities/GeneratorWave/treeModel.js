@@ -1,7 +1,7 @@
 import * as THREE from "three";
 
 
-const S = 45
+const S = 41
 
 const createDataG = (arr, i, j) => {
     const v = []
@@ -9,13 +9,13 @@ const createDataG = (arr, i, j) => {
     for (let ii = 0; ii < arr.length; ++ii) {
         for (let jj = 0; jj < arr[ii].length; ++jj) {
             v.push(
-                i * S + ii * 10, arr[ii][jj] * 5, j * S + jj * 10,
-                i * S + ii * 10 + 10, arr[ii][jj] * 5, j * S + jj * 10,
-                i * S + ii * 10 + 10, arr[ii][jj] * 5, j * S + jj * 10 + 10,
+                j * S + jj * 10, arr[ii][jj] * 5, i * S + ii * 10,
+                j * S + jj * 10 + 10, arr[ii][jj] * 5, i * S + ii * 10,
+                j * S + jj * 10 + 10, arr[ii][jj] * 5, i * S + ii * 10 + 10,
 
-                i * S + ii * 10, arr[ii][jj] * 5, j * S + jj * 10,
-                i * S + ii * 10 + 10, arr[ii][jj] * 5, j * S + 10 + jj * 10,
-                i * S + ii * 10, arr[ii][jj] * 5, j * S + 10 + jj * 10,
+                j * S + jj * 10, arr[ii][jj] * 5, i * S + ii * 10,
+                j * S + jj * 10 + 10, arr[ii][jj] * 5, i * S + 10 + ii * 10,
+                j * S + jj * 10, arr[ii][jj] * 5, i * S + 10 + ii * 10,
             )
 
             const n = arr[ii][jj] / 2 * 0.3 + .4

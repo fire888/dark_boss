@@ -1,7 +1,7 @@
 import {ARR_TILES} from "./TILES";
 
-const S_X = 30
-const S_Z = 30
+const S_Z = 50
+const S_X = 50
 
 const MAP = []
 
@@ -28,21 +28,21 @@ export const createMap = () => {
     }
 
     const fillMap = (i, j) => {
-        let n = 0
-        if (MAP[i][j - 1] && MAP[i][j - 1] !== 10) {
-            n = MAP[i][j - 1].s
-        }
-        let s = 0
-        if (MAP[i][j + 1] && MAP[i][j + 1] !== 10) {
-            s = MAP[i][j - 1].n
-        }
         let w = 0
-        if (MAP[i - 1] && MAP[i - 1][j] && MAP[i - 1][j] !== 10) {
-            w = MAP[i - 1][j].e
+        if (MAP[i][j - 1] && MAP[i][j - 1] !== 10) {
+            w = MAP[i][j - 1].e
         }
         let e = 0
+        if (MAP[i][j + 1] && MAP[i][j + 1] !== 10) {
+            e = MAP[i][j - 1].w
+        }
+        let n = 0
+        if (MAP[i - 1] && MAP[i - 1][j] && MAP[i - 1][j] !== 10) {
+            n = MAP[i - 1][j].s
+        }
+        let s = 0
         if (MAP[i + 1] && MAP[i + 1][j] && MAP[i + 1][j] !== 10) {
-            e = MAP[i + 1][j].w
+            s = MAP[i + 1][j].n
         }
         const startIndex = Math.floor(Math.random() * ARR_TILES.length)
 
