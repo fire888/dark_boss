@@ -26,7 +26,6 @@ const createDataG = (arr, i, j) => {
                 j * S + jj * sS, arr[ii][jj] * H, i * S + sS + ii * sS,
             )
 
-            const n = ((arr[ii][jj] - 1) / 2 * 0.3 + .3)
             const col = colors[arr[ii][jj] - 1]
 
             c.push(
@@ -98,13 +97,11 @@ const createDataG = (arr, i, j) => {
 
 
 export const createMeshByMap = (map) => {
-    //console.log(map)
     const v = []
     const c = []
 
     for (let i = 0; i < map.length; ++i) {
         for (let j = 0; j < map[i].length; ++j) {
-            console.log('!!---', map[i][j])
             if (!map[i][j].tile) {
                 continue;
             }

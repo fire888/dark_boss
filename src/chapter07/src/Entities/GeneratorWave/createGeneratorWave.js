@@ -93,8 +93,6 @@ export const createMap = () => {
         MAP.push(arr)
     }
 
-    //MAP[0][0] = ARR_TILES[0]
-
     const compareSide = (s1, s2) => {
         for (let i = 0; i < s1.length; ++i) {
             if (s1[i] !== s2[i]) {
@@ -105,6 +103,7 @@ export const createMap = () => {
     }
 
     const fillMap = (i, j) => {
+        /** check sides **** */
         let w = 0
         if (MAP[i][j - 1] && MAP[i][j - 1] !== 10) {
             w = MAP[i][j - 1].e
@@ -121,27 +120,21 @@ export const createMap = () => {
         if (MAP[i + 1] && MAP[i + 1][j] && MAP[i + 1][j] !== 10) {
             s = MAP[i + 1][j].n
         }
-        const startIndex = Math.floor(Math.random() * ARR_TILES.length)
 
-        for (let ind = startIndex; ind < ARR_TILES.length; ++ind) {
-            let isCompare = true
-            if (n && !compareSide(ARR_TILES[ind].n, n)) {
-                isCompare = false
-            }
-            if (s && !compareSide(ARR_TILES[ind].s, s)) {
-                isCompare = false
-            }
-            if (w && !compareSide(ARR_TILES[ind].w, w)) {
-                isCompare = false
-            }
-            if (e && !compareSide(ARR_TILES[ind].e, e)) {
-                isCompare = false
-            }
-            if (isCompare) {
-                return ARR_TILES[ind]
-            }
+        /** random start index of tiles */
+        const startIndex = Math.floor(Math.random() * ARR_TILES.length)
+        const arrInd = []
+        for (let ind = startIndex; ind < ARR_TILES.length; ++ ind) {
+            arrInd.push(ind)
         }
-        for (let ind = 0; ind < startIndex; ++ind) {
+        for (let ind = 0; ind < startIndex; ++ ind) {
+            arrInd.push(ind)
+        }
+
+
+        /** check is can tile insert ****/
+        for (let k = 0; k < arrInd.length; ++k) {
+            const ind = arrInd[k]
             let isCompare = true
             if (n && !compareSide(ARR_TILES[ind].n, n)) {
                 isCompare = false
@@ -168,6 +161,15 @@ export const createMap = () => {
     for (let i = 0; i < MAP.length; ++i) {
         for (let j = 0; j < MAP[i].length; ++j) {
             if (MAP[i][j] !== 10 ) {
+                continue;
+            }
+            if (
+                i === 0 ||
+                i === MAP.length - 1 ||
+                j === 0 ||
+                j === MAP[0].length - 1
+            ) {
+                MAP[i][j] = ARR_TILES[1]
                 continue;
             }
             const result = fillMap(i , j)

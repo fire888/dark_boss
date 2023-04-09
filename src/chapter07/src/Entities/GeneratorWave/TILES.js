@@ -1,4 +1,6 @@
-const makeRotatedTiles = src => {
+/** helpers ******/
+
+export const makeRotatedTiles = src => {
     const arr = [src]
     {
         const r = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
@@ -27,12 +29,27 @@ const makeRotatedTiles = src => {
         }
         arr.push(r)
     }
-    console.log(arr)
     return arr
 }
 
 
+export const prepareTile = tile => {
+    const l = tile.length - 1
 
+    const n = [...tile[0]]
+    const s = [...tile[l]]
+    const w = []
+    const e = []
+    for (let i = 0; i < tile.length; ++i) {
+        w.push(tile[i][0])
+        e.push(tile[i][l])
+    }
+    return { tile, n, s, w, e }
+}
+
+
+
+/** make tiles ***/
 
 const G = 3
 const m = 2
@@ -48,8 +65,6 @@ const GROUND = [
 ]
 ARR.push(GROUND)
 
-
-
 const WATER = [
     [_, _, _, _],
     [_, _, _, _],
@@ -58,7 +73,6 @@ const WATER = [
 ]
 ARR.push(WATER)
 
-
 const G_W_1 = [
     [_, m, m, G],
     [_, m, m, G],
@@ -66,8 +80,6 @@ const G_W_1 = [
     [_, m, m, G],
 ]
 ARR.push(...makeRotatedTiles(G_W_1))
-
-
 
 const G_W_2 = [
     [_, m, m, G],
@@ -78,8 +90,6 @@ const G_W_2 = [
 ARR.push(...makeRotatedTiles(G_W_2))
 
 
-
-
 const G_W_3 = [
     [G, m, m, _],
     [m, m, m, _],
@@ -88,21 +98,6 @@ const G_W_3 = [
 ]
 ARR.push(...makeRotatedTiles(G_W_3))
 
-
-
-
-
-const prepareTile = t => {
-    const n = [...t[0]]
-    const s = [...t[3]]
-    const w = []
-    const e = []
-    for (let i = 0; i < t.length; ++i) {
-        w.push(t[i][0])
-        e.push(t[i][3])
-    }
-    return { tile: t, n, s, w, e }
-}
 
 const ARR_TILES = []
 for (let i = 0; i < ARR.length; ++i) {
@@ -117,6 +112,5 @@ const SRC = [
     prepareTile(G_W_2),
     prepareTile(G_W_3),
 ]
-
 
 export { ARR_TILES, SRC }

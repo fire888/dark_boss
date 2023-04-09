@@ -12,8 +12,7 @@ import {
     //playerConfig,
 } from '../constants/constants_elements';
 import { createWorldReal } from '../systems/system_worldReal'
-import { createMap } from "../Entities/GeneratorWave/createGeneratorWave";
-import { createMeshByMap } from '../Entities/GeneratorWave/treeModel'
+import { createWaveMain } from '../Entities/GeneratorWave/WaveMain'
 
 
 export class actions {
@@ -39,29 +38,8 @@ export class actions {
             type: 'ENABLE_CONTROL_SOUND',
         })
 
-        const map = createMap()
-        // const arr = []
-        // for (let i = 0; i < map.length; ++i) {
-        //     for (let j = 0; j < map[i].length; ++j) {
-        //         arr.push([i, j])
-        //     }
-        // }
-        // console.log(arr)
-        // const addSegment = (ind) => {
-        //     if (!arr[ind]) {
-        //         return
-        //     }
-        //     const [i, j] = arr[ind]
-        //     const m = createMeshByMap([[map[i][j]]])
-        //     m.position.set(j * 40, 0, i * 40)
-        //     studio.addToScene(m)
-        //     setTimeout(() => {addSegment(ind + 1)}, 30)
-        // }
+        createWaveMain(root)
 
-        console.log('--', map)
-        const m = createMeshByMap(map)
-        console.log("!!", m)
-        root.studio.addToScene(m)
 
 
 
