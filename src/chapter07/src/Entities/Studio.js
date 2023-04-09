@@ -21,7 +21,7 @@ export class Studio {
         this._renderer = new THREE.WebGLRenderer(rendererCon)
         //this._renderer.outputEncoding = THREE.sRGBEncoding;
         //this._renderer.setClearColor(clearColor)
-        this._renderer.setClearColor(0x000055)
+        this._renderer.setClearColor(0x000000)
         this._renderer.setPixelRatio(window.devicePixelRatio)
         this._renderer.setSize(window.innerWidth, window.innerHeight)
 
@@ -33,28 +33,39 @@ export class Studio {
         //     this._scene.fog = new THREE.Fog(color, fogNear, fogFar)
         // }
 
-        this._lightA = new THREE.AmbientLight(0x455861, .4)
+        //this._lightA = new THREE.AmbientLight(0x455861, 1)
+        this._lightA = new THREE.AmbientLight(0x777777, 2)
         this._scene.add( this._lightA )
+
+        const l = new THREE.DirectionalLight(0xffffff, 2)
+        // l.rotation.x = -1
+        // l.rotation.z = -2
+        this._scene.add(l)
+        const targetObject = new THREE.Object3D();
+        this._scene.add(targetObject);
+        l.target = targetObject;
+        targetObject.position.x = -1
+
 
         this._playerCamera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 5000)
         this._controlsCamera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 5000)
-        this._controlsCamera.position.set(100, 100, 110)
+        this._controlsCamera.position.set(0, 500, -100)
         const controls = new OrbitControls(this._controlsCamera, this._renderer.domElement)
-        controls.target.set(100, 0, 100)
+        controls.target.set(0, 0, 0)
         controls.update();
 
 
-        this._composer = new EffectComposer(this._renderer)
-        this._renderPass = new RenderPass(this._scene, this._controlsCamera)
-        this._composer.addPass(this._renderPass)
-        if (this._root.CONSTANTS.studioConfig.composerAddPass) {
-            if (this._root.CONSTANTS.studioConfig.composerAddPass === 'Saturate') {
-                this._composer.addPass(new ShaderPass(Saturate))
-            }
-            if (this._root.CONSTANTS.studioConfig.composerAddPass === 'Saturate2') {
-                this._composer.addPass(new ShaderPass(Saturate2))
-            }
-        }
+        // this._composer = new EffectComposer(this._renderer)
+        // this._renderPass = new RenderPass(this._scene, this._controlsCamera)
+        // this._composer.addPass(this._renderPass)
+        // if (this._root.CONSTANTS.studioConfig.composerAddPass) {
+        //     if (this._root.CONSTANTS.studioConfig.composerAddPass === 'Saturate') {
+        //         this._composer.addPass(new ShaderPass(Saturate))
+        //     }
+        //     if (this._root.CONSTANTS.studioConfig.composerAddPass === 'Saturate2') {
+        //         this._composer.addPass(new ShaderPass(Saturate2))
+        //     }
+        // }
 
 
 
@@ -71,7 +82,7 @@ export class Studio {
                 //this._scene.fog.far = 20000
                 isPlayerView = false
 
-                this._renderPass.camera = this._controlsCamera
+                //this._renderPass.camera = this._controlsCamera
                 this._playerCamera.getWorldPosition(vec3)
                 //this._controlsCamera.position.x = vec3.x + 100
                 //this._controlsCamera.position.y = vec3.y + 100
@@ -103,7 +114,7 @@ export class Studio {
         const resize = () => {
             const size = { width: window.innerWidth, height: window.innerHeight }
             this._renderer.setSize(size.width, size.height)
-            this._composer.setSize(size.width, size.height)
+            // this._composer.setSize(size.width, size.height)
             if (this._controlsCamera) {
                 this._controlsCamera.aspect = size.width / size.height
                 this._controlsCamera.updateProjectionMatrix()
@@ -124,8 +135,13 @@ export class Studio {
 
 
 
+        let f = 0
         this.drawFrame = () => {
-            this._composer.render(this._scene, this._controlsCamera)
+            f += 0.01
+            l.position.x = Math.sin(f) * 5
+            l.position.z = Math.cos(f) * 5
+            this._renderer.render(this._scene, this._controlsCamera)
+           // this._composer.render(this._scene, this._controlsCamera)
         }
 
 
@@ -145,7 +161,7 @@ export class Studio {
         cam.aspect = window.innerWidth / window.innerHeight
         cam.updateProjectionMatrix()
         this._playerCamera = cam
-        this._renderPass.camera = this._playerCamera
+        //this._renderPass.camera = this._playerCamera
     }
 
 

@@ -1,6 +1,6 @@
-const G = 2
-const m = 1
-const _ = 0
+const G = 3
+const m = 2
+const _ = 1
 
 
 const GROUND = [
