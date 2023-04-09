@@ -34,10 +34,10 @@ export class Studio {
         // }
 
         //this._lightA = new THREE.AmbientLight(0x455861, 1)
-        this._lightA = new THREE.AmbientLight(0x777777, 2)
+        this._lightA = new THREE.AmbientLight(0x777777, 1)
         this._scene.add( this._lightA )
 
-        const l = new THREE.DirectionalLight(0xffffff, 2)
+        const l = new THREE.DirectionalLight(0xffffff, 1)
         // l.rotation.x = -1
         // l.rotation.z = -2
         this._scene.add(l)
@@ -49,7 +49,7 @@ export class Studio {
 
         this._playerCamera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 5000)
         this._controlsCamera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 5000)
-        this._controlsCamera.position.set(0, 500, -100)
+        this._controlsCamera.position.set(0, 500, 100)
         const controls = new OrbitControls(this._controlsCamera, this._renderer.domElement)
         controls.target.set(0, 0, 0)
         controls.update();
@@ -138,8 +138,8 @@ export class Studio {
         let f = 0
         this.drawFrame = () => {
             f += 0.01
-            l.position.x = Math.sin(f) * 5
-            l.position.z = Math.cos(f) * 5
+            //l.position.x = Math.sin(f) * 5
+            //l.position.z = Math.cos(f) * 5
             this._renderer.render(this._scene, this._controlsCamera)
            // this._composer.render(this._scene, this._controlsCamera)
         }

@@ -1,105 +1,3 @@
-const G = 3
-const m = 2
-const _ = 1
-
-
-const GROUND = [
-    [G, G, G, G],
-    [G, m, m, G],
-    [G, m, m, G],
-    [G, G, G, G],
-]
-
-const WATER = [
-    [_, _, _, _],
-    [_, _, _, _],
-    [_, _, _, _],
-    [_, _, _, _],
-]
-
-const G_W_1 = [
-    [_, m, m, G],
-    [_, m, m, G],
-    [_, m, m, G],
-    [_, m, m, G],
-]
-
-const G_W_2 = [
-    [_, m, m, G],
-    [m, m, m, G],
-    [m, m, m, G],
-    [G, G, G, G],
-]
-
-
-const G_W_3 = [
-    [_, m, m, G],
-    [m, m, m, m],
-    [m, m, m, m],
-    [G, m, m, _],
-]
-
-const G_W_4 = [
-    [_, m, m, G],
-    [m, m, m, G],
-    [m, m, m, G],
-    [G, m, m, G],
-]
-
-const G_W_5 = [
-    [G, m, m, G],
-    [m, m, m, G],
-    [m, m, m, G],
-    [_, m, m, G],
-]
-
-
-const G_W_6 = [
-    [G, m, m, _],
-    [m, m, m, _],
-    [m, m, m, _],
-    [_, m, m, _],
-]
-
-const G_W_7 = [
-    [_, m, m, G],
-    [m, m, m, G],
-    [m, m, m, G],
-    [_, m, m, G],
-]
-
-
-const G_W_8 = [
-    [_, _, _, _],
-    [m, m, m, _],
-    [m, m, m, _],
-    [_, m, m, _],
-]
-
-const G_W_9 = [
-    [_, m, m, _],
-    [m, m, m, m],
-    [m, m, m, m],
-    [_, _, _, _],
-]
-
-const G_W_10 = [
-    [G, m, m, G],
-    [m, m, m, m],
-    [m, m, m, m],
-    [G, m, m, _],
-]
-
-
-
-
-
-
-
-
-
-
-
 const makeRotatedTiles = src => {
     const arr = [src]
     {
@@ -115,7 +13,7 @@ const makeRotatedTiles = src => {
         const r = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
         for (let j = 0; j < r.length; ++j) {
             for (let k = 0; k < r[j].length; ++k) {
-                r[k][j] = src[j][k]
+                r[k][j] = src[3 - j][k]
             }
         }
         arr.push(r)
@@ -129,27 +27,69 @@ const makeRotatedTiles = src => {
         }
         arr.push(r)
     }
+    console.log(arr)
     return arr
 }
 
 
+
+
+const G = 3
+const m = 2
+const _ = 1
+
 const ARR = []
-ARR.push(GROUND, GROUND, GROUND, GROUND)
-ARR.push(WATER, WATER, WATER, WATER)
+
+const GROUND = [
+    [G, G, G, G],
+    [G, m, m, G],
+    [G, m, m, G],
+    [G, G, G, G],
+]
+ARR.push(GROUND)
+
+
+
+const WATER = [
+    [_, _, _, _],
+    [_, _, _, _],
+    [_, _, _, _],
+    [_, _, _, _],
+]
+ARR.push(WATER)
+
+
+const G_W_1 = [
+    [_, m, m, G],
+    [_, m, m, G],
+    [_, m, m, G],
+    [_, m, m, G],
+]
 ARR.push(...makeRotatedTiles(G_W_1))
-//ARR.push(...makeRotatedTiles(G_W_1))
+
+
+
+const G_W_2 = [
+    [_, m, m, G],
+    [m, m, m, G],
+    [m, m, m, G],
+    [G, G, G, G],
+]
 ARR.push(...makeRotatedTiles(G_W_2))
+
+
+
+
+const G_W_3 = [
+    [G, m, m, _],
+    [m, m, m, _],
+    [m, m, m, _],
+    [_, _, _, _],
+]
 ARR.push(...makeRotatedTiles(G_W_3))
-ARR.push(...makeRotatedTiles(G_W_4))
-ARR.push(...makeRotatedTiles(G_W_5))
-ARR.push(...makeRotatedTiles(G_W_6))
-ARR.push(...makeRotatedTiles(G_W_7))
-ARR.push(...makeRotatedTiles(G_W_8))
-ARR.push(...makeRotatedTiles(G_W_9))
-ARR.push(...makeRotatedTiles(G_W_10))
 
 
-//ARR.push(GROUND, WATER)
+
 
 
 const prepareTile = t => {
@@ -169,4 +109,14 @@ for (let i = 0; i < ARR.length; ++i) {
     ARR_TILES.push(prepareTile(ARR[i]))
 }
 
-export { ARR_TILES }
+
+const SRC = [
+    prepareTile(GROUND),
+    prepareTile(WATER),
+    prepareTile(G_W_1),
+    prepareTile(G_W_2),
+    prepareTile(G_W_3),
+]
+
+
+export { ARR_TILES, SRC }

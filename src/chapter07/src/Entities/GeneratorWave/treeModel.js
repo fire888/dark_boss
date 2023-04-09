@@ -1,9 +1,15 @@
 import * as THREE from "three";
 
 
-const S = 40
+const S = 41
 const sS = 10
-const H = 80
+const H = 35
+
+const colors = [
+    [.2, 0, .8],
+    [.2, 1, .4],
+    [1, .3, .4],
+]
 
 const createDataG = (arr, i, j) => {
     const v = []
@@ -20,8 +26,8 @@ const createDataG = (arr, i, j) => {
                 j * S + jj * sS, arr[ii][jj] * H, i * S + sS + ii * sS,
             )
 
-            const n = ((arr[ii][jj] - 1) / 2 * 0.3 + .3) * .7
-            const col = [n * 0.5, 0, n * 1.5,]
+            const n = ((arr[ii][jj] - 1) / 2 * 0.3 + .3)
+            const col = colors[arr[ii][jj] - 1]
 
             c.push(
                 ...col,
@@ -34,9 +40,6 @@ const createDataG = (arr, i, j) => {
             )
 
             if (arr[ii + 1]) {
-                // const n2 = (arr[ii + 1][jj] - 1) / 2 * 0.3 + .4
-                // const col = Math.max(n, n2)
-
                 v.push(
                     j * S + jj * sS, arr[ii + 1][jj] * H, i * S + ii * sS + sS,
                     j * S + jj * sS + sS, arr[ii + 1][jj] * H, i * S + ii * sS + sS,
@@ -47,10 +50,8 @@ const createDataG = (arr, i, j) => {
                     j * S + jj * sS, arr[ii][jj] * H, i * S + ii * sS + sS,
                 )
 
-                const n = ((arr[ii][jj] - 1) / 2 * 0.3 + .3) * .7
-                const n2 = ((arr[ii + 1][jj] - 1) / 2 * 0.3 + .4) * .7
-                const col1 = Math.max(n, n2)
-                const col = [col1 * 1.5, 0, col1 * .5,]
+                const ind = Math.max(arr[ii + 1][jj], arr[ii][jj])
+                const col = colors[ind - 1]
 
                 c.push(
                     ...col,
@@ -73,10 +74,8 @@ const createDataG = (arr, i, j) => {
                     j * S + jj * sS + sS, arr[ii][jj] * H, i * S + ii * sS + sS,
                 )
 
-                const n = ((arr[ii][jj] - 1) / 2 * 0.3 + .3) * .7
-                const n2 = ((arr[ii][jj + 1] - 1) / 2 * 0.3 + .4) * .7
-                const col1 = Math.max(n, n2)
-                const col = [col1 * .3, col1 * 1.5, col1 * .5,]
+                const ind = Math.max(arr[ii][jj + 1], arr[ii][jj])
+                const col = colors[ind - 1]
 
                 c.push(
                     ...col,
@@ -105,6 +104,7 @@ export const createMeshByMap = (map) => {
 
     for (let i = 0; i < map.length; ++i) {
         for (let j = 0; j < map[i].length; ++j) {
+            console.log('!!---', map[i][j])
             if (!map[i][j].tile) {
                 continue;
             }

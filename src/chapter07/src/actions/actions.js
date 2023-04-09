@@ -40,27 +40,28 @@ export class actions {
         })
 
         const map = createMap()
-        const arr = []
-        for (let i = 0; i < map.length; ++i) {
-            for (let j = 0; j < map[i].length; ++j) {
-                arr.push([i, j])
-            }
-        }
-        console.log(arr)
-        const addSegment = (ind) => {
-            if (!arr[ind]) {
-                return
-            }
-            const [i, j] = arr[ind]
-            const m = createMeshByMap([[map[i][j]]])
-            m.position.set(j * 40, 0, i * 40)
-            studio.addToScene(m)
-            setTimeout(() => {addSegment(ind + 1)}, 30)
-        }
+        // const arr = []
+        // for (let i = 0; i < map.length; ++i) {
+        //     for (let j = 0; j < map[i].length; ++j) {
+        //         arr.push([i, j])
+        //     }
+        // }
+        // console.log(arr)
+        // const addSegment = (ind) => {
+        //     if (!arr[ind]) {
+        //         return
+        //     }
+        //     const [i, j] = arr[ind]
+        //     const m = createMeshByMap([[map[i][j]]])
+        //     m.position.set(j * 40, 0, i * 40)
+        //     studio.addToScene(m)
+        //     setTimeout(() => {addSegment(ind + 1)}, 30)
+        // }
 
-        //const m = createMeshByMap(map)
-        //console.log("!!", m)
-        //root.studio.addToScene(m)
+        console.log('--', map)
+        const m = createMeshByMap(map)
+        console.log("!!", m)
+        root.studio.addToScene(m)
 
 
 
@@ -91,9 +92,9 @@ export class actions {
             //this._root.system_Sound && this._root.system_Sound.playAmbient()
 
 
-            setTimeout(() => {
-                addSegment(0)
-            }, 5000)
+            // setTimeout(() => {
+            //     addSegment(0)
+            // }, 0)
 
         })
     }
