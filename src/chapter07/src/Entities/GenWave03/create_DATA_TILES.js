@@ -153,6 +153,8 @@ export const createDataTiles = () => {
         DATA_TILES.push(prepareTileSidesData(arrTiles[i]))
     }
 
+    console.log(DATA_TILES)
+
     return DATA_TILES
 }
 

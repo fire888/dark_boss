@@ -1,12 +1,30 @@
-const SIZE = 15
+const SIZE_Y = 40
+const SIZE_Z = 40
+const SIZE_X = 40
 const _ = '.'
 
 
-const iterateGetRandom = (nX, nY, nZ, tiles, onComplete) => {
-    let maxCount = tiles.length * 3
+const iterateGetRandom = (nX, nY, nZ, tiles, level, lZ, lX) => {
+    if (
+        nX === '_._._._._._._._._.' &&
+        nZ === '_._._._._._._._._.' &&
+        nY === '_._._._._._._._._.'
+    ) {
+        return tiles[0]
+    }
 
-    const iterate = () => {
-        const randomTile = tiles[Math.floor(Math.random() * tiles.length)]
+
+    const rInd = Math.floor(Math.random() * tiles.length)
+    const inds = []
+    for (let i = rInd; i < tiles.length; ++i) {
+        inds.push(i)
+    }
+    for (let i = 0; i < rInd; ++i) {
+        inds.push(i)
+    }
+
+    for (let i = 0; i < inds.length; ++i) {
+        const randomTile = tiles[inds[i]]
 
         let isCompare = true
         if (nX && nX !== randomTile.nX) {
@@ -21,15 +39,12 @@ const iterateGetRandom = (nX, nY, nZ, tiles, onComplete) => {
             isCompare = false
         }
 
-        --maxCount
-        if (isCompare || maxCount === 0) {
-            return void onComplete(randomTile)
+        if (isCompare) {
+            return randomTile
         }
-
-        iterate()
     }
 
-    iterate()
+    return tiles[0]
 }
 
 
@@ -40,11 +55,11 @@ export const createMap = tiles => {
 
 
     const arrY = []
-    for (let i = 0; i < SIZE; ++i) {
+    for (let i = 0; i < SIZE_Y; ++i) {
         const arrZ = []
-        for (let j = 0; j < SIZE; ++j) {
+        for (let j = 0; j < SIZE_Z; ++j) {
             const arrX = []
-            for (let k = 0; k < SIZE; ++k) {
+            for (let k = 0; k < SIZE_X; ++k) {
                 arrX.push(_)
             }
             arrZ.push(arrX)
@@ -57,8 +72,6 @@ export const createMap = tiles => {
     for (let i = 0; i < MAP.length; ++i) {
         for (let j = 0; j < MAP[i].length; ++j) {
             for (let k = 0; k < MAP[i][j].length; ++k) {
-                console.log('@@@@@')
-
                 let nX = null
                 let nY = null
                 let nZ = null
@@ -66,33 +79,36 @@ export const createMap = tiles => {
                 if (
                     MAP[i - 1] &&
                     MAP[i - 1][j] &&
-                    MAP[i - 1][j][i] &&
-                    MAP[i - 1][j][i].pY
+                    MAP[i - 1][j][k] &&
+                    MAP[i - 1][j][k].pY
                 ) {
-                    nY = MAP[i - 1][j][i].pY
+                    nY = MAP[i - 1][j][k].pY
                 }
 
                 if (
                     MAP[i] &&
                     MAP[i][j - 1] &&
-                    MAP[i][j - 1][i] &&
-                    MAP[i][j - 1][i].pZ
+                    MAP[i][j - 1][k] &&
+                    MAP[i][j - 1][k].pZ
                 ) {
-                    nZ = MAP[i][j - 1][i].pZ
+                    nZ = MAP[i][j - 1][k].pZ
                 }
 
                 if (
                     MAP[i] &&
                     MAP[i][j] &&
-                    MAP[i][j][i - 1] &&
-                    MAP[i][j][i - 1].pX
+                    MAP[i][j][k - 1] &&
+                    MAP[i][j][k - 1].pX
                 ) {
-                    nX = MAP[i][j][i - 1].pX
+                    nX = MAP[i][j][k - 1].pX
                 }
 
-                iterateGetRandom(nX, nY, nZ, tiles, result => {
-                    MAP[i][j][k] = result
-                })
+                if (i > 0 && (j === 0 || k === 0)) {
+                    MAP[i][j][k] = tiles[0]
+                    continue
+                }
+
+                MAP[i][j][k] = iterateGetRandom(nX, nY, nZ, tiles, i, j, k)
             }
         }
     }

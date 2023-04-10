@@ -5,6 +5,7 @@ import * as THREE from 'three'
 export const createStructure2 = root => {
     const tiles = createDataTiles()
     const dataStructure = createMap(tiles)
+    console.log(dataStructure[0][0][0])
 
     const g = new THREE.BoxGeometry(10, 10, 10)
     const m = new THREE.MeshPhongMaterial({ color: 0xff0000})
