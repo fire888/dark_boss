@@ -4,7 +4,7 @@ const SIZE_X = 20
 const _ = '.'
 
 
-const iterateGetRandom = (nX, nY, nZ, tiles, level, lZ, lX) => {
+const iterateGetRandom = (nX, nY, nZ, tiles) => {
     if (
         nX === '_._._._._._._._._.' &&
         nZ === '_._._._._._._._._.' &&
