@@ -9,7 +9,6 @@ export const createWaveMain = (root) => {
     root.studio.addToScene(m)
 
     const mapF_02 = createFloor2(map)
-    console.log('--', mapF_02)
     const m2 = createMeshByMap02(mapF_02)
     root.studio.addToScene(m2)
 }

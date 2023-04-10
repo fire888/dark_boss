@@ -32,7 +32,6 @@ const compareTiles = (bt, arrSrc) => {
 
 
 export const createFloor2 = (map) => {
-    console.log('ARR_TILES', ARR_TILES)
     const MAP = []
     for (let i = 0; i < map.length; ++i) {
         const arr = []
@@ -43,7 +42,6 @@ export const createFloor2 = (map) => {
         MAP.push(arr)
     }
 
-    console.log('--MAP', MAP)
     // debugger
     // for (let i = 0; i < MAP.length; ++i) {
     //     for (let j = 0; j < MAP[i].length; ++j) {
