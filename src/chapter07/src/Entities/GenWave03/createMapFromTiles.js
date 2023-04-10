@@ -1,4 +1,4 @@
-const SIZE_Y = 20
+const SIZE_Y = 3
 const SIZE_Z = 20
 const SIZE_X = 20
 const _ = '.'
