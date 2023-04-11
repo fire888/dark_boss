@@ -77,6 +77,7 @@ const filterNearTiles = (map, i, j, k, tiles) => {
         map[i - 1][j][k].maybeTilesInds = makeArrayContainsElementsArr1Ar2(map[i - 1][j][k].maybeTilesInds, tileData.idsNY)
     }
     if (map[i + 1]) {
+        console.log(map[i + 1][j][k])
         map[i + 1][j][k].maybeTilesInds = makeArrayContainsElementsArr1Ar2(map[i + 1][j][k].maybeTilesInds, tileData.idsNY)
     }
     if (map[i][j - 1]) {
@@ -181,6 +182,13 @@ const filterNearTiles = (map, i, j, k, tiles) => {
 }
 
 
+const setRandomTileFromExists = (mapItem) => {
+    const r = Math.floor(Math.random() * mapItem.maybeTilesInds.size)
+    mapItem.resultTileIndex = r
+    mapItem.maybeTilesInds.clear()
+}
+
+
 
 
 
@@ -210,10 +218,29 @@ export const createMap = tiles => {
     const MAP = arrY
 
 
-    MAP[0][2][2].resultTileIndex = 2
-    MAP[0][2][2].maybeTilesInds = []
-    filterNearTiles(MAP, 0, 2, 2, tiles)
-    for (let i = 0; i < MAP)
+
+    const startIndY = 0
+    const startIndZ = 2
+    const startIndX = 2
+    //MAP[startIndY][startIndZ][startIndX].resultTileIndex = 2
+    //MAP[startIndY][startIndZ][startIndX].maybeTilesInds = []
+    for (let i = startIndY; i < MAP.length; ++i) {
+        for (let j = startIndZ; j < MAP[i].length; ++j) {
+            for (let k = startIndX; k < MAP[i][j].length; ++k) {
+                if (!MAP[i][j][k].resultTileIndex) {
+                    MAP[i][j][k].resultTileIndex = 2
+                    MAP[i][j][k].maybeTilesInds = []
+                }
+                filterNearTiles(MAP, i, j, k, tiles)
+                console.log('--')
+                if (!MAP[i][j][k + 1]) {
+                    continue
+                }
+                console.log('--!!--')
+                setRandomTileFromExists(MAP[i][j][k + 1])
+            }
+        }
+    }
 
     // console.log('--', MAP[0][2][2])
     // console.log('--1', MAP[0][3][2])
