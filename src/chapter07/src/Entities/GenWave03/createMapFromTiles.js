@@ -213,6 +213,7 @@ export const createMap = tiles => {
     MAP[0][2][2].resultTileIndex = 2
     MAP[0][2][2].maybeTilesInds = []
     filterNearTiles(MAP, 0, 2, 2, tiles)
+    for (let i = 0; i < MAP)
 
     // console.log('--', MAP[0][2][2])
     // console.log('--1', MAP[0][3][2])
