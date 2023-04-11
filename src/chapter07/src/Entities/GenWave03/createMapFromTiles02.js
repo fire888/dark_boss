@@ -14,10 +14,19 @@ const checkNextMapItemIndexes = (map, z, x) => {
         if (map[z] && map[z][x + 1]) {
             nextZ = z
             nextX = x + 1
+
+            return { nextZ, nextX }
+        }
+        if (map[z + 1] && !map[z][x + 1]) {
+            nextZ = z + 1
+            nextX = 0
+
+            return { nextZ, nextX }
         }
     }
 
     return { nextZ, nextX }
+
 }
 
 
@@ -40,6 +49,11 @@ const makeSetContainsElementsSet1Set2 = (s1, s2) => {
 
 const setRandomTileFromExists = (mapItem) => {
     const myArr = Array.from(mapItem.maybeTilesInds)
+    if (!myArr.length) {
+        mapItem.resultTileIndex = null
+        return
+    }
+
     const r = Math.floor(Math.random() * myArr.length)
     mapItem.resultTileIndex = myArr[r]
     mapItem.maybeTilesInds = new Set()
@@ -109,22 +123,22 @@ export const createMap = tiles => {
         const actions = [
             { action: 'choiceFinal', src: [z, x], },
 
-            //{ action: 'filterMaybe', src: [z - 1, x], with: [z, x], mapWithKeyTileSideIds: 'idsNZ' },
-            //{ action: 'filterMaybe', src: [z + 1, x], with: [z, x], mapWithKeyTileSideIds: 'idsPZ' },
-            //{ action: 'filterMaybe', src: [z, x - 1], with: [z, x], mapWithKeyTileSideIds: 'idsNX'  },
+            { action: 'filterMaybe', src: [z - 1, x], with: [z, x], mapWithKeyTileSideIds: 'idsNZ' },
+            { action: 'filterMaybe', src: [z + 1, x], with: [z, x], mapWithKeyTileSideIds: 'idsPZ' },
+            { action: 'filterMaybe', src: [z, x - 1], with: [z, x], mapWithKeyTileSideIds: 'idsNX'  },
             { action: 'filterMaybe', src: [z, x + 1], with: [z, x], mapWithKeyTileSideIds: 'idsPX'  },
 
-            //{ action: 'filterMaybe', src: [z - 1, x - 1], with: [z - 1, x], mapWithKeyTileSideIds: 'idsNX'  },
-            //{ action: 'filterMaybe', src: [z - 1, x - 1], with: [z, x - 1], mapWithKeyTileSideIds: 'idsNZ'  },
+            { action: 'filterMaybe', src: [z - 1, x - 1], with: [z - 1, x], mapWithKeyTileSideIds: 'idsNX'  },
+            { action: 'filterMaybe', src: [z - 1, x - 1], with: [z, x - 1], mapWithKeyTileSideIds: 'idsNZ'  },
 
-            //{ action: 'filterMaybe', src: [z - 1, x + 1], with: [z - 1, x], mapWithKeyTileSideIds: 'idsPX'  },
-            //{ action: 'filterMaybe', src: [z - 1, x + 1], with: [z, x + 1], mapWithKeyTileSideIds: 'idsNZ'  },
+            { action: 'filterMaybe', src: [z - 1, x + 1], with: [z - 1, x], mapWithKeyTileSideIds: 'idsPX'  },
+            { action: 'filterMaybe', src: [z - 1, x + 1], with: [z, x + 1], mapWithKeyTileSideIds: 'idsNZ'  },
 
-            //{ action: 'filterMaybe', src: [z + 1, x + 1], with: [z, x + 1], mapWithKeyTileSideIds: 'idsPZ'  },
-            //{ action: 'filterMaybe', src: [z + 1, x + 1], with: [z + 1, x], mapWithKeyTileSideIds: 'idsPX'  },
+            { action: 'filterMaybe', src: [z + 1, x + 1], with: [z, x + 1], mapWithKeyTileSideIds: 'idsPZ'  },
+            { action: 'filterMaybe', src: [z + 1, x + 1], with: [z + 1, x], mapWithKeyTileSideIds: 'idsPX'  },
 
-            //{ action: 'filterMaybe', src: [z + 1, x - 1], with: [z + 1, x], mapWithKeyTileSideIds: 'idsNX'  },
-            //{ action: 'filterMaybe', src: [z + 1, x - 1], with: [z, x - 1], mapWithKeyTileSideIds: 'idsPZ'  },
+            { action: 'filterMaybe', src: [z + 1, x - 1], with: [z + 1, x], mapWithKeyTileSideIds: 'idsNX'  },
+            { action: 'filterMaybe', src: [z + 1, x - 1], with: [z, x - 1], mapWithKeyTileSideIds: 'idsPZ'  },
         ]
 
         for (let indAction = 0; indAction < actions.length; ++indAction) {
