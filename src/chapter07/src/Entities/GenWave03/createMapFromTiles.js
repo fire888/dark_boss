@@ -61,11 +61,12 @@ const makeArrayContainsElementsArr1Ar2 = (arr1, arr2) => {
     return result
 }
 
-const modifyByNeighborIds = (neighbor, indexes) => {
-    neighbor.maybeTilesInds = makeArrayContainsElementsArr1Ar2(neighbor.maybeTilesInds, indexes)
-}
+// const modifyByNeighborIds = (neighbor, indexes) => {
+//     neighbor.maybeTilesInds = makeArrayContainsElementsArr1Ar2(neighbor.maybeTilesInds, indexes)
+// }
 
-const filterNearTiles = (tileData, map, i, j, k, ) => {
+const filterNearTiles = (map, i, j, k, tiles) => {
+    const tileData = tiles[map[i][j][k].resultTileIndex]
     /** filter
           x
         x s x
@@ -73,33 +74,110 @@ const filterNearTiles = (tileData, map, i, j, k, ) => {
      */
 
     if (map[i - 1]) {
-        modifyByNeighborIds(map[i - 1][j][k], tileData.idsNY)
+        map[i - 1][j][k].maybeTilesInds = makeArrayContainsElementsArr1Ar2(map[i - 1][j][k].maybeTilesInds, tileData.idsNY)
     }
     if (map[i + 1]) {
-        modifyByNeighborIds(map[i + 1][j][k], tileData.idsPY)
+        map[i + 1][j][k].maybeTilesInds = makeArrayContainsElementsArr1Ar2(map[i + 1][j][k].maybeTilesInds, tileData.idsNY)
     }
     if (map[i][j - 1]) {
-        modifyByNeighborIds(map[i][j - 1][k], tileData.idsNZ)
+        map[i][j - 1][k].maybeTilesInds = makeArrayContainsElementsArr1Ar2(map[i][j - 1][k].maybeTilesInds, tileData.idsNZ)
     }
     if (map[i][j + 1]) {
-        modifyByNeighborIds(map[i][j + 1][k], tileData.idsPZ)
+        map[i][j + 1][k].maybeTilesInds = makeArrayContainsElementsArr1Ar2(map[i][j + 1][k].maybeTilesInds, tileData.idsPZ)
     }
     if (map[i][j][k - 1]) {
-        modifyByNeighborIds(map[i][j][k - 1], tileData.idsNX)
+        map[i][j][k - 1].maybeTilesInds = makeArrayContainsElementsArr1Ar2(map[i][j][k - 1].maybeTilesInds, tileData.idsNX)
     }
     if (map[i][j][k + 1]) {
-        modifyByNeighborIds(map[i][j][k + 1], tileData.idsPX)
+        map[i][j][k + 1].maybeTilesInds = makeArrayContainsElementsArr1Ar2(map[i][j][k + 1].maybeTilesInds, tileData.idsPX)
     }
+
 
     /** filter
          x   x
            s
          x   x
      */
-    // PROCESS
+    if (map[i][j + 1]) {
+        if (map[i][j + 1][k - 1]) {
+            const set = new Set()
+            for (const idTitle of map[i][j + 1][k].maybeTilesInds) {
+                const tileData = tiles[idTitle]
+                const filteredSet = makeArrayContainsElementsArr1Ar2(map[i][j + 1][k - 1].maybeTilesInds, tileData.idsNX)
+                for (const item of filteredSet) {
+                    set.add(item)
+                }
+            }
+            for (const idTitle of map[i][j][k - 1].maybeTilesInds) {
+                const tileData = tiles[idTitle]
+                const filteredSet = makeArrayContainsElementsArr1Ar2(map[i][j + 1][k - 1].maybeTilesInds, tileData.idsPZ)
+                for (const item of filteredSet) {
+                    set.add(item)
+                }
+            }
+            map[i][j + 1][k - 1].maybeTilesInds = set
+        }
 
+        if (map[i][j + 1][k + 1]) {
+            const set = new Set()
+            for (const idTitle of map[i][j + 1][k].maybeTilesInds) {
+                const tileData = tiles[idTitle]
+                const filteredSet = makeArrayContainsElementsArr1Ar2(map[i][j + 1][k + 1].maybeTilesInds, tileData.idsPX)
+                for (const item of filteredSet) {
+                    set.add(item)
+                }
+            }
+            for (const idTitle of map[i][j][k + 1].maybeTilesInds) {
+                const tileData = tiles[idTitle]
+                const filteredSet = makeArrayContainsElementsArr1Ar2(map[i][j + 1][k + 1].maybeTilesInds, tileData.idsPZ)
+                for (const item of filteredSet) {
+                    set.add(item)
+                }
+            }
+            map[i][j + 1][k - 1].maybeTilesInds = set
+        }
+    }
 
+    if (map[i][j - 1]) {
+        if (map[i][j - 1][k - 1]) {
+            console.log('&&&&')
+            const set = new Set()
+            for (const idTitle of map[i][j - 1][k].maybeTilesInds) {
+                const tileData = tiles[idTitle]
+                const filteredSet = makeArrayContainsElementsArr1Ar2(map[i][j - 1][k - 1].maybeTilesInds, tileData.idsNX)
+                for (const item of filteredSet) {
+                    set.add(item)
+                }
+            }
+            for (const idTitle of map[i][j][k - 1].maybeTilesInds) {
+                const tileData = tiles[idTitle]
+                const filteredSet = makeArrayContainsElementsArr1Ar2(map[i][j - 1][k - 1].maybeTilesInds, tileData.idsNZ)
+                for (const item of filteredSet) {
+                    set.add(item)
+                }
+            }
+            map[i][j - 1][k - 1].maybeTilesInds = set
+        }
 
+        if (map[i][j - 1][k + 1]) {
+            const set = new Set()
+            for (const idTitle of map[i][j - 1][k].maybeTilesInds) {
+                const tileData = tiles[idTitle]
+                const filteredSet = makeArrayContainsElementsArr1Ar2(map[i][j - 1][k + 1].maybeTilesInds, tileData.idsPX)
+                for (const item of filteredSet) {
+                    set.add(item)
+                }
+            }
+            for (const idTitle of map[i][j][k + 1].maybeTilesInds) {
+                const tileData = tiles[idTitle]
+                const filteredSet = makeArrayContainsElementsArr1Ar2(map[i][j - 1][k + 1].maybeTilesInds, tileData.idsNZ)
+                for (const item of filteredSet) {
+                    set.add(item)
+                }
+            }
+            map[i][j - 1][k + 1].maybeTilesInds = set
+        }
+    }
 }
 
 
@@ -134,8 +212,15 @@ export const createMap = tiles => {
 
     MAP[0][2][2].resultTileIndex = 2
     MAP[0][2][2].maybeTilesInds = []
-    filterNearTiles(tiles[MAP[0][2][2].resultTileIndex], MAP, 0, 2, 2)
-    console.log(MAP)
+    filterNearTiles(MAP, 0, 2, 2, tiles)
+
+    // console.log('--', MAP[0][2][2])
+    // console.log('--1', MAP[0][3][2])
+    // console.log('--2', MAP[0][3][1])
+    // console.log('--3', MAP[0][1][2])
+    // console.log('--4', MAP[0][1][3])
+    // console.log('--5', MAP[0][1][1])
+    // console.log(MAP)
 
 
 
