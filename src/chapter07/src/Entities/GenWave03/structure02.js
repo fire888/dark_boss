@@ -16,7 +16,7 @@ export const createStructure2 = root => {
     const m = new THREE.MeshPhongMaterial({ color: 0xff0000})
 
     const S = 30
-    const sS = S / 3
+    const sS = 10
 
 
     const createM = (t, y, z, x) => {

@@ -1,6 +1,6 @@
-const SIZE_Y = 5
-const SIZE_Z = 20
-const SIZE_X = 20
+const SIZE_Y = 7
+const SIZE_Z = 15
+const SIZE_X = 7
 
 
 
@@ -35,12 +35,9 @@ const checkNextMapItemIndexes = (map, y, z, x) => {
             return { nextY, nextZ, nextX }
         }
     }
-
     return { nextY, nextZ, nextX }
 
 }
-
-
 
 
 
@@ -78,6 +75,9 @@ const doAction = (dataAction, map, tiles) => {
     if (dataAction.action === 'choiceFinal') {
         const [y, z, x] = dataAction.src
         if (map[y] && map[y][z] && map[y][z][x]) {
+            if (Number.isInteger(map[y][z][x].resultTileIndex)) {
+                return;
+            }
             setRandomTileFromExists(map[y][z][x])
         }
     }
@@ -87,18 +87,23 @@ const doAction = (dataAction, map, tiles) => {
         const [yWith, zWith, xWith] = dataAction.with
         const { mapWithKeyTileSideIds } = dataAction
 
-        if (
-            map[y] && map[y][z] && map[y][z][x] &&
-            map[yWith] && map[yWith][zWith] && map[yWith][zWith][xWith]
-        ) {
-            const set = new Set()
-            for (const item of map[yWith][zWith][xWith].maybeTilesInds) {
-                const resultSet = makeSetContainsElementsSet1Set2(tiles[item][mapWithKeyTileSideIds], map[y][z][x].maybeTilesInds)
-                for (const r of resultSet) {
-                    set.add(r)
-                }
+        if (map[y] && map[y][z] && map[y][z][x]) {
+            if (Number.isInteger(map[y][z][x].resultTileIndex)) {
+                return;
             }
-            map[y][z][x].maybeTilesInds = set
+
+            if (
+                map[yWith] && map[yWith][zWith] && map[yWith][zWith][xWith]
+            ) {
+                const set = new Set()
+                for (const item of map[yWith][zWith][xWith].maybeTilesInds) {
+                    const resultSet = makeSetContainsElementsSet1Set2(tiles[item][mapWithKeyTileSideIds], map[y][z][x].maybeTilesInds)
+                    for (const r of resultSet) {
+                        set.add(r)
+                    }
+                }
+                map[y][z][x].maybeTilesInds = set
+            }
         }
     }
 }
@@ -130,9 +135,33 @@ const createMapAndPrepareStartData = (tiles) => {
 }
 
 
+const forceFillSides = (map, indTile = 0) => {
+    for (let i = 0; i < SIZE_Y; ++i) {
+        for (let j = 0; j < SIZE_Z; ++j) {
+            for (let k = 0; k < SIZE_X; ++k) {
+
+                if (
+                    j === 0 ||
+                    j === (SIZE_Z - 1) ||
+                    k === 0 ||
+                    k === (SIZE_X - 1) ||
+                    i === (SIZE_Y - 1)
+                ) {
+                    const s = new Set()
+                    s.add(indTile)
+                    map[i][j][k].resultTileIndex = indTile
+                    map[i][j][k].maybeTilesInds = s
+                }
+            }
+        }
+    }
+}
+
+
 
 export const createMap = tiles => {
     const MAP = createMapAndPrepareStartData(tiles)
+    forceFillSides(MAP)
 
 
     const iterate = (y, z, x) => {
@@ -142,22 +171,51 @@ export const createMap = tiles => {
             /** Z */
             { action: 'filterMaybe', src: [y, z - 1, x], with: [y, z, x], mapWithKeyTileSideIds: 'idsNZ' },
             { action: 'filterMaybe', src: [y, z + 1, x], with: [y, z, x], mapWithKeyTileSideIds: 'idsPZ' },
+
             /** X */
             { action: 'filterMaybe', src: [y, z, x - 1], with: [y, z, x], mapWithKeyTileSideIds: 'idsNX'  },
             { action: 'filterMaybe', src: [y, z, x + 1], with: [y, z, x], mapWithKeyTileSideIds: 'idsPX'  },
 
+            /** Z - 1, X - 1 */
             { action: 'filterMaybe', src: [y, z - 1, x - 1], with: [y, z - 1, x], mapWithKeyTileSideIds: 'idsNX'  },
             { action: 'filterMaybe', src: [y, z - 1, x - 1], with: [y, z, x - 1], mapWithKeyTileSideIds: 'idsNZ'  },
 
+            /** Z - 1, X + 1 */
             { action: 'filterMaybe', src: [y, z - 1, x + 1], with: [y, z - 1, x], mapWithKeyTileSideIds: 'idsPX'  },
             { action: 'filterMaybe', src: [y, z - 1, x + 1], with: [y, z, x + 1], mapWithKeyTileSideIds: 'idsNZ'  },
 
+            /** Z + 1, X + 1 */
             { action: 'filterMaybe', src: [y, z + 1, x + 1], with: [y, z, x + 1], mapWithKeyTileSideIds: 'idsPZ'  },
             { action: 'filterMaybe', src: [y, z + 1, x + 1], with: [y, z + 1, x], mapWithKeyTileSideIds: 'idsPX'  },
 
+            /** Z + 1, X - 1 */
             { action: 'filterMaybe', src: [y, z + 1, x - 1], with: [y, z + 1, x], mapWithKeyTileSideIds: 'idsNX'  },
             { action: 'filterMaybe', src: [y, z + 1, x - 1], with: [y, z, x - 1], mapWithKeyTileSideIds: 'idsPZ'  },
+
+            /** -- Y */
+            //{ action: 'filterMaybe', src: [y - 1, z, x], with: [y, z, x], mapWithKeyTileSideIds: 'idsNY' },
+
+            /** ++Y */
+            { action: 'filterMaybe', src: [y + 1, z, x], with: [y, z, x], mapWithKeyTileSideIds: 'idsPY' },
+
+            { action: 'filterMaybe', src: [y + 1, z - 1, x], with: [y, z - 1, x], mapWithKeyTileSideIds: 'idsPY' },
+            { action: 'filterMaybe', src: [y + 1, z + 1, x], with: [y, z + 1, x], mapWithKeyTileSideIds: 'idsPY' },
+            { action: 'filterMaybe', src: [y + 1, z, x - 1], with: [y, z, x - 1], mapWithKeyTileSideIds: 'idsPY' },
+            { action: 'filterMaybe', src: [y + 1, z, x - 1], with: [y, z, x - 1], mapWithKeyTileSideIds: 'idsPY' },
         ]
+
+        if (z >= SIZE_Z - 3) {
+            actions.push(
+                { action: 'filterMaybe', src: [y, z + 1, x], with: [y, z + 2, x], mapWithKeyTileSideIds: 'idsNZ' }
+            )
+        }
+
+        // if (y >= SIZE_Y - 3) {
+        //     actions.push(
+        //         { action: 'filterMaybe', src: [y, y + 1, x], with: [y, y + 2, x], mapWithKeyTileSideIds: 'idsNY' }
+        //     )
+        // }
+
 
         for (let indAction = 0; indAction < actions.length; ++indAction) {
             doAction(actions[indAction], MAP, tiles)
