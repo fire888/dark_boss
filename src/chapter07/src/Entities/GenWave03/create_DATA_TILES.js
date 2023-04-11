@@ -152,8 +152,9 @@ export const createDataTiles = () => {
     for (let i = 0; i < arrTiles.length; ++i) {
         DATA_TILES.push(prepareTileSidesData(arrTiles[i]))
     }
-
-    console.log(DATA_TILES)
+    for (let i = 0; i < DATA_TILES.length; ++i) {
+        DATA_TILES[i].id = i
+    }
 
     return DATA_TILES
 }

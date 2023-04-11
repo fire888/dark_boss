@@ -1,7 +1,7 @@
 const SIZE_Y = 3
 const SIZE_Z = 20
 const SIZE_X = 20
-const _ = '.'
+//const _ = '.'
 
 
 const iterateGetRandom = (nX, nY, nZ, tiles) => {
@@ -49,18 +49,80 @@ const iterateGetRandom = (nX, nY, nZ, tiles) => {
 
 
 
+const makeArrayContainsElementsArr1Ar2 = (arr1, arr2) => {
+    const result = new Set()
+    for (let i = 0; i < arr1.length; ++i) {
+        for (let j = 0; j < arr2.length; ++j) {
+            if (arr1[i] === arr2[j]) {
+                result.add(arr1[i])
+            }
+        }
+    }
+    return result
+}
+
+const modifyByNeighborIds = (neighbor, indexes) => {
+    neighbor.maybeTilesInds = makeArrayContainsElementsArr1Ar2(neighbor.maybeTilesInds, indexes)
+}
+
+const filterNearTiles = (tileData, map, i, j, k, ) => {
+    /** filter
+          x
+        x s x
+          x
+     */
+
+    if (map[i - 1]) {
+        modifyByNeighborIds(map[i - 1][j][k], tileData.idsNY)
+    }
+    if (map[i + 1]) {
+        modifyByNeighborIds(map[i + 1][j][k], tileData.idsPY)
+    }
+    if (map[i][j - 1]) {
+        modifyByNeighborIds(map[i][j - 1][k], tileData.idsNZ)
+    }
+    if (map[i][j + 1]) {
+        modifyByNeighborIds(map[i][j + 1][k], tileData.idsPZ)
+    }
+    if (map[i][j][k - 1]) {
+        modifyByNeighborIds(map[i][j][k - 1], tileData.idsNX)
+    }
+    if (map[i][j][k + 1]) {
+        modifyByNeighborIds(map[i][j][k + 1], tileData.idsPX)
+    }
+
+    /** filter
+         x   x
+           s
+         x   x
+     */
+    // PROCESS
+
+
+
+}
+
+
+
+
+
+
 
 
 export const createMap = tiles => {
-
-
     const arrY = []
     for (let i = 0; i < SIZE_Y; ++i) {
         const arrZ = []
         for (let j = 0; j < SIZE_Z; ++j) {
             const arrX = []
             for (let k = 0; k < SIZE_X; ++k) {
-                arrX.push(_)
+                arrX.push({
+                    resultTileIndex: null,
+                    maybeTilesInds: tiles.map((item, index) => index),
+                    i,
+                    j,
+                    k,
+                })
             }
             arrZ.push(arrX)
         }
@@ -68,6 +130,15 @@ export const createMap = tiles => {
     }
 
     const MAP = arrY
+
+
+    MAP[0][2][2].resultTileIndex = 2
+    MAP[0][2][2].maybeTilesInds = []
+    filterNearTiles(tiles[MAP[0][2][2].resultTileIndex], MAP, 0, 2, 2)
+    console.log(MAP)
+
+
+
 
     for (let i = 0; i < MAP.length; ++i) {
         for (let j = 0; j < MAP[i].length; ++j) {
@@ -104,16 +175,14 @@ export const createMap = tiles => {
                 }
 
                 if (i > 0 && (j === 0 || k === 0)) {
-                    MAP[i][j][k] = tiles[0]
+                    MAP[i][j][k].test_resultTile = tiles[0]
                     continue
                 }
 
-                MAP[i][j][k] = iterateGetRandom(nX, nY, nZ, tiles, i, j, k)
+                MAP[i][j][k].test_resultTile = iterateGetRandom(nX, nY, nZ, tiles, i, j, k)
             }
         }
     }
-
-    console.log('MAP', MAP)
 
     return MAP
 }

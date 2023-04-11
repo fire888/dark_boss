@@ -1,11 +1,13 @@
 import { createDataTiles } from './create_DATA_TILES'
+import { prepareCacheResults } from './prepareCacheResults'
 import { createMap } from './createMapFromTiles'
 import * as THREE from 'three'
 
 export const createStructure2 = root => {
     const tiles = createDataTiles()
-    const dataStructure = createMap(tiles)
-    console.log(dataStructure[0][0][0])
+    const tilesWithCachesResults = prepareCacheResults(tiles)
+    const dataStructure = createMap(tilesWithCachesResults)
+
 
     const g = new THREE.BoxGeometry(10, 10, 10)
     const m = new THREE.MeshPhongMaterial({ color: 0xff0000})
@@ -14,11 +16,11 @@ export const createStructure2 = root => {
     const sS = S / 3
 
 
-    const createM = (dataStructure, y, z, x) => {
-        for (let i = 0; i < dataStructure.tile.length; ++i) {
-            for (let j = 0; j < dataStructure.tile[i].length; ++j) {
-                for (let k = 0; k < dataStructure.tile[i][j].length; ++k) {
-                    if (dataStructure.tile[i][j][k] === 1) {
+    const createM = (t, y, z, x) => {
+        for (let i = 0; i < t.length; ++i) {
+            for (let j = 0; j < t[i].length; ++j) {
+                for (let k = 0; k < t[i][j].length; ++k) {
+                    if (t[i][j][k] === 1) {
                         const me = new THREE.Mesh(g, m)
                         me.position.set(
                             x * S + k * sS,
@@ -37,7 +39,7 @@ export const createStructure2 = root => {
     for (let i = 0; i < dataStructure.length; ++i) {
         for (let j = 0; j < dataStructure[i].length; ++j) {
             for (let k = 0; k < dataStructure[i][j].length; ++k) {
-                createM(dataStructure[i][j][k], i, j, k)
+                createM(dataStructure[i][j][k].test_resultTile.tile, i, j, k)
             }
         }
     }
