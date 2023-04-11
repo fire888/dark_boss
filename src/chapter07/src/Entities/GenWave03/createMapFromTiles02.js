@@ -94,7 +94,7 @@ const doAction = (dataAction, map, tiles) => {
 
 
 
-const createFillMap = (tiles) => {
+const createMapAndPrepareStartData = (tiles) => {
     const arrZ = []
     for (let j = 0; j < SIZE_Z; ++j) {
         const arrX = []
@@ -116,15 +116,17 @@ const createFillMap = (tiles) => {
 
 
 export const createMap = tiles => {
-    const MAP = createFillMap(tiles)
+    const MAP = createMapAndPrepareStartData(tiles)
 
 
     const iterate = (z, x) => {
         const actions = [
             { action: 'choiceFinal', src: [z, x], },
 
+            /** Z */
             { action: 'filterMaybe', src: [z - 1, x], with: [z, x], mapWithKeyTileSideIds: 'idsNZ' },
             { action: 'filterMaybe', src: [z + 1, x], with: [z, x], mapWithKeyTileSideIds: 'idsPZ' },
+            /** X */
             { action: 'filterMaybe', src: [z, x - 1], with: [z, x], mapWithKeyTileSideIds: 'idsNX'  },
             { action: 'filterMaybe', src: [z, x + 1], with: [z, x], mapWithKeyTileSideIds: 'idsPX'  },
 

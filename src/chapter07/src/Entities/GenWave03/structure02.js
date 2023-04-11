@@ -1,7 +1,8 @@
 import { createDataTiles } from './create_DATA_TILES'
 import { prepareCacheResults } from './prepareCacheResults'
 //import { createMap } from './createMapFromTiles'
-import { createMap } from './createMapFromTiles02'
+//import { createMap } from './createMapFromTiles02'
+import { createMap } from './createMapFromTiles03'
 import * as THREE from 'three'
 
 export const createStructure2 = root => {
