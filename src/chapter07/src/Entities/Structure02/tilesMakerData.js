@@ -1,66 +1,12 @@
-
-const prepareTileSidesData = tile => {
-    let nX = ''
-    let pX = ''
-    let nY = ''
-    let pY = ''
-    let nZ = ''
-    let pZ = ''
-
-    for (let i = 0; i < tile.length; ++i) {
-        for (let j = 0; j < tile.length; ++j) {
-            for (let k = 0; k < tile.length; ++k) {
-                if (i === 0) {
-                    nY += '_' + tile[i][j][k]
-                }
-                if (i === tile.length - 1) {
-                    pY += '_' + tile[i][j][k]
-                }
-                if (j === 0) {
-                    nZ += '_' + tile[i][j][k]
-                }
-                if (j === tile[0].length - 1) {
-                    pZ += '_' + tile[i][j][k]
-                }
-                if (k === 0) {
-                    nX += '_' + tile[i][j][k]
-                }
-                if (k === tile[0][0].length - 1) {
-                    pX += '_' + tile[i][j][k]
-                }
-            }
-        }
-    }
-    return { tile, nX, pX,nY, pY, nZ, pZ }
-}
-
-
-const createRotatedYCopy = matrix => {
-    const arr = matrix[0].map((val, index) => matrix.map(row => row[index]).reverse())
-    return arr
-}
-
-const makeRotated360  = tile => {
-    const result = [tile]
-
-    /** rotate */
-    for (let i = 0; i < 3; ++i) {
-        const prev = result[result.length - 1]
-        const arr = []
-        for (let i = 0; i < prev.length; ++i) {
-            const rotated = createRotatedYCopy(prev[i])
-            arr.push(rotated)
-        }
-        result.push(arr)
-    }
-    return result
-}
-
-
+import { makeRotated360 } from './helpersSortArray'
+import {
+    prepareTileSidesData,
+    prepareCacheSidesResults,
+} from './tilesHelper'
 
 
 export const createDataTiles = () => {
-    const _ = '.'
+    const _ = '_'
     const S = 1
 
     const arrTiles = []
@@ -153,7 +99,7 @@ export const createDataTiles = () => {
     const _T = [
         [
             [_, _, _],
-            [_, S, _],
+            [_, _, _],
             [_, _, _],
         ],
         [
@@ -163,14 +109,12 @@ export const createDataTiles = () => {
         ],
         [
             [_, _, _],
-            [_, _, _],
+            [_, S, _],
             [_, _, _],
         ],
     ]
     const G = makeRotated360(_T)
     arrTiles.push(...G)
-
-
 
 
 
@@ -182,6 +126,8 @@ export const createDataTiles = () => {
     for (let i = 0; i < DATA_TILES.length; ++i) {
         DATA_TILES[i].id = i
     }
+    prepareCacheSidesResults(DATA_TILES)
+
 
     return DATA_TILES
 }

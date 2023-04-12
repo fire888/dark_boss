@@ -12,8 +12,8 @@ import {
     //playerConfig,
 } from '../constants/constants_elements';
 //import { createWorldReal } from '../systems/system_worldReal'
-import { createWaveMain } from '../Entities/GeneratorWave/WaveMain'
-import { createStructure2 } from '../Entities/GenWave03/structure02'
+//import { createWaveMain } from '../Entities/Structure01/WaveMain'
+import { createStructure2 } from '../Entities/Structure02/structure02'
 
 
 export class actions {
