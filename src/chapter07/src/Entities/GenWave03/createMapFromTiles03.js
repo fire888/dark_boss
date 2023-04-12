@@ -1,5 +1,5 @@
 const SIZE_Y = 7
-const SIZE_Z = 15
+const SIZE_Z = 7
 const SIZE_X = 7
 
 

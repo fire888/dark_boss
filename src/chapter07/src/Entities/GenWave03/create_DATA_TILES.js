@@ -63,6 +63,8 @@ export const createDataTiles = () => {
     const _ = '.'
     const S = 1
 
+    const arrTiles = []
+
 
     const E = [
         [
@@ -81,6 +83,8 @@ export const createDataTiles = () => {
             [_, _, _],
         ],
     ]
+    arrTiles.push(E)
+
 
 
     const _L = [
@@ -100,6 +104,9 @@ export const createDataTiles = () => {
             [_, _, _],
         ],
     ]
+    const dataL = makeRotated360(_L)
+    arrTiles.push(...dataL)
+
 
     const _L_B = [
         [
@@ -118,6 +125,9 @@ export const createDataTiles = () => {
             [_, _, _],
         ],
     ]
+    const dataL_B = makeRotated360(_L_B)
+    arrTiles.push(...dataL_B)
+
 
     const _L_T = [
         [
@@ -136,17 +146,34 @@ export const createDataTiles = () => {
             [_, _, _],
         ],
     ]
-
-    const dataL = makeRotated360(_L)
-    const dataL_B = makeRotated360(_L_B)
     const dataL_T = makeRotated360(_L_T)
+    arrTiles.push(...dataL_T)
 
-    const arrTiles = [
-        E,
-        ...dataL,
-        ...dataL_B,
-        ...dataL_T,
+
+    const _T = [
+        [
+            [_, _, _],
+            [_, S, _],
+            [_, _, _],
+        ],
+        [
+            [_, S, _],
+            [_, S, _],
+            [_, S, _],
+        ],
+        [
+            [_, _, _],
+            [_, _, _],
+            [_, _, _],
+        ],
     ]
+    const G = makeRotated360(_T)
+    arrTiles.push(...G)
+
+
+
+
+
 
     const DATA_TILES = []
     for (let i = 0; i < arrTiles.length; ++i) {

@@ -34,7 +34,7 @@ export class Studio {
         // }
 
         //this._lightA = new THREE.AmbientLight(0x455861, 1)
-        this._lightA = new THREE.AmbientLight(0x777777, 1)
+        this._lightA = new THREE.AmbientLight(0x777777, .7)
         this._scene.add( this._lightA )
 
         const l = new THREE.DirectionalLight(0xffffff, 1)
