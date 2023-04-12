@@ -11,8 +11,8 @@ import {
     //SIZE_QUADRANT,
     //playerConfig,
 } from '../constants/constants_elements';
-//import { createWorldReal } from '../systems/system_worldReal'
-//import { createWaveMain } from '../Entities/Structure01/WaveMain'
+import { createWorldReal } from '../systems/system_worldReal'
+import { createWaveMain } from '../Entities/Structure01/WaveMain'
 import { createStructure2 } from '../Entities/Structure02/structure02'
 
 
@@ -44,7 +44,7 @@ export class actions {
         ///////////////////////////////////////////////////
         ///////////////////////////////////////////////////
         ///////////////////////////////////////////////////
-        //createWaveMain(root)
+        createWaveMain(root)
 
         ////////////////////////////////////////////////////
         ////////////////////////////////////////////////////
@@ -58,9 +58,9 @@ export class actions {
 
 
         /** world */
-        //this._worldReal = createWorldReal(root)
-        //this._worldReal.addWorld()
-        //root.worldReal = this._worldReal
+        this._worldReal = createWorldReal(root)
+        this._worldReal.addWorld()
+        root.worldReal = this._worldReal
 
         player.mesh.position.set(0, -40, 0)
         player.mesh.position.set(0, -40, -120)
