@@ -13,7 +13,7 @@ export const map3SArtifactsFilter = (map) => {
         if (!map.items[i] || !map.items[i][j] || !map.items[i][j][k] || !map.items[i][j][k].tileData) {
             return;
         }
-        console.log('!!!', i, j, k, map.items)
+
         if (map.items[i][j][k].noArtifactsChecked) {
             return;
         }
@@ -43,8 +43,6 @@ export const map3SArtifactsFilter = (map) => {
         if (srcDir !== 'pX' && isConnect(item.tileData, 'pX')) {
             checkNextInBranch(i, j, k + 1, 'nX')
         }
-
-
     }
 
 
