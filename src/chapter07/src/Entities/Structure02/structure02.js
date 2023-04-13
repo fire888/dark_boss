@@ -1,6 +1,7 @@
 import { createDataTiles } from './tilesMakerData'
-import { createMap } from './map3sCreaterFromTiles'
+import { createMap } from './map3SCreaterFromTiles'
 import { createrMesh } from './threeMesh'
+
 
 export const createStructure2 = root => {
     const tiles = createDataTiles()

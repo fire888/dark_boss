@@ -1,6 +1,6 @@
-const SIZE_Y = 12
-const SIZE_Z = 7
-const SIZE_X = 7
+const SIZE_Y = 5
+const SIZE_Z = 15
+const SIZE_X = 15
 
 
 let directions = ['pX', 'nZ', 'nX', 'pZ']

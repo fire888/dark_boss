@@ -1,5 +1,6 @@
 import { createMap3X } from './map3SHelper'
 import { makeSetContainsElementsSet1Set2 } from './helpersSortArray'
+import { map3SArtifactsFilter } from './map3SArtefactsFilter'
 
 
 const choiceFinalTileFromExists = (dataAction, map) => {
@@ -136,6 +137,7 @@ export const createMap = tiles => {
     iterate(0, 0, 0)
 
 
+
     /** fill results by data */
     map.iterateAll(item => {
         if (Number.isInteger(item.resultTileIndex)) {
@@ -143,6 +145,7 @@ export const createMap = tiles => {
         }
     })
 
+    map3SArtifactsFilter(map, tiles)
 
     return map
 }
