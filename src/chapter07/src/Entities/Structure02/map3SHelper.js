@@ -1,4 +1,4 @@
-const SIZE_Y = 5
+const SIZE_Y = 15
 const SIZE_Z = 15
 const SIZE_X = 15
 
