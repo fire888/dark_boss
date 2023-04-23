@@ -97,7 +97,7 @@ export class Studio {
                 //this._scene.fog.near = saveFogData.near
                 //this._scene.fog.far = saveFogData.far
                 isPlayerView = true
-                this._renderPass.camera = this._playerCamera
+                //this._renderPass.camera = this._playerCamera
             }
         }
 
@@ -140,7 +140,11 @@ export class Studio {
             f += 0.01
             //l.position.x = Math.sin(f) * 5
             //l.position.z = Math.cos(f) * 5
-            this._renderer.render(this._scene, this._controlsCamera)
+            if (isPlayerView) {
+                this._renderer.render(this._scene, this._playerCamera)
+            } else {
+                this._renderer.render(this._scene, this._controlsCamera)
+            }
            // this._composer.render(this._scene, this._controlsCamera)
         }
 

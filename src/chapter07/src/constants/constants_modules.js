@@ -10,7 +10,7 @@ import { Player } from '../../../_CORE/entities/createPlayer_v02'
 
 import { Helper_MaterialsLib } from '../../../_CORE/helpers/helper_MaterialsLib'
 import mapTop from '../../../assets/chapter06/mapGround.jpg'
-import bodyShadow from '../../../assets/chapter06/mapShadowBody.jpg'
+//import bodyShadow from '../../../assets/chapter06/mapShadowBody.jpg'
 import pxjpg2 from '../../../assets/matIronBox/posx.jpg'
 import nxjpg2 from '../../../assets/matIronBox/negx.jpg'
 import pyjpg2 from '../../../assets/matIronBox/posy.jpg'
@@ -31,10 +31,12 @@ import ironNormal from '../../../assets/chapter06/concrete/broken_down_concrete2
 import ironAO from '../../../assets/chapter06/concrete/broken_down_concrete2_ao.jpg'
 import ironAlbedo from '../../../assets/chapter06/concrete/broken_down_concrete2_albedo.jpg'
 
-import bodySrc from '../../../assets/chapter06/body.obj'
-import endWaySrc from '../../../assets/chapter06/endWay.obj'
+//import bodySrc from '../../../assets/chapter06/body.obj'
+//import endWaySrc from '../../../assets/chapter06/endWay.obj'
 
 
+import elem_L from '../../../assets/chapter07/elem_L.obj'
+import elem_Y from '../../../assets/chapter07/elem_Y.obj'
 
 export const GAME_MODULES = [
     {
@@ -120,9 +122,11 @@ export const GAME_MODULES = [
                 { type: 'img', path: ironNormal, key: 'ironNormal', wrap: true },
                 { type: 'img', path: ironAlbedo, key: 'ironAlbedo', wrap: true },
                 { type: 'img', path: ironAO, key: 'ironAO', wrap: true },
-                { type: 'obj', path: bodySrc, key: 'bodyModel' },
-                { type: 'img', path: bodyShadow, key: 'bodyDropShadow' },
-                { type: 'obj', path: endWaySrc, key: 'endWayModel' },
+                //{ type: 'obj', path: bodySrc, key: 'bodyModel' },
+                //{ type: 'img', path: bodyShadow, key: 'bodyDropShadow' },
+                //{ type: 'obj', path: endWaySrc, key: 'endWayModel' },
+                { type: 'obj', path: elem_L , key: 'elem_L' },
+                { type: 'obj', path: elem_Y , key: 'elem_Y' },
             ],
 
     },
