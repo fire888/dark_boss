@@ -31,12 +31,11 @@ import ironNormal from '../../../assets/chapter06/concrete/broken_down_concrete2
 import ironAO from '../../../assets/chapter06/concrete/broken_down_concrete2_ao.jpg'
 import ironAlbedo from '../../../assets/chapter06/concrete/broken_down_concrete2_albedo.jpg'
 
-//import bodySrc from '../../../assets/chapter06/body.obj'
-//import endWaySrc from '../../../assets/chapter06/endWay.obj'
-
 
 import elem_L from '../../../assets/chapter07/elem_L.obj'
 import elem_Y from '../../../assets/chapter07/elem_Y.obj'
+import elem_I from '../../../assets/chapter07/elem_I.obj'
+import elem_T from '../../../assets/chapter07/elem_T.obj'
 
 export const GAME_MODULES = [
     {
@@ -127,6 +126,8 @@ export const GAME_MODULES = [
                 //{ type: 'obj', path: endWaySrc, key: 'endWayModel' },
                 { type: 'obj', path: elem_L , key: 'elem_L' },
                 { type: 'obj', path: elem_Y , key: 'elem_Y' },
+                { type: 'obj', path: elem_I , key: 'elem_I' },
+                { type: 'obj', path: elem_T , key: 'elem_T' },
             ],
 
     },

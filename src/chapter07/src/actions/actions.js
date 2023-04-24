@@ -1,5 +1,5 @@
 import * as TWEEN from '@tweenjs/tween.js'
-//import * as THREE from 'three'
+import * as THREE from 'three'
 import {
     ENV_NORMAL
     //START_ENV_CONFIG,
@@ -58,6 +58,15 @@ export class actions {
         ////////////////////////////////////////////////////
         ////////////////////////////////////////////////////
         createStructure3(root)
+
+        const plane = new THREE.Mesh(
+            new THREE.PlaneBufferGeometry(10000, 10000, ),
+            new THREE.MeshPhongMaterial({ color: 0x444444})
+        )
+        plane.rotation.x = -Math.PI / 2
+        plane.position.y = -160
+        root.studio.addToScene(plane)
+
 
 
 

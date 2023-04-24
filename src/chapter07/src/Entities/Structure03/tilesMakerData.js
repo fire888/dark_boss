@@ -54,49 +54,47 @@ export const createDataTiles = () => {
     arrTiles.push(...dataL)
 
 
-    // const _L_B = [
-    //     [
-    //         [_, _, _],
-    //         [_, S, _],
-    //         [_, _, _],
-    //     ],
-    //     [
-    //         [_, S, _],
-    //         [_, S, _],
-    //         [_, _, _],
-    //     ],
-    //     [
-    //         [_, _, _],
-    //         [_, _, _],
-    //         [_, _, _],
-    //     ],
-    // ]
-    // const dataL_B = makeRotated360(_L_B)
-    // arrTiles.push(...dataL_B)
+    const _I = [
+        [
+            [_, _, _],
+            [_, _, _],
+            [_, _, _],
+        ],
+        [
+            [_, S, _],
+            [_, S, _],
+            [_, S, _],
+        ],
+        [
+            [_, _, _],
+            [_, _, _],
+            [_, _, _],
+        ],
+    ]
+    arrTiles.push(_I)
+
+    const _I2 = [
+        [
+            [_, _, _],
+            [_, _, _],
+            [_, _, _],
+        ],
+        [
+            [_, _, _],
+            [S, S, S],
+            [_, _, _],
+        ],
+        [
+            [_, _, _],
+            [_, _, _],
+            [_, _, _],
+        ],
+    ]
+    arrTiles.push(_I2)
 
 
-    // const _L_T = [
-    //     [
-    //         [_, _, _],
-    //         [_, _, _],
-    //         [_, _, _],
-    //     ],
-    //     [
-    //         [_, S, _],
-    //         [_, S, _],
-    //         [_, _, _],
-    //     ],
-    //     [
-    //         [_, _, _],
-    //         [_, S, _],
-    //         [_, _, _],
-    //     ],
-    // ]
-    // const dataL_T = makeRotated360(_L_T)
-    // arrTiles.push(...dataL_T)
 
-
-    const _T = [
+    const _Y = [
         [
             [_, _, _],
             [_, S, _],
@@ -113,8 +111,28 @@ export const createDataTiles = () => {
             [_, _, _],
         ],
     ]
-    const G = makeRotated360(_T)
+    const G = makeRotated360(_Y)
     arrTiles.push(...G)
+
+    const _T = [
+        [
+            [_, _, _],
+            [_, _, _],
+            [_, _, _],
+        ],
+        [
+            [_, S, _],
+            [S, S, _],
+            [_, S, _],
+        ],
+        [
+            [_, _, _],
+            [_, _, _],
+            [_, _, _],
+        ],
+    ]
+    const arr_T = makeRotated360(_T)
+    arrTiles.push(...arr_T)
 
 
 
