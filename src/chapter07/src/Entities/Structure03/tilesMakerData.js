@@ -33,25 +33,25 @@ export const createDataTiles = () => {
 
 
 
-    // const _L = [
-    //     [
-    //         [_, _, _],
-    //         [_, _, _],
-    //         [_, _, _],
-    //     ],
-    //     [
-    //         [_, _, _],
-    //         [_, S, S],
-    //         [_, S, _],
-    //     ],
-    //     [
-    //         [_, _, _],
-    //         [_, _, _],
-    //         [_, _, _],
-    //     ],
-    // ]
-    // const dataL = makeRotated360(_L)
-    // arrTiles.push(...dataL)
+    const _L = [
+        [
+            [_, _, _],
+            [_, _, _],
+            [_, _, _],
+        ],
+        [
+            [_, _, _],
+            [_, S, S],
+            [_, S, _],
+        ],
+        [
+            [_, _, _],
+            [_, _, _],
+            [_, _, _],
+        ],
+    ]
+    const dataL = makeRotated360(_L)
+    arrTiles.push(...dataL)
 
 
     // const _L_B = [
@@ -115,6 +115,7 @@ export const createDataTiles = () => {
     ]
     const G = makeRotated360(_T)
     arrTiles.push(...G)
+
 
 
 

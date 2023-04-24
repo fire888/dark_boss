@@ -1,5 +1,4 @@
 import * as THREE from "three";
-import {system_PlayerMoveOnLevel} from "../../systems/system_PlayerMoveOnLevel";
 
 export const createrMesh = (root) => {
     const m = new THREE.MeshPhongMaterial({ color: 0xff0000})
@@ -24,13 +23,13 @@ export const createrMesh = (root) => {
     const R = {
         '0': { r: 0, g: null, },
         '1': { r: 0, g: 'elem_L', },
-        '2': { r: Math.PI / 2, g: 'elem_L',  },
-        '3': { r: Math.PI, g: 'elem_L',  },
-        '4': { r: Math.PI * 1.5, g: 'elem_L',  },
-        '5': { r: 0, g: 'elem_L', },
-        '6': { r: Math.PI / 2, g: 'elem_Y',  },
-        '7': { r: Math.PI, g: 'elem_Y',  },
-        '8': { r: Math.PI * 1.5, g: 'elem_Y',  },
+        '2': { r: -Math.PI / 2, g: 'elem_L',  },
+        '3': { r: -Math.PI, g: 'elem_L',  },
+        '4': { r: -Math.PI * 1.5, g: 'elem_L',  },
+        '5': { r: 0, g: 'elem_Y', },
+        '6': { r: -Math.PI / 2, g: 'elem_Y',  },
+        '7': { r: -Math.PI, g: 'elem_Y',  },
+        '8': { r: -Math.PI * 1.5, g: 'elem_Y',  },
     }
 
     const G = {
@@ -54,25 +53,8 @@ export const createrMesh = (root) => {
             root.studio.addToScene(mesh)
             mesh.rotation.y = props.r
             mesh.scale.set(SCALE, SCALE, SCALE)
-            mesh.position.set(S * i * SCALE, SH * j * SCALE - 160, S * SCALE * k)
+            mesh.position.set(S * k * SCALE, SH * i * SCALE - 160, S * SCALE * j)
             root.system_PlayerMoveOnLevel.addItemToPlayerCollision(mesh)
-            console.log(mesh)
-
-            // for (let i = 0; i < tile.length; ++i) {
-            //     for (let j = 0; j < tile[i].length; ++j) {
-            //         for (let k = 0; k < tile[i][j].length; ++k) {
-            //             if (tile[i][j][k] === 1) {
-            //                 const me = new THREE.Mesh(g, m)
-            //                 me.position.set(
-            //                     x * S + k * sS,
-            //                     y * S + i * sS,
-            //                     z * S + j * sS,
-            //                 )
-            //                 root.studio.addToScene(me)
-            //             }
-            //         }
-            //     }
-            // }
         }
     }
 }
