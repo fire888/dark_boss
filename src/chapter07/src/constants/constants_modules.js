@@ -36,6 +36,8 @@ import elem_L from '../../../assets/chapter07/elem_L.obj'
 import elem_Y from '../../../assets/chapter07/elem_Y.obj'
 import elem_I from '../../../assets/chapter07/elem_I.obj'
 import elem_T from '../../../assets/chapter07/elem_T.obj'
+import tile_YS from '../../../assets/chapter07/elem_YS.obj'
+import tile_YT from '../../../assets/chapter07/elem_YT.obj'
 
 export const GAME_MODULES = [
     {
@@ -128,6 +130,8 @@ export const GAME_MODULES = [
                 { type: 'obj', path: elem_Y , key: 'elem_Y' },
                 { type: 'obj', path: elem_I , key: 'elem_I' },
                 { type: 'obj', path: elem_T , key: 'elem_T' },
+                { type: 'obj', path: tile_YS , key: 'tile_YS' },
+                { type: 'obj', path: tile_YT , key: 'tile_YT' },
             ],
 
     },

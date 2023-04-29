@@ -238,6 +238,68 @@ export const createDataTiles = () => {
         arrTiles.push(I)
     }
 
+    {
+        /**
+         . I .
+         . . .
+         . . .
+         I
+         */
+        const I = {
+            sideNX: '_,_,_',
+            sidePX: '_,_,_',
+            sideNY: '_,I,_',
+            sidePY: '_,_,_',
+            sideNZ: '_,I,_',
+            sidePZ: '_,_,_',
+            keyModel: 'tile_YS',
+            rotationY: 0,
+        }
+        arrTiles.push(I)
+    }
+
+    // NOT IN MODEL
+    {
+        /**
+         . . .
+         . . I
+         . . .
+            I
+         */
+        const I = {
+            sideNX: '_,_,_',
+            sidePX: '_,_,I',
+            sideNY: '_,I,_',
+            sidePY: '_,_,_',
+            sideNZ: '_,_,_',
+            sidePZ: '_,_,_',
+            keyModel: 'tile_YS',
+            rotationY: -Math.PI / 2,
+        }
+        arrTiles.push(I)
+    }
+
+
+    {
+        /**
+           I
+         . . .
+         . . .
+         . I .
+         */
+        const I = {
+            sideNX: '_,_,_',
+            sidePX: '_,_,_',
+            sideNY: '_,_,_',
+            sidePY: '_,I,_',
+            sideNZ: '_,_,_',
+            sidePZ: '_,I,_',
+            keyModel: 'tile_YT',
+            rotationY: 0,
+        }
+        arrTiles.push(I)
+    }
+
 
 
 

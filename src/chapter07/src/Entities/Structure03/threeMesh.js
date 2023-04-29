@@ -1,7 +1,7 @@
 import * as THREE from "three";
 
 export const createrMesh = (root) => {
-    const m = new THREE.MeshPhongMaterial({ color: 0xff0000})
+    const m = new THREE.MeshPhongMaterial({ color: 0xffffff})
 
     const S = 40
     const SH = 20
@@ -13,6 +13,7 @@ export const createrMesh = (root) => {
         'tile_I': root.assets['elem_I'].children[0].geometry,
         'tile_L': root.assets['elem_L'].children[0].geometry,
         'tile_Y': root.assets['elem_Y'].children[0].geometry,
+        'tile_YS': root.assets['tile_YS'].children[0].geometry,
     }
 
 
