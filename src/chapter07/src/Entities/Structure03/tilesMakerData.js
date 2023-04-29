@@ -1,138 +1,242 @@
-import { makeRotated360 } from './helpersSortArray'
-import {
-    prepareTileSidesData,
-    prepareCacheSidesResults,
-} from './tilesHelper'
+const prepareCacheSidesConnect = tiles => {
+    for (let i = 0; i < tiles.length; ++i) {
+        tiles[i].canConnectNX = []
+        tiles[i].canConnectPX = []
+        tiles[i].canConnectNY = []
+        tiles[i].canConnectPY = []
+        tiles[i].canConnectNZ = []
+        tiles[i].canConnectPZ = []
+    }
+
+    for (let i = 0; i < tiles.length; ++i) {
+        for (let j = 0; j < tiles.length; ++j) {
+            if (tiles[i].sideNX === tiles[j].sidePX) {
+                tiles[i].canConnectNX.push(tiles[j].id)
+            }
+            if (tiles[i].sidePX === tiles[j].sideNX) {
+                tiles[i].canConnectPX.push(tiles[j].id)
+            }
+            if (tiles[i].sideNY === tiles[j].sidePY) {
+                tiles[i].canConnectNY.push(tiles[j].id)
+            }
+            if (tiles[i].sidePY === tiles[j].sideNY) {
+                tiles[i].canConnectPY.push(tiles[j].id)
+            }
+            if (tiles[i].sideNZ === tiles[j].sidePZ) {
+                tiles[i].canConnectNZ.push(tiles[j].id)
+            }
+            if (tiles[i].sidePZ === tiles[j].sideNZ) {
+                tiles[i].canConnectPZ.push(tiles[j].id)
+            }
+        }
+    }
+
+    return tiles
+}
 
 
 export const createDataTiles = () => {
-    const _ = '_'
-    const S = 1
-
     const arrTiles = []
 
-
-    const E = [
-        [
-            [_, _, _],
-            [_, _, _],
-            [_, _, _],
-        ],
-        [
-            [_, _, _],
-            [_, _, _],
-            [_, _, _],
-        ],
-        [
-            [_, _, _],
-            [_, _, _],
-            [_, _, _],
-        ],
-    ]
-    arrTiles.push(E)
-
-
-
-    const _L = [
-        [
-            [_, _, _],
-            [_, _, _],
-            [_, _, _],
-        ],
-        [
-            [_, _, _],
-            [_, S, S],
-            [_, S, _],
-        ],
-        [
-            [_, _, _],
-            [_, _, _],
-            [_, _, _],
-        ],
-    ]
-    const dataL = makeRotated360(_L)
-    arrTiles.push(...dataL)
-
-
-    const _I = [
-        [
-            [_, _, _],
-            [_, _, _],
-            [_, _, _],
-        ],
-        [
-            [_, S, _],
-            [_, S, _],
-            [_, S, _],
-        ],
-        [
-            [_, _, _],
-            [_, _, _],
-            [_, _, _],
-        ],
-    ]
-    arrTiles.push(_I)
-
-    const _I2 = [
-        [
-            [_, _, _],
-            [_, _, _],
-            [_, _, _],
-        ],
-        [
-            [_, _, _],
-            [S, S, S],
-            [_, _, _],
-        ],
-        [
-            [_, _, _],
-            [_, _, _],
-            [_, _, _],
-        ],
-    ]
-    arrTiles.push(_I2)
+    {
+        /**
+         . . .
+         . . .
+         . . .
+         */
+        const I = {
+            sideNX: '_,_,_',
+            sidePX: '_,_,_',
+            sideNY: '_,_,_',
+            sidePY: '_,_,_',
+            sideNZ: '_,_,_',
+            sidePZ: '_,_,_',
+            keyModel: null,
+            rotationY: 0,
+        }
+        arrTiles.push(I)
+    }
 
 
 
-    const _Y = [
-        [
-            [_, _, _],
-            [_, S, _],
-            [_, _, _],
-        ],
-        [
-            [_, _, _],
-            [S, _, _],
-            [_, _, _],
-        ],
-        [
-            [_, _, _],
-            [_, S, _],
-            [_, _, _],
-        ],
-    ]
-    const G = makeRotated360(_Y)
-    arrTiles.push(...G)
+    {
+        /**
+         . I .
+         . I .
+         . I .
+         */
+        const I = {
+            sideNX: '_,_,_',
+            sidePX: '_,_,_',
+            sideNY: '_,_,_',
+            sidePY: '_,_,_',
+            sideNZ: '_,I,_',
+            sidePZ: '_,I,_',
+            keyModel: 'tile_I',
+            rotationY: 0,
+        }
+        arrTiles.push(I)
+    }
 
-    const _T = [
-        [
-            [_, _, _],
-            [_, _, _],
-            [_, _, _],
-        ],
-        [
-            [_, S, _],
-            [S, S, _],
-            [_, S, _],
-        ],
-        [
-            [_, _, _],
-            [_, _, _],
-            [_, _, _],
-        ],
-    ]
-    const arr_T = makeRotated360(_T)
-    arrTiles.push(...arr_T)
+    {
+        /**
+         . . .
+         I I I
+         . . .
+         */
+        const I = {
+            sideNX: '_,I,_',
+            sidePX: '_,I,_',
+            sideNY: '_,_,_',
+            sidePY: '_,_,_',
+            sideNZ: '_,_,_',
+            sidePZ: '_,_,_',
+            keyModel: 'tile_I',
+            rotationY: Math.PI / 2,
+        }
+        arrTiles.push(I)
+    }
+
+
+    {
+        /**
+         . . .
+         . I I
+         . I .
+         */
+        const t = {
+            sideNX: '_,_,_',
+            sidePX: '_,I,_',
+            sideNY: '_,_,_',
+            sidePY: '_,_,_',
+            sideNZ: '_,_,_',
+            sidePZ: '_,I,_',
+            keyModel: 'tile_L',
+            rotationY: 0,
+        }
+        arrTiles.push(t)
+    }
+
+    {
+        /**
+         . . .
+         I I .
+         . I .
+         */
+        const t = {
+            sideNX: '_,I,_',
+            sidePX: '_,_,_',
+            sideNY: '_,_,_',
+            sidePY: '_,_,_',
+            sideNZ: '_,_,_',
+            sidePZ: '_,I,_',
+            keyModel: 'tile_L',
+            rotationY: -Math.PI / 2,
+        }
+        arrTiles.push(t)
+    }
+
+    {
+        /**
+         . I .
+         I I .
+         . . .
+         */
+        const t = {
+            sideNX: '_,I,_',
+            sidePX: '_,_,_',
+            sideNY: '_,_,_',
+            sidePY: '_,_,_',
+            sideNZ: '_,I,_',
+            sidePZ: '_,_,_',
+            keyModel: 'tile_L',
+            rotationY: -Math.PI,
+        }
+        arrTiles.push(t)
+    }
+
+    {
+        /**
+         . I .
+         . I I
+         . . .
+         */
+        const t = {
+            sideNX: '_,_,_',
+            sidePX: '_,_,I',
+            sideNY: '_,_,_',
+            sidePY: '_,_,_',
+            sideNZ: '_,I,_',
+            sidePZ: '_,_,_',
+            keyModel: 'tile_L',
+            rotationY: -Math.PI * 1.5,
+        }
+        arrTiles.push(t)
+    }
+
+    {
+        /**
+           I
+         . . .
+         .I . .
+         . . .
+           I
+         */
+        const I = {
+            sideNX: '_,I,_',
+            sidePX: '_,_,_',
+            sideNY: '_,I,_',
+            sidePY: '_,I,_',
+            sideNZ: '_,_,_',
+            sidePZ: '_,_,_',
+            keyModel: 'tile_Y',
+            rotationY: 0,
+        }
+        arrTiles.push(I)
+    }
+
+
+    {
+        /**
+           I
+         . I .
+         . . .
+         . . .
+           I
+         */
+        const I = {
+            sideNX: '_,_,_',
+            sidePX: '_,_,_',
+            sideNY: '_,I,_',
+            sidePY: '_,I,_',
+            sideNZ: '_,I,_',
+            sidePZ: '_,_,_',
+            keyModel: 'tile_Y',
+            rotationY: -Math.PI / 2,
+        }
+        arrTiles.push(I)
+    }
+
+    {
+        /**
+          I
+         . . .
+         . . I
+         . . .
+           I
+         */
+        const I = {
+            sideNX: '_,_,_',
+            sidePX: '_,_,_',
+            sideNY: '_,I,_',
+            sidePY: '_,I,_',
+            sideNZ: '_,_,_',
+            sidePZ: '_,I,_',
+            keyModel: 'tile_Y',
+            rotationY: -Math.PI * 1.5,
+        }
+        arrTiles.push(I)
+    }
 
 
 
@@ -140,16 +244,10 @@ export const createDataTiles = () => {
 
     const DATA_TILES = []
     for (let i = 0; i < arrTiles.length; ++i) {
-        DATA_TILES.push(prepareTileSidesData(arrTiles[i]))
+        arrTiles[i].id = i
+        DATA_TILES.push(arrTiles[i])
     }
-    for (let i = 0; i < DATA_TILES.length; ++i) {
-        DATA_TILES[i].id = i
-    }
-    prepareCacheSidesResults(DATA_TILES)
-
-    console.log('---', DATA_TILES)
-
-
+    prepareCacheSidesConnect(DATA_TILES)
     return DATA_TILES
 }
 

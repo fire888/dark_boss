@@ -23,12 +23,13 @@ const choiceFinalTileFromExists = (dataAction, map) => {
         mapItem.maybeTilesInds = new Set()
         mapItem.maybeTilesInds.add(myArr[r])
     }
+
 }
 
 const filterMaybeArrByCompare = (dataAction, map, tiles) => {
     const [y, z, x] = dataAction.src
     const [yWith, zWith, xWith] = dataAction.with
-    const {mapWithKeyTileSideIds} = dataAction
+    const { withProp } = dataAction
 
     if (map[y] && map[y][z] && map[y][z][x]) {
         if (Number.isInteger(map[y][z][x].resultTileIndex)) {
@@ -40,7 +41,7 @@ const filterMaybeArrByCompare = (dataAction, map, tiles) => {
         ) {
             const set = new Set()
             for (const item of map[yWith][zWith][xWith].maybeTilesInds) {
-                const resultSet = makeSetContainsElementsSet1Set2(tiles[item][mapWithKeyTileSideIds], map[y][z][x].maybeTilesInds)
+                const resultSet = makeSetContainsElementsSet1Set2(tiles[item][withProp], map[y][z][x].maybeTilesInds)
                 for (const r of resultSet) {
                     set.add(r)
                 }
@@ -65,44 +66,44 @@ const createPipelineActionsWithMapItem = (y, z, x, map) => {
         { action: 'choiceFinalTileFromExists', src: [y, z, x], },
 
         /** Z */
-        { action: 'filterMaybeArrByCompare', src: [y, z - 1, x], with: [y, z, x], mapWithKeyTileSideIds: 'idsNZ' },
-        { action: 'filterMaybeArrByCompare', src: [y, z + 1, x], with: [y, z, x], mapWithKeyTileSideIds: 'idsPZ' },
+        { action: 'filterMaybeArrByCompare', src: [y, z - 1, x],  with: [y, z, x], withProp: 'canConnectNZ' },
+        { action: 'filterMaybeArrByCompare', src: [y, z + 1, x], with: [y, z, x], withProp: 'canConnectPZ' },
 
         /** X */
-        { action: 'filterMaybeArrByCompare', src: [y, z, x - 1], with: [y, z, x], mapWithKeyTileSideIds: 'idsNX'  },
-        { action: 'filterMaybeArrByCompare', src: [y, z, x + 1], with: [y, z, x], mapWithKeyTileSideIds: 'idsPX'  },
+        { action: 'filterMaybeArrByCompare', src: [y, z, x - 1], with: [y, z, x], withProp: 'canConnectNX'  },
+        { action: 'filterMaybeArrByCompare', src: [y, z, x + 1], with: [y, z, x], withProp: 'canConnectPX'  },
 
         /** Z - 1, X - 1 */
-        { action: 'filterMaybeArrByCompare', src: [y, z - 1, x - 1], with: [y, z - 1, x], mapWithKeyTileSideIds: 'idsNX'  },
-        { action: 'filterMaybeArrByCompare', src: [y, z - 1, x - 1], with: [y, z, x - 1], mapWithKeyTileSideIds: 'idsNZ'  },
+        { action: 'filterMaybeArrByCompare', src: [y, z - 1, x - 1], with: [y, z - 1, x], withProp: 'canConnectNX'  },
+        { action: 'filterMaybeArrByCompare', src: [y, z - 1, x - 1], with: [y, z, x - 1], withProp: 'canConnectNZ'  },
 
         /** Z - 1, X + 1 */
-        { action: 'filterMaybeArrByCompare', src: [y, z - 1, x + 1], with: [y, z - 1, x], mapWithKeyTileSideIds: 'idsPX'  },
-        { action: 'filterMaybeArrByCompare', src: [y, z - 1, x + 1], with: [y, z, x + 1], mapWithKeyTileSideIds: 'idsNZ'  },
+        { action: 'filterMaybeArrByCompare', src: [y, z - 1, x + 1], with: [y, z - 1, x], withProp: 'canConnectPX'  },
+        { action: 'filterMaybeArrByCompare', src: [y, z - 1, x + 1], with: [y, z, x + 1], withProp: 'canConnectNZ'  },
 
         /** Z + 1, X + 1 */
-        { action: 'filterMaybeArrByCompare', src: [y, z + 1, x + 1], with: [y, z, x + 1], mapWithKeyTileSideIds: 'idsPZ'  },
-        { action: 'filterMaybeArrByCompare', src: [y, z + 1, x + 1], with: [y, z + 1, x], mapWithKeyTileSideIds: 'idsPX'  },
+        { action: 'filterMaybeArrByCompare', src: [y, z + 1, x + 1], with: [y, z, x + 1], withProp: 'canConnectPZ'  },
+        { action: 'filterMaybeArrByCompare', src: [y, z + 1, x + 1], with: [y, z + 1, x], withProp: 'canConnectPX'  },
 
         /** Z + 1, X - 1 */
-        { action: 'filterMaybeArrByCompare', src: [y, z + 1, x - 1], with: [y, z + 1, x], mapWithKeyTileSideIds: 'idsNX'  },
-        { action: 'filterMaybeArrByCompare', src: [y, z + 1, x - 1], with: [y, z, x - 1], mapWithKeyTileSideIds: 'idsPZ'  },
+        { action: 'filterMaybeArrByCompare', src: [y, z + 1, x - 1], with: [y, z + 1, x], withProp: 'canConnectNX'  },
+        { action: 'filterMaybeArrByCompare', src: [y, z + 1, x - 1], with: [y, z, x - 1], withProp: 'canConnectPZ'  },
 
         /** -- Y */
         //{ action: 'filterMaybe', src: [y - 1, z, x], with: [y, z, x], mapWithKeyTileSideIds: 'idsNY' },
 
         /** ++Y */
-        { action: 'filterMaybeArrByCompare', src: [y + 1, z, x], with: [y, z, x], mapWithKeyTileSideIds: 'idsPY' },
+        { action: 'filterMaybeArrByCompare', src: [y + 1, z, x], with: [y, z, x], withProp: 'canConnectPY' },
 
-        { action: 'filterMaybeArrByCompare', src: [y + 1, z - 1, x], with: [y, z - 1, x], mapWithKeyTileSideIds: 'idsPY' },
-        { action: 'filterMaybeArrByCompare', src: [y + 1, z + 1, x], with: [y, z + 1, x], mapWithKeyTileSideIds: 'idsPY' },
-        { action: 'filterMaybeArrByCompare', src: [y + 1, z, x - 1], with: [y, z, x - 1], mapWithKeyTileSideIds: 'idsPY' },
-        { action: 'filterMaybeArrByCompare', src: [y + 1, z, x - 1], with: [y, z, x - 1], mapWithKeyTileSideIds: 'idsPY' },
+        { action: 'filterMaybeArrByCompare', src: [y + 1, z - 1, x], with: [y, z - 1, x], withProp: 'canConnectPY' },
+        { action: 'filterMaybeArrByCompare', src: [y + 1, z + 1, x], with: [y, z + 1, x], withProp: 'canConnectPY' },
+        { action: 'filterMaybeArrByCompare', src: [y + 1, z, x - 1], with: [y, z, x - 1], withProp: 'canConnectPY' },
+        { action: 'filterMaybeArrByCompare', src: [y + 1, z, x - 1], with: [y, z, x - 1], withProp: 'canConnectPY' },
     ]
 
     if (z >= map.sizeZ - 3) {
         actions.push(
-            { action: 'filterMaybeArrByCompare', src: [y, z + 1, x], with: [y, z + 2, x], mapWithKeyTileSideIds: 'idsNZ' }
+            { action: 'filterMaybeArrByCompare', src: [y, z + 1, x], with: [y, z + 2, x], withProp: 'canConnectNZ' }
         )
     }
 
@@ -116,13 +117,16 @@ export const createMap = tiles => {
     const map = createMap3X(tiles)
     map.forceFillMapSides()
 
+    console.log('mapNotFilled', map)
+
 
     /** calculate maze data */
     const iterate = (y, z, x) => {
         const actions = createPipelineActionsWithMapItem(y, z, x, map)
 
         for (let indAction = 0; indAction < actions.length; ++indAction) {
-            actionsWithMapItem[actions[indAction].action](actions[indAction], map.items, tiles)
+            const action = actions[indAction]
+            actionsWithMapItem[action.action](action, map.items, tiles)
         }
 
         const { nextY, nextZ, nextX } = map.checkNextMapItemIndexes(y, z, x)

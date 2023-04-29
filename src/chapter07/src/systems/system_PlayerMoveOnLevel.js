@@ -63,7 +63,7 @@ export class system_PlayerMoveOnLevel {
             /** free down without intercepts */
             if (!isCollision) {
                 /** if player not up - rotated to up */
-                if (player.mesh.position.y < -50 ) {
+                if (player.mesh.position.y < -140 ) {
                     return
                 }
                 player.mesh.position.y += (speedDown * data.count)

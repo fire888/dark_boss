@@ -13,7 +13,7 @@ import {
 } from '../constants/constants_elements';
 //import { createWorldReal } from '../systems/system_worldReal'
 //import { createWaveMain } from '../Entities/Structure01/WaveMain'
-//import { createStructure2 } from '../Entities/Structure02/structure02'
+import { createStructure2 } from '../Entities/Structure02/structure02'
 import { createStructure3 } from '../Entities/Structure03/structure03'
 
 

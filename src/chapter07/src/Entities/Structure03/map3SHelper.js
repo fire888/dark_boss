@@ -43,7 +43,6 @@ const forceFillMapSides = (map, indTile = 0) => {
     for (let i = 0; i < SIZE_Y; ++i) {
         for (let j = 0; j < SIZE_Z; ++j) {
             for (let k = 0; k < SIZE_X; ++k) {
-
                 if (
                     j === 0 ||
                     j === (SIZE_Z - 1) ||
