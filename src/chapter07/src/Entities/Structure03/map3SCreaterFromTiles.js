@@ -14,21 +14,20 @@ let f = null
 const choiceFinalTileFromExists = (dataAction, map) => {
     const [y, z, x] = dataAction.src
     const mapItem = map[y][z][x]
+    console.log(y, z, x, mapItem)
 
     if (Number.isInteger(mapItem.resultTileIndex)) {
         return;
     }
-    let myArr = Array.from(mapItem.maybeTilesInds)
-    if (!myArr.length) {
-        //mapItem.resultTileIndex = null
-        return
-        //myArr = [0]
-    }
+    // if (!mapItem.resultTileIndex.length) {
+    //     //mapItem.resultTileIndex = null
+    //     return
+    //     //myArr = [0]
+    // }
 
-    const r = Math.floor(Math.random() * myArr.length)
-    mapItem.resultTileIndex = myArr[r]
-    mapItem.maybeTilesInds = new Set()
-    mapItem.maybeTilesInds.add(myArr[r])
+    const indTile = mapItem.maybeTilesInds[Math.floor(Math.random() * mapItem.maybeTilesInds.length)]
+    mapItem.resultTileIndex = indTile
+    mapItem.maybeTilesInds = [indTile]
 }
 
 const filterMaybeArrByCompare = (dataAction, map, tiles) => {
@@ -36,25 +35,53 @@ const filterMaybeArrByCompare = (dataAction, map, tiles) => {
     const [yWith, zWith, xWith] = dataAction.with
     const { withProp } = dataAction
 
-    //console.log(map)
-    if (map[y] && map[y][z] && map[y][z][x]) {
-        if (Number.isInteger(map[y][z][x].resultTileIndex)) {
-            return;
-        }
+    if (!map[y] || !map[y][z] || !map[y][z][x]) {
+        return;
+    }
+    if (Number.isInteger(map[y][z][x].resultTileIndex)) {
+        return;
+    }
 
-        if (
-            map[yWith] && map[yWith][zWith] && map[yWith][zWith][xWith]
-        ) {
-            const set = new Set()
-            for (const item of map[yWith][zWith][xWith].maybeTilesInds) {
-                const resultSet = makeSetContainsElementsSet1Set2(tiles[item][withProp], map[y][z][x].maybeTilesInds)
-                for (const r of resultSet) {
-                    set.add(r)
+    if (!map[yWith] || !map[yWith][zWith] || !map[yWith][zWith][xWith]) {
+        return;
+    }
+
+    //console.log('dataAction', dataAction)
+
+    const arrNotChange = map[yWith][zWith][xWith].maybeTilesInds
+    const arrCurrent = map[y][z][x].maybeTilesInds
+
+    if (!arrNotChange || arrCurrent) {
+        return;
+    }
+
+    const newArr = []
+    for (let i = 0; i < arrNotChange.length; ++i) {
+        //console.log(arrNotChange[i])
+        const arrCanBe = tiles[arrNotChange[i]][withProp]
+        for (let j = 0; j < arrCanBe.length; ++j) {
+            for (let k = 0; k < arrCurrent.length; ++k) {
+                if (arrCanBe[j] === arrCurrent[k]) {
+                    newArr.push(arrCurrent[k])
                 }
             }
-            map[y][z][x].maybeTilesInds = set
         }
     }
+
+    const filteredArr = []
+    for (let i = 0; i < newArr.length; ++i) {
+        let isIn = false
+        for (let j = 0; j < filteredArr.length; ++j) {
+            if (filteredArr[j] === newArr[i]) {
+                isIn = true
+            }
+        }
+        if (!isIn) {
+            filteredArr.push(newArr[i])
+        }
+    }
+
+    map[y][z][x].maybeTilesInds = filteredArr
 }
 
 
@@ -96,7 +123,6 @@ const createPipelineActionsWithMapItem = (y, z, x, map) => {
         { action: 'filterMaybeArrByCompare', src: [y, z + 1, x - 1], with: [y, z, x - 1], withProp: 'canConnectPZ'  },
 
         /** -- Y */
-        //{ action: 'filterMaybe', src: [y - 1, z, x], with: [y, z, x], mapWithKeyTileSideIds: 'idsNY' },
 
         /** ++Y */
         { action: 'filterMaybeArrByCompare', src: [y + 1, z, x], with: [y, z, x], withProp: 'canConnectPY' },
@@ -119,6 +145,7 @@ const createPipelineActionsWithMapItem = (y, z, x, map) => {
 
 
 export const createMap = (tiles, makerMesh) => {
+    console.log('!!! tiles', tiles)
     /** create start map */
     const map = createMap3X(tiles)
     let max = 10000
@@ -136,13 +163,14 @@ export const createMap = (tiles, makerMesh) => {
                 const action = actions[indAction]
                 actionsWithMapItem[action.action](action, map.items, tiles)
 
-                if (f) {
-                    button.removeEventListener('click', f)
-                }
-                f = () => {
-                    iterateAction(indAction + 1)
-                }
-                button.addEventListener('click', f)
+                // if (f) {
+                //     button.removeEventListener('click', f)
+                // }
+                // f = () => {
+                //     iterateAction(indAction + 1)
+                // }
+                // button.addEventListener('click', f)
+                setTimeout(() => {iterateAction(indAction + 1)}, 30)
             }
             iterateAction(0)
         })
@@ -150,9 +178,10 @@ export const createMap = (tiles, makerMesh) => {
 
 
 
-    const iterate = (y, z, x) => {
+    const calculateMapItem = (y, z, x) => {
         return new Promise((res, rej) => {
             makerMesh.setCurrentMeshToIndex(y, z, x)
+
             --max
             if (max < 0) {
                 console.log('max stack:', max)
@@ -178,7 +207,7 @@ export const createMap = (tiles, makerMesh) => {
             Number.isInteger(nextZ) &&
             Number.isInteger(nextX)
         ) {
-            setTimeout(() => { iterate( nextY, nextZ, nextX ).then(nextItem) }, 100 )
+            setTimeout(() => { calculateMapItem( nextY, nextZ, nextX ).then(nextItem) }, 100 )
         }
     }
 

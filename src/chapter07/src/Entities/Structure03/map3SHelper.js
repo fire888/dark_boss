@@ -68,29 +68,6 @@ const makeQueue = map => {
 
 
 
-
-const forceFillMapSides = (map, indTile = 0) => {
-    for (let i = 0; i < SIZE_Y; ++i) {
-        for (let j = 0; j < SIZE_Z; ++j) {
-            for (let k = 0; k < SIZE_X; ++k) {
-                if (
-                    j === 0 ||
-                    j === (SIZE_Z - 1) ||
-                    k === 0 ||
-                    k === (SIZE_X - 1) ||
-                    i === (SIZE_Y - 1)
-                ) {
-                    const s = new Set()
-                    s.add(indTile)
-                    map[i][j][k].resultTileIndex = indTile
-                    map[i][j][k].maybeTilesInds = s
-                }
-            }
-        }
-    }
-}
-
-
 export const createMap3X = (tiles) => {
     const arrY = []
     for (let i = 0; i < SIZE_Y; ++i) {
@@ -98,8 +75,8 @@ export const createMap3X = (tiles) => {
         for (let j = 0; j < SIZE_Z; ++j) {
             const arrX = []
             for (let k = 0; k < SIZE_X; ++k) {
-                const s = new Set()
-                tiles.map((item, index) => { s.add(index) })
+                const s = []
+                tiles.map((item, index) => { s.push(index) })
                 arrX.push({
                     resultTileIndex: null,
                     maybeTilesInds: s,
@@ -130,10 +107,6 @@ export const createMap3X = (tiles) => {
             } else {
                 return { nextY: null, nextZ: null, nextX: null }
             }
-            //return checkNextMapItemIndexes(arrY, y, z, x)
-        },
-        forceFillMapSides: (tile = 0) => {
-            forceFillMapSides(arrY, tile)
         },
         iterateAll: (f) => {
             for (let i = 0; i < SIZE_Y; ++i) {
