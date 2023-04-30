@@ -21,8 +21,8 @@ const choiceFinalTileFromExists = (dataAction, map) => {
     let myArr = Array.from(mapItem.maybeTilesInds)
     if (!myArr.length) {
         //mapItem.resultTileIndex = null
-        //return
-        myArr = [0]
+        return
+        //myArr = [0]
     }
 
     const r = Math.floor(Math.random() * myArr.length)
@@ -129,7 +129,6 @@ export const createMap = (tiles, makerMesh) => {
     /** calculate maze data */
     const iterate = (y, z, x) => {
         makerMesh.setCurrentMeshToIndex(y, z, x)
-        //console.log(y, z, x)
         --max
         if (max < 0) {
             return;
@@ -167,14 +166,6 @@ export const createMap = (tiles, makerMesh) => {
     const { nextY, nextZ, nextX } = map.checkNextMapItemIndexes()
     setTimeout(() => { iterate( nextY, nextZ, nextX ) }, 2000)
 
-
-
-    /** fill results by data */
-    // map.iterateAll(item => {
-    //     if (Number.isInteger(item.resultTileIndex)) {
-    //         item.tileData = tiles[item.resultTileIndex]
-    //     }
-    // })
 
     //map3SArtifactsFilter(map, tiles)
 

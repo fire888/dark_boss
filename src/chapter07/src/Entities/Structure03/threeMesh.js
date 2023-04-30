@@ -15,7 +15,6 @@ export const createrMesh = (root) => {
             G[item.name] = item.geometry
         }
     })
-    console.log('G',G)
 
     const currentMesh = new THREE.Mesh(
         new THREE.BoxGeometry(15, 15, 15),

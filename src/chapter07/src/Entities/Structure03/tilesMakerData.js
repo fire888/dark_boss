@@ -38,24 +38,24 @@ const prepareCacheSidesConnect = tiles => {
 export const createDataTiles = () => {
     const arrTiles = []
 
-    {
-        /**
-         . . .
-         . . .
-         . . .
-         */
-        const I = {
-            sideNX: '_,_,_',
-            sidePX: '_,_,_',
-            sideNY: '_,_,_',
-            sidePY: '_,_,_',
-            sideNZ: '_,_,_',
-            sidePZ: '_,_,_',
-            keyModel: 'empty',
-            rotationY: 0,
-        }
-        arrTiles.push(I)
-    }
+    // {
+    //     /**
+    //      . . .
+    //      . . .
+    //      . . .
+    //      */
+    //     const I = {
+    //         sideNX: '_,_,_',
+    //         sidePX: '_,_,_',
+    //         sideNY: '_,_,_',
+    //         sidePY: '_,_,_',
+    //         sideNZ: '_,_,_',
+    //         sidePZ: '_,_,_',
+    //         keyModel: 'empty',
+    //         rotationY: 0,
+    //     }
+    //     arrTiles.push(I)
+    // }
 
 
 
@@ -77,27 +77,27 @@ export const createDataTiles = () => {
     //     }
     //     arrTiles.push(I)
     // }
-
-    {
-        /**
-         . . .
-         I I I
-         . . .
-         */
-        const I = {
-            sideNX: '_,I,_',
-            sidePX: '_,I,_',
-            sideNY: '_,_,_',
-            sidePY: '_,_,_',
-            sideNZ: '_,_,_',
-            sidePZ: '_,_,_',
-            keyModel: 't_I',
-            rotationY: Math.PI / 2,
-        }
-        arrTiles.push(I)
-    }
-
-
+    //
+    // {
+    //     /**
+    //      . . .
+    //      I I I
+    //      . . .
+    //      */
+    //     const I = {
+    //         sideNX: '_,I,_',
+    //         sidePX: '_,I,_',
+    //         sideNY: '_,_,_',
+    //         sidePY: '_,_,_',
+    //         sideNZ: '_,_,_',
+    //         sidePZ: '_,_,_',
+    //         keyModel: 't_I',
+    //         rotationY: Math.PI / 2,
+    //     }
+    //     arrTiles.push(I)
+    // }
+    //
+    //
     {
         /**
          . . .
@@ -173,173 +173,216 @@ export const createDataTiles = () => {
         }
         arrTiles.push(t)
     }
+    //
+    // {
+    //     /**
+    //        I
+    //      . . .
+    //      .I . .
+    //      . . .
+    //        I
+    //      */
+    //     const I = {
+    //         sideNX: '_,I,_',
+    //         sidePX: '_,_,_',
+    //         sideNY: '_,I,_',
+    //         sidePY: '_,I,_',
+    //         sideNZ: '_,_,_',
+    //         sidePZ: '_,_,_',
+    //         keyModel: 't_bt',
+    //         rotationY: 0,
+    //     }
+    //     arrTiles.push(I)
+    // }
+    //
+    //
+    // {
+    //     /**
+    //        I
+    //      . I .
+    //      . . .
+    //      . . .
+    //        I
+    //      */
+    //     const I = {
+    //         sideNX: '_,_,_',
+    //         sidePX: '_,_,_',
+    //         sideNY: '_,I,_',
+    //         sidePY: '_,I,_',
+    //         sideNZ: '_,I,_',
+    //         sidePZ: '_,_,_',
+    //         keyModel: 't_bt',
+    //         rotationY: -Math.PI / 2,
+    //     }
+    //     arrTiles.push(I)
+    // }
+    //
+    // {
+    //     /**
+    //       I
+    //      . . .
+    //      . . I
+    //      . . .
+    //        I
+    //      */
+    //     const I = {
+    //         sideNX: '_,_,_',
+    //         sidePX: '_,_,_',
+    //         sideNY: '_,I,_',
+    //         sidePY: '_,I,_',
+    //         sideNZ: '_,_,_',
+    //         sidePZ: '_,I,_',
+    //         keyModel: 't_bt',
+    //         rotationY: -Math.PI * 1.5,
+    //     }
+    //     arrTiles.push(I)
+    // }
+    //
+    // {
+    //     /**
+    //      . I .
+    //      . . .
+    //      . . .
+    //      I
+    //      */
+    //     const I = {
+    //         sideNX: '_,_,_',
+    //         sidePX: '_,_,_',
+    //         sideNY: '_,I,_',
+    //         sidePY: '_,_,_',
+    //         sideNZ: '_,I,_',
+    //         sidePZ: '_,_,_',
+    //         keyModel: 't_b',
+    //         rotationY: 0,
+    //     }
+    //     arrTiles.push(I)
+    // }
+    //
+    // // NOT IN MODEL
+    // {
+    //     /**
+    //      . . .
+    //      . . I
+    //      . . .
+    //         I
+    //      */
+    //     const I = {
+    //         sideNX: '_,_,_',
+    //         sidePX: '_,_,I',
+    //         sideNY: '_,I,_',
+    //         sidePY: '_,_,_',
+    //         sideNZ: '_,_,_',
+    //         sidePZ: '_,_,_',
+    //         keyModel: 't_b',
+    //         rotationY: -Math.PI / 2,
+    //     }
+    //     arrTiles.push(I)
+    // }
+    //
+    //
+    // {
+    //     /**
+    //        I
+    //      . . .
+    //      . . .
+    //      . I .
+    //      */
+    //     const I = {
+    //         sideNX: '_,_,_',
+    //         sidePX: '_,_,_',
+    //         sideNY: '_,_,_',
+    //         sidePY: '_,I,_',
+    //         sideNZ: '_,_,_',
+    //         sidePZ: '_,I,_',
+    //         keyModel: 't_t',
+    //         rotationY: 0,
+    //     }
+    //     arrTiles.push(I)
+    // }
+    //
+    //
+    // {
+    //     /**
+    //      . I .
+    //      . I I
+    //      . I .
+    //      */
+    //     const t = {
+    //         sideNX: '_,_,_',
+    //         sidePX: '_,I,_',
+    //         sideNY: '_,_,_',
+    //         sidePY: '_,_,_',
+    //         sideNZ: '_,I,_',
+    //         sidePZ: '_,I,_',
+    //         keyModel: 't_T',
+    //         rotationY: 0,
+    //     }
+    //     arrTiles.push(t)
+    // }
+    //
+    //
+    // {
+    //     /**
+    //        I
+    //      . . .
+    //      . . .
+    //      . . .
+    //      */
+    //     const t = {
+    //         sideNX: '_,_,_',
+    //         sidePX: '_,_,_',
+    //         sideNY: '_,_,_',
+    //         sidePY: '_,I,_',
+    //         sideNZ: '_,_,_',
+    //         sidePZ: '_,_,_',
+    //         keyModel: 't_tt',
+    //         rotationY: 0,
+    //     }
+    //     arrTiles.push(t)
+    // }
+    //
+    //
+    //
+    // {
+    //     /**
+    //      . I .
+    //      I I I
+    //      . I .
+    //      */
+    //     const t = {
+    //         sideNX: '_,I,_',
+    //         sidePX: '_,I,_',
+    //         sideNY: '_,_,_',
+    //         sidePY: '_,_,_',
+    //         sideNZ: '_,I,_',
+    //         sidePZ: '_,I,_',
+    //         keyModel: 't_X',
+    //         rotationY: 0,
+    //     }
+    //     arrTiles.push(t)
+    // }
 
-    {
-        /**
-           I
-         . . .
-         .I . .
-         . . .
-           I
-         */
-        const I = {
-            sideNX: '_,I,_',
-            sidePX: '_,_,_',
-            sideNY: '_,I,_',
-            sidePY: '_,I,_',
-            sideNZ: '_,_,_',
-            sidePZ: '_,_,_',
-            keyModel: 't_bt',
-            rotationY: 0,
-        }
-        arrTiles.push(I)
-    }
+    // {
+    //     /**
+    //      * I
+    //      . I .
+    //      I I I
+    //      . I .
+    //      I
+    //      */
+    //     const t = {
+    //         sideNX: '_,I,_',
+    //         sidePX: '_,I,_',
+    //         sideNY: '_,I,_',
+    //         sidePY: '_,I,_',
+    //         sideNZ: '_,I,_',
+    //         sidePZ: '_,I,_',
+    //         keyModel: 't_XY',
+    //         rotationY: 0,
+    //     }
+    //     arrTiles.push(t)
+    // }
 
-
-    {
-        /**
-           I
-         . I .
-         . . .
-         . . .
-           I
-         */
-        const I = {
-            sideNX: '_,_,_',
-            sidePX: '_,_,_',
-            sideNY: '_,I,_',
-            sidePY: '_,I,_',
-            sideNZ: '_,I,_',
-            sidePZ: '_,_,_',
-            keyModel: 't_bt',
-            rotationY: -Math.PI / 2,
-        }
-        arrTiles.push(I)
-    }
-
-    {
-        /**
-          I
-         . . .
-         . . I
-         . . .
-           I
-         */
-        const I = {
-            sideNX: '_,_,_',
-            sidePX: '_,_,_',
-            sideNY: '_,I,_',
-            sidePY: '_,I,_',
-            sideNZ: '_,_,_',
-            sidePZ: '_,I,_',
-            keyModel: 't_bt',
-            rotationY: -Math.PI * 1.5,
-        }
-        arrTiles.push(I)
-    }
-
-    {
-        /**
-         . I .
-         . . .
-         . . .
-         I
-         */
-        const I = {
-            sideNX: '_,_,_',
-            sidePX: '_,_,_',
-            sideNY: '_,I,_',
-            sidePY: '_,_,_',
-            sideNZ: '_,I,_',
-            sidePZ: '_,_,_',
-            keyModel: 't_b',
-            rotationY: 0,
-        }
-        arrTiles.push(I)
-    }
-
-    // NOT IN MODEL
-    {
-        /**
-         . . .
-         . . I
-         . . .
-            I
-         */
-        const I = {
-            sideNX: '_,_,_',
-            sidePX: '_,_,I',
-            sideNY: '_,I,_',
-            sidePY: '_,_,_',
-            sideNZ: '_,_,_',
-            sidePZ: '_,_,_',
-            keyModel: 't_b',
-            rotationY: -Math.PI / 2,
-        }
-        arrTiles.push(I)
-    }
-
-
-    {
-        /**
-           I
-         . . .
-         . . .
-         . I .
-         */
-        const I = {
-            sideNX: '_,_,_',
-            sidePX: '_,_,_',
-            sideNY: '_,_,_',
-            sidePY: '_,I,_',
-            sideNZ: '_,_,_',
-            sidePZ: '_,I,_',
-            keyModel: 't_t',
-            rotationY: 0,
-        }
-        arrTiles.push(I)
-    }
-
-
-    {
-        /**
-         . I .
-         . I I
-         . I .
-         */
-        const t = {
-            sideNX: '_,_,_',
-            sidePX: '_,I,_',
-            sideNY: '_,_,_',
-            sidePY: '_,_,_',
-            sideNZ: '_,I,_',
-            sidePZ: '_,I,_',
-            keyModel: 't_T',
-            rotationY: 0,
-        }
-        arrTiles.push(t)
-    }
-
-
-    {
-        /**
-           I
-         . . .
-         . . .
-         . . .
-         */
-        const t = {
-            sideNX: '_,_,_',
-            sidePX: '_,_,_',
-            sideNY: '_,_,_',
-            sidePY: '_,I,_',
-            sideNZ: '_,_,_',
-            sidePZ: '_,_,_',
-            keyModel: 't_tt',
-            rotationY: 0,
-        }
-        arrTiles.push(t)
-    }
 
 
 
