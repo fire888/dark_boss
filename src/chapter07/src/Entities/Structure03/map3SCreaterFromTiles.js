@@ -36,6 +36,7 @@ const filterMaybeArrByCompare = (dataAction, map, tiles) => {
     const [yWith, zWith, xWith] = dataAction.with
     const { withProp } = dataAction
 
+    //console.log(map)
     if (map[y] && map[y][z] && map[y][z][x]) {
         if (Number.isInteger(map[y][z][x].resultTileIndex)) {
             return;
@@ -120,54 +121,69 @@ const createPipelineActionsWithMapItem = (y, z, x, map) => {
 export const createMap = (tiles, makerMesh) => {
     /** create start map */
     const map = createMap3X(tiles)
-    //map.forceFillMapSides()
-
-    console.log('mapNotFilled', map)
-
-
-    let max = 5000
+    let max = 10000
     /** calculate maze data */
+
+
+    /** pipeline actions with tile */
+    const pipelineActions = (y, z, x, map) => {
+        return new Promise(res => {
+            const actions = createPipelineActionsWithMapItem(y, z, x, map)
+            const iterateAction = (indAction) => {
+                if (!actions[indAction]) {
+                    return res();
+                }
+                const action = actions[indAction]
+                actionsWithMapItem[action.action](action, map.items, tiles)
+
+                if (f) {
+                    button.removeEventListener('click', f)
+                }
+                f = () => {
+                    iterateAction(indAction + 1)
+                }
+                button.addEventListener('click', f)
+            }
+            iterateAction(0)
+        })
+    }
+
+
+
     const iterate = (y, z, x) => {
-        makerMesh.setCurrentMeshToIndex(y, z, x)
-        --max
-        if (max < 0) {
-            return;
-        }
-        const actions = createPipelineActionsWithMapItem(y, z, x, map)
+        return new Promise((res, rej) => {
+            makerMesh.setCurrentMeshToIndex(y, z, x)
+            --max
+            if (max < 0) {
+                console.log('max stack:', max)
+                return rej();
+            }
 
-        for (let indAction = 0; indAction < actions.length; ++indAction) {
-            const action = actions[indAction]
-            actionsWithMapItem[action.action](action, map.items, tiles)
-        }
+            /** choice tile and filter neighbours */
+            pipelineActions(y, z, x, map).then(() => {
+                /** add mesh to scene */
+                if (map.items[y][z][x].hasOwnProperty('resultTileIndex') && Number.isInteger(map.items[y][z][x].resultTileIndex)) {
+                    map.items[y][z][x].tileData = tiles[map.items[y][z][x].resultTileIndex]
+                    makerMesh.addMesh(map.items[y][z][x])
+                }
+                res()
+            })
+        })
+    }
 
-        if (map.items[y][z][x].hasOwnProperty('resultTileIndex') && Number.isInteger(map.items[y][z][x].resultTileIndex)) {
-            map.items[y][z][x].tileData = tiles[map.items[y][z][x].resultTileIndex]
-            makerMesh.addMesh(map.items[y][z][x])
-        }
-
-
-
-        const { nextY, nextZ, nextX } = map.checkNextMapItemIndexes(y, z, x)
+    const nextItem = () => {
+        const { nextY, nextZ, nextX } = map.checkNextMapItemIndexes()
         if (
             Number.isInteger(nextY) &&
             Number.isInteger(nextZ) &&
             Number.isInteger(nextX)
         ) {
-            setTimeout(() => { iterate(nextY, nextZ, nextX) }, 50)
-            // if (f) {
-            //    button.removeEventListener('click', f)
-            // }
-            // f = () => {
-            //     iterate(nextY, nextZ, nextX)
-            // }
-            // button.addEventListener('click', f)
+            setTimeout(() => { iterate( nextY, nextZ, nextX ).then(nextItem) }, 100 )
         }
     }
-    const { nextY, nextZ, nextX } = map.checkNextMapItemIndexes()
-    setTimeout(() => { iterate( nextY, nextZ, nextX ) }, 2000)
 
+    setTimeout(() => { nextItem() }, 2000)
 
-    //map3SArtifactsFilter(map, tiles)
 
     return map
 }

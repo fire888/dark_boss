@@ -38,24 +38,24 @@ const prepareCacheSidesConnect = tiles => {
 export const createDataTiles = () => {
     const arrTiles = []
 
-    // {
-    //     /**
-    //      . . .
-    //      . . .
-    //      . . .
-    //      */
-    //     const I = {
-    //         sideNX: '_,_,_',
-    //         sidePX: '_,_,_',
-    //         sideNY: '_,_,_',
-    //         sidePY: '_,_,_',
-    //         sideNZ: '_,_,_',
-    //         sidePZ: '_,_,_',
-    //         keyModel: 'empty',
-    //         rotationY: 0,
-    //     }
-    //     arrTiles.push(I)
-    // }
+    {
+        /**
+         . . .
+         . . .
+         . . .
+         */
+        const I = {
+            sideNX: '_,_,_',
+            sidePX: '_,_,_',
+            sideNY: '_,_,_',
+            sidePY: '_,_,_',
+            sideNZ: '_,_,_',
+            sidePZ: '_,_,_',
+            keyModel: 'empty',
+            rotationY: 0,
+        }
+        arrTiles.push(I)
+    }
 
 
 
