@@ -8,7 +8,7 @@ export const createrMesh = (root) => {
     const SCALE = 4
 
     const G  = {
-        'empty': new THREE.BoxGeometry(3, 3, 3)
+        //'empty': new THREE.BoxGeometry(3, 3, 3)
     }
     root.assets['tiles'].traverse(item => {
         if (item.type === 'Mesh') {
@@ -16,6 +16,12 @@ export const createrMesh = (root) => {
         }
     })
     console.log('G',G)
+
+    const currentMesh = new THREE.Mesh(
+        new THREE.BoxGeometry(15, 15, 15),
+        new THREE.MeshBasicMaterial({ color: 0xffff00 })
+    )
+    root.studio.addToScene(currentMesh)
 
 
 
@@ -35,6 +41,9 @@ export const createrMesh = (root) => {
             mesh.scale.set(SCALE, SCALE, SCALE)
             mesh.position.set(S * k * SCALE, SH * i * SCALE - 160, S * SCALE * j)
             root.system_PlayerMoveOnLevel.addItemToPlayerCollision(mesh)
+        },
+        setCurrentMeshToIndex: (i, j, k) => {
+            currentMesh.position.set(S * k * SCALE, SH * i * SCALE - 160, S * SCALE * j)
         }
     }
 }

@@ -1,6 +1,6 @@
 import { createMap3X } from './map3SHelper'
 import { makeSetContainsElementsSet1Set2 } from './helpersSortArray'
-import { map3SArtifactsFilter } from './map3SArtefactsFilter'
+//import { map3SArtifactsFilter } from './map3SArtefactsFilter'
 
 const button = document.createElement('button')
 button.innerText = 'NEXT'
@@ -13,25 +13,22 @@ let f = null
 
 const choiceFinalTileFromExists = (dataAction, map) => {
     const [y, z, x] = dataAction.src
-    if (map[y] && map[y][z] && map[y][z][x]) {
-        const mapItem = map[y][z][x]
+    const mapItem = map[y][z][x]
 
-
-        if (Number.isInteger(mapItem.resultTileIndex)) {
-            return;
-        }
-        const myArr = Array.from(mapItem.maybeTilesInds)
-        if (!myArr.length) {
-            mapItem.resultTileIndex = null
-            return
-        }
-
-        const r = Math.floor(Math.random() * myArr.length)
-        mapItem.resultTileIndex = myArr[r]
-        mapItem.maybeTilesInds = new Set()
-        mapItem.maybeTilesInds.add(myArr[r])
+    if (Number.isInteger(mapItem.resultTileIndex)) {
+        return;
+    }
+    let myArr = Array.from(mapItem.maybeTilesInds)
+    if (!myArr.length) {
+        //mapItem.resultTileIndex = null
+        //return
+        myArr = [0]
     }
 
+    const r = Math.floor(Math.random() * myArr.length)
+    mapItem.resultTileIndex = myArr[r]
+    mapItem.maybeTilesInds = new Set()
+    mapItem.maybeTilesInds.add(myArr[r])
 }
 
 const filterMaybeArrByCompare = (dataAction, map, tiles) => {
@@ -123,7 +120,7 @@ const createPipelineActionsWithMapItem = (y, z, x, map) => {
 export const createMap = (tiles, makerMesh) => {
     /** create start map */
     const map = createMap3X(tiles)
-    map.forceFillMapSides()
+    //map.forceFillMapSides()
 
     console.log('mapNotFilled', map)
 
@@ -131,7 +128,8 @@ export const createMap = (tiles, makerMesh) => {
     let max = 5000
     /** calculate maze data */
     const iterate = (y, z, x) => {
-        console.log(y, z, x)
+        makerMesh.setCurrentMeshToIndex(y, z, x)
+        //console.log(y, z, x)
         --max
         if (max < 0) {
             return;
@@ -156,16 +154,18 @@ export const createMap = (tiles, makerMesh) => {
             Number.isInteger(nextZ) &&
             Number.isInteger(nextX)
         ) {
-            if (f) {
-               button.removeEventListener('click', f)
-            }
-            f = () => {
-                iterate(nextY, nextZ, nextX)
-            }
-            button.addEventListener('click', f)
+            setTimeout(() => { iterate(nextY, nextZ, nextX) }, 50)
+            // if (f) {
+            //    button.removeEventListener('click', f)
+            // }
+            // f = () => {
+            //     iterate(nextY, nextZ, nextX)
+            // }
+            // button.addEventListener('click', f)
         }
     }
-    iterate(0, Math.floor(map.sizeZ / 2),  Math.floor(map.sizeX / 2))
+    const { nextY, nextZ, nextX } = map.checkNextMapItemIndexes()
+    setTimeout(() => { iterate( nextY, nextZ, nextX ) }, 2000)
 
 
 
@@ -176,7 +176,7 @@ export const createMap = (tiles, makerMesh) => {
     //     }
     // })
 
-    map3SArtifactsFilter(map, tiles)
+    //map3SArtifactsFilter(map, tiles)
 
     return map
 }
