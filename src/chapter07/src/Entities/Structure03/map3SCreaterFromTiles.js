@@ -14,16 +14,16 @@ let f = null
 const choiceFinalTileFromExists = (dataAction, map) => {
     const [y, z, x] = dataAction.src
     const mapItem = map[y][z][x]
-    console.log(y, z, x, mapItem)
+    //console.log(y, z, x, mapItem)
 
     if (Number.isInteger(mapItem.resultTileIndex)) {
         return;
     }
-    // if (!mapItem.resultTileIndex.length) {
-    //     //mapItem.resultTileIndex = null
-    //     return
-    //     //myArr = [0]
-    // }
+    if (!mapItem.maybeTilesInds.length) {
+        mapItem.resultTileIndex = Math.floor(Math.random() * 16)
+        mapItem.maybeTilesInds = [mapItem.resultTileIndex]
+        return;
+    }
 
     const indTile = mapItem.maybeTilesInds[Math.floor(Math.random() * mapItem.maybeTilesInds.length)]
     mapItem.resultTileIndex = indTile
@@ -51,13 +51,13 @@ const filterMaybeArrByCompare = (dataAction, map, tiles) => {
     const arrNotChange = map[yWith][zWith][xWith].maybeTilesInds
     const arrCurrent = map[y][z][x].maybeTilesInds
 
-    if (!arrNotChange || arrCurrent) {
+    if (!arrNotChange || !arrCurrent) {
         return;
     }
 
     const newArr = []
     for (let i = 0; i < arrNotChange.length; ++i) {
-        //console.log(arrNotChange[i])
+        //console.log(arrNotChange, arrNotChange[i])
         const arrCanBe = tiles[arrNotChange[i]][withProp]
         for (let j = 0; j < arrCanBe.length; ++j) {
             for (let k = 0; k < arrCurrent.length; ++k) {
@@ -148,6 +148,7 @@ export const createMap = (tiles, makerMesh) => {
     console.log('!!! tiles', tiles)
     /** create start map */
     const map = createMap3X(tiles)
+    console.log('!!! map', map)
     let max = 10000
     /** calculate maze data */
 
@@ -170,7 +171,7 @@ export const createMap = (tiles, makerMesh) => {
                 //     iterateAction(indAction + 1)
                 // }
                 // button.addEventListener('click', f)
-                setTimeout(() => {iterateAction(indAction + 1)}, 30)
+                setTimeout(() => {iterateAction(indAction + 1)}, 5)
             }
             iterateAction(0)
         })
