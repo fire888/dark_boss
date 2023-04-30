@@ -120,8 +120,13 @@ export const createMap = tiles => {
     console.log('mapNotFilled', map)
 
 
+    let max = 5000
     /** calculate maze data */
     const iterate = (y, z, x) => {
+        --max
+        if (max < 0) {
+            return;
+        }
         const actions = createPipelineActionsWithMapItem(y, z, x, map)
 
         for (let indAction = 0; indAction < actions.length; ++indAction) {
@@ -138,7 +143,7 @@ export const createMap = tiles => {
             iterate(nextY, nextZ, nextX)
         }
     }
-    iterate(0, 0, 0)
+    iterate(0, Math.floor(map.sizeZ / 2),  Math.floor(map.sizeX / 2))
 
 
 

@@ -10,6 +10,7 @@ export const createrMesh = (root) => {
 
 
     const G = {
+        'empty': new THREE.BoxGeometry(3, 3, 2),
         'tile_I': root.assets['elem_I'].children[0].geometry,
         'tile_L': root.assets['elem_L'].children[0].geometry,
         'tile_Y': root.assets['elem_Y'].children[0].geometry,
@@ -23,8 +24,6 @@ export const createrMesh = (root) => {
                 return;
             }
             const {i, j, k, tileData } = tile
-            console.log(tileData)
-
 
             const mesh = new THREE.Mesh(
                 G[tileData.keyModel],

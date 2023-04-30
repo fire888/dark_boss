@@ -51,7 +51,7 @@ export const createDataTiles = () => {
             sidePY: '_,_,_',
             sideNZ: '_,_,_',
             sidePZ: '_,_,_',
-            keyModel: null,
+            keyModel: 'empty',
             rotationY: 0,
         }
         arrTiles.push(I)

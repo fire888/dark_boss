@@ -155,7 +155,7 @@ export class Studio {
         })
 
 
-        //setTimeout(() => { toggleView() }, 200)
+        setTimeout(() => { toggleView() }, 200)
     }
 
 
