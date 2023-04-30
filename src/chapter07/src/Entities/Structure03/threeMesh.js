@@ -7,15 +7,16 @@ export const createrMesh = (root) => {
     const SH = 20
     const SCALE = 4
 
-
-
-    const G = {
-        'empty': new THREE.BoxGeometry(3, 3, 2),
-        'tile_I': root.assets['elem_I'].children[0].geometry,
-        'tile_L': root.assets['elem_L'].children[0].geometry,
-        'tile_Y': root.assets['elem_Y'].children[0].geometry,
-        'tile_YS': root.assets['tile_YS'].children[0].geometry,
+    const G  = {
+        'empty': new THREE.BoxGeometry(3, 3, 3)
     }
+    root.assets['tiles'].traverse(item => {
+        if (item.type === 'Mesh') {
+            G[item.name] = item.geometry
+        }
+    })
+    console.log('G',G)
+
 
 
     return {

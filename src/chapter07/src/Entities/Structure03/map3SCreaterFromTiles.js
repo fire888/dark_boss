@@ -2,6 +2,14 @@ import { createMap3X } from './map3SHelper'
 import { makeSetContainsElementsSet1Set2 } from './helpersSortArray'
 import { map3SArtifactsFilter } from './map3SArtefactsFilter'
 
+const button = document.createElement('button')
+button.innerText = 'NEXT'
+document.body.appendChild(button)
+button.style.position = 'absolute'
+button.style.zIndex = '100'
+button.style.top = '0'
+let f = null
+
 
 const choiceFinalTileFromExists = (dataAction, map) => {
     const [y, z, x] = dataAction.src
@@ -112,7 +120,7 @@ const createPipelineActionsWithMapItem = (y, z, x, map) => {
 
 
 
-export const createMap = tiles => {
+export const createMap = (tiles, makerMesh) => {
     /** create start map */
     const map = createMap3X(tiles)
     map.forceFillMapSides()
@@ -123,6 +131,7 @@ export const createMap = tiles => {
     let max = 5000
     /** calculate maze data */
     const iterate = (y, z, x) => {
+        console.log(y, z, x)
         --max
         if (max < 0) {
             return;
@@ -134,13 +143,26 @@ export const createMap = tiles => {
             actionsWithMapItem[action.action](action, map.items, tiles)
         }
 
+        if (map.items[y][z][x].hasOwnProperty('resultTileIndex') && Number.isInteger(map.items[y][z][x].resultTileIndex)) {
+            map.items[y][z][x].tileData = tiles[map.items[y][z][x].resultTileIndex]
+            makerMesh.addMesh(map.items[y][z][x])
+        }
+
+
+
         const { nextY, nextZ, nextX } = map.checkNextMapItemIndexes(y, z, x)
         if (
             Number.isInteger(nextY) &&
             Number.isInteger(nextZ) &&
             Number.isInteger(nextX)
         ) {
-            iterate(nextY, nextZ, nextX)
+            if (f) {
+               button.removeEventListener('click', f)
+            }
+            f = () => {
+                iterate(nextY, nextZ, nextX)
+            }
+            button.addEventListener('click', f)
         }
     }
     iterate(0, Math.floor(map.sizeZ / 2),  Math.floor(map.sizeX / 2))
@@ -148,11 +170,11 @@ export const createMap = tiles => {
 
 
     /** fill results by data */
-    map.iterateAll(item => {
-        if (Number.isInteger(item.resultTileIndex)) {
-            item.tileData = tiles[item.resultTileIndex]
-        }
-    })
+    // map.iterateAll(item => {
+    //     if (Number.isInteger(item.resultTileIndex)) {
+    //         item.tileData = tiles[item.resultTileIndex]
+    //     }
+    // })
 
     map3SArtifactsFilter(map, tiles)
 

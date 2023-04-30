@@ -59,24 +59,24 @@ export const createDataTiles = () => {
 
 
 
-    {
-        /**
-         . I .
-         . I .
-         . I .
-         */
-        const I = {
-            sideNX: '_,_,_',
-            sidePX: '_,_,_',
-            sideNY: '_,_,_',
-            sidePY: '_,_,_',
-            sideNZ: '_,I,_',
-            sidePZ: '_,I,_',
-            keyModel: 'tile_I',
-            rotationY: 0,
-        }
-        arrTiles.push(I)
-    }
+    // {
+    //     /**
+    //      . I .
+    //      . I .
+    //      . I .
+    //      */
+    //     const I = {
+    //         sideNX: '_,_,_',
+    //         sidePX: '_,_,_',
+    //         sideNY: '_,_,_',
+    //         sidePY: '_,_,_',
+    //         sideNZ: '_,I,_',
+    //         sidePZ: '_,I,_',
+    //         keyModel: 'tile_I',
+    //         rotationY: 0,
+    //     }
+    //     arrTiles.push(I)
+    // }
 
     {
         /**
@@ -91,7 +91,7 @@ export const createDataTiles = () => {
             sidePY: '_,_,_',
             sideNZ: '_,_,_',
             sidePZ: '_,_,_',
-            keyModel: 'tile_I',
+            keyModel: 't_I',
             rotationY: Math.PI / 2,
         }
         arrTiles.push(I)
@@ -111,7 +111,7 @@ export const createDataTiles = () => {
             sidePY: '_,_,_',
             sideNZ: '_,_,_',
             sidePZ: '_,I,_',
-            keyModel: 'tile_L',
+            keyModel: 't_L',
             rotationY: 0,
         }
         arrTiles.push(t)
@@ -130,7 +130,7 @@ export const createDataTiles = () => {
             sidePY: '_,_,_',
             sideNZ: '_,_,_',
             sidePZ: '_,I,_',
-            keyModel: 'tile_L',
+            keyModel: 't_L',
             rotationY: -Math.PI / 2,
         }
         arrTiles.push(t)
@@ -149,7 +149,7 @@ export const createDataTiles = () => {
             sidePY: '_,_,_',
             sideNZ: '_,I,_',
             sidePZ: '_,_,_',
-            keyModel: 'tile_L',
+            keyModel: 't_L',
             rotationY: -Math.PI,
         }
         arrTiles.push(t)
@@ -168,7 +168,7 @@ export const createDataTiles = () => {
             sidePY: '_,_,_',
             sideNZ: '_,I,_',
             sidePZ: '_,_,_',
-            keyModel: 'tile_L',
+            keyModel: 't_L',
             rotationY: -Math.PI * 1.5,
         }
         arrTiles.push(t)
@@ -189,7 +189,7 @@ export const createDataTiles = () => {
             sidePY: '_,I,_',
             sideNZ: '_,_,_',
             sidePZ: '_,_,_',
-            keyModel: 'tile_Y',
+            keyModel: 't_bt',
             rotationY: 0,
         }
         arrTiles.push(I)
@@ -211,7 +211,7 @@ export const createDataTiles = () => {
             sidePY: '_,I,_',
             sideNZ: '_,I,_',
             sidePZ: '_,_,_',
-            keyModel: 'tile_Y',
+            keyModel: 't_bt',
             rotationY: -Math.PI / 2,
         }
         arrTiles.push(I)
@@ -232,7 +232,7 @@ export const createDataTiles = () => {
             sidePY: '_,I,_',
             sideNZ: '_,_,_',
             sidePZ: '_,I,_',
-            keyModel: 'tile_Y',
+            keyModel: 't_bt',
             rotationY: -Math.PI * 1.5,
         }
         arrTiles.push(I)
@@ -252,7 +252,7 @@ export const createDataTiles = () => {
             sidePY: '_,_,_',
             sideNZ: '_,I,_',
             sidePZ: '_,_,_',
-            keyModel: 'tile_YS',
+            keyModel: 't_b',
             rotationY: 0,
         }
         arrTiles.push(I)
@@ -273,7 +273,7 @@ export const createDataTiles = () => {
             sidePY: '_,_,_',
             sideNZ: '_,_,_',
             sidePZ: '_,_,_',
-            keyModel: 'tile_YS',
+            keyModel: 't_b',
             rotationY: -Math.PI / 2,
         }
         arrTiles.push(I)
@@ -294,10 +294,51 @@ export const createDataTiles = () => {
             sidePY: '_,I,_',
             sideNZ: '_,_,_',
             sidePZ: '_,I,_',
-            keyModel: 'tile_YT',
+            keyModel: 't_t',
             rotationY: 0,
         }
         arrTiles.push(I)
+    }
+
+
+    {
+        /**
+         . I .
+         . I I
+         . I .
+         */
+        const t = {
+            sideNX: '_,_,_',
+            sidePX: '_,I,_',
+            sideNY: '_,_,_',
+            sidePY: '_,_,_',
+            sideNZ: '_,I,_',
+            sidePZ: '_,I,_',
+            keyModel: 't_T',
+            rotationY: 0,
+        }
+        arrTiles.push(t)
+    }
+
+
+    {
+        /**
+           I
+         . . .
+         . . .
+         . . .
+         */
+        const t = {
+            sideNX: '_,_,_',
+            sidePX: '_,_,_',
+            sideNY: '_,_,_',
+            sidePY: '_,I,_',
+            sideNZ: '_,_,_',
+            sidePZ: '_,_,_',
+            keyModel: 't_tt',
+            rotationY: 0,
+        }
+        arrTiles.push(t)
     }
 
 
