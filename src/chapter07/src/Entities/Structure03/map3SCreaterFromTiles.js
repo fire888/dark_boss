@@ -20,8 +20,8 @@ const choiceFinalTileFromExists = (dataAction, map) => {
         return;
     }
     if (!mapItem.maybeTilesInds.length) {
-        mapItem.resultTileIndex = Math.floor(Math.random() * 16)
-        mapItem.maybeTilesInds = [mapItem.resultTileIndex]
+        mapItem.resultTileIndex = -1 //Math.floor(Math.random() * 16)
+        mapItem.maybeTilesInds = []
         return;
     }
 
@@ -51,13 +51,12 @@ const filterMaybeArrByCompare = (dataAction, map, tiles) => {
     const arrNotChange = map[yWith][zWith][xWith].maybeTilesInds
     const arrCurrent = map[y][z][x].maybeTilesInds
 
-    if (!arrNotChange || !arrCurrent) {
+    if (!arrNotChange || !arrNotChange.length || !arrCurrent || !arrCurrent.length) {
         return;
     }
 
     const newArr = []
     for (let i = 0; i < arrNotChange.length; ++i) {
-        //console.log(arrNotChange, arrNotChange[i])
         const arrCanBe = tiles[arrNotChange[i]][withProp]
         for (let j = 0; j < arrCanBe.length; ++j) {
             for (let k = 0; k < arrCurrent.length; ++k) {
@@ -142,15 +141,14 @@ const createPipelineActionsWithMapItem = (y, z, x, map) => {
     return actions
 }
 
-
+let max = 10000
 
 export const createMap = (tiles, makerMesh) => {
     console.log('!!! tiles', tiles)
     /** create start map */
     const map = createMap3X(tiles)
     console.log('!!! map', map)
-    let max = 10000
-    /** calculate maze data */
+
 
 
     /** pipeline actions with tile */
@@ -171,7 +169,7 @@ export const createMap = (tiles, makerMesh) => {
                 //     iterateAction(indAction + 1)
                 // }
                 // button.addEventListener('click', f)
-                setTimeout(() => {iterateAction(indAction + 1)}, 5)
+                setTimeout(() => {iterateAction(indAction + 1)}, 0)
             }
             iterateAction(0)
         })
@@ -184,6 +182,7 @@ export const createMap = (tiles, makerMesh) => {
             makerMesh.setCurrentMeshToIndex(y, z, x)
 
             --max
+            console.log(max)
             if (max < 0) {
                 console.log('max stack:', max)
                 return rej();
@@ -208,7 +207,7 @@ export const createMap = (tiles, makerMesh) => {
             Number.isInteger(nextZ) &&
             Number.isInteger(nextX)
         ) {
-            setTimeout(() => { calculateMapItem( nextY, nextZ, nextX ).then(nextItem) }, 100 )
+            setTimeout(() => { calculateMapItem( nextY, nextZ, nextX ).then(nextItem) }, 0)
         }
     }
 

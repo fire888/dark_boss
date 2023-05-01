@@ -26,6 +26,9 @@ export const createrMesh = (root) => {
 
     return {
         addMesh: (tile) => {
+            if (!tile.tileData) {
+                return;
+            }
             if (!G[tile.tileData.keyModel]) {
                 return;
             }
