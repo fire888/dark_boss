@@ -10,6 +10,9 @@ export const LOCATIONS_QUADRANTS = {
 }
 
 
+export const W = 40
+export const H = 20
+
 
 
 export const MATERIALS_CONFIG = MATERIALS_CONF

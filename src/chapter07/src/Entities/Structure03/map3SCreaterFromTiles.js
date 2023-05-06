@@ -169,7 +169,8 @@ export const createMap = (tiles, makerMesh) => {
                 //     iterateAction(indAction + 1)
                 // }
                 // button.addEventListener('click', f)
-                setTimeout(() => {iterateAction(indAction + 1)}, 0)
+                //setTimeout(() => {iterateAction(indAction + 1)}, 0)
+                iterateAction(indAction + 1)
             }
             iterateAction(0)
         })
@@ -182,7 +183,6 @@ export const createMap = (tiles, makerMesh) => {
             makerMesh.setCurrentMeshToIndex(y, z, x)
 
             --max
-            console.log(max)
             if (max < 0) {
                 console.log('max stack:', max)
                 return rej();
@@ -207,7 +207,8 @@ export const createMap = (tiles, makerMesh) => {
             Number.isInteger(nextZ) &&
             Number.isInteger(nextX)
         ) {
-            setTimeout(() => { calculateMapItem( nextY, nextZ, nextX ).then(nextItem) }, 0)
+            calculateMapItem( nextY, nextZ, nextX ).then(nextItem)
+            //setTimeout(() => {  }, 0)
         }
     }
 

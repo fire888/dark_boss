@@ -66,8 +66,11 @@ export class FrameUpdater {
         )
 
         const animate = () => {
-            requestAnimationFrame(animate)
-            update(data)
+            setTimeout(() => {
+                requestAnimationFrame(animate)
+                update(data)
+            }, 200)
+
         }
         animate()
     }

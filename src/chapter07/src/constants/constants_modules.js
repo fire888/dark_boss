@@ -40,6 +40,7 @@ import ironAlbedo from '../../../assets/chapter06/concrete/broken_down_concrete2
 // import tile_YS from '../../../assets/chapter07/elem_YS.obj'
 // import tile_YT from '../../../assets/chapter07/elem_YT.obj'
 import tiles from '../../../assets/chapter07/tiles.obj'
+import textureTiles from '../../../assets/chapter07/texture00.jpg'
 
 export const GAME_MODULES = [
     {
@@ -121,10 +122,11 @@ export const GAME_MODULES = [
         initStateKey: 'beforeStartPlay',
             assetsToLoad: [
                 { type: 'cubeTextures', path: [ pxjpg2, nxjpg2, pyjpg2, nyjpg2, pzjpg2, nzjpg2, ], key: 'skyBox3' },
-                { type: 'img', path: mapTop, key: 'mapTop', wrap: true },
-                { type: 'img', path: ironNormal, key: 'ironNormal', wrap: true },
-                { type: 'img', path: ironAlbedo, key: 'ironAlbedo', wrap: true },
-                { type: 'img', path: ironAO, key: 'ironAO', wrap: true },
+                //{ type: 'img', path: mapTop, key: 'mapTop', wrap: true },
+                //{ type: 'img', path: ironNormal, key: 'ironNormal', wrap: true },
+                //{ type: 'img', path: ironAlbedo, key: 'ironAlbedo', wrap: true },
+                //{ type: 'img', path: ironAO, key: 'ironAO', wrap: true },
+                { type: 'img', path: textureTiles, key: 'textureTiles', wrap: true },
                 //{ type: 'obj', path: bodySrc, key: 'bodyModel' },
                 //{ type: 'img', path: bodyShadow, key: 'bodyDropShadow' },
                 //{ type: 'obj', path: endWaySrc, key: 'endWayModel' },

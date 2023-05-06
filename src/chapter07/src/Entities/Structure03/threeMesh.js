@@ -1,7 +1,13 @@
-import * as THREE from "three";
+import * as THREE from "three"
+import { createGeomL } from './geometries/geometryL'
+import { createGeomFromBuffer } from './geometries/geomFromData'
 
 export const createrMesh = (root) => {
-    const m = new THREE.MeshPhongMaterial({ color: 0xffffff})
+    console.log('44', root.assets)
+    const m = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        map: root.assets.textureTiles
+    })
 
     const S = 40
     const SH = 20
@@ -32,6 +38,29 @@ export const createrMesh = (root) => {
             if (!G[tile.tileData.keyModel]) {
                 return;
             }
+            if (tile.tileData.keyModel === 't_L') {
+                //const
+                //console.log('!!!')
+                const {i, j, k, tileData } = tile
+
+                const g = createGeomFromBuffer(createGeomL())
+
+                const mesh = new THREE.Mesh(
+                    g,
+                    m,
+                )
+                root.studio.addToScene(mesh)
+                mesh.rotation.y = tileData.rotationY
+                mesh.scale.set(SCALE, SCALE, SCALE)
+                mesh.position.set(S * k * SCALE, SH * i * SCALE - 160, S * SCALE * j)
+                root.system_PlayerMoveOnLevel.addItemToPlayerCollision(mesh)
+
+                return;
+            } else {
+                return;
+            }
+
+
             const {i, j, k, tileData } = tile
 
             const mesh = new THREE.Mesh(
