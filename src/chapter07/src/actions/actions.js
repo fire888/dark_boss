@@ -61,7 +61,7 @@ export class actions {
 
         const plane = new THREE.Mesh(
             new THREE.PlaneBufferGeometry(10000, 10000, ),
-            new THREE.MeshPhongMaterial({ color: 0x444444})
+            new THREE.MeshBasicMaterial({ color: 0xeeeeee})
         )
         plane.rotation.x = -Math.PI / 2
         plane.position.y = -160

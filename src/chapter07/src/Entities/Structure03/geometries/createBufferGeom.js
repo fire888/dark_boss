@@ -1,7 +1,5 @@
 import * as THREE from "three";
 
-let material = null
-
 export const createGeomFromBuffer = ({
                                          v,
                                          c = null,
@@ -25,12 +23,5 @@ export const createGeomFromBuffer = ({
 
     g.computeVertexNormals()
 
-
-    // if (!mat && !material) {
-    //     material = new THREE.MeshPhongMaterial({ color: 0xFFFFFF, vertexColors: true })
-    // }
-    // const materialToUse = mat || material
-
-    //return new THREE.Mesh(g, materialToUse)
     return g
 }

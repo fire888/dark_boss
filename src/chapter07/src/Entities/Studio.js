@@ -21,7 +21,7 @@ export class Studio {
         this._renderer = new THREE.WebGLRenderer(rendererCon)
         //this._renderer.outputEncoding = THREE.sRGBEncoding;
         //this._renderer.setClearColor(clearColor)
-        this._renderer.setClearColor(0x000000)
+        this._renderer.setClearColor(0xeeeeee)
         this._renderer.setPixelRatio(window.devicePixelRatio)
         this._renderer.setSize(window.innerWidth, window.innerHeight)
 
