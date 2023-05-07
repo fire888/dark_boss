@@ -127,8 +127,8 @@ export const createGeomStairs = () => {
 
     {
         const platform = createPlatformData({
-            nX_pZ: [-80, H * .75, 60],
-            pX_pZ: [-hpW * 2, H * .75, 60],
+            nX_pZ: [-80, H * .75, hpW * 2],
+            pX_pZ: [-hpW * 2, H * .75, hpW * 2],
             pX_nZ: [-hpW * 2, H / 2, hpW],
             nX_nZ: [-80, H / 2, hpW],
         })
@@ -138,21 +138,18 @@ export const createGeomStairs = () => {
         col.push(...platform.col)
     }
 
-
-
     {
         const platform = createPlatformData({
             nX_pZ: [-80, H * .75, 80],
             pX_pZ: [-hpW * 2, H * .75, 80],
-            pX_nZ: [-hpW * 2, H * .75, 60],
-            nX_nZ: [-80, H * .75, 60],
+            pX_nZ: [-hpW * 2, H * .75, hpW * 2],
+            nX_nZ: [-80, H * .75, hpW * 2],
         })
         v.push(...platform.v)
         c.push(...platform.c)
         u.push(...platform.u)
         col.push(...platform.col)
     }
-
 
     {
         const platform = createPlatformData({
@@ -167,8 +164,6 @@ export const createGeomStairs = () => {
         col.push(...platform.col)
     }
 
-
-
     {
         const platform = createPlatformData({
             nX_pZ: [-hpW, H * .85, 80],
@@ -182,8 +177,6 @@ export const createGeomStairs = () => {
         col.push(...platform.col)
     }
 
-
-
     {
         const platform = createPlatformData({
             nX_pZ: [-hpW, H * .85, hpW * 2],
@@ -196,55 +189,6 @@ export const createGeomStairs = () => {
         u.push(...platform.u)
         col.push(...platform.col)
     }
-
-    //
-    // {
-    //     const platform = createPlatformData({
-    //         nX_pZ: [hpW, 0, hpW],
-    //         pX_pZ: [80, H / 2, hpW],
-    //         pX_nZ: [80, H / 2, -hpW],
-    //         nX_nZ: [hpW, 0, -hpW],
-    //     })
-    //
-    //     //translateArr(platform.v, W / 3, H / 2, 0)
-    //     v.push(...platform.v)
-    //     c.push(...platform.c)
-    //     u.push(...platform.u)
-    //     //translateArr(platform.col, W / 3, H / 2, 0)
-    //     col.push(...platform.col)
-    // }
-    //
-    // {
-    //     const platform = createPlatformData({
-    //         nX_pZ: [-80, H / 2, hpW],
-    //         pX_pZ: [-hpW, 0, hpW],
-    //         pX_nZ: [-hpW, 0, -hpW],
-    //         nX_nZ: [-80, H / 2, -hpW],
-    //     })
-    //
-    //     //translateArr(platform.v, -W / 3, H / 2, 0)
-    //     v.push(...platform.v)
-    //     c.push(...platform.c)
-    //     u.push(...platform.u)
-    //     //translateArr(platform.col, -W / 3, H / 2, 0)
-    //     col.push(...platform.col)
-    // }
-    // {
-    //     const platform = createPlatformData({
-    //         nX_pZ: [-hpW, H / 2, 80],
-    //         pX_pZ: [hpW, H / 2, 80],
-    //         pX_nZ: [hpW, H, hpW],
-    //         nX_nZ: [-hpW, H, hpW],
-    //     })
-    //
-    //     //translateArr(platform.v, 0, H / 2, -W / 3)
-    //     v.push(...platform.v)
-    //     c.push(...platform.c)
-    //     u.push(...platform.u)
-    //     // translateArr(platform.col, 0, H / 2, -W / 3)
-    //     col.push(...platform.col)
-    // }
-
 
     return { v, c, u, col }
 }

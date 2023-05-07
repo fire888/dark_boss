@@ -15,6 +15,7 @@ import {
 //import { createWaveMain } from '../Entities/Structure01/WaveMain'
 import { createStructure2 } from '../Entities/Structure02/structure02'
 import { createStructure3 } from '../Entities/Structure03/structure03'
+import { createSystemSprites } from '../Entities/sprites'
 
 
 export class actions {
@@ -58,6 +59,9 @@ export class actions {
         ////////////////////////////////////////////////////
         ////////////////////////////////////////////////////
         createStructure3(root)
+
+        const sprites = createSystemSprites(root)
+        sprites.addToScene()
 
         const plane = new THREE.Mesh(
             new THREE.PlaneBufferGeometry(10000, 10000, ),

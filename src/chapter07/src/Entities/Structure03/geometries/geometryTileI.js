@@ -34,7 +34,7 @@ export const createGeomI = () => {
 
     /** center */
     {
-        const platform = createPlatformData({w: W / 3, d: W / 3})
+        const platform = createPlatformData({})
 
         translateArr(platform.v, 0, H / 2, 0)
         v.push(...platform.v)
@@ -45,7 +45,7 @@ export const createGeomI = () => {
     }
     /** bottom */
     {
-        const platform = createPlatformData({w: W / 3, d: W / 3})
+        const platform = createPlatformData({})
 
         translateArr(platform.v, 0, H / 2, W / 3)
         v.push(...platform.v)
@@ -55,7 +55,7 @@ export const createGeomI = () => {
         col.push(...platform.col)
     }
     {
-        const platform = createPlatformData({w: W / 3, d: W / 3})
+        const platform = createPlatformData({})
 
         translateArr(platform.v, 0, H / 2, W / 3)
         v.push(...platform.v)

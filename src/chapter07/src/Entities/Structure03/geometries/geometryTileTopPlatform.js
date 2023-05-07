@@ -15,7 +15,7 @@ export const createGeomTopPlatform = () => {
 
     /** center */
     {
-        const platform = createPlatformData({w: W / 3, d: W / 3})
+        const platform = createPlatformData({})
 
         translateArr(platform.v, 0, H, 0)
         v.push(...platform.v)

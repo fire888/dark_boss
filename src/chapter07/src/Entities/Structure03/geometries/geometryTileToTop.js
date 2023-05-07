@@ -5,7 +5,7 @@ import {
 import { createColumnData } from './geomElemColumn'
 import { createPlatformData } from './geomElemPlatform'
 
-
+const hpW = W / 6
 
 export const createGeomToTop = () => {
     const v = []
@@ -46,10 +46,10 @@ export const createGeomToTop = () => {
 
     {
         const platform = createPlatformData({
-            nX_pZ: [-30, 0, 90],
-            pX_pZ: [30, 0, 90],
-            pX_nZ: [30, H * 0.5, 30],
-            nX_nZ: [-30, H * 0.5, 30],
+            nX_pZ: [-hpW, 0, 80],
+            pX_pZ: [hpW, 0, 80],
+            pX_nZ: [hpW, H * 0.5, hpW],
+            nX_nZ: [-hpW, H * 0.5, hpW],
         })
 
         translateArr(platform.v, 0, H * 0.5, 0)
