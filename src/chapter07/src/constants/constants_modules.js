@@ -40,7 +40,7 @@ import ironAlbedo from '../../../assets/chapter06/concrete/broken_down_concrete2
 // import tile_YS from '../../../assets/chapter07/elem_YS.obj'
 // import tile_YT from '../../../assets/chapter07/elem_YT.obj'
 import tiles from '../../../assets/chapter07/tiles.obj'
-import textureTiles from '../../../assets/chapter07/texture00.jpg'
+import textureTiles from '../../../assets/chapter07/texture01.jpg'
 
 export const GAME_MODULES = [
     {

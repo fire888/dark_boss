@@ -1,106 +1,164 @@
 import {H} from "../../../constants/constants_elements";
 import {createFace, fillColorFace, rotateArrY} from "../../../helpers/geomHelpers";
-import {tileUv} from "./uvAtlas";
+import {
+    tileUv,
+    randomTile,
+} from "./uvAtlas";
+import { COLOR_00 } from '../../../constants/constants_elements'
+
+const { sin, cos } = Math
 
 export const createColumnData = ({
                               h = H,
                               w = 3,
                               bottomW = 5,
-                              bottomH = 3,
+                              bottomH = 5,
                               topW = 5,
-                              topH = 3,
+                              topH =15,
                           }) => {
     const v = []
     const c = []
     const u = []
     const col = []
 
-
-    /** left side ***/
     const sideV = []
 
     const h1 = bottomH + 2
     const h2 = h - topH - 2
     const h3 = h - topH
 
-    const sideColV = [
-        ...createFace(
-            [-bottomW / 2, 0, bottomW / 2,],
-            [bottomW / 2, 0, bottomW / 2,],
-            [bottomW / 2, h, bottomW / 2,],
-            [-bottomW / 2, h, bottomW / 2,],
-        ),
-    ]
+    const SIDES = 8
+    const R1 = 3
+    const R2 = 5
 
-    sideV.push(
-        ...createFace(
-            [-bottomW / 2, 0, bottomW / 2,],
-            [bottomW / 2, 0, bottomW / 2,],
-            [bottomW / 2, bottomH, bottomW / 2,],
-            [-bottomW / 2, bottomH, bottomW / 2,],
-        ),
+    const colorPolygon = fillColorFace(COLOR_00)
 
-        ...createFace(
-            [-bottomW / 2, bottomH, bottomW / 2,],
-            [bottomW / 2, bottomH, bottomW / 2,],
-            [w / 2, h1,  w / 2,],
-            [-w / 2, h1, w / 2,],
-        ),
-        ...createFace(
-            [-w / 2, h1, w / 2,],
-            [w / 2, h1, w / 2,],
-            [w / 2, h2,  w / 2,],
-            [- w / 2, h2, w / 2,],
-        ),
-        ...createFace(
-            [-w / 2, h2, w / 2,],
-            [w / 2, h2, w / 2,],
-            [topW / 2, h3,  topW / 2,],
-            [-topW / 2, h3, topW / 2,],
-        ),
-        ...createFace(
-            [-topW / 2, h3,  topW / 2,],
-            [topW / 2, h3, topW / 2,],
-            [topW / 2, h,  topW / 2,],
-            [-topW / 2, h, topW / 2,],
-        ),
-    )
+    /** base *****/
+    for (let i = 0; i < SIDES; ++i) {
+        let a0 = (i - 1) / SIDES * Math.PI * 2
+        if (i === 0) {
+            a0 = (SIDES - 1) / SIDES * Math.PI * 2
+        }
+        const a1 = i / SIDES  * Math.PI * 2
 
-    const colorPolygon = fillColorFace([1, 1, 1])
-    const colorSide = [
-        ...colorPolygon,
-        ...colorPolygon,
-        ...colorPolygon,
-        ...colorPolygon,
-        ...colorPolygon,
-    ]
 
-    const fillArr = (rot) => {
-        const copyF = [...sideV]
-        rotateArrY(copyF, rot)
-        v.push(...copyF)
+        v.push(
+            0, -8, 0,
+            sin(a1) * R2, 0, cos(a1) * R2,
+            sin(a0) * R2, 0, cos(a0) * R2,
 
-        const copyCol = [...sideColV]
-        rotateArrY(copyCol, rot)
-        col.push(...copyCol)
+            ...createFace(
+                [sin(a0) * R2, 0, cos(a0) * R2],
+                [sin(a1) * R2, 0, cos(a1) * R2],
+                [sin(a1) * R2, bottomH, cos(a1) * R2],
+                [sin(a0) * R2, bottomH, cos(a0) * R2],
+            ),
 
-        c.push(...colorSide)
-        const k = `${Math.floor(Math.random() * 3)}_${Math.floor(Math.random() * 3)}`
-        const k1 = `${Math.floor(Math.random() * 3)}_${Math.floor(Math.random() * 3)}`
-        const k2 = `${Math.floor(Math.random() * 3)}_${Math.floor(Math.random() * 3)}`
+            ...createFace(
+                [sin(a0) * R2, bottomH, cos(a0) * R2],
+                [sin(a1) * R2, bottomH, cos(a1) * R2],
+                [sin(a1) * R1, h1, cos(a1) * R1],
+                [sin(a0) * R1, h1, cos(a0) * R1],
+            ),
+        )
+
         u.push(
-            ...tileUv[k],
-            ...tileUv[k1],
-            ...tileUv[k2],
-            ...tileUv[k1],
-            ...tileUv[k],
+            ...tileUv['three'],
+            ...tileUv['line_p0'],
+            ...tileUv['line_p1'],
+        )
+
+        c.push(
+            ...COLOR_00,
+            ...COLOR_00,
+            ...COLOR_00,
+            ...colorPolygon,
+            ...colorPolygon,
         )
     }
 
-    fillArr(0)
-    fillArr(-Math.PI / 2)
-    fillArr(Math.PI / 2)
-    fillArr(Math.PI)
+    let savedL = h1
+    while (savedL < h2) {
+        let currentL = Math.random() * 30 + 2
+        if (savedL + currentL > h2) {
+            currentL = h2 - savedL
+        }
+
+        for (let i = 0; i < SIDES; ++i) {
+            let a0 = (i - 1) / SIDES * Math.PI * 2
+            if (i === 0) {
+                a0 = (SIDES - 1) / SIDES * Math.PI * 2
+            }
+            const a1 = i / SIDES * Math.PI * 2
+
+
+            v.push(
+                ...createFace(
+                    [sin(a0) * R1, savedL, cos(a0) * R1],
+                    [sin(a1) * R1, savedL, cos(a1) * R1],
+                    [sin(a1) * R1, savedL + currentL, cos(a1) * R1],
+                    [sin(a0) * R1, savedL + currentL, cos(a0) * R1],
+                ),
+            )
+
+            u.push(
+                ...randomTile(),
+            )
+
+            c.push(
+                ...colorPolygon,
+            )
+        }
+
+        savedL = savedL + currentL
+    }
+
+    /** top *****/
+    for (let i = 0; i < SIDES; ++i) {
+        let a0 = (i - 1) / SIDES * Math.PI * 2
+        if (i === 0) {
+            a0 = (SIDES - 1) / SIDES * Math.PI * 2
+        }
+        const a1 = i / SIDES  * Math.PI * 2
+
+
+        v.push(
+            ...createFace(
+                [sin(a0) * R1, h2, cos(a0) * R1],
+                [sin(a1) * R1, h2, cos(a1) * R1],
+                [sin(a1) * R2, h3, cos(a1) * R2],
+                [sin(a0) * R2, h3, cos(a0) * R2],
+            ),
+
+            ...createFace(
+                [sin(a0) * R2, h3, cos(a0) * R2],
+                [sin(a1) * R2, h3, cos(a1) * R2],
+                [sin(a1) * R2, h, cos(a1) * R2],
+                [sin(a0) * R2, h, cos(a0) * R2],
+            ),
+
+            0, h + 12, 0,
+            sin(a0) * R2, h, cos(a0) * R2,
+            sin(a1) * R2, h, cos(a1) * R2,
+
+        )
+
+        u.push(
+            ...tileUv['line_p0'],
+            ...tileUv['line_p1'],
+            ...tileUv['three'],
+        )
+
+        c.push(
+            ...colorPolygon,
+            ...colorPolygon,
+
+            ...COLOR_00,
+            ...COLOR_00,
+            ...COLOR_00,
+        )
+    }
+
 
     return { v, col, u, c }
 }

@@ -2,6 +2,11 @@ import { MATERIALS_CONF } from "./constants_materials";
 
 export const W = 160
 export const H = 80
+export const SIZE_X = 7
+export const SIZE_Y = 15
+export const SIZE_Z = 7
+export const COLOR_00 = [1, 0, 0]
+
 
 
 

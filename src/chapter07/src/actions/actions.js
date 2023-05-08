@@ -17,6 +17,8 @@ import { createStructure2 } from '../Entities/Structure02/structure02'
 import { createStructure3 } from '../Entities/Structure03/structure03'
 import { createSystemSprites } from '../Entities/sprites'
 
+import { W, H, SIZE_X, SIZE_Y, SIZE_Z } from '../constants/constants_elements'
+
 
 export class actions {
     constructor (root) {
@@ -63,13 +65,13 @@ export class actions {
         const sprites = createSystemSprites(root)
         sprites.addToScene()
 
-        const plane = new THREE.Mesh(
-            new THREE.PlaneBufferGeometry(10000, 10000, ),
-            new THREE.MeshBasicMaterial({ color: 0xeeeeee})
-        )
-        plane.rotation.x = -Math.PI / 2
-        plane.position.y = -160
-        root.studio.addToScene(plane)
+        // const plane = new THREE.Mesh(
+        //     new THREE.PlaneBufferGeometry(10000, 10000, ),
+        //     new THREE.MeshBasicMaterial({ color: 0xeeeeee})
+        // )
+        // plane.rotation.x = -Math.PI / 2
+        // plane.position.y = -160
+        // root.studio.addToScene(plane)
 
 
 
@@ -108,6 +110,12 @@ export class actions {
 
 
         ui.showStartButton(() => {
+
+            player.setToPos(
+                (W * SIZE_X) / 2,
+                SIZE_Y * H + 50,
+                (W * SIZE_Z) / 2
+            )
             //startPipeline(root).then()
             //player.toggleBlocked(false)
             //this._root.system_Sound && this._root.system_Sound.playAmbient()

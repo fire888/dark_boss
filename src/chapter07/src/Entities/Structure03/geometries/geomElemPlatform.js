@@ -1,6 +1,7 @@
 import {H, W} from "../../../constants/constants_elements";
 import {createFace, fillColorFace, rotateArrY} from "../../../helpers/geomHelpers";
 import {tileUv} from "./uvAtlas";
+import { COLOR_00 } from '../../../constants/constants_elements'
 
 const hpW = W / 6
 
@@ -20,27 +21,10 @@ export const createPlatformData = ({
 
 
     /** sides ***/
-    const sideV = []
 
-    const sideColV = [
-        ...createFace(
-            [-w / 2, minusH, d / 2],
-            [w / 2, minusH, d / 2],
-            [w / 2, 0, d / 2,],
-            [-w / 2, 0, d / 2,],
-        ),
-    ]
 
-    sideV.push(
-        ...createFace(
-            [-w / 2, minusH, d / 2],
-            [w / 2, minusH, d / 2],
-            [w / 2, 0, d / 2,],
-            [-w / 2, 0, d / 2,],
-        ),
-    )
 
-    const colorPolygon = fillColorFace([1, 1, 1])
+    const colorPolygon = fillColorFace(COLOR_00)
     const colorSide = [
         ...colorPolygon,
     ]
@@ -56,7 +40,7 @@ export const createPlatformData = ({
         )
     )
     c.push(...colorSide)
-    u.push(...tileUv['0_0'])
+    u.push(...tileUv['lines'])
     col.push(
         ...createFace(
             [...nX_pZ],
@@ -76,7 +60,7 @@ export const createPlatformData = ({
         )
     )
     c.push(...colorSide)
-    u.push(...tileUv['0_0'])
+    u.push(...tileUv['lines'])
 
     /** front */
     v.push(
@@ -88,7 +72,7 @@ export const createPlatformData = ({
         )
     )
     c.push(...colorSide)
-    u.push(...tileUv['0_1'])
+    u.push(...tileUv['gor_pattern_00'])
     col.push(
         ...createFace(
             [nX_pZ[0], nX_pZ[1] + minusH, nX_pZ[2]],
@@ -108,7 +92,7 @@ export const createPlatformData = ({
         )
     )
     c.push(...colorSide)
-    u.push(...tileUv['0_1'])
+    u.push(...tileUv['gor_pattern_00'])
     col.push(
         ...createFace(
             [nX_nZ[0], nX_nZ[1] + minusH, nX_nZ[2]],
@@ -128,7 +112,7 @@ export const createPlatformData = ({
         )
     )
     c.push(...colorSide)
-    u.push(...tileUv['0_1'])
+    u.push(...tileUv['gor_pattern_00'])
     col.push(
         ...createFace(
             [pX_pZ[0], pX_pZ[1] + minusH, pX_pZ[2]],
@@ -149,7 +133,7 @@ export const createPlatformData = ({
         )
     )
     c.push(...colorSide)
-    u.push(...tileUv['0_1'])
+    u.push(...tileUv['gor_pattern_00'])
     col.push(
         ...createFace(
             [pX_nZ[0], pX_nZ[1] + minusH, pX_nZ[2]],

@@ -15,7 +15,8 @@ export const createrMesh = (root) => {
     root.assets.textureTiles.minFilter = THREE.NearestFilter
     const m = new THREE.MeshBasicMaterial({
         color: 0xffffff,
-        map: root.assets.textureTiles
+        map: root.assets.textureTiles,
+        vertexColors: true,
     })
 
     const S = 160

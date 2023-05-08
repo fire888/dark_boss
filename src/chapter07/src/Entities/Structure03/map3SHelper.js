@@ -1,6 +1,6 @@
-const SIZE_X = 5
-const SIZE_Y = 10
-const SIZE_Z = 5
+import {
+    SIZE_X, SIZE_Y, SIZE_Z
+} from '../../constants/constants_elements'
 
 
 
