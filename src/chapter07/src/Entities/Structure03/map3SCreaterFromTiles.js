@@ -1,14 +1,13 @@
 import { createMap3X } from './map3SHelper'
-import { makeSetContainsElementsSet1Set2 } from './helpersSortArray'
 //import { map3SArtifactsFilter } from './map3SArtefactsFilter'
 
-const button = document.createElement('button')
-button.innerText = 'NEXT'
-document.body.appendChild(button)
-button.style.position = 'absolute'
-button.style.zIndex = '100'
-button.style.top = '0'
-let f = null
+// const button = document.createElement('button')
+// button.innerText = 'NEXT'
+// document.body.appendChild(button)
+// button.style.position = 'absolute'
+// button.style.zIndex = '100'
+// button.style.top = '0'
+// let f = null
 
 
 const choiceFinalTileFromExists = (dataAction, map) => {

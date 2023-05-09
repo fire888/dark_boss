@@ -80,7 +80,7 @@ export class actions {
 
             player.setToPos(
                 (W * SIZE_X) / 2,
-                SIZE_Y * H + 50,
+                SIZE_Y * H - 160,
                 (W * SIZE_Z) / 2
             )
 
