@@ -51,26 +51,24 @@ export const createrMesh = (root) => {
                 return;
             }
 
-            if (tilesGeom[tile.tileData.keyModel]) {
-                const {i, j, k, tileData } = tile
-
-                const g = createGeomFromBuffer(tilesGeom[tile.tileData.keyModel])
-                const mesh = new THREE.Mesh(g, m)
-                root.studio.addToScene(mesh)
-                mesh.position.set(S * k  + (S / 2), SH * i - 160, S * j + (S / 2))
-
-                const gCollision = createGeomFromBuffer({ v: tilesGeom[tile.tileData.keyModel].col })
-                const meshCollision = new THREE.Mesh(gCollision, basicMat)
-                meshCollision.position.set(S * k  + (S / 2), SH * i - 160, S * j + (S / 2))
-                meshCollision.visible = false
-                root.studio.addToScene(meshCollision)
-
-                root.system_PlayerMoveOnLevel.addItemToPlayerCollision(meshCollision)
-
+            if (!tilesGeom[tile.tileData.keyModel]) {
                 return;
-            } else {
-                //return;
             }
+            const {i, j, k, tileData } = tile
+
+            const g = createGeomFromBuffer(tilesGeom[tile.tileData.keyModel])
+            const mesh = new THREE.Mesh(g, m)
+            root.studio.addToScene(mesh)
+            mesh.rotation.y = tileData.rotationY
+            mesh.position.set(S * k  + (S / 2), SH * i - 160, S * j + (S / 2))
+
+            const gCollision = createGeomFromBuffer({ v: tilesGeom[tile.tileData.keyModel].col })
+            const meshCollision = new THREE.Mesh(gCollision, basicMat)
+            meshCollision.rotation.y = tileData.rotationY
+            meshCollision.position.set(S * k  + (S / 2), SH * i - 160, S * j + (S / 2))
+            root.studio.addToScene(meshCollision)
+
+            root.system_PlayerMoveOnLevel.addItemToPlayerCollision(meshCollision)
         },
         setCurrentMeshToIndex: (i, j, k) => {
             currentMesh.position.set(S * k * SCALE, SH * i * SCALE - 160, S * SCALE * j)
