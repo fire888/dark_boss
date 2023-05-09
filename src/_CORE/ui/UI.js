@@ -30,6 +30,10 @@ loaderTimeOut()
 
 
 
+document.querySelector('.start-screen').style.display = 'none'
+
+
+
 export class UI {
     constructor(root) {
         root.dispatcher = dispatcher

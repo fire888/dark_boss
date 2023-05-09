@@ -144,76 +144,78 @@ const createPipelineActionsWithMapItem = (y, z, x, map) => {
 let max = 10000
 
 export const createMap = (tiles, makerMesh) => {
-    console.log('!!! tiles', tiles)
-    /** create start map */
-    const map = createMap3X(tiles)
-    console.log('!!! map', map)
+    return new Promise(res => {
+        console.log('!!! tiles', tiles)
+        /** create start map */
+        const map = createMap3X(tiles)
+        console.log('!!! map', map)
 
 
 
-    /** pipeline actions with tile */
-    const pipelineActions = (y, z, x, map) => {
-        return new Promise(res => {
-            const actions = createPipelineActionsWithMapItem(y, z, x, map)
-            const iterateAction = (indAction) => {
-                if (!actions[indAction]) {
-                    return res();
+        /** pipeline actions with tile */
+        const pipelineActions = (y, z, x, map) => {
+            return new Promise(res => {
+                const actions = createPipelineActionsWithMapItem(y, z, x, map)
+                const iterateAction = (indAction) => {
+                    if (!actions[indAction]) {
+                        return res();
+                    }
+                    const action = actions[indAction]
+                    actionsWithMapItem[action.action](action, map.items, tiles)
+
+                    // if (f) {
+                    //     button.removeEventListener('click', f)
+                    // }
+                    // f = () => {
+                    //     iterateAction(indAction + 1)
+                    // }
+                    // button.addEventListener('click', f)
+                    //setTimeout(() => {iterateAction(indAction + 1)}, 0)
+                    iterateAction(indAction + 1)
                 }
-                const action = actions[indAction]
-                actionsWithMapItem[action.action](action, map.items, tiles)
-
-                // if (f) {
-                //     button.removeEventListener('click', f)
-                // }
-                // f = () => {
-                //     iterateAction(indAction + 1)
-                // }
-                // button.addEventListener('click', f)
-                //setTimeout(() => {iterateAction(indAction + 1)}, 0)
-                iterateAction(indAction + 1)
-            }
-            iterateAction(0)
-        })
-    }
-
-
-
-    const calculateMapItem = (y, z, x) => {
-        return new Promise((res, rej) => {
-            makerMesh.setCurrentMeshToIndex(y, z, x)
-
-            --max
-            if (max < 0) {
-                console.log('max stack:', max)
-                return rej();
-            }
-
-            /** choice tile and filter neighbours */
-            pipelineActions(y, z, x, map).then(() => {
-                /** add mesh to scene */
-                if (map.items[y][z][x].hasOwnProperty('resultTileIndex') && Number.isInteger(map.items[y][z][x].resultTileIndex)) {
-                    map.items[y][z][x].tileData = tiles[map.items[y][z][x].resultTileIndex]
-                    makerMesh.addMesh(map.items[y][z][x])
-                }
-                res()
+                iterateAction(0)
             })
-        })
-    }
-
-    const nextItem = () => {
-        const { nextY, nextZ, nextX } = map.checkNextMapItemIndexes()
-        if (
-            Number.isInteger(nextY) &&
-            Number.isInteger(nextZ) &&
-            Number.isInteger(nextX)
-        ) {
-            calculateMapItem( nextY, nextZ, nextX ).then(nextItem)
-            //setTimeout(() => {  }, 0)
         }
-    }
-
-    setTimeout(() => { nextItem() }, 2000)
 
 
-    return map
+
+        const calculateMapItem = (y, z, x) => {
+            return new Promise((res, rej) => {
+                makerMesh.setCurrentMeshToIndex(y, z, x)
+
+                --max
+                if (max < 0) {
+                    console.log('max stack:', max)
+                    return rej();
+                }
+
+                /** choice tile and filter neighbours */
+                pipelineActions(y, z, x, map).then(() => {
+                    /** add mesh to scene */
+                    if (map.items[y][z][x].hasOwnProperty('resultTileIndex') && Number.isInteger(map.items[y][z][x].resultTileIndex)) {
+                        map.items[y][z][x].tileData = tiles[map.items[y][z][x].resultTileIndex]
+                        makerMesh.addMesh(map.items[y][z][x])
+                    }
+                    res()
+                })
+            })
+        }
+
+        const nextItem = () => {
+            const { nextY, nextZ, nextX } = map.checkNextMapItemIndexes()
+            if (
+                Number.isInteger(nextY) &&
+                Number.isInteger(nextZ) &&
+                Number.isInteger(nextX)
+            ) {
+                calculateMapItem( nextY, nextZ, nextX ).then(nextItem)
+                //setTimeout(() => {  }, 0)
+            } else {
+                console.log('$$$$')
+                res()
+            }
+        }
+
+        setTimeout(() => { nextItem() }, 2000)
+    })
 }

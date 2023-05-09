@@ -43,6 +43,14 @@ export class actions {
             type: 'ENABLE_CONTROL_SOUND',
         })
 
+        // const plane = new THREE.Mesh(
+        //     new THREE.PlaneBufferGeometry(10000, 10000, ),
+        //     new THREE.MeshBasicMaterial({ color: 0xeeeeee})
+        // )
+        // plane.rotation.x = -Math.PI / 2
+        // plane.position.y = -160
+        // root.studio.addToScene(plane)
+
         ///////////////////////////////////////////////////
         ///////////////////////////////////////////////////
         ///////////////////////////////////////////////////
@@ -60,73 +68,45 @@ export class actions {
         ////////////////////////////////////////////////////
         ////////////////////////////////////////////////////
         ////////////////////////////////////////////////////
-        createStructure3(root)
+
 
         const sprites = createSystemSprites(root)
         sprites.addToScene()
 
-        // const plane = new THREE.Mesh(
-        //     new THREE.PlaneBufferGeometry(10000, 10000, ),
-        //     new THREE.MeshBasicMaterial({ color: 0xeeeeee})
-        // )
-        // plane.rotation.x = -Math.PI / 2
-        // plane.position.y = -160
-        // root.studio.addToScene(plane)
-
-
-
-
-
-
-
-
-        /** world */
-        ////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////
-        // this._worldReal = createWorldReal(root)
-        // this._worldReal.addWorld()
-        // root.worldReal = this._worldReal
-
-
-
-
-
-
-        player.mesh.position.set(0, -40, 0)
-        player.mesh.position.set(0, -40, -120)
-        //player.mesh.rotation.y = Math.PI
-
-        studio.changeEnvironment(ENV_NORMAL, { time: 1 },)
-        player.toggleBlocked(false)
-
-        /** update */
-        frameUpdater.on(data => {
-            TWEEN.update()
-            system_PlayerMoveOnLevel.update(data)
-            studio.drawFrame()
-        })
-
-
-        ui.showStartButton(() => {
+        createStructure3(root).then(() => {
+           // player.mesh.position.set(0, -40, 0)
+            //player.mesh.position.set(0, -40, -120)
+            //player.mesh.rotation.y = Math.PI
 
             player.setToPos(
                 (W * SIZE_X) / 2,
                 SIZE_Y * H + 50,
                 (W * SIZE_Z) / 2
             )
-            //startPipeline(root).then()
-            //player.toggleBlocked(false)
-            //this._root.system_Sound && this._root.system_Sound.playAmbient()
+
+            studio.changeEnvironment(ENV_NORMAL, { time: 1 },)
+            player.toggleBlocked(false)
+
+            /** update */
+            frameUpdater.on(data => {
+                TWEEN.update()
+                system_PlayerMoveOnLevel.update(data)
+                studio.drawFrame()
+            })
 
 
-            // setTimeout(() => {
-            //     addSegment(0)
-            // }, 0)
+            ui.showStartButton(() => {
+                //startPipeline(root).then()
+                //player.toggleBlocked(false)
+                //this._root.system_Sound && this._root.system_Sound.playAmbient()
 
+
+                // setTimeout(() => {
+                //     addSegment(0)
+                // }, 0)
+            })
         })
-    }
 
+    }
 }
 

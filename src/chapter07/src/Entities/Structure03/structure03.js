@@ -6,11 +6,16 @@ import { createrMesh } from './threeMesh'
 // MUST DO: central to top
 
 export const createStructure3 = root => {
-    const tiles = createDataTiles()
-    console.log('tiles', tiles)
-    const makerMesh = createrMesh(root)
-    //
-    const dataStructure = createMap(tiles, makerMesh)
+    return new Promise(res => {
+        const tiles = createDataTiles()
+        console.log('tiles', tiles)
+        const makerMesh = createrMesh(root)
+        //
+        const dataStructure = createMap(tiles, makerMesh).then(() => {
+            res()
+        })
+    })
+
     // console.log('dataStructure', dataStructure)
 
 

@@ -19,25 +19,30 @@ export const createrMesh = (root) => {
         vertexColors: true,
     })
 
+
     const S = 160
     const SH = 80
     const SCALE = 4
 
-    const G  = {
-        //'empty': new THREE.BoxGeometry(3, 3, 3)
-    }
-    root.assets['tiles'].traverse(item => {
-        if (item.type === 'Mesh') {
-            G[item.name] = item.geometry
-        }
-    })
+    const basicMat = new THREE.MeshBasicMaterial({ color: 0xffff00 })
 
     const currentMesh = new THREE.Mesh(
         new THREE.BoxGeometry(15, 15, 15),
-        new THREE.MeshBasicMaterial({ color: 0xffff00 })
+        basicMat,
     )
     root.studio.addToScene(currentMesh)
 
+    const tilesGeom = {
+        't_bt': createGeomStairs(),
+        't_XY': createGeomXY(),
+        't_b': createGeomFromBot(),
+        't_T': createGeomT(),
+        't_t': createGeomToTop(),
+        't_L': createGeomL(),
+        't_I': createGeomI(),
+        't_X': createGeomX(),
+        't_tt': createGeomTopPlatform(),
+    }
 
 
     return {
@@ -45,193 +50,27 @@ export const createrMesh = (root) => {
             if (!tile.tileData) {
                 return;
             }
-            if (!G[tile.tileData.keyModel]) {
-                return;
-            }
 
-            //createGeomStairs
-
-            if (tile.tileData.keyModel === 't_bt') {
+            if (tilesGeom[tile.tileData.keyModel]) {
                 const {i, j, k, tileData } = tile
 
-                const g = createGeomFromBuffer(createGeomStairs())
-
+                const g = createGeomFromBuffer(tilesGeom[tile.tileData.keyModel])
                 const mesh = new THREE.Mesh(g, m)
                 root.studio.addToScene(mesh)
-                //mesh.rotation.y = tileData.rotationY
                 mesh.position.set(S * k  + (S / 2), SH * i - 160, S * j + (S / 2))
-                root.system_PlayerMoveOnLevel.addItemToPlayerCollision(mesh)
+
+                const gCollision = createGeomFromBuffer({ v: tilesGeom[tile.tileData.keyModel].col })
+                const meshCollision = new THREE.Mesh(gCollision, basicMat)
+                meshCollision.position.set(S * k  + (S / 2), SH * i - 160, S * j + (S / 2))
+                meshCollision.visible = false
+                root.studio.addToScene(meshCollision)
+
+                root.system_PlayerMoveOnLevel.addItemToPlayerCollision(meshCollision)
 
                 return;
             } else {
                 //return;
             }
-
-            if (tile.tileData.keyModel === 't_XY') {
-                const {i, j, k, tileData } = tile
-
-                const g = createGeomFromBuffer(createGeomXY())
-
-                const mesh = new THREE.Mesh(g, m)
-                root.studio.addToScene(mesh)
-                mesh.rotation.y = tileData.rotationY
-                mesh.position.set(S * k  + (S / 2), SH * i - 160, S * j + (S / 2))
-                root.system_PlayerMoveOnLevel.addItemToPlayerCollision(mesh)
-
-                return;
-            } else {
-                //return;
-            }
-
-            if (tile.tileData.keyModel === 't_b') {
-                const {i, j, k, tileData } = tile
-
-                const g = createGeomFromBuffer(createGeomFromBot())
-
-                const mesh = new THREE.Mesh(g, m)
-                root.studio.addToScene(mesh)
-                mesh.rotation.y = tileData.rotationY
-                mesh.position.set(S * k  + (S / 2), SH * i - 160, S * j + (S / 2))
-                root.system_PlayerMoveOnLevel.addItemToPlayerCollision(mesh)
-
-                return;
-            } else {
-                //return;
-            }
-
-
-            if (tile.tileData.keyModel === 't_T') {
-                const {i, j, k, tileData } = tile
-
-                const g = createGeomFromBuffer(createGeomT())
-
-                const mesh = new THREE.Mesh(g, m)
-                root.studio.addToScene(mesh)
-                mesh.rotation.y = tileData.rotationY
-                mesh.position.set(S * k  + (S / 2), SH * i - 160, S * j + (S / 2))
-                root.system_PlayerMoveOnLevel.addItemToPlayerCollision(mesh)
-
-                return;
-            } else {
-               // return;
-            }
-
-
-            if (tile.tileData.keyModel === 't_t') {
-                const {i, j, k, tileData } = tile
-
-                const g = createGeomFromBuffer(createGeomToTop())
-
-                const mesh = new THREE.Mesh(g, m)
-                root.studio.addToScene(mesh)
-                mesh.rotation.y = tileData.rotationY
-                mesh.position.set(S * k  + (S / 2), SH * i - 160, S * j + (S / 2))
-                root.system_PlayerMoveOnLevel.addItemToPlayerCollision(mesh)
-
-                return;
-            } else {
-                //return;
-            }
-
-            if (tile.tileData.keyModel === 't_L') {
-                const {i, j, k, tileData } = tile
-
-                const g = createGeomFromBuffer(createGeomL())
-
-                const mesh = new THREE.Mesh(
-                    g,
-                    m,
-                )
-                root.studio.addToScene(mesh)
-                mesh.rotation.y = tileData.rotationY
-                //mesh.scale.set(SCALE, SCALE, SCALE)
-                mesh.position.set(S * k  + (S / 2), SH * i - 160, S * j + (S / 2))
-                root.system_PlayerMoveOnLevel.addItemToPlayerCollision(mesh)
-
-                return;
-            } else {
-                //return;
-            }
-
-            if (tile.tileData.keyModel === 't_I') {
-                const {i, j, k, tileData } = tile
-
-                const g = createGeomFromBuffer(createGeomI())
-
-                const mesh = new THREE.Mesh(
-                    g,
-                    m,
-                )
-                root.studio.addToScene(mesh)
-                mesh.rotation.y = tileData.rotationY
-                //mesh.scale.set(SCALE, SCALE, SCALE)
-                mesh.position.set(S * k  + (S / 2), SH * i - 160, S * j + (S / 2))
-                root.system_PlayerMoveOnLevel.addItemToPlayerCollision(mesh)
-
-                return;
-            } else {
-                //return;
-            }
-
-            if (tile.tileData.keyModel === 't_X') {
-                //const
-                //console.log('!!!')
-                const {i, j, k, tileData } = tile
-
-                const g = createGeomFromBuffer(createGeomX())
-
-                const mesh = new THREE.Mesh(
-                    g,
-                    m,
-                )
-                root.studio.addToScene(mesh)
-                mesh.rotation.y = tileData.rotationY
-                //mesh.scale.set(SCALE, SCALE, SCALE)
-                mesh.position.set(S * k  + (S / 2), SH * i - 160, S * j + (S / 2))
-                root.system_PlayerMoveOnLevel.addItemToPlayerCollision(mesh)
-
-                return;
-            } else {
-                //return;
-            }
-
-
-
-            if (tile.tileData.keyModel === 't_tt') {
-                //const
-                //console.log('!!!')
-                const {i, j, k, tileData } = tile
-
-                const g = createGeomFromBuffer(createGeomTopPlatform())
-
-                const mesh = new THREE.Mesh(
-                    g,
-                    m,
-                )
-                root.studio.addToScene(mesh)
-                mesh.rotation.y = tileData.rotationY
-                //mesh.scale.set(SCALE, SCALE, SCALE)
-                mesh.position.set(S * k  + (S / 2), SH * i - 160, S * j + (S / 2))
-                root.system_PlayerMoveOnLevel.addItemToPlayerCollision(mesh)
-
-                return;
-            } else {
-                //return;
-            }
-
-
-            const {i, j, k, tileData } = tile
-
-            const mesh = new THREE.Mesh(
-                G[tileData.keyModel],
-                m,
-            )
-            root.studio.addToScene(mesh)
-            mesh.rotation.y = tileData.rotationY
-            mesh.scale.set(SCALE, SCALE, SCALE)
-            //mesh.position.set(S * k * SCALE, SH * i * SCALE - 160, S * SCALE * j)
-            mesh.position.set(S * k + (S / 2), SH * i - 160, S * j + (S / 2))
-            root.system_PlayerMoveOnLevel.addItemToPlayerCollision(mesh)
         },
         setCurrentMeshToIndex: (i, j, k) => {
             currentMesh.position.set(S * k * SCALE, SH * i * SCALE - 160, S * SCALE * j)
