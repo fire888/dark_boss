@@ -18,11 +18,12 @@ export const createGeomL = () => {
         const copyV = [...column.v]
         translateArr(copyV, x, 0, z)
         v.push(...copyV)
+        c.push(...column.c)
+        u.push(...column.u)
+
         const copyCol = [...column.col]
         translateArr(copyCol, x, 0, z)
         col.push(...copyCol)
-        c.push(...column.c)
-        u.push(...column.u)
     }
 
     fill(-W / 3 / 2, -W / 3 / 2)

@@ -4,144 +4,194 @@ import {tileUv} from "./uvAtlas";
 import { COLOR_00 } from '../../../constants/constants_elements'
 
 const hpW = W / 6
+const { sin, cos } = Math
 
-export const createPlatformData = ({
-                                       nX_pZ = [-hpW, 0, hpW],
-                                       pX_pZ = [hpW, 0, hpW],
-                                       pX_nZ = [hpW, 0, -hpW],
-                                       nX_nZ = [-hpW, 0, -hpW],
-                                       minusH = -5,
-                                       w = 30,
-                                       d = 30,
-                                   }) => {
+export const createElemArcData = ({
+    w = W / 3,
+    h = H - 5,
+    d = W / 3 / 2,
+    segmentsNum = 5,
+}) => {
     const v = []
     const c = []
     const u = []
     const col = []
 
-
-    /** sides ***/
-
-
-
     const colorPolygon = fillColorFace(COLOR_00)
-    const colorSide = [
-        ...colorPolygon,
-    ]
 
 
-    /** top part **/
+
+    let startAngle = - Math.PI / 2
+    const num = 8
+    let stepAngle = Math.PI / num
+    const thickness = 5
+    const r0 = (w / 2) - thickness
+    const r1 = (w / 2)
+
+    const hR0 = h - r1 - 8
+
+    const topBlockWTop = 5
+    const topBlockWBottom = topBlockWTop - 1.3
+    const topBlockLevelBottom = hR0 + r0
+
+
+    for (let i = 1; i < num + 1; ++i) {
+        const angle0 = startAngle + (stepAngle * (i - 1))
+        const angle1 = startAngle + (stepAngle * (i))
+
+        /** front */
+        v.push(
+            ...createFace(
+                [sin(angle0) * r0, hR0 + cos(angle0) * r0, d],
+                [sin(angle1) * r0, hR0 + cos(angle1) * r0, d],
+                [sin(angle1) * r1, hR0 + cos(angle1) * r1, d],
+                [sin(angle0) * r1, hR0 + cos(angle0) * r1, d],
+            )
+        )
+        c.push(...colorPolygon)
+        u.push(...tileUv['lines'])
+
+        v.push(
+            ...createFace(
+                [sin(angle0) * r1, hR0 + cos(angle0) * r1, d],
+                [sin(angle1) * r1, hR0 + cos(angle1) * r1, d],
+                [sin(angle1) * r1, h, d],
+                [sin(angle0) * r1, h, d],
+            )
+        )
+        c.push(...colorPolygon)
+        u.push(...tileUv['lines'])
+
+
+
+
+        /** bottom ark */
+        v.push(
+            ...createFace(
+                [sin(angle0) * r0, hR0 + cos(angle0) * r0, -d],
+                [sin(angle1) * r0, hR0 + cos(angle1) * r0, -d],
+                [sin(angle1) * r0, hR0 + cos(angle1) * r0, d],
+                [sin(angle0) * r0, hR0 + cos(angle0) * r0, d],
+
+
+
+            )
+        )
+        c.push(...colorPolygon)
+        u.push(...tileUv['lines'])
+
+
+
+        /** back sise */
+        v.push(
+            ...createFace(
+                [sin(angle1) * r0, hR0 + cos(angle1) * r0, -d],
+                [sin(angle0) * r0, hR0 + cos(angle0) * r0, -d],
+                [sin(angle0) * r1, hR0 + cos(angle0) * r1, -d],
+                [sin(angle1) * r1, hR0 + cos(angle1) * r1, -d],
+            )
+        )
+        c.push(...colorPolygon)
+        u.push(...tileUv['lines'])
+
+        v.push(
+            ...createFace(
+                [sin(angle1) * r1, hR0 + cos(angle1) * r1, -d],
+                [sin(angle0) * r1, hR0 + cos(angle0) * r1, -d],
+                [sin(angle0) * r1, h, -d],
+                [sin(angle1) * r1, h, -d],
+            )
+        )
+        c.push(...colorPolygon)
+        u.push(...tileUv['lines'])
+    }
+
+
+
+    {
+        v.push(
+            ...createFace(
+                [-topBlockWBottom, topBlockLevelBottom, d + 1],
+                [topBlockWBottom, topBlockLevelBottom, d + 1],
+                [topBlockWTop, h, d + 1],
+                [-topBlockWTop, h, d + 1],
+            )
+        )
+        c.push(...colorPolygon)
+        u.push(...tileUv['face_00'])
+    }
+
+
+    {
+        v.push(
+            ...createFace(
+                [topBlockWBottom, topBlockLevelBottom, -d - 1],
+                [-topBlockWBottom, topBlockLevelBottom, -d - 1],
+                [-topBlockWTop, h, -d - 1],
+                [topBlockWTop, h, -d - 1],
+
+            )
+        )
+        c.push(...colorPolygon)
+        u.push(...tileUv['face_00'])
+    }
+
+
+    /** left ***/
+    {
+        v.push(
+            ...createFace(
+                [-w / 2 + 1, hR0, -d],
+                [-w / 2 + 1, hR0, d],
+                [-w / 2 + 1, h, d],
+                [-w / 2 + 1, h, -d],
+
+            )
+        )
+        c.push(...colorPolygon)
+        u.push(...tileUv['lines'])
+    }
+
+    {
+        v.push(
+            ...createFace(
+                [w / 2 - 1, hR0, d],
+                [w / 2 - 1, hR0, -d],
+                [w / 2 - 1, h, -d],
+                [w / 2 - 1, h, d],
+
+            )
+        )
+        c.push(...colorPolygon)
+        u.push(...tileUv['lines'])
+    }
+
+
+    /** bottom */
     v.push(
         ...createFace(
-            [...nX_pZ],
-            [...pX_pZ],
-            [...pX_nZ],
-            [...nX_nZ],
+            [-w / 2, hR0, -d],
+            [-r0, hR0, -d],
+            [-r0, hR0, d],
+            [-w / 2, hR0, d],
+
         )
     )
-    c.push(...colorSide)
+    c.push(...colorPolygon)
     u.push(...tileUv['lines'])
-    col.push(
-        ...createFace(
-            [...nX_pZ],
-            [...pX_pZ],
-            [...pX_nZ],
-            [...nX_nZ],
-        )
-    )
 
-    /** bottom part  ***/
     v.push(
         ...createFace(
-            [nX_nZ[0], nX_nZ[1] + minusH, nX_nZ[2]],
-            [pX_nZ[0], pX_nZ[1] + minusH, pX_nZ[2]],
-            [pX_pZ[0], pX_pZ[1] +  minusH, pX_pZ[2]],
-            [nX_pZ[0], nX_pZ[1] + minusH, nX_pZ[2]],
+            [r0, hR0, -d],
+            [w / 2, hR0, -d],
+            [w / 2, hR0, d],
+             [r0, hR0, d],
+
         )
     )
-    c.push(...colorSide)
+    c.push(...colorPolygon)
     u.push(...tileUv['lines'])
 
-    /** front */
-    v.push(
-        ...createFace(
-            [nX_pZ[0], nX_pZ[1] + minusH, nX_pZ[2]],
-            [pX_pZ[0], pX_pZ[1] + minusH, pX_pZ[2]],
-            [pX_pZ[0], pX_pZ[1], pX_pZ[2]],
-            [nX_pZ[0], nX_pZ[1], nX_pZ[2]],
-        )
-    )
-    c.push(...colorSide)
-    u.push(...tileUv['gor_pattern_00'])
-    col.push(
-        ...createFace(
-            [nX_pZ[0], nX_pZ[1] + minusH, nX_pZ[2]],
-            [pX_pZ[0], pX_pZ[1] + minusH, pX_pZ[2]],
-            [pX_pZ[0], pX_pZ[1], pX_pZ[2]],
-            [nX_pZ[0], nX_pZ[1], nX_pZ[2]],
-        )
-    )
-
-    /** left */
-    v.push(
-        ...createFace(
-            [nX_nZ[0], nX_nZ[1] + minusH, nX_nZ[2]],
-            [nX_pZ[0], nX_pZ[1] + minusH, nX_pZ[2]],
-            [nX_pZ[0], nX_pZ[1], nX_pZ[2]],
-            [nX_nZ[0], nX_nZ[1], nX_nZ[2]],
-        )
-    )
-    c.push(...colorSide)
-    u.push(...tileUv['gor_pattern_00'])
-    col.push(
-        ...createFace(
-            [nX_nZ[0], nX_nZ[1] + minusH, nX_nZ[2]],
-            [nX_pZ[0], nX_pZ[1] + minusH, nX_pZ[2]],
-            [nX_pZ[0], nX_pZ[1], nX_pZ[2]],
-            [nX_nZ[0], nX_nZ[1], nX_nZ[2]],
-        )
-    )
-
-    /** right */
-    v.push(
-        ...createFace(
-            [pX_pZ[0], pX_pZ[1] + minusH, pX_pZ[2]],
-            [pX_nZ[0], pX_nZ[1] + minusH, pX_nZ[2]],
-            [pX_nZ[0], pX_nZ[1], pX_nZ[2]],
-            [pX_pZ[0], pX_pZ[1], pX_pZ[2]],
-        )
-    )
-    c.push(...colorSide)
-    u.push(...tileUv['gor_pattern_00'])
-    col.push(
-        ...createFace(
-            [pX_pZ[0], pX_pZ[1] + minusH, pX_pZ[2]],
-            [pX_nZ[0], pX_nZ[1] + minusH, pX_nZ[2]],
-            [pX_nZ[0], pX_nZ[1], pX_nZ[2]],
-            [pX_pZ[0], pX_pZ[1], pX_pZ[2]],
-        )
-    )
-
-    /** back ***/
-
-    v.push(
-        ...createFace(
-            [pX_nZ[0], pX_nZ[1] + minusH, pX_nZ[2]],
-            [nX_nZ[0], nX_nZ[1] + minusH, nX_nZ[2]],
-            [nX_nZ[0], nX_nZ[1], nX_nZ[2]],
-            [pX_nZ[0], pX_nZ[1], pX_nZ[2]],
-        )
-    )
-    c.push(...colorSide)
-    u.push(...tileUv['gor_pattern_00'])
-    col.push(
-        ...createFace(
-            [pX_nZ[0], pX_nZ[1] + minusH, pX_nZ[2]],
-            [nX_nZ[0], nX_nZ[1] + minusH, nX_nZ[2]],
-            [nX_nZ[0], nX_nZ[1], nX_nZ[2]],
-            [pX_nZ[0], pX_nZ[1], pX_nZ[2]],
-        )
-    )
 
     return { v, col, u, c }
 }

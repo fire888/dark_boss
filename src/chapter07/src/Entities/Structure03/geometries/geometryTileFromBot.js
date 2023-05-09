@@ -4,6 +4,7 @@ import {
 } from '../../../helpers/geomHelpers'
 import { createColumnData } from './geomElemColumn'
 import { createPlatformData } from './geomElemPlatform'
+import {createElemArcData} from "./geomElemArc";
 
 const hpW = W / 6
 
@@ -30,6 +31,14 @@ export const createGeomFromBot = () => {
         u.push(...platform.u)
         col.push(...platform.col)
     }
+
+
+    // {
+    //     const arc = createElemArcData({})
+    //     v.push(...arc.v)
+    //     c.push(...arc.c)
+    //     u.push(...arc.u)
+    // }
 
 
     return { v, c, u, col }

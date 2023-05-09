@@ -4,6 +4,7 @@ import {
 } from '../../../helpers/geomHelpers'
 import { createColumnData } from './geomElemColumn'
 import { createPlatformData } from './geomElemPlatform'
+import {createElemArcData} from "./geomElemArc";
 
 
 
@@ -76,6 +77,7 @@ export const createGeomT = () => {
         translateArr(platform.col, W / 3, H / 2, 0)
         col.push(...platform.col)
     }
+
 
 
     return { v, c, u, col }

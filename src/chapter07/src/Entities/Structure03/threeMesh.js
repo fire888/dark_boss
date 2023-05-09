@@ -34,7 +34,7 @@ export const createrMesh = (root) => {
 
     const tilesGeom = {
         't_bt': createGeomStairs(),
-        't_XY': createGeomXY(),
+         't_XY': createGeomXY(),
         't_b': createGeomFromBot(),
         't_T': createGeomT(),
         't_t': createGeomToTop(),
@@ -54,20 +54,24 @@ export const createrMesh = (root) => {
             if (!tilesGeom[tile.tileData.keyModel]) {
                 return;
             }
+
+            // if (tile.tileData.keyModel !== 't_XY') {
+            //     return;
+            // }
             const {i, j, k, tileData } = tile
 
             const g = createGeomFromBuffer(tilesGeom[tile.tileData.keyModel])
             const mesh = new THREE.Mesh(g, m)
-            root.studio.addToScene(mesh)
             mesh.rotation.y = tileData.rotationY
             mesh.position.set(S * k  + (S / 2), SH * i - 160, S * j + (S / 2))
+            root.studio.addToScene(mesh)
 
             const gCollision = createGeomFromBuffer({ v: tilesGeom[tile.tileData.keyModel].col })
             const meshCollision = new THREE.Mesh(gCollision, basicMat)
             meshCollision.rotation.y = tileData.rotationY
             meshCollision.position.set(S * k  + (S / 2), SH * i - 160, S * j + (S / 2))
             root.studio.addToScene(meshCollision)
-
+            meshCollision.visible = false
             root.system_PlayerMoveOnLevel.addItemToPlayerCollision(meshCollision)
         },
         setCurrentMeshToIndex: (i, j, k) => {

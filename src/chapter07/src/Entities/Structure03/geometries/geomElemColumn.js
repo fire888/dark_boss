@@ -13,7 +13,6 @@ export const createColumnData = ({
                               w = 3,
                               bottomW = 5,
                               bottomH = 5,
-                              topW = 5,
                               topH =15,
                           }) => {
     const v = []
@@ -21,15 +20,13 @@ export const createColumnData = ({
     const u = []
     const col = []
 
-    const sideV = []
-
     const h1 = bottomH + 2
     const h2 = h - topH - 2
     const h3 = h - topH
 
     const SIDES = 8
-    const R1 = 3
-    const R2 = 5
+    const R1 = w
+    const R2 = bottomW
 
     const colorPolygon = fillColorFace(COLOR_00)
 
@@ -158,6 +155,35 @@ export const createColumnData = ({
             ...COLOR_00,
         )
     }
+
+
+    /** collision */
+    col.push(
+        ...createFace(
+            [-w, 0, w],
+            [w, 0, w],
+            [w, h, w],
+            [-w, h, w],
+        ),
+        ...createFace(
+            [w, 0, w],
+            [w, 0, -w],
+            [w, h, -w],
+            [w, h, w],
+        ),
+        ...createFace(
+            [w, 0, -w],
+            [-w, 0, -w],
+            [-w, h, -w],
+            [w, h, -w],
+        ),
+        ...createFace(
+            [-w, 0, -w],
+            [-w, 0, w],
+            [-w, h, w],
+            [-w, h, -w],
+        ),
+    )
 
 
     return { v, col, u, c }
