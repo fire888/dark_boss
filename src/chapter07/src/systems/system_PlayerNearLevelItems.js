@@ -1,4 +1,4 @@
-//import * as THREE from 'three'
+import * as THREE from 'three'
 
 
 
@@ -13,11 +13,13 @@ export class system_PlayerNearLevelItems {
 
         this._itemsToCheck = []
 
+        const vec = new THREE.Vector3()
+
         emitter.subscribe('playerMove')(() => {
-            //console.log('1111', this._itemsToCheck)
             for (let i = 0; i < this._itemsToCheck.length; ++i) {
-                const dist = player.mesh.position.distanceTo(this._itemsToCheck[i].position)
-                //console.log(dist)
+                this._itemsToCheck[i].getWorldPosition(vec)
+
+                const dist = player.mesh.position.distanceTo(vec)
 
                 if (!this._itemsToCheck[i].userData.nearPlayerIsNearPlayer && dist < this._itemsToCheck[i].userData.nearPlayerItemNear) {
                     this._itemsToCheck[i].userData.nearPlayerIsNearPlayer = true

@@ -49,4 +49,12 @@ export const createPlatform = (root) => {
     meshCollision.visible = false
     mesh.add(meshCollision)
     root.system_PlayerMoveOnLevel.addItemToPlayerCollision(meshCollision)
+
+    const playerNearObj = new THREE.Object3D()
+    playerNearObj.position.set(0, 10, -100)
+    mesh.add(playerNearObj)
+
+    return {
+        objectForCheck: playerNearObj, 
+    }
 }

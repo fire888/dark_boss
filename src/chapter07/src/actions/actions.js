@@ -17,6 +17,8 @@ import { createStructure2 } from '../Entities/Structure02/structure02'
 import { createStructure3 } from '../Entities/Structure03/structure03'
 import { createSystemSprites } from '../Entities/sprites'
 import { createPlatform } from '../Entities/Platform/platform'
+import { system_PlayerNearLevelItems } from '../systems/system_PlayerNearLevelItems'
+
 
 import { W, H, SIZE_X, SIZE_Y, SIZE_Z } from '../constants/constants_elements'
 
@@ -24,6 +26,8 @@ import { W, H, SIZE_X, SIZE_Y, SIZE_Z } from '../constants/constants_elements'
 export class actions {
     constructor (root) {
         this._root = root
+
+        root.system_PlayerNearLevelItems = new system_PlayerNearLevelItems(root)
 
         const {
             dispatcher,
@@ -96,6 +100,22 @@ export class actions {
             //player.mesh.rotation.y = Math.PI
 
             const platform = createPlatform(root)
+            root.system_PlayerNearLevelItems.setItemToCheck(platform.objectForCheck, 'platformObjectForCheck', 20, 30)
+            root.emitter.subscribe('checkNear')(data => {
+                console.log('data', data)
+                if (data.item === 'platformObjectForCheck' && data.is) {
+                    dispatcher.dispatch({
+                        type: 'TOGGLE_BUTTON_DRAW_CAR',
+                        is: true
+                    })
+                }
+                if (data.item === 'platformObjectForCheck' && !data.is) {
+                    dispatcher.dispatch({
+                        type: 'TOGGLE_BUTTON_DRAW_CAR',
+                        is: false
+                    })
+                }
+            })
 
             player.setToPos(
                 (W * SIZE_X) / 2,

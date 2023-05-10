@@ -27,11 +27,6 @@ import { actions } from '../actions/actions'
 import { Ui } from "../ui/Ui";
 
 
-import ironNormal from '../../../assets/chapter06/concrete/broken_down_concrete2_Normal-dx.jpg'
-import ironAO from '../../../assets/chapter06/concrete/broken_down_concrete2_ao.jpg'
-import ironAlbedo from '../../../assets/chapter06/concrete/broken_down_concrete2_albedo.jpg'
-
-
 // import elem_L from '../../../assets/chapter07/elem_L.obj'
 // import elem_Y from '../../../assets/chapter07/elem_Y.obj'
 // import elem_I from '../../../assets/chapter07/elem_I.obj'
@@ -39,7 +34,8 @@ import ironAlbedo from '../../../assets/chapter06/concrete/broken_down_concrete2
 // import elem_TT from '../../../assets/chapter07/elem_TT.obj'
 // import tile_YS from '../../../assets/chapter07/elem_YS.obj'
 // import tile_YT from '../../../assets/chapter07/elem_YT.obj'
-import tiles from '../../../assets/chapter07/tiles.obj'
+
+//import tiles from '../../../assets/chapter07/tiles.obj'
 import textureTiles from '../../../assets/chapter07/texture01.jpg'
 
 export const GAME_MODULES = [
@@ -86,16 +82,16 @@ export const GAME_MODULES = [
         constr: Player,
         initStateKey: 'beforeStartPlay',
     },
-    {
-        key: 'system_PlayerNearLevelItems',
-        constr: system_PlayerNearLevelItems,
-        initStateKey: 'beforeStartPlay',
-    },
-    {
-        key: 'materialsLib',
-        constr: Helper_MaterialsLib,
-        initStateKey: 'beforeStartPlay',
-    },
+    // {
+    //     key: 'system_PlayerNearLevelItems',
+    //     constr: system_PlayerNearLevelItems,
+    //     initStateKey: 'beforeStartPlay',
+    // },
+    // {
+    //     key: 'materialsLib',
+    //     constr: Helper_MaterialsLib,
+    //     initStateKey: 'beforeStartPlay',
+    // },
     {
         key: 'system_PlayerMoveOnLevel',
         constr: system_PlayerMoveOnLevel,
@@ -137,7 +133,7 @@ export const GAME_MODULES = [
                 // { type: 'obj', path: elem_TT , key: 'elem_TT' },
                 // { type: 'obj', path: tile_YS , key: 'tile_YS' },
                 // { type: 'obj', path: tile_YT , key: 'tile_YT' },
-                { type: 'obj', path: tiles , key: 'tiles' },
+                //{ type: 'obj', path: tiles , key: 'tiles' },
             ],
 
     },
