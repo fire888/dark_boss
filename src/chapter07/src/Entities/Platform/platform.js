@@ -1,29 +1,50 @@
 import * as THREE from 'three'
 import { createPlatformData } from '../Structure03/geometries/geomElemPlatform'
+import { createElemDrive } from '../Structure03/geometries/geomElemDrive'
 import { createGeomFromBuffer } from '../Structure03/geometries/createBufferGeom'
+import { translateArr } from "../../helpers/geomHelpers";
 
 export const createPlatform = (root) => {
     const { structureMaterial, basicMat } = root.materials
 
-    const platform = createPlatformData({
-        nX_pZ: [-50, 0, 100],
-        pX_pZ: [50, 0, 100],
-        pX_nZ: [50, 0, -100],
-        nX_nZ: [-50, 0, -100],
-        color: [1, 1, 0]
-    })
+    const v = []
+    const c = []
+    const u = []
+    const col = []
 
-    // {
-    //     const column =
-    // }
+    {
+        const platform = createPlatformData({
+            nX_pZ: [-50, 0, 125],
+            pX_pZ: [50, 0, 125],
+            pX_nZ: [50, 0, -125],
+            nX_nZ: [-50, 0, -125],
+            color: [1, 1, 0]
+        })
+        v.push(...platform.v)
+        c.push(...platform.c)
+        u.push(...platform.u)
+        col.push(...platform.col)
+    }
+    {
+        const elemDive = createElemDrive({
+            h: 20,
+            color: [1, 1, 0],
+        })
+        translateArr(elemDive.v, 0, 0, -110)
+        v.push(...elemDive.v)
+        c.push(...elemDive.c)
+        u.push(...elemDive.u)
 
+        translateArr(elemDive.col, 0, 0, -110)
+        col.push(...elemDive.col)
+    }
 
-    const viewGeom = createGeomFromBuffer(platform)
+    const viewGeom = createGeomFromBuffer({ v, c, u })
     const mesh = new THREE.Mesh(viewGeom, structureMaterial)
-    mesh.position.set(500, 500, -100)
+    mesh.position.set(500, 500, -150)
     root.studio.addToScene(mesh)
 
-    const collisionGeom = createGeomFromBuffer({ v: platform.col })
+    const collisionGeom = createGeomFromBuffer({ v: col })
     const meshCollision = new THREE.Mesh(collisionGeom, basicMat)
     meshCollision.visible = false
     mesh.add(meshCollision)
