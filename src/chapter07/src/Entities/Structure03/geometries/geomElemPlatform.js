@@ -13,6 +13,7 @@ export const createPlatformData = ({
     minusH = -5,
     w = 30,
     d = 30,
+    color = COLOR_00
 }) => {
     const v = []
     const c = []
@@ -24,7 +25,7 @@ export const createPlatformData = ({
 
 
 
-    const colorPolygon = fillColorFace(COLOR_00)
+    const colorPolygon = fillColorFace(color)
     const colorSide = [
         ...colorPolygon,
     ]

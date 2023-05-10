@@ -11,20 +11,11 @@ import { createGeomTopPlatform } from './geometries/geometryTileTopPlatform'
 import { createGeomFromBuffer } from './geometries/createBufferGeom'
 
 export const createrMesh = (root) => {
-    root.assets.textureTiles.magFilter = THREE.NearestFilter
-    root.assets.textureTiles.minFilter = THREE.NearestFilter
-    const m = new THREE.MeshBasicMaterial({
-        color: 0xffffff,
-        map: root.assets.textureTiles,
-        vertexColors: true,
-    })
-
+    const { structureMaterial, basicMat } = root.materials
 
     const S = 160
     const SH = 80
     const SCALE = 4
-
-    const basicMat = new THREE.MeshBasicMaterial({ color: 0xffff00 })
 
     const currentMesh = new THREE.Mesh(
         new THREE.BoxGeometry(15, 15, 15),
@@ -61,7 +52,7 @@ export const createrMesh = (root) => {
             const {i, j, k, tileData } = tile
 
             const g = createGeomFromBuffer(tilesGeom[tile.tileData.keyModel])
-            const mesh = new THREE.Mesh(g, m)
+            const mesh = new THREE.Mesh(g, structureMaterial)
             mesh.rotation.y = tileData.rotationY
             mesh.position.set(S * k  + (S / 2), SH * i - 160, S * j + (S / 2))
             root.studio.addToScene(mesh)

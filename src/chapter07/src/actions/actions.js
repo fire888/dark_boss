@@ -16,6 +16,7 @@ import {
 import { createStructure2 } from '../Entities/Structure02/structure02'
 import { createStructure3 } from '../Entities/Structure03/structure03'
 import { createSystemSprites } from '../Entities/sprites'
+import { createPlatform } from '../Entities/Platform/platform'
 
 import { W, H, SIZE_X, SIZE_Y, SIZE_Z } from '../constants/constants_elements'
 
@@ -42,6 +43,22 @@ export class actions {
         dispatcher.dispatch({
             type: 'ENABLE_CONTROL_SOUND',
         })
+
+
+        root.assets.textureTiles.magFilter = THREE.NearestFilter
+        root.assets.textureTiles.minFilter = THREE.NearestFilter
+        const structureMaterial = new THREE.MeshBasicMaterial({
+            color: 0xffffff,
+            map: root.assets.textureTiles,
+            vertexColors: true,
+        })
+        if (!root.materials) {
+            root.materials = {}
+        }
+        root.materials.structureMaterial = structureMaterial
+        const basicMat = new THREE.MeshBasicMaterial({ color: 0xffff00 })
+        root.materials.basicMat = basicMat
+
 
         // const plane = new THREE.Mesh(
         //     new THREE.PlaneBufferGeometry(10000, 10000, ),
@@ -77,6 +94,8 @@ export class actions {
            // player.mesh.position.set(0, -40, 0)
             //player.mesh.position.set(0, -40, -120)
             //player.mesh.rotation.y = Math.PI
+
+            const platform = createPlatform(root)
 
             player.setToPos(
                 (W * SIZE_X) / 2,
