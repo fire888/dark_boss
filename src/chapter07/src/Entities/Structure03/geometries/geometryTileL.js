@@ -1,9 +1,11 @@
 import { W, H } from '../../../constants/constants_elements'
 import {
+    rotateArrY,
     translateArr,
 } from '../../../helpers/geomHelpers'
 import { createColumnData } from './geomElemColumn'
 import { createPlatformData } from './geomElemPlatform'
+import { createBallustrade } from './geomElemBallustrade'
 
 
 export const createGeomL = () => {
@@ -43,7 +45,33 @@ export const createGeomL = () => {
         translateArr(platform.col, 0, H / 2, 0)
         col.push(...platform.col)
     }
-    /** bottom */
+
+    {
+        const b = createBallustrade({})
+
+        translateArr(b.v, 0, H / 2, -W / 6)
+        v.push(...b.v)
+        c.push(...b.c)
+        u.push(...b.u)
+        translateArr(b.col, 0, H / 2, -W / 6)
+        col.push(...b.col)
+    }
+
+    {
+        const b = createBallustrade({})
+
+        rotateArrY(b.v, -Math.PI / 2)
+        translateArr(b.v, -W / 6, H / 2, 0)
+        v.push(...b.v)
+        c.push(...b.c)
+        u.push(...b.u)
+        rotateArrY(b.col, -Math.PI / 2)
+        translateArr(b.col, -W / 6, H / 2, 0)
+        col.push(...b.col)
+    }
+
+
+    /** PZ */
     {
         const platform = createPlatformData({})
 
@@ -54,6 +82,7 @@ export const createGeomL = () => {
         translateArr(platform.col, 0, H / 2, W / 3)
         col.push(...platform.col)
     }
+    /** NZ */
     {
         const platform = createPlatformData({})
 

@@ -1,10 +1,12 @@
 import { W, H } from '../../../constants/constants_elements'
 import {
     translateArr,
+    rotateArrY,
 } from '../../../helpers/geomHelpers'
 import { createColumnData } from './geomElemColumn'
 import { createPlatformData } from './geomElemPlatform'
 import {createElemArcData} from "./geomElemArc";
+import { createBallustrade } from './geomElemBallustrade'
 
 
 
@@ -76,6 +78,20 @@ export const createGeomT = () => {
         u.push(...platform.u)
         translateArr(platform.col, W / 3, H / 2, 0)
         col.push(...platform.col)
+    }
+
+
+    {
+        const b = createBallustrade({})
+
+        rotateArrY(b.v, -Math.PI / 2)
+        translateArr(b.v, -W / 6, H / 2, 0)
+        v.push(...b.v)
+        c.push(...b.c)
+        u.push(...b.u)
+        rotateArrY(b.col, -Math.PI / 2)
+        translateArr(b.col, -W / 6, H / 2, 0)
+        col.push(...b.col)
     }
 
 

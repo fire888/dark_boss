@@ -49,7 +49,7 @@ export const createElemArcData = ({
             )
         )
         c.push(...colorPolygon)
-        u.push(...tileUv['lines'])
+        u.push(...tileUv['empty'])
 
         v.push(
             ...createFace(
@@ -60,7 +60,7 @@ export const createElemArcData = ({
             )
         )
         c.push(...colorPolygon)
-        u.push(...tileUv['lines'])
+        u.push(...tileUv['empty'])
 
 
 
@@ -72,13 +72,10 @@ export const createElemArcData = ({
                 [sin(angle1) * r0, hR0 + cos(angle1) * r0, -d],
                 [sin(angle1) * r0, hR0 + cos(angle1) * r0, d],
                 [sin(angle0) * r0, hR0 + cos(angle0) * r0, d],
-
-
-
             )
         )
         c.push(...colorPolygon)
-        u.push(...tileUv['lines'])
+        u.push(...tileUv['columnSide_0'])
 
 
 
@@ -92,7 +89,7 @@ export const createElemArcData = ({
             )
         )
         c.push(...colorPolygon)
-        u.push(...tileUv['lines'])
+        u.push(...tileUv['empty'])
 
         v.push(
             ...createFace(
@@ -103,7 +100,7 @@ export const createElemArcData = ({
             )
         )
         c.push(...colorPolygon)
-        u.push(...tileUv['lines'])
+        u.push(...tileUv['empty'])
     }
 
 
@@ -149,7 +146,7 @@ export const createElemArcData = ({
             )
         )
         c.push(...colorPolygon)
-        u.push(...tileUv['lines'])
+        u.push(...tileUv['briks'])
     }
 
     {
@@ -163,7 +160,7 @@ export const createElemArcData = ({
             )
         )
         c.push(...colorPolygon)
-        u.push(...tileUv['lines'])
+        u.push(...tileUv['briks'])
     }
 
 

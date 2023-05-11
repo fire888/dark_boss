@@ -41,7 +41,8 @@ export const createPlatformData = ({
         )
     )
     c.push(...colorSide)
-    u.push(...tileUv['lines'])
+    //u.push(...tileUv['lines'])
+    u.push(...tileUv['empty'])
     col.push(
         ...createFace(
             [...nX_pZ],
@@ -61,7 +62,7 @@ export const createPlatformData = ({
         )
     )
     c.push(...colorSide)
-    u.push(...tileUv['lines'])
+    u.push(...tileUv['points'])
 
     /** front */
     v.push(
