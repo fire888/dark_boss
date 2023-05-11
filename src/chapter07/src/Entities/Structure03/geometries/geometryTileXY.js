@@ -64,10 +64,10 @@ export const createGeomXY = () => {
 
     {
         const platform = createPlatformData({
-            nX_pZ: [hpW, 0, hpW],
-            pX_pZ: [80, H / 2, hpW],
-            pX_nZ: [80, H / 2, -hpW],
-            nX_nZ: [hpW, 0, -hpW],
+            nX_pZ: [hpW, H, hpW],
+            pX_pZ: [W / 2, H / 2, hpW],
+            pX_nZ: [W / 2, H / 2, -hpW],
+            nX_nZ: [hpW, H, -hpW],
         })
 
         //translateArr(platform.v, W / 3, H / 2, 0)
@@ -80,10 +80,10 @@ export const createGeomXY = () => {
 
     {
         const platform = createPlatformData({
-            nX_pZ: [-80, H / 2, hpW],
-            pX_pZ: [-hpW, 0, hpW],
-            pX_nZ: [-hpW, 0, -hpW],
-            nX_nZ: [-80, H / 2, -hpW],
+            nX_pZ: [-hpW, H / 2, W / 2],
+            pX_pZ: [hpW, H / 2, W / 2],
+            pX_nZ: [hpW, 0, hpW],
+            nX_nZ: [-hpW, 0, hpW],
         })
 
         //translateArr(platform.v, -W / 3, H / 2, 0)
@@ -95,10 +95,10 @@ export const createGeomXY = () => {
     }
     {
         const platform = createPlatformData({
-            nX_pZ: [-hpW, H / 2, 80],
-            pX_pZ: [hpW, H / 2, 80],
-            pX_nZ: [hpW, H, hpW],
-            nX_nZ: [-hpW, H, hpW],
+            nX_pZ: [-W / 2, H / 2, hpW],
+            pX_pZ: [-hpW, H, hpW],
+            pX_nZ: [-hpW, H, -hpW],
+            nX_nZ: [-W / 2, H / 2, -hpW],
         })
 
         //translateArr(platform.v, 0, H / 2, -W / 3)

@@ -24,11 +24,12 @@ export const createrMesh = (root) => {
     root.studio.addToScene(currentMesh)
 
     const tilesGeom = {
-        't_bt': createGeomStairs(),
+        //'t_bt': createGeomStairs(),
+        't_stairs': createGeomStairs(),
         't_XY': createGeomXY(),
-        't_b': createGeomFromBot(),
+        't_fromBottom': createGeomFromBot(),
         't_T': createGeomT(),
-        't_t': createGeomToTop(),
+        't_toTopPlatform': createGeomToTop(),
         't_L': createGeomL(),
         't_I': createGeomI(),
         't_X': createGeomX(),
@@ -46,10 +47,11 @@ export const createrMesh = (root) => {
                 return;
             }
 
-            // if (tile.tileData.keyModel !== 't_bt') {
+            // if (tile.tileData.keyModel !== 't_XY') {
             //      return;
             // }
-            const {i, j, k, tileData } = tile
+
+            const { i, j, k, tileData } = tile
 
             const g = createGeomFromBuffer(tilesGeom[tile.tileData.keyModel])
             const mesh = new THREE.Mesh(g, structureMaterial)

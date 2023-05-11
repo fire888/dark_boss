@@ -51,8 +51,8 @@ export const createGeomStairs = () => {
     {
         const platform = createPlatformData({
             nX_pZ: [-hpW , 0, -hpW],
-            pX_pZ: [0, 0, -hpW ],
-            pX_nZ: [0, H / 4, -60],
+            pX_pZ: [hpW, 0, -hpW ],
+            pX_nZ: [hpW, H / 4, -60],
             nX_nZ: [-hpW, H / 4, -60],
         })
         v.push(...platform.v)
@@ -63,8 +63,8 @@ export const createGeomStairs = () => {
     {
         const platform = createPlatformData({
             nX_pZ: [-hpW , H / 4, -60],
-            pX_pZ: [0, H / 4, -60],
-            pX_nZ: [0, H / 4, -80],
+            pX_pZ: [hpW, H / 4, -60],
+            pX_nZ: [hpW, H / 4, -80],
             nX_nZ: [-hpW, H / 4, -80],
         })
         v.push(...platform.v)
@@ -168,8 +168,8 @@ export const createGeomStairs = () => {
     {
         const platform = createPlatformData({
             nX_pZ: [-hpW, H * .85, 80],
-            pX_pZ: [0, H * .85, 80],
-            pX_nZ: [0, H * .85, hpW * 2],
+            pX_pZ: [hpW, H * .85, 80],
+            pX_nZ: [hpW, H * .85, hpW * 2],
             nX_nZ: [-hpW, H * .85, hpW * 2],
         })
         v.push(...platform.v)
@@ -181,8 +181,8 @@ export const createGeomStairs = () => {
     {
         const platform = createPlatformData({
             nX_pZ: [-hpW, H * .85, hpW * 2],
-            pX_pZ: [0, H * .85, hpW * 2],
-            pX_nZ: [0, H, hpW],
+            pX_pZ: [hpW, H * .85, hpW * 2],
+            pX_nZ: [hpW, H, hpW],
             nX_nZ: [-hpW, H, hpW],
         })
         v.push(...platform.v)
