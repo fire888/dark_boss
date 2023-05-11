@@ -25,7 +25,7 @@ export const createrMesh = (root) => {
 
     const tilesGeom = {
         't_bt': createGeomStairs(),
-         't_XY': createGeomXY(),
+        't_XY': createGeomXY(),
         't_b': createGeomFromBot(),
         't_T': createGeomT(),
         't_t': createGeomToTop(),
@@ -46,8 +46,8 @@ export const createrMesh = (root) => {
                 return;
             }
 
-            // if (tile.tileData.keyModel !== 't_XY') {
-            //     return;
+            // if (tile.tileData.keyModel !== 't_bt') {
+            //      return;
             // }
             const {i, j, k, tileData } = tile
 

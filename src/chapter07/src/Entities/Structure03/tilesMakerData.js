@@ -178,7 +178,7 @@ export const createDataTiles = () => {
         /**
            I
          . . .
-         .I . .
+         . I .
          . . .
            I
          */
@@ -197,7 +197,7 @@ export const createDataTiles = () => {
     
     
     {
-        /**
+        /** stair
            I
          . I .
          . . .
@@ -257,8 +257,7 @@ export const createDataTiles = () => {
         }
         arrTiles.push(I)
     }
-    
-    // NOT IN MODEL
+
     {
         /**
          . . .
