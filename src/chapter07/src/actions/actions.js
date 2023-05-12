@@ -16,11 +16,11 @@ import {
 import { createStructure2 } from '../Entities/Structure02/structure02'
 import { createStructure3 } from '../Entities/Structure03/structure03'
 import { createSystemSprites } from '../Entities/sprites'
-import { createPlatform } from '../Entities/Platform/platform'
+import { createFlyer } from '../Entities/Flyer/flyer'
 import { system_PlayerNearLevelItems } from '../systems/system_PlayerNearLevelItems'
+import { flyToNewStructure } from './flyTonewStructure'
+import { W, H } from '../constants/constants_elements'
 
-
-import { W, H, SIZE_X, SIZE_Y, SIZE_Z } from '../constants/constants_elements'
 
 
 export class actions {
@@ -112,39 +112,55 @@ export class actions {
 
         const sprites = createSystemSprites(root)
         sprites.addToScene()
+        root.sprites = sprites
 
-        createStructure3(root).then(() => {
-            const platform = createPlatform(root)
-            root.system_PlayerNearLevelItems.setItemToCheck(platform.objectForCheck, 'platformObjectForCheck', 20, 30)
-
-
-            player.setToPos(
-                (W * SIZE_X) / 2,
-                SIZE_Y * H - 160,
-                (W * SIZE_Z) / 2
-            )
-
-            studio.changeEnvironment(ENV_NORMAL, { time: 1 },)
-            player.toggleBlocked(false)
-
-            /** update */
-            frameUpdater.on(data => {
-                TWEEN.update()
-                system_PlayerMoveOnLevel.update(data)
-                studio.drawFrame()
-            })
+        const structure = createStructure3(root, {})
+        root.structure = structure
+        structure.generateStructure().then(() => {
+            //setTimeout(() => {
+            //    structure.destroyStructure()
+            //    console.log('root.studio', root.studio)
+            //    setTimeout(() => { iterate() }, 2000)
+            //w}, 5000)
+        })
 
 
-            ui.showStartButton(() => {
-                //startPipeline(root).then()
-                //player.toggleBlocked(false)
-                //this._root.system_Sound && this._root.system_Sound.playAmbient()
+        const flyer = createFlyer(root)
+        flyer.mesh.position.set(W * 3, H * 5 + 70, W * 1.5)
+        root.flyer = flyer
+        root.system_PlayerNearLevelItems.setItemToCheck(flyer.objectForCheck, 'platformObjectForCheck', 20, 30)
+
+        root.emitter.subscribe('clickMachineDraw')(() => flyToNewStructure(root))
+
+        player.setToPos(
+            500, 700, 500,
+            // (W * SIZE_X) / 2,
+            // SIZE_Y * H,
+            // (W * SIZE_Z) / 2
+
+            //499.38749389674507, 530, -205.35013638723814
+        )
+
+        studio.changeEnvironment(ENV_NORMAL, { time: 1 },)
+        player.toggleBlocked(false)
+
+        /** update */
+        frameUpdater.on(data => {
+            TWEEN.update()
+            system_PlayerMoveOnLevel.update(data)
+            studio.drawFrame()
+        })
 
 
-                // setTimeout(() => {
-                //     addSegment(0)
-                // }, 0)
-            })
+        ui.showStartButton(() => {
+            //startPipeline(root).then()
+            //player.toggleBlocked(false)
+            //this._root.system_Sound && this._root.system_Sound.playAmbient()
+
+
+            // setTimeout(() => {
+            //     addSegment(0)
+            // }, 0)
         })
 
     }

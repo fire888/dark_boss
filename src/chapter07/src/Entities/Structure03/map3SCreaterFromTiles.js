@@ -45,7 +45,6 @@ const filterMaybeArrByCompare = (dataAction, map, tiles) => {
         return;
     }
 
-    //console.log('dataAction', dataAction)
 
     const arrNotChange = map[yWith][zWith][xWith].maybeTilesInds
     const arrCurrent = map[y][z][x].maybeTilesInds
@@ -131,90 +130,108 @@ const createPipelineActionsWithMapItem = (y, z, x, map) => {
         { action: 'filterMaybeArrByCompare', src: [y + 1, z, x - 1], with: [y, z, x - 1], withProp: 'canConnectPY' },
     ]
 
-    if (z >= map.sizeZ - 3) {
-        actions.push(
-            { action: 'filterMaybeArrByCompare', src: [y, z + 1, x], with: [y, z + 2, x], withProp: 'canConnectNZ' }
-        )
-    }
-
     return actions
 }
 
-let max = 10000
-
-export const createMap = (tiles, makerMesh) => {
-    return new Promise(res => {
-        console.log('!!! tiles', tiles)
-        /** create start map */
-        const map = createMap3X(tiles)
-        console.log('!!! map', map)
 
 
+export const createMap = (tiles, dataFill) => {
+    let map
 
-        /** pipeline actions with tile */
-        const pipelineActions = (y, z, x, map) => {
+    return {
+        generateMap: () => {
+            let maxCallStack = 10000
+
             return new Promise(res => {
-                const actions = createPipelineActionsWithMapItem(y, z, x, map)
-                const iterateAction = (indAction) => {
-                    if (!actions[indAction]) {
-                        return res();
-                    }
-                    const action = actions[indAction]
-                    actionsWithMapItem[action.action](action, map.items, tiles)
+                console.log('!!! tiles', tiles)
+                /** create start map */
+                map = createMap3X(tiles)
+                console.log('!!! map', map)
 
-                    // if (f) {
-                    //     button.removeEventListener('click', f)
-                    // }
-                    // f = () => {
-                    //     iterateAction(indAction + 1)
-                    // }
-                    // button.addEventListener('click', f)
-                    //setTimeout(() => {iterateAction(indAction + 1)}, 0)
-                    iterateAction(indAction + 1)
-                }
-                iterateAction(0)
-            })
-        }
-
-
-
-        const calculateMapItem = (y, z, x) => {
-            return new Promise((res, rej) => {
-                makerMesh.setCurrentMeshToIndex(y, z, x)
-
-                --max
-                if (max < 0) {
-                    console.log('max stack:', max)
-                    return rej();
+                for (let i = 0; i < dataFill.length; ++i) {
+                    map.items[dataFill[i].place[0]][dataFill[i].place[1]][dataFill[i].place[2]].resultTileIndex = 0
+                    map.items[dataFill[i].place[0]][dataFill[i].place[1]][dataFill[i].place[2]].maybeTilesInds = [0]
                 }
 
-                /** choice tile and filter neighbours */
-                pipelineActions(y, z, x, map).then(() => {
-                    /** add mesh to scene */
-                    if (map.items[y][z][x].hasOwnProperty('resultTileIndex') && Number.isInteger(map.items[y][z][x].resultTileIndex)) {
-                        map.items[y][z][x].tileData = tiles[map.items[y][z][x].resultTileIndex]
-                        makerMesh.addMesh(map.items[y][z][x])
-                    }
-                    res()
-                })
-            })
-        }
 
-        const nextItem = () => {
-            const { nextY, nextZ, nextX } = map.checkNextMapItemIndexes()
-            if (
-                Number.isInteger(nextY) &&
-                Number.isInteger(nextZ) &&
-                Number.isInteger(nextX)
-            ) {
-                calculateMapItem( nextY, nextZ, nextX ).then(nextItem)
-                //setTimeout(() => {  }, 0)
-            } else {
-                console.log('$$$$')
-                res()
+                /** pipeline actions with tile */
+                const pipelineActions = (y, z, x, map) => {
+                    return new Promise(res => {
+                        const actions = createPipelineActionsWithMapItem(y, z, x, map)
+                        const iterateAction = (indAction) => {
+                            if (!actions[indAction]) {
+                                return res();
+                            }
+                            const action = actions[indAction]
+                            actionsWithMapItem[action.action](action, map.items, tiles)
+
+                            // if (f) {
+                            //     button.removeEventListener('click', f)
+                            // }
+                            // f = () => {
+                            //     iterateAction(indAction + 1)
+                            // }
+                            // button.addEventListener('click', f)
+                            //setTimeout(() => {iterateAction(indAction + 1)}, 0)
+                            iterateAction(indAction + 1)
+                        }
+                        iterateAction(0)
+                    })
+                }
+
+
+                const calculateMapItem = (y, z, x) => {
+                    return new Promise((res, rej) => {
+                        --maxCallStack
+                        if (maxCallStack < 0) {
+                            console.log('max stack:', maxCallStack )
+                            return rej();
+                        }
+
+                        /** choice tile and filter neighbours */
+                        pipelineActions(y, z, x, map).then(() => {
+                            /** add mesh to scene */
+                            if (map.items[y][z][x].hasOwnProperty('resultTileIndex') && Number.isInteger(map.items[y][z][x].resultTileIndex)) {
+                                map.items[y][z][x].tileData = tiles[map.items[y][z][x].resultTileIndex]
+                                //makerMesh.addMesh(map.items[y][z][x])
+                            }
+                            res()
+                        })
+                    })
+                }
+
+                const nextItem = () => {
+                    const {nextY, nextZ, nextX} = map.checkNextMapItemIndexes()
+                    if (
+                        Number.isInteger(nextY) &&
+                        Number.isInteger(nextZ) &&
+                        Number.isInteger(nextX)
+                    ) {
+                        calculateMapItem(nextY, nextZ, nextX).then(nextItem)
+                        //setTimeout(() => {  }, 0)
+                    } else {
+                        console.log('$$$$--')
+                        res(map)
+                    }
+                }
+
+                nextItem()
+            })
+        },
+        destroyMap: () => {
+            for (let i = 0; i < map.items.length; ++i) {
+                for (let j = 0; j < map.items[i].length; ++j) {
+                    for (let k = 0; k < map.items[i][j].length; ++k) {
+                        for (let key in map.items[i][j][k]) {
+                            delete map.items[i][j][k][key]
+                        }
+                        delete map.items[i][j][k]
+                    }
+                    delete map.items[i][j]
+                }
+                delete map.items[i]
             }
-        }
-
-        setTimeout(() => { nextItem() }, 2000)
-    })
+            map = null
+        },
+    }
 }

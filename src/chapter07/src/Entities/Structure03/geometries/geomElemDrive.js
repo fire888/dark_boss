@@ -9,7 +9,7 @@ import { COLOR_00 } from '../../../constants/constants_elements'
 const { sin, cos } = Math
 
 export const createElemDrive = ({
-                                     h = 41,
+                                     h = 31,
                                      h0 = 3,
                                      h00 = 5,
                                      w0 = 10,

@@ -4,7 +4,9 @@ import { createElemDrive } from '../Structure03/geometries/geomElemDrive'
 import { createGeomFromBuffer } from '../Structure03/geometries/createBufferGeom'
 import { translateArr } from "../../helpers/geomHelpers";
 
-export const createPlatform = (root) => {
+import { SIZE_Z, W } from "../../constants/constants_elements";
+
+export const createFlyer = (root) => {
     const { structureMaterial, basicMat } = root.materials
 
     const v = []
@@ -27,7 +29,7 @@ export const createPlatform = (root) => {
     }
     {
         const elemDive = createElemDrive({
-            h: 20,
+            h: 12,
             color: [1, 1, 0],
         })
         translateArr(elemDive.v, 0, 0, -110)
@@ -54,7 +56,9 @@ export const createPlatform = (root) => {
     playerNearObj.position.set(0, 10, -100)
     mesh.add(playerNearObj)
 
+
     return {
-        objectForCheck: playerNearObj, 
+        mesh,
+        objectForCheck: playerNearObj,
     }
 }
