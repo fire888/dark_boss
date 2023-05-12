@@ -49,6 +49,25 @@ export class actions {
         })
 
 
+        root.emitter.subscribe('checkNear')(data => {
+            if (data.item === 'platformObjectForCheck' && data.is) {
+                dispatcher.dispatch({
+                    type: 'TOGGLE_BUTTON_DRAW_CAR',
+                    is: true
+                })
+            }
+            if (data.item === 'platformObjectForCheck' && !data.is) {
+                dispatcher.dispatch({
+                    type: 'TOGGLE_BUTTON_DRAW_CAR',
+                    is: false
+                })
+            }
+        })
+
+
+
+
+
         root.assets.textureTiles.magFilter = THREE.NearestFilter
         root.assets.textureTiles.minFilter = THREE.NearestFilter
         const structureMaterial = new THREE.MeshBasicMaterial({
@@ -95,27 +114,9 @@ export class actions {
         sprites.addToScene()
 
         createStructure3(root).then(() => {
-           // player.mesh.position.set(0, -40, 0)
-            //player.mesh.position.set(0, -40, -120)
-            //player.mesh.rotation.y = Math.PI
-
             const platform = createPlatform(root)
             root.system_PlayerNearLevelItems.setItemToCheck(platform.objectForCheck, 'platformObjectForCheck', 20, 30)
-            root.emitter.subscribe('checkNear')(data => {
-                console.log('data', data)
-                if (data.item === 'platformObjectForCheck' && data.is) {
-                    dispatcher.dispatch({
-                        type: 'TOGGLE_BUTTON_DRAW_CAR',
-                        is: true
-                    })
-                }
-                if (data.item === 'platformObjectForCheck' && !data.is) {
-                    dispatcher.dispatch({
-                        type: 'TOGGLE_BUTTON_DRAW_CAR',
-                        is: false
-                    })
-                }
-            })
+
 
             player.setToPos(
                 (W * SIZE_X) / 2,

@@ -39,7 +39,7 @@ export const tileUv = {
     '2_2': createUv([v066, v066], [1, v066], [1, 1], [v066, 1]),
 }
 
-const l = ['columnSide_0', 'columnSide_1', 'columnSide_2', 'columnSide_3']
+const l = ['columnSide_1', 'columnSide_2', 'columnSide_3']
 export const randomTile = () => {
     const k = l[Math.floor(Math.random() * l.length)]
     return tileUv[k]

@@ -61,7 +61,7 @@ export const createColumnData = ({
 
         u.push(
             ...tileUv['three'],
-            ...tileUv['line_p0'],
+            ...tileUv['empty'],
             ...tileUv['line_p1'],
         )
 
@@ -141,7 +141,7 @@ export const createColumnData = ({
         )
 
         u.push(
-            ...tileUv['line_p0'],
+            ...tileUv['empty'],
             ...tileUv['line_p1'],
             ...tileUv['three'],
         )

@@ -164,13 +164,14 @@ export const createCustomStore = root => {
         if (action.type === 'CLICK_DRAW') {
             const { valButtonDrawCar } = state
             if (valButtonDrawCar === 'drive') {
-                root.actions.clickMachineDraw()
+
+                //root.actions.clickMachineDraw()
                 return ({
                     ...state,
                     valButtonDrawCar: 'exit',
                 })
             } else {
-                root.actions.clickMachineExit()
+                //root.actions.clickMachineExit()
                 return ({
                     ...state,
                     valButtonDrawCar: 'drive',
