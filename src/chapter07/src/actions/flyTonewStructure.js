@@ -1,5 +1,6 @@
 // import * as THREE from 'three'
 import * as TWEEN from "@tweenjs/tween.js";
+import { STRUCTURES } from "../constants/constants_elements";
 
 
 const pause = t => new Promise(res => setTimeout(res, t))
@@ -73,6 +74,8 @@ const endFly = (root) => {
     })
 }
 
+let countStruct = 1
+
 async function flyProcess (root) {
     const {
         flyer,
@@ -97,7 +100,8 @@ async function flyProcess (root) {
 
     player.toggleBlocked = true
     structure.destroyStructure()
-    await structure.generateStructure()
+    await structure.generateStructure(STRUCTURES[countStruct])
+    ++countStruct
     await pause(100)
     flyer.mesh.position.z = 8000
     player.toggleBlocked = false

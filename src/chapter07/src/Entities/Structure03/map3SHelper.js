@@ -1,10 +1,6 @@
-import {
-    SIZE_X, SIZE_Y, SIZE_Z
-} from '../../constants/constants_elements'
 
 
-
-const makeQueue = map => {
+const makeQueue = (map, SIZE_X, SIZE_Y, SIZE_Z) => {
     const m = {}
     for (let i = 0; i < map.length; ++i) {
         for (let j = 0; j < map[i].length; ++j) {
@@ -62,13 +58,15 @@ const makeQueue = map => {
         }
 
     }
-    iterate(0, 4, 4)
+    iterate(0, Math.floor(SIZE_Z / 2), Math.floor(SIZE_X / 2))
     return q
 }
 
 
 
-export const createMap3X = (tiles) => {
+export const createMap3X = (tiles, dataStructure) => {
+    const { SIZE_X, SIZE_Y, SIZE_Z } = dataStructure
+
     const arrY = []
     for (let i = 0; i < SIZE_Y; ++i) {
         const arrZ = []
@@ -91,7 +89,7 @@ export const createMap3X = (tiles) => {
     }
 
 
-    const queue = makeQueue(arrY)
+    const queue = makeQueue(arrY, SIZE_X, SIZE_Y, SIZE_Z)
     let ind = 0
 
     return {

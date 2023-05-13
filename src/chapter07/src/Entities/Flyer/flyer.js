@@ -43,7 +43,6 @@ export const createFlyer = (root) => {
 
     const viewGeom = createGeomFromBuffer({ v, c, u })
     const mesh = new THREE.Mesh(viewGeom, structureMaterial)
-    mesh.position.set(500, 500, -150)
     root.studio.addToScene(mesh)
 
     const collisionGeom = createGeomFromBuffer({ v: col })

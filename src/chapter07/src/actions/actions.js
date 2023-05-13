@@ -1,15 +1,8 @@
 import * as TWEEN from '@tweenjs/tween.js'
 import * as THREE from 'three'
 import {
-    ENV_NORMAL
-    //START_ENV_CONFIG,
-    //START_ENV_CONFIG_2,
-    //START_ENV_CONFIG_3,
-    //ENV_CONFIG_WORD_1,
-    //ENV_CONFIG_WORD_2,
-    //LOCATIONS_QUADRANTS,
-    //SIZE_QUADRANT,
-    //playerConfig,
+    ENV_NORMAL,
+    STRUCTURES,
 } from '../constants/constants_elements';
 //import { createWorldReal } from '../systems/system_worldReal'
 //import { createWaveMain } from '../Entities/Structure01/WaveMain'
@@ -19,7 +12,6 @@ import { createSystemSprites } from '../Entities/sprites'
 import { createFlyer } from '../Entities/Flyer/flyer'
 import { system_PlayerNearLevelItems } from '../systems/system_PlayerNearLevelItems'
 import { flyToNewStructure } from './flyTonewStructure'
-import { W, H } from '../constants/constants_elements'
 
 
 
@@ -114,26 +106,20 @@ export class actions {
         sprites.addToScene()
         root.sprites = sprites
 
-        const structure = createStructure3(root, {})
+        const structure = createStructure3(root)
         root.structure = structure
-        structure.generateStructure().then(() => {
-            //setTimeout(() => {
-            //    structure.destroyStructure()
-            //    console.log('root.studio', root.studio)
-            //    setTimeout(() => { iterate() }, 2000)
-            //w}, 5000)
-        })
+        structure.generateStructure(STRUCTURES[0]).then(() => {})
 
 
         const flyer = createFlyer(root)
-        flyer.mesh.position.set(W * 3, H * 5 + 70, W * 1.5)
+        //flyer.mesh.position.set()
         root.flyer = flyer
         root.system_PlayerNearLevelItems.setItemToCheck(flyer.objectForCheck, 'platformObjectForCheck', 20, 30)
 
         root.emitter.subscribe('clickMachineDraw')(() => flyToNewStructure(root))
 
         player.setToPos(
-            500, 700, 500,
+            0, 300, 100,
             // (W * SIZE_X) / 2,
             // SIZE_Y * H,
             // (W * SIZE_Z) / 2

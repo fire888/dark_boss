@@ -135,22 +135,25 @@ const createPipelineActionsWithMapItem = (y, z, x, map) => {
 
 
 
-export const createMap = (tiles, dataFill) => {
+export const createMap = (tiles) => {
     let map
 
     return {
-        generateMap: () => {
+        generateMap: (dataStructure) => {
             let maxCallStack = 10000
 
             return new Promise(res => {
                 console.log('!!! tiles', tiles)
                 /** create start map */
-                map = createMap3X(tiles)
+
+                map = createMap3X(tiles, dataStructure)
                 console.log('!!! map', map)
 
-                for (let i = 0; i < dataFill.length; ++i) {
-                    map.items[dataFill[i].place[0]][dataFill[i].place[1]][dataFill[i].place[2]].resultTileIndex = 0
-                    map.items[dataFill[i].place[0]][dataFill[i].place[1]][dataFill[i].place[2]].maybeTilesInds = [0]
+                const { mapFill } = dataStructure
+                for (let i = 0; i < mapFill.length; ++i) {
+                    const { place } = mapFill[i]
+                    map.items[place[0]][place[1]][place[2]].resultTileIndex = 0
+                    map.items[place[0]][place[1]][place[2]].maybeTilesInds = [0]
                 }
 
 

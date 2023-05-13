@@ -65,7 +65,7 @@ export const createrMesh = (root) => {
         //     root.system_PlayerMoveOnLevel.addItemToPlayerCollision(meshCollision)
         // },
 
-        generateMeshes: mapData => {
+        generateMeshes: (mapData, structureData) => {
             return new Promise(res => {
                 const v = []
                 const c = []
@@ -95,12 +95,16 @@ export const createrMesh = (root) => {
                     col.push(...copyVCollision)
                 })
 
+                const { X, Y, Z } = structureData
+
                 const g = createGeomFromBuffer({ v, c, u })
                 mesh = new THREE.Mesh(g, structureMaterial)
+                mesh.position.set(X, Y, Z)
                 root.studio.addToScene(mesh)
 
                 const gCollision = createGeomFromBuffer({ v: col })
                 meshCollision = new THREE.Mesh(gCollision, basicMat)
+                meshCollision.position.set(X, Y, Z)
                 root.studio.addToScene(meshCollision)
                 meshCollision.visible = false
                 root.system_PlayerMoveOnLevel.addItemToPlayerCollision(meshCollision)

@@ -7,37 +7,18 @@ import { createrMesh } from './threeMesh'
 
 export const createStructure3 = (
     root,
-    {
-        mapFill = [
-            { tile: 'empty', place: [5, 6, 3] },
-            { tile: 'empty', place: [5, 5, 3] },
-            { tile: 'empty', place: [5, 4, 3] },
-            { tile: 'empty', place: [5, 3, 3] },
-            { tile: 'empty', place: [5, 2, 3] },
-            { tile: 'empty', place: [5, 1, 3] },
-            { tile: 'empty', place: [5, 0, 3] },
-
-            { tile: 'empty', place: [6, 6, 3] },
-            { tile: 'empty', place: [6, 5, 3] },
-            { tile: 'empty', place: [6, 4, 3] },
-            { tile: 'empty', place: [6, 3, 3] },
-            { tile: 'empty', place: [6, 2, 3] },
-            { tile: 'empty', place: [6, 1, 3] },
-            { tile: 'empty', place: [6, 0, 3] },
-        ],
-    }
 ) => {
     const tiles = createDataTiles()
-    const dataStructure = createMap(tiles, mapFill)
+    const dataStructure = createMap(tiles)
     const makerMesh = createrMesh(root)
 
 
     return {
-        generateStructure: () => {
+        generateStructure: (structure) => {
           return new Promise(res => {
-              dataStructure.generateMap().then(map => {
+              dataStructure.generateMap(structure).then(map => {
                   console.log('map', map)
-                  makerMesh.generateMeshes(map).then(result => {
+                  makerMesh.generateMeshes(map, structure).then(result => {
                       res()
                   })
               })
