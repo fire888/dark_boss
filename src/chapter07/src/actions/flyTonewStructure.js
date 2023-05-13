@@ -76,14 +76,18 @@ const endFly = (root) => {
 async function flyProcess (root) {
     const {
         flyer,
+        structure,
+        dispatcher,
+        system_PlayerNearLevelItems,
+        player,
     } = root
 
     await pause(20)
 
-    root.system_PlayerNearLevelItems.removeItemFromCheck(flyer.objectForCheck)
-    root.dispatcher.dispatch({ type: 'TOGGLE_BUTTON_DRAW_CAR', is: false })
+    system_PlayerNearLevelItems.removeItemFromCheck(flyer.objectForCheck)
+    dispatcher.dispatch({ type: 'TOGGLE_BUTTON_DRAW_CAR', is: false })
 
-    root.player.mesh.position.sub(flyer.mesh.position)
+    player.mesh.position.sub(flyer.mesh.position)
     flyer.mesh.add(root.player.mesh)
 
 
@@ -91,7 +95,12 @@ async function flyProcess (root) {
     await easyFly(root, -8000)
     await pause(100)
 
+    player.toggleBlocked = true
+    structure.destroyStructure()
+    await structure.generateStructure()
+    await pause(100)
     flyer.mesh.position.z = 8000
+    player.toggleBlocked = false
 
     await easyFly(root, 1000)
     await endFly(root)

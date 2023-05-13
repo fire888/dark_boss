@@ -75,14 +75,14 @@ export const createPlatformData = ({
     )
     c.push(...colorSide)
     u.push(...tileUv['gor_pattern_00'])
-    col.push(
-        ...createFace(
-            [nX_pZ[0], nX_pZ[1] + minusH, nX_pZ[2]],
-            [pX_pZ[0], pX_pZ[1] + minusH, pX_pZ[2]],
-            [pX_pZ[0], pX_pZ[1], pX_pZ[2]],
-            [nX_pZ[0], nX_pZ[1], nX_pZ[2]],
-        )
-    )
+    // col.push(
+    //     ...createFace(
+    //         [nX_pZ[0], nX_pZ[1] + minusH, nX_pZ[2]],
+    //         [pX_pZ[0], pX_pZ[1] + minusH, pX_pZ[2]],
+    //         [pX_pZ[0], pX_pZ[1], pX_pZ[2]],
+    //         [nX_pZ[0], nX_pZ[1], nX_pZ[2]],
+    //     )
+    // )
 
     /** left */
     v.push(
@@ -95,14 +95,14 @@ export const createPlatformData = ({
     )
     c.push(...colorSide)
     u.push(...tileUv['gor_pattern_00'])
-    col.push(
-        ...createFace(
-            [nX_nZ[0], nX_nZ[1] + minusH, nX_nZ[2]],
-            [nX_pZ[0], nX_pZ[1] + minusH, nX_pZ[2]],
-            [nX_pZ[0], nX_pZ[1], nX_pZ[2]],
-            [nX_nZ[0], nX_nZ[1], nX_nZ[2]],
-        )
-    )
+    // col.push(
+    //     ...createFace(
+    //         [nX_nZ[0], nX_nZ[1] + minusH, nX_nZ[2]],
+    //         [nX_pZ[0], nX_pZ[1] + minusH, nX_pZ[2]],
+    //         [nX_pZ[0], nX_pZ[1], nX_pZ[2]],
+    //         [nX_nZ[0], nX_nZ[1], nX_nZ[2]],
+    //     )
+    // )
 
     /** right */
     v.push(
@@ -115,17 +115,16 @@ export const createPlatformData = ({
     )
     c.push(...colorSide)
     u.push(...tileUv['gor_pattern_00'])
-    col.push(
-        ...createFace(
-            [pX_pZ[0], pX_pZ[1] + minusH, pX_pZ[2]],
-            [pX_nZ[0], pX_nZ[1] + minusH, pX_nZ[2]],
-            [pX_nZ[0], pX_nZ[1], pX_nZ[2]],
-            [pX_pZ[0], pX_pZ[1], pX_pZ[2]],
-        )
-    )
+    // col.push(
+    //     ...createFace(
+    //         [pX_pZ[0], pX_pZ[1] + minusH, pX_pZ[2]],
+    //         [pX_nZ[0], pX_nZ[1] + minusH, pX_nZ[2]],
+    //         [pX_nZ[0], pX_nZ[1], pX_nZ[2]],
+    //         [pX_pZ[0], pX_pZ[1], pX_pZ[2]],
+    //     )
+    // )
 
     /** back ***/
-
     v.push(
         ...createFace(
             [pX_nZ[0], pX_nZ[1] + minusH, pX_nZ[2]],
@@ -136,14 +135,14 @@ export const createPlatformData = ({
     )
     c.push(...colorSide)
     u.push(...tileUv['gor_pattern_00'])
-    col.push(
-        ...createFace(
-            [pX_nZ[0], pX_nZ[1] + minusH, pX_nZ[2]],
-            [nX_nZ[0], nX_nZ[1] + minusH, nX_nZ[2]],
-            [nX_nZ[0], nX_nZ[1], nX_nZ[2]],
-            [pX_nZ[0], pX_nZ[1], pX_nZ[2]],
-        )
-    )
+    // col.push(
+    //     ...createFace(
+    //         [pX_nZ[0], pX_nZ[1] + minusH, pX_nZ[2]],
+    //         [nX_nZ[0], nX_nZ[1] + minusH, nX_nZ[2]],
+    //         [nX_nZ[0], nX_nZ[1], nX_nZ[2]],
+    //         [pX_nZ[0], pX_nZ[1], pX_nZ[2]],
+    //     )
+    // )
 
     return { v, col, u, c }
 }

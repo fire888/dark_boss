@@ -158,32 +158,32 @@ export const createColumnData = ({
 
 
     /** collision */
-    col.push(
-        ...createFace(
-            [-w, 0, w],
-            [w, 0, w],
-            [w, h, w],
-            [-w, h, w],
-        ),
-        ...createFace(
-            [w, 0, w],
-            [w, 0, -w],
-            [w, h, -w],
-            [w, h, w],
-        ),
-        ...createFace(
-            [w, 0, -w],
-            [-w, 0, -w],
-            [-w, h, -w],
-            [w, h, -w],
-        ),
-        ...createFace(
-            [-w, 0, -w],
-            [-w, 0, w],
-            [-w, h, w],
-            [-w, h, -w],
-        ),
-    )
+    // col.push(
+    //     ...createFace(
+    //         [-w, 0, w],
+    //         [w, 0, w],
+    //         [w, h, w],
+    //         [-w, h, w],
+    //     ),
+    //     ...createFace(
+    //         [w, 0, w],
+    //         [w, 0, -w],
+    //         [w, h, -w],
+    //         [w, h, w],
+    //     ),
+    //     ...createFace(
+    //         [w, 0, -w],
+    //         [-w, 0, -w],
+    //         [-w, h, -w],
+    //         [w, h, -w],
+    //     ),
+    //     ...createFace(
+    //         [-w, 0, -w],
+    //         [-w, 0, w],
+    //         [-w, h, w],
+    //         [-w, h, -w],
+    //     ),
+    // )
 
 
     return { v, col, u, c }

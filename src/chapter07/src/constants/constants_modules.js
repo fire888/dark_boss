@@ -20,7 +20,7 @@ import nzjpg2 from '../../../assets/matIronBox/negz.jpg'
 
 
 import { system_PlayerMoveOnLevel } from '../systems/system_PlayerMoveOnLevel'
-import { system_PlayerNearLevelItems } from '../systems/system_PlayerNearLevelItems'
+//import { system_PlayerNearLevelItems } from '../systems/system_PlayerNearLevelItems'
 
 
 import { actions } from '../actions/actions'
@@ -82,16 +82,6 @@ export const GAME_MODULES = [
         constr: Player,
         initStateKey: 'beforeStartPlay',
     },
-    // {
-    //     key: 'system_PlayerNearLevelItems',
-    //     constr: system_PlayerNearLevelItems,
-    //     initStateKey: 'beforeStartPlay',
-    // },
-    // {
-    //     key: 'materialsLib',
-    //     constr: Helper_MaterialsLib,
-    //     initStateKey: 'beforeStartPlay',
-    // },
     {
         key: 'system_PlayerMoveOnLevel',
         constr: system_PlayerMoveOnLevel,

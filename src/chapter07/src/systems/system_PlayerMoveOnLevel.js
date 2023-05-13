@@ -47,8 +47,6 @@ export class system_PlayerMoveOnLevel {
 
 
 
-
-
         const checkBottomAndDropDownPlayer = data => {
             const [isCollision, collision] = collisionsWalls.checkCollisions(player.mesh, player.bottomObj, OFFSET_FROM_PLANES_TO_DROP)
 
@@ -60,12 +58,9 @@ export class system_PlayerMoveOnLevel {
             }
 
 
+            //console.log(data.count)
             /** free down without intercepts */
             if (!isCollision) {
-                /** if player not up - rotated to up */
-                if (player.mesh.position.y < -140 ) {
-                    return
-                }
                 player.mesh.position.y += (speedDown * data.count)
             }
 
@@ -105,7 +100,6 @@ export class system_PlayerMoveOnLevel {
             if (this.isFreeze) {
                 return;
             }
-            //if (isButtonsDisabled) return;
 
             keys['left'] && player.mesh.rotateY(speedRot * data.count)
             keys['right'] && player.mesh.rotateY(-speedRot * data.count)
