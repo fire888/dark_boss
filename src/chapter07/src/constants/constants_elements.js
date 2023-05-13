@@ -7,6 +7,46 @@ export const SIZE_Y = 15
 export const SIZE_Z = 7
 export const COLOR_00 = [1, .3, 1]
 
+export const STRUCTURES = [
+    {
+        SIZE_X: 7,
+        SIZE_Y: 15,
+        SIZE_Z: 7,
+        COLOR_00: [.3, 1, 1],
+        mapFill: [
+            { tile: 'empty', place: [5, 6, 3] },
+            { tile: 'empty', place: [5, 5, 3] },
+            { tile: 'empty', place: [5, 4, 3] },
+            { tile: 'empty', place: [5, 3, 3] },
+            { tile: 'empty', place: [5, 2, 3] },
+            { tile: 'empty', place: [5, 1, 3] },
+            { tile: 'empty', place: [5, 0, 3] },
+
+            { tile: 'empty', place: [6, 6, 3] },
+            { tile: 'empty', place: [6, 5, 3] },
+            { tile: 'empty', place: [6, 4, 3] },
+            { tile: 'empty', place: [6, 3, 3] },
+            { tile: 'empty', place: [6, 2, 3] },
+            { tile: 'empty', place: [6, 1, 3] },
+            { tile: 'empty', place: [6, 0, 3] },
+        ],
+    },
+    {
+        SIZE_X: 3,
+        SIZE_Y: 25,
+        SIZE_Z: 4,
+        COLOR_00: [1, .3, 1],
+        mapFill: [],
+    },
+    {
+        SIZE_X: 10,
+        SIZE_Y: 4,
+        SIZE_Z: 10,
+        COLOR_00: [1, .3, 1],
+        mapFill: [],
+    },
+]
+
 
 
 

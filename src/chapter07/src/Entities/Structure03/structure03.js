@@ -9,7 +9,6 @@ export const createStructure3 = (
     root,
     {
         mapFill = [
-            //{ tile: 'empty', place: [5, 7, 3] },
             { tile: 'empty', place: [5, 6, 3] },
             { tile: 'empty', place: [5, 5, 3] },
             { tile: 'empty', place: [5, 4, 3] },
@@ -18,7 +17,6 @@ export const createStructure3 = (
             { tile: 'empty', place: [5, 1, 3] },
             { tile: 'empty', place: [5, 0, 3] },
 
-            //{ tile: 'empty', place: [6, 7, 3] },
             { tile: 'empty', place: [6, 6, 3] },
             { tile: 'empty', place: [6, 5, 3] },
             { tile: 'empty', place: [6, 4, 3] },
