@@ -1,4 +1,5 @@
 import * as TWEEN from "@tweenjs/tween.js";
+import { divide } from "mathjs";
 import {
     STRUCTURES,
     FOG_CONF,
@@ -74,6 +75,45 @@ const endFly = (root, z = 250) => {
 }
 
 
+const animateFuelBarMore = () => {
+    const bar = document.createElement('div')
+    bar.style.backgroundColor = '#ffff00'
+    bar.style.minHeight = '15px'
+    bar.style.minWidth = '1px'
+    bar.style.position = 'absolute'
+    bar.style.right = '15px'
+    bar.style.top = '65px'
+    bar.classList.add('fuel-bar')
+    const wrapper = document.querySelector('.canvas-wrapper')
+    wrapper.appendChild(bar)
+
+    const vals = { w: 0 }
+    new TWEEN.Tween(vals)
+        .to({ w: 250, }, 2000)
+        .onUpdate(() => {
+            bar.style.minWidth = vals.w + 'px'
+        })
+        .start()
+
+}
+
+const animateFuelBarLess = (root) => {
+    const bar = document.querySelector('.fuel-bar')
+    const vals = { w: 0 }
+    new TWEEN.Tween(vals)
+        .to({ w: 1, }, 2000)
+        .onUpdate(() => {
+            bar.style.minWidth = (1 - vals.w) * 250 + 'px'
+            root.flyer.arrow.rotation.z = (1 - vals.w) * (Math.PI / 2)
+        })
+        .onComplete(() => {
+            bar.parentNode.removeChild(bar)
+            bar.remove()
+        })
+        .start()
+}
+
+
 const findFuel = (root) => {
     return new Promise(res => {
         const {
@@ -88,17 +128,44 @@ const findFuel = (root) => {
             fuel,
         } = root
 
-        system_PlayerNearLevelItems.setItemToCheck(fuel.mesh, 'nearFuel', 60, 60)
+        system_PlayerNearLevelItems.setItemToCheck(fuel.mesh, 'nearFuel', 30, 30)
         const unsubscribe = emitter.subscribe('checkNear')(data => {
             if (data.item !== 'nearFuel') {
                 return;
             }
-            console.log('!!!')
             unsubscribe()
             system_PlayerNearLevelItems.removeItemFromCheck(fuel.mesh)
             res()
         })
     })
+}
+
+
+const goToPlatform = (root) => {
+    return new Promise(res => {
+        const {
+            flyer,
+            structure,
+            dispatcher,
+            system_PlayerNearLevelItems,
+            player,
+            studio,
+            emitter,
+            frameUpdater,
+            fuel,
+        } = root
+
+        system_PlayerNearLevelItems.setItemToCheck(flyer.objectForCheck, 'platformObjectForCheck', 20, 30)
+        const unsubscribe = emitter.subscribe('checkNear')(data => {
+            if (data.item === 'platformObjectForCheck') {
+                system_PlayerNearLevelItems.removeItemFromCheck(flyer.objectForCheck)
+                unsubscribe()
+                animateFuelBarLess(root)
+                setTimeout(res, 2000)
+            }
+        })
+    })
+
 }
 
 
@@ -118,6 +185,10 @@ async function flyProcess (root) {
         fuel,
     } = root
 
+
+    // animateFuelBarMore()
+    // await pause(5000)
+    // animateFuelBarLess(root)
     await pause(20)
 
 
@@ -158,13 +229,6 @@ async function flyProcess (root) {
         coordsFuel[1] * H + STRUCTURES[countStruct].Y + (H / 2),
         coordsFuel[2] * W + STRUCTURES[countStruct].Z
     )
-    console.log(
-        coordsFuel,
-        coordsFuel[0] * W + STRUCTURES[countStruct].X,
-        coordsFuel[1] * H + STRUCTURES[countStruct].Y + (H / 2) + 21,
-        coordsFuel[2] * W + STRUCTURES[countStruct].Z
-    )
-    //fuel.mesh.position.set(-200, 0, 0)
 
     await pause(200)
     flyer.mesh.position.z = 8000
@@ -181,17 +245,22 @@ async function flyProcess (root) {
 
     unsubscribe2()
 
-
-
     dispatcher.dispatch({ type: 'CLICK_DRAW' })
     player.mesh.position.add(flyer.mesh.position)
     studio.addToScene(root.player.mesh)
 
     await findFuel(root)
+    animateFuelBarMore()
     studio.removeFromScene(fuel.mesh)
 
     flyer.arrow.rotation.z = 0
+    await goToPlatform(root)
+
     system_PlayerNearLevelItems.setItemToCheck(flyer.objectForCheck, 'platformObjectForCheck', 20, 30)
+    const unsubscribe01 = root.emitter.subscribe('clickMachineDraw')(() => {
+        unsubscribe01()
+        flyToNewStructure(root) 
+    })
 
     ++countStruct
 }

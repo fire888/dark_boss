@@ -42,26 +42,6 @@ export class actions {
             type: 'ENABLE_CONTROL_SOUND',
         })
 
-
-        root.emitter.subscribe('checkNear')(data => {
-            if (data.item === 'platformObjectForCheck' && data.is) {
-                dispatcher.dispatch({
-                    type: 'TOGGLE_BUTTON_DRAW_CAR',
-                    is: true
-                })
-            }
-            if (data.item === 'platformObjectForCheck' && !data.is) {
-                dispatcher.dispatch({
-                    type: 'TOGGLE_BUTTON_DRAW_CAR',
-                    is: false
-                })
-            }
-        })
-
-
-
-
-
         root.assets.textureTiles.magFilter = THREE.NearestFilter
         root.assets.textureTiles.minFilter = THREE.NearestFilter
         const structureMaterial = new THREE.MeshBasicMaterial({
@@ -122,20 +102,29 @@ export class actions {
 
 
         const flyer = createFlyer(root)
-        //flyer.mesh.position.set()
         root.flyer = flyer
         root.system_PlayerNearLevelItems.setItemToCheck(flyer.objectForCheck, 'platformObjectForCheck', 20, 30)
+        root.emitter.subscribe('checkNear')(data => {
+            if (data.item === 'platformObjectForCheck' && data.is) {
+                dispatcher.dispatch({
+                    type: 'TOGGLE_BUTTON_DRAW_CAR',
+                    is: true
+                })
+            }
+            if (data.item === 'platformObjectForCheck' && !data.is) {
+                dispatcher.dispatch({
+                    type: 'TOGGLE_BUTTON_DRAW_CAR',
+                    is: false
+                })
+            }
+        })
 
-        root.emitter.subscribe('clickMachineDraw')(() => flyToNewStructure(root))
+        const unsubscribe = root.emitter.subscribe('clickMachineDraw')(() => {
+            unsubscribe()
+            flyToNewStructure(root) 
+        })
 
-        player.setToPos(
-            0, 300, 100,
-            // (W * SIZE_X) / 2,
-            // SIZE_Y * H,
-            // (W * SIZE_Z) / 2
-
-            //499.38749389674507, 530, -205.35013638723814
-        )
+        player.setToPos(0, 300, 100)
 
         //studio.changeEnvironment(ENV_NORMAL, { time: 1 },)
         player.toggleBlocked(false)
