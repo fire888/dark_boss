@@ -10,6 +10,7 @@ import { createStructure2 } from '../Entities/Structure02/structure02'
 import { createStructure3 } from '../Entities/Structure03/structure03'
 import { createSystemSprites } from '../Entities/sprites'
 import { createFlyer } from '../Entities/Flyer/flyer'
+import { createFuel } from '../Entities/fuel'
 import { system_PlayerNearLevelItems } from '../systems/system_PlayerNearLevelItems'
 import { flyToNewStructure } from './flyTonewStructure'
 
@@ -28,6 +29,7 @@ export class actions {
             system_PlayerMoveOnLevel,
             ui,
             player,
+            emitter,
         } = this._root
 
 
@@ -74,6 +76,14 @@ export class actions {
         const basicMat = new THREE.MeshBasicMaterial({ color: 0xffff00 })
         root.materials.basicMat = basicMat
 
+        const fuel = createFuel(root)
+        root.fuel = fuel
+        //studio.addToScene(fuel.mesh)
+        //fuel.mesh.position.set(-200, 0, 0)
+        //root.system_PlayerNearLevelItems.setItemToCheck(fuel.mesh, 'nearFuel', 60, 60)
+        //const unsubscribe = emitter.subscribe('checkNear')(data => {
+        //    console.log('##', data)
+        //})
 
         // const plane = new THREE.Mesh(
         //     new THREE.PlaneBufferGeometry(10000, 10000, ),

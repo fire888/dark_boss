@@ -28,5 +28,8 @@ export const createStructure3 = (
             dataStructure.destroyMap()
             makerMesh.destroyStructure()
         },
+        getCoordsForItem: (key) => {
+            return [0, 0, 0]
+        },
     }
 }

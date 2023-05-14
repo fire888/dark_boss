@@ -42,7 +42,7 @@ const easyFly = (root, targetZ) => {
         } = root
 
         const unsubscribe1 = frameUpdater.on(data => {
-            flyer.mesh.position.z += -20
+            flyer.mesh.position.z += -20 * data.count
             if (flyer.mesh.position.z < targetZ) {
                 unsubscribe1()
                 res()
@@ -71,6 +71,36 @@ const endFly = (root, z = 250) => {
     })
 }
 
+
+const findFuel = (root) => {
+    return new Promise(res => {
+        const {
+            flyer,
+            structure,
+            dispatcher,
+            system_PlayerNearLevelItems,
+            player,
+            studio,
+            emitter,
+            frameUpdater,
+            fuel,
+        } = root
+
+        system_PlayerNearLevelItems.setItemToCheck(fuel.mesh, 'nearFuel', 60, 60)
+        const unsubscribe = emitter.subscribe('checkNear')(data => {
+            if (data.item !== 'nearFuel') {
+                return;
+            }
+            console.log('!!!')
+            unsubscribe()
+            system_PlayerNearLevelItems.removeItemFromCheck(fuel.mesh)
+            res()
+        })
+    })
+}
+
+
+
 let countStruct = 1
 
 async function flyProcess (root) {
@@ -82,9 +112,13 @@ async function flyProcess (root) {
         player,
         studio,
         emitter,
+        frameUpdater,
+        fuel,
     } = root
 
     await pause(20)
+
+
 
     system_PlayerNearLevelItems.removeItemFromCheck(flyer.objectForCheck)
     dispatcher.dispatch({ type: 'TOGGLE_BUTTON_DRAW_CAR', is: false })
@@ -93,9 +127,16 @@ async function flyProcess (root) {
     flyer.mesh.add(root.player.mesh)
 
 
+    const fullDiff = 8000
+    const unsubscribe = frameUpdater.on(data => {
+        flyer.arrow.rotation.z = (Math.abs(flyer.mesh.position.z) / fullDiff) * (Math.PI / 4)
+    })
+
     await startFly(root)
     studio.changeFog(FOG_CONF_02)
     await easyFly(root, -8000)
+
+    unsubscribe()
 
     player.toggleBlocked = true
     emitter.emit('keyEvent')({
@@ -108,17 +149,39 @@ async function flyProcess (root) {
     structure.destroyStructure()
     await structure.generateStructure(STRUCTURES[countStruct])
     ++countStruct
+
+    const coordsFuel = structure.getCoordsForItem('easyItem')
+    root.studio.addToScene(fuel.mesh)
+    //fuel.mesh.position.set(...coordsFuel)
+    fuel.mesh.position.set(-200, 0, 0)
+
     await pause(200)
     flyer.mesh.position.z = 8000
+
+    const fullDiff2 = 8000
+    const unsubscribe2 = frameUpdater.on(data => {
+        flyer.arrow.rotation.z = ((8000 - flyer.mesh.position.z) / fullDiff2) * (Math.PI / 4) + (Math.PI / 4)
+    })
+
     player.toggleBlocked = false
     setTimeout(() => studio.changeFog(FOG_CONF),1000)
     await easyFly(root, 1000)
     await endFly(root)
 
-    root.dispatcher.dispatch({ type: 'CLICK_DRAW' })
-    root.system_PlayerNearLevelItems.setItemToCheck(flyer.objectForCheck, 'platformObjectForCheck', 20, 30)
-    root.player.mesh.position.add(flyer.mesh.position)
-    root.studio.addToScene(root.player.mesh)
+    unsubscribe2()
+
+
+
+    dispatcher.dispatch({ type: 'CLICK_DRAW' })
+    player.mesh.position.add(flyer.mesh.position)
+    studio.addToScene(root.player.mesh)
+
+    await findFuel(root)
+    studio.removeFromScene(fuel.mesh)
+
+    flyer.arrow.rotation.z = 0
+    system_PlayerNearLevelItems.setItemToCheck(flyer.objectForCheck, 'platformObjectForCheck', 20, 30)
+
 }
 
 

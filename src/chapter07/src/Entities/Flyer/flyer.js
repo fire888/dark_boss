@@ -55,8 +55,17 @@ export const createFlyer = (root) => {
     playerNearObj.position.set(0, 10, -100)
     mesh.add(playerNearObj)
 
+    const arrow = new THREE.Mesh(
+        new THREE.PlaneGeometry(1, 6, 1, 1),
+        new THREE.MeshBasicMaterial({ color: 0x000000 })
+    )
+    arrow.rotation.x = -0.25
+    arrow.position.z = -106
+    arrow.position.y = 5
+    mesh.add(arrow)
 
     return {
+        arrow,
         mesh,
         objectForCheck: playerNearObj,
     }
