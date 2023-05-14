@@ -32,10 +32,8 @@ const createS = (m) => {
 export const createSystemSprites = root => {
     const ob = new THREE.Object3D()
     ob.position.set(0, 0, -3000)
-    const vecObPos = new THREE.Vector3()
 
     const m = new THREE.MeshBasicMaterial({ color: 0xff00ff })
-
 
     const arrSprites = []
     for (let i = 0; i < 50; ++i) {
@@ -45,15 +43,7 @@ export const createSystemSprites = root => {
     }
 
 
-    return { 
-        // update: (x, y, z) => {
-        //     ob.getWorldPosition(vecObPos)
-        //     for (let i = 0; i < arrSprites.length; ++i) {
-        //         if (arrSprites[i].position.distanceTo(vecObPos) > 4000) {
-        //             arrSprites[i].position.copy(vecObPos)
-        //         }
-        //     }
-        // },
+    return {
         addToScene: () => {
             for (let i = 0; i < arrSprites.length; ++i) {
                 root.studio.addToScene(arrSprites[i])
