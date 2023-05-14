@@ -1,6 +1,9 @@
-// import * as THREE from 'three'
 import * as TWEEN from "@tweenjs/tween.js";
-import { STRUCTURES } from "../constants/constants_elements";
+import {
+    STRUCTURES,
+    FOG_CONF,
+    FOG_CONF_02,
+} from "../constants/constants_elements";
 
 
 const pause = t => new Promise(res => setTimeout(res, t))
@@ -31,7 +34,7 @@ const startFly = (root) => {
     })
 }
 
-const easyFly = (root, target) => {
+const easyFly = (root, targetZ) => {
     return new Promise(res => {
         const {
             flyer,
@@ -40,7 +43,7 @@ const easyFly = (root, target) => {
 
         const unsubscribe1 = frameUpdater.on(data => {
             flyer.mesh.position.z += -20
-            if (flyer.mesh.position.z < target) {
+            if (flyer.mesh.position.z < targetZ) {
                 unsubscribe1()
                 res()
             }
@@ -48,26 +51,27 @@ const easyFly = (root, target) => {
     })
 }
 
-const endFly = (root) => {
+const endFly = (root, z = 250) => {
     const {
         flyer,
         frameUpdater,
     } = root
 
     return new Promise(res => {
-        let spd = -20
-        const unsubscribe1 = frameUpdater.on(data => {
-            flyer.mesh.position.z += spd
-        })
+        //let spd = -20
+        //const unsubscribe1 = frameUpdater.on(data => {
+        //    flyer.mesh.position.z += spd
+        //})
 
-        const vals = { spd: -20 }
+        const vals = { z: flyer.mesh.position.z }
         new TWEEN.Tween(vals)
-            .to({ spd: 0, }, 1000)
+            .easing(TWEEN.Easing.Quadratic.Out)
+            .to({ z: z, }, 1000)
             .onUpdate(() => {
-                spd = vals.spd
+                flyer.mesh.position.z = vals.z
             })
             .onComplete(() => {
-                unsubscribe1()
+               // unsubscribe1()
                 res()
             })
             .start()
@@ -83,6 +87,7 @@ async function flyProcess (root) {
         dispatcher,
         system_PlayerNearLevelItems,
         player,
+        studio,
     } = root
 
     await pause(20)
@@ -95,8 +100,8 @@ async function flyProcess (root) {
 
 
     await startFly(root)
+    studio.changeFog(FOG_CONF_02)
     await easyFly(root, -8000)
-    await pause(100)
 
     player.toggleBlocked = true
     structure.destroyStructure()
@@ -105,7 +110,7 @@ async function flyProcess (root) {
     await pause(100)
     flyer.mesh.position.z = 8000
     player.toggleBlocked = false
-
+    setTimeout(() => studio.changeFog(FOG_CONF),1000)
     await easyFly(root, 1000)
     await endFly(root)
 

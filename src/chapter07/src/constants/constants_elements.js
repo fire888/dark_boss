@@ -8,6 +8,7 @@ export const SIZE_Z = 7
 export const COLOR_00 = [1, .3, 1]
 
 export const STRUCTURES = [
+    /** start center hole */
     {
         SIZE_X: 5,
         SIZE_Y: 7,
@@ -17,7 +18,6 @@ export const STRUCTURES = [
         Y: -270,
         Z: -170,
         mapFill: [
-           // { tile: 'empty', place: [3, 5, 2] },
             { tile: 'empty', place: [3, 4, 2] },
             { tile: 'empty', place: [3, 3, 2] },
             { tile: 'empty', place: [3, 2, 2] },
@@ -26,17 +26,19 @@ export const STRUCTURES = [
         ],
     },
 
+    /** left */
     {
         SIZE_X: 5,
         SIZE_Y: 8,
         SIZE_Z: 5,
-        X: -830,
+        X: -780,
         Y: -300,
         Z: -200,
         COLOR_00: [1, .3, 1],
         mapFill: [],
     },
 
+    /** right */
     {
         SIZE_X: 5,
         SIZE_Y: 8,
@@ -46,6 +48,24 @@ export const STRUCTURES = [
         Z: -200,
         COLOR_00: [1, .3, 1],
         mapFill: [],
+    },
+
+    /** center hole */
+    {
+        SIZE_X: 5,
+        SIZE_Y: 7,
+        SIZE_Z: 5,
+        COLOR_00: [.3, 1, 1],
+        X: -320,
+        Y: -270,
+        Z: -170,
+        mapFill: [
+            { tile: 'empty', place: [3, 4, 2] },
+            { tile: 'empty', place: [3, 3, 2] },
+            { tile: 'empty', place: [3, 2, 2] },
+            { tile: 'empty', place: [3, 1, 2] },
+            { tile: 'empty', place: [3, 0, 2] },
+        ],
     },
     
 
@@ -126,22 +146,11 @@ export const STRUCTURES = [
 ]
 
 
+export const FOG_CONF = { color: 0x440000, near: 150, far: 1000, time: 2000 }
+export const FOG_CONF_02 = { color: 0x990000, near: 150, far: 1000, time: 2000 }
 
 
 export const MATERIALS_CONFIG = MATERIALS_CONF
-
-
-export const ENV_START =  { fogNear: 0, fogFar: 0, colorFog: 0x455861, colorBack: 0x455861, backgroundImgKey: null }
-export const ENV_NORMAL =  { fogNear: 0, fogFar: 1000, colorFog: 0x455861, colorBack: 0x455861, backgroundImgKey: null }
-export const ENV_RED = { fogNear: 0, fogFar: 1000, colorFog: 0x880000, colorBack: 0x010101, backgroundImgKey: null }
-export const ENV_RED_NEAR = { fogNear: 0, fogFar: 40, colorFog: 0x880000, colorBack: 0x010101, backgroundImgKey: null }
-export const ENV_END =  { fogNear: 0, fogFar: 0, colorFog: 0x010101, colorBack: 0x010101, backgroundImgKey: null }
-
-
-export const START_ENV_CONFIG = { fogNear: 0, fogFar: 0, color: 0x4a0a46, backgroundImgKey: null }
-//export const ENV_CONFIG_WORD_1 = { fogNear: 100, fogFar: 500, color: 0x455861, backgroundImgKey: 'skyBox2' }
-export const ENV_CONFIG_WORD_1 = { fogNear: 0, fogFar: 1000, color: 0x455861, backgroundImgKey: null }
-export const ENV_CONFIG_WORD_2 = { fogNear: 1500, fogFar: 3000, color: 0x000000, backgroundImgKey: 'skyBox' }
 
 
 export const studioConfig = {
@@ -153,7 +162,6 @@ export const studioConfig = {
         color: 0xffffff,
         strength: 0.1,
     },
-    sceneEnvironment: START_ENV_CONFIG,
     composerAddPass: 'Saturate',
     //composerAddPass: 'Saturate2',
 }

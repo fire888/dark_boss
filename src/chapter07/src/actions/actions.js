@@ -1,7 +1,7 @@
 import * as TWEEN from '@tweenjs/tween.js'
 import * as THREE from 'three'
 import {
-    ENV_NORMAL,
+   // ENV_NORMAL,
     STRUCTURES,
 } from '../constants/constants_elements';
 //import { createWorldReal } from '../systems/system_worldReal'
@@ -127,7 +127,7 @@ export class actions {
             //499.38749389674507, 530, -205.35013638723814
         )
 
-        studio.changeEnvironment(ENV_NORMAL, { time: 1 },)
+        //studio.changeEnvironment(ENV_NORMAL, { time: 1 },)
         player.toggleBlocked(false)
 
         /** update */
