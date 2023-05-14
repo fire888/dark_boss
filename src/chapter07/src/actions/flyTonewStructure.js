@@ -3,6 +3,8 @@ import {
     STRUCTURES,
     FOG_CONF,
     FOG_CONF_02,
+    H,
+    W,
 } from "../constants/constants_elements";
 
 
@@ -148,12 +150,21 @@ async function flyProcess (root) {
     })
     structure.destroyStructure()
     await structure.generateStructure(STRUCTURES[countStruct])
-    ++countStruct
 
     const coordsFuel = structure.getCoordsForItem('easyItem')
     root.studio.addToScene(fuel.mesh)
-    //fuel.mesh.position.set(...coordsFuel)
-    fuel.mesh.position.set(-200, 0, 0)
+    fuel.mesh.position.set(
+        coordsFuel[0] * W + STRUCTURES[countStruct].X,
+        coordsFuel[1] * H + STRUCTURES[countStruct].Y + (H / 2),
+        coordsFuel[2] * W + STRUCTURES[countStruct].Z
+    )
+    console.log(
+        coordsFuel,
+        coordsFuel[0] * W + STRUCTURES[countStruct].X,
+        coordsFuel[1] * H + STRUCTURES[countStruct].Y + (H / 2) + 21,
+        coordsFuel[2] * W + STRUCTURES[countStruct].Z
+    )
+    //fuel.mesh.position.set(-200, 0, 0)
 
     await pause(200)
     flyer.mesh.position.z = 8000
@@ -182,6 +193,7 @@ async function flyProcess (root) {
     flyer.arrow.rotation.z = 0
     system_PlayerNearLevelItems.setItemToCheck(flyer.objectForCheck, 'platformObjectForCheck', 20, 30)
 
+    ++countStruct
 }
 
 

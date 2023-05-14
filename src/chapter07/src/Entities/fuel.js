@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { createElemCylinder } from './Structure03/geometries/geomElemCylinder'
 import { createGeomFromBuffer } from './Structure03/geometries/createBufferGeom'
-import { translateArr } from "../helpers/geomHelpers";
+//import { translateArr } from "../helpers/geomHelpers";
 
 
 export const createFuel = (root) => {

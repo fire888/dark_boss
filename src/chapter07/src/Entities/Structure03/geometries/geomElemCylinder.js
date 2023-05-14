@@ -33,9 +33,9 @@ export const createElemCylinder = ({
 
     const SIDES = 8
     const points = [
-         [15, 0],
-         [15, 15, 'line_p0'],
-         [0, 16, 'line_p0'],
+         [7, 0],
+         [7, 20, 'empty'],
+         [0, 21, 'empty'],
     ]
     //
     for (let i = 1; i < points.length; ++i) {
@@ -63,32 +63,32 @@ export const createElemCylinder = ({
     }
 
     /** collision */
-    col.push(
-        ...createFace(
-            [-w0 / 2, 0, w0 / 2],
-            [w0 / 2, 0, w0 / 2],
-            [w0 / 2, h, w0 / 2],
-            [-w0 / 2, h, w0 / 2],
-        ),
-        ...createFace(
-            [w0 / 2, 0, w0 / 2],
-            [w0 / 2, 0, -w0 / 2],
-            [w0 / 2, h, -w0 / 2],
-            [w0 / 2, h, w0 / 2],
-        ),
-        ...createFace(
-            [w0 / 2, 0, -w0 / 2],
-            [-w0 / 2, 0, -w0 / 2],
-            [-w0 / 2, h, -w0 / 2],
-            [w0 / 2, h, -w0 / 2],
-        ),
-        ...createFace(
-            [-w0 / 2, 0, -w0 / 2],
-            [-w0 / 2, 0, w0 / 2],
-            [-w0 / 2, h, w0 / 2],
-            [-w0 / 2, h, -w0 / 2],
-        ),
-    )
+    // col.push(
+    //     ...createFace(
+    //         [-w0 / 2, 0, w0 / 2],
+    //         [w0 / 2, 0, w0 / 2],
+    //         [w0 / 2, h, w0 / 2],
+    //         [-w0 / 2, h, w0 / 2],
+    //     ),
+    //     ...createFace(
+    //         [w0 / 2, 0, w0 / 2],
+    //         [w0 / 2, 0, -w0 / 2],
+    //         [w0 / 2, h, -w0 / 2],
+    //         [w0 / 2, h, w0 / 2],
+    //     ),
+    //     ...createFace(
+    //         [w0 / 2, 0, -w0 / 2],
+    //         [-w0 / 2, 0, -w0 / 2],
+    //         [-w0 / 2, h, -w0 / 2],
+    //         [w0 / 2, h, -w0 / 2],
+    //     ),
+    //     ...createFace(
+    //         [-w0 / 2, 0, -w0 / 2],
+    //         [-w0 / 2, 0, w0 / 2],
+    //         [-w0 / 2, h, w0 / 2],
+    //         [-w0 / 2, h, -w0 / 2],
+    //     ),
+    // )
 
 
     return { v, col, u, c }
