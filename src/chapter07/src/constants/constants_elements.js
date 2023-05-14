@@ -1,5 +1,3 @@
-import { MATERIALS_CONF } from "./constants_materials";
-
 export const W = 160
 export const H = 80
 export const SIZE_X = 7
@@ -149,8 +147,6 @@ export const STRUCTURES = [
 export const FOG_CONF = { color: 0x440000, near: 150, far: 1000, time: 2000 }
 export const FOG_CONF_02 = { color: 0x990000, near: 150, far: 1000, time: 2000 }
 
-
-export const MATERIALS_CONFIG = MATERIALS_CONF
 
 
 export const studioConfig = {

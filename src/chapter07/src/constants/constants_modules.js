@@ -7,35 +7,10 @@ import { Studio } from '../Entities/Studio'
 import { KeyBoard } from "../../../_CORE/helpers/helper_KeyBoard"
 import { Player } from '../../../_CORE/entities/createPlayer_v02'
 
-
-import { Helper_MaterialsLib } from '../../../_CORE/helpers/helper_MaterialsLib'
-import mapTop from '../../../assets/chapter06/mapGround.jpg'
-//import bodyShadow from '../../../assets/chapter06/mapShadowBody.jpg'
-import pxjpg2 from '../../../assets/matIronBox/posx.jpg'
-import nxjpg2 from '../../../assets/matIronBox/negx.jpg'
-import pyjpg2 from '../../../assets/matIronBox/posy.jpg'
-import nyjpg2 from '../../../assets/matIronBox/negy.jpg'
-import pzjpg2 from '../../../assets/matIronBox/posz.jpg'
-import nzjpg2 from '../../../assets/matIronBox/negz.jpg'
-
-
 import { system_PlayerMoveOnLevel } from '../systems/system_PlayerMoveOnLevel'
-//import { system_PlayerNearLevelItems } from '../systems/system_PlayerNearLevelItems'
-
-
 import { actions } from '../actions/actions'
 import { Ui } from "../ui/Ui";
 
-
-// import elem_L from '../../../assets/chapter07/elem_L.obj'
-// import elem_Y from '../../../assets/chapter07/elem_Y.obj'
-// import elem_I from '../../../assets/chapter07/elem_I.obj'
-// import elem_T from '../../../assets/chapter07/elem_T.obj'
-// import elem_TT from '../../../assets/chapter07/elem_TT.obj'
-// import tile_YS from '../../../assets/chapter07/elem_YS.obj'
-// import tile_YT from '../../../assets/chapter07/elem_YT.obj'
-
-//import tiles from '../../../assets/chapter07/tiles.obj'
 import textureTiles from '../../../assets/chapter07/texture01.jpg'
 
 export const GAME_MODULES = [
@@ -107,23 +82,7 @@ export const GAME_MODULES = [
         constr: actions,
         initStateKey: 'beforeStartPlay',
             assetsToLoad: [
-                { type: 'cubeTextures', path: [ pxjpg2, nxjpg2, pyjpg2, nyjpg2, pzjpg2, nzjpg2, ], key: 'skyBox3' },
-                //{ type: 'img', path: mapTop, key: 'mapTop', wrap: true },
-                //{ type: 'img', path: ironNormal, key: 'ironNormal', wrap: true },
-                //{ type: 'img', path: ironAlbedo, key: 'ironAlbedo', wrap: true },
-                //{ type: 'img', path: ironAO, key: 'ironAO', wrap: true },
                 { type: 'img', path: textureTiles, key: 'textureTiles', wrap: true },
-                //{ type: 'obj', path: bodySrc, key: 'bodyModel' },
-                //{ type: 'img', path: bodyShadow, key: 'bodyDropShadow' },
-                //{ type: 'obj', path: endWaySrc, key: 'endWayModel' },
-                // { type: 'obj', path: elem_L , key: 'elem_L' },
-                // { type: 'obj', path: elem_Y , key: 'elem_Y' },
-                // { type: 'obj', path: elem_I , key: 'elem_I' },
-                // { type: 'obj', path: elem_T , key: 'elem_T' },
-                // { type: 'obj', path: elem_TT , key: 'elem_TT' },
-                // { type: 'obj', path: tile_YS , key: 'tile_YS' },
-                // { type: 'obj', path: tile_YT , key: 'tile_YT' },
-                //{ type: 'obj', path: tiles , key: 'tiles' },
             ],
 
     },
