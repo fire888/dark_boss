@@ -7,7 +7,7 @@ const createS = (m) => {
 
     for (let i = 0; i < 20; ++i) {
         const x = Math.random() * 300 
-        const y = Math.random() * 1000 - 150
+        const y = Math.random() * 300 - 100
         const z = Math.random() * 300
 
         for (let i = 0; i < 3; ++i) {
@@ -34,26 +34,26 @@ export const createSystemSprites = root => {
     ob.position.set(0, 0, -3000)
     const vecObPos = new THREE.Vector3()
 
-    const m = new THREE.MeshBasicMaterial({ color: 0x000000 })
+    const m = new THREE.MeshBasicMaterial({ color: 0xff00ff })
 
 
     const arrSprites = []
     for (let i = 0; i < 50; ++i) {
         const s = createS(m)
-        s.position.set(Math.random() * 500, 0, Math.random() * 500)
+        s.position.set(-150, 0, Math.random() * 8000 - 4000)
         arrSprites.push(s)
     }
 
 
     return { 
-        update: () => {
-            ob.getWorldPosition(vecObPos)
-            for (let i = 0; i < arrSprites.length; ++i) {
-                if (arrSprites[i].position.distanceTo(vecObPos) > 4000) {
-                    arrSprites[i].position.copy(vecObPos)
-                }
-            }
-        },
+        // update: (x, y, z) => {
+        //     ob.getWorldPosition(vecObPos)
+        //     for (let i = 0; i < arrSprites.length; ++i) {
+        //         if (arrSprites[i].position.distanceTo(vecObPos) > 4000) {
+        //             arrSprites[i].position.copy(vecObPos)
+        //         }
+        //     }
+        // },
         addToScene: () => {
             for (let i = 0; i < arrSprites.length; ++i) {
                 root.studio.addToScene(arrSprites[i])
@@ -65,4 +65,4 @@ export const createSystemSprites = root => {
             }
         }
     }
-} 
+}
