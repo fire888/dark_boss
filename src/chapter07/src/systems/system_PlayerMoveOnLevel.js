@@ -105,6 +105,7 @@ export class system_PlayerMoveOnLevel {
             keys['right'] && player.mesh.rotateY(-speedRot * data.count)
 
             if (isBlocked) return;
+            console.log('###')
 
 
             savedPos.x = player.mesh.position.x

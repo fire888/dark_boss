@@ -54,14 +54,10 @@ const easyFly = (root, targetZ) => {
 const endFly = (root, z = 250) => {
     const {
         flyer,
-        frameUpdater,
     } = root
 
     return new Promise(res => {
-        //let spd = -20
-        //const unsubscribe1 = frameUpdater.on(data => {
-        //    flyer.mesh.position.z += spd
-        //})
+
 
         const vals = { z: flyer.mesh.position.z }
         new TWEEN.Tween(vals)
@@ -70,10 +66,7 @@ const endFly = (root, z = 250) => {
             .onUpdate(() => {
                 flyer.mesh.position.z = vals.z
             })
-            .onComplete(() => {
-               // unsubscribe1()
-                res()
-            })
+            .onComplete(res)
             .start()
     })
 }
@@ -88,6 +81,7 @@ async function flyProcess (root) {
         system_PlayerNearLevelItems,
         player,
         studio,
+        emitter,
     } = root
 
     await pause(20)
@@ -104,10 +98,17 @@ async function flyProcess (root) {
     await easyFly(root, -8000)
 
     player.toggleBlocked = true
+    emitter.emit('keyEvent')({
+        'up': false,
+        'down': false,
+        'left': false,
+        'right': false,
+        'p': false,
+    })
     structure.destroyStructure()
     await structure.generateStructure(STRUCTURES[countStruct])
     ++countStruct
-    await pause(100)
+    await pause(200)
     flyer.mesh.position.z = 8000
     player.toggleBlocked = false
     setTimeout(() => studio.changeFog(FOG_CONF),1000)
