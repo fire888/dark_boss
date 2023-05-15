@@ -58,20 +58,6 @@ export class actions {
 
         const fuel = createFuel(root)
         root.fuel = fuel
-        //studio.addToScene(fuel.mesh)
-        //fuel.mesh.position.set(-200, 0, 0)
-        //root.system_PlayerNearLevelItems.setItemToCheck(fuel.mesh, 'nearFuel', 60, 60)
-        //const unsubscribe = emitter.subscribe('checkNear')(data => {
-        //    console.log('##', data)
-        //})
-
-        // const plane = new THREE.Mesh(
-        //     new THREE.PlaneBufferGeometry(10000, 10000, ),
-        //     new THREE.MeshBasicMaterial({ color: 0xeeeeee})
-        // )
-        // plane.rotation.x = -Math.PI / 2
-        // plane.position.y = -160
-        // root.studio.addToScene(plane)
 
         ///////////////////////////////////////////////////
         ///////////////////////////////////////////////////
@@ -104,7 +90,7 @@ export class actions {
         const flyer = createFlyer(root)
         root.flyer = flyer
         root.system_PlayerNearLevelItems.setItemToCheck(flyer.objectForCheck, 'platformObjectForCheck', 20, 30)
-        root.emitter.subscribe('checkNear')(data => {
+        const unsubscribeCheckNearPlatform = root.emitter.subscribe('checkNear')(data => {
             if (data.item === 'platformObjectForCheck' && data.is) {
                 dispatcher.dispatch({
                     type: 'TOGGLE_BUTTON_DRAW_CAR',
@@ -119,8 +105,9 @@ export class actions {
             }
         })
 
-        const unsubscribe = root.emitter.subscribe('clickMachineDraw')(() => {
-            unsubscribe()
+        const unsubscribeClickDraw = root.emitter.subscribe('clickMachineDraw')(() => {
+            unsubscribeCheckNearPlatform()
+            unsubscribeClickDraw()
             flyToNewStructure(root) 
         })
 

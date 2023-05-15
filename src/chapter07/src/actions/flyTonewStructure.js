@@ -117,14 +117,8 @@ const animateFuelBarLess = (root) => {
 const findFuel = (root) => {
     return new Promise(res => {
         const {
-            flyer,
-            structure,
-            dispatcher,
             system_PlayerNearLevelItems,
-            player,
-            studio,
             emitter,
-            frameUpdater,
             fuel,
         } = root
 
@@ -145,11 +139,7 @@ const goToPlatform = (root) => {
     return new Promise(res => {
         const {
             flyer,
-            structure,
-            dispatcher,
             system_PlayerNearLevelItems,
-            player,
-            studio,
             emitter,
             frameUpdater,
             fuel,
@@ -185,12 +175,7 @@ async function flyProcess (root) {
         fuel,
     } = root
 
-
-    // animateFuelBarMore()
-    // await pause(5000)
-    // animateFuelBarLess(root)
     await pause(20)
-
 
 
     system_PlayerNearLevelItems.removeItemFromCheck(flyer.objectForCheck)
@@ -253,12 +238,28 @@ async function flyProcess (root) {
     animateFuelBarMore()
     studio.removeFromScene(fuel.mesh)
 
-    flyer.arrow.rotation.z = 0
     await goToPlatform(root)
 
     system_PlayerNearLevelItems.setItemToCheck(flyer.objectForCheck, 'platformObjectForCheck', 20, 30)
-    const unsubscribe01 = root.emitter.subscribe('clickMachineDraw')(() => {
-        unsubscribe01()
+
+    const unsubscribeCheckNearPlatform = root.emitter.subscribe('checkNear')(data => {
+        if (data.item === 'platformObjectForCheck' && data.is) {
+            dispatcher.dispatch({
+                type: 'TOGGLE_BUTTON_DRAW_CAR',
+                is: true
+            })
+        }
+        if (data.item === 'platformObjectForCheck' && !data.is) {
+            dispatcher.dispatch({
+                type: 'TOGGLE_BUTTON_DRAW_CAR',
+                is: false
+            })
+        }
+    })
+
+    const unsubscribeClickMachineDraw = root.emitter.subscribe('clickMachineDraw')(() => {
+        unsubscribeCheckNearPlatform()
+        unsubscribeClickMachineDraw()
         flyToNewStructure(root) 
     })
 

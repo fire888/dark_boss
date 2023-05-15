@@ -40,15 +40,16 @@ export const createStructure3 = (
                 const rZ = Math.floor(Math.random() * map.sizeZ)
                 const rX = Math.floor(Math.random() * map.sizeX)
 
-                console.log(rY, rZ, rX)
-
                 --count
                 if (
-                    count < 0 ||
-                    map.items[rY][rZ][rX].tileData.keyModel === 't_L' ||
-                    map.items[rY][rZ][rX].tileData.keyModel === 't_T' ||
-                    map.items[rY][rZ][rX].tileData.keyModel === 't_I' ||
-                    map.items[rY][rZ][rX].tileData.keyModel === 't_X'
+                    map.items[rY][rZ][rX] &&
+                    (
+                        count < 0 ||
+                        map.items[rY][rZ][rX].tileData.keyModel === 't_L' ||
+                        map.items[rY][rZ][rX].tileData.keyModel === 't_T' ||
+                        map.items[rY][rZ][rX].tileData.keyModel === 't_I' ||
+                        map.items[rY][rZ][rX].tileData.keyModel === 't_X'
+                    )
                 ) {
                     y = rY
                     x = rX

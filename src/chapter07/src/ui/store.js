@@ -162,23 +162,10 @@ export const createCustomStore = root => {
             })
         }
         if (action.type === 'CLICK_DRAW') {
-            const { valButtonDrawCar } = state
-            if (valButtonDrawCar === 'drive') {
-                root.emitter.emit('clickMachineDraw')()
-
-                //root.actions.clickMachineDraw()
-                return ({
-                    ...state,
-                    valButtonDrawCar: 'exit',
-                })
-            } else {
-                //root.actions.clickMachineExit()
-                //root.emitter.emit('clickMachineExit')()
-                return ({
-                    ...state,
-                    valButtonDrawCar: 'drive',
-                })
-            }
+            root.emitter.emit('clickMachineDraw')()
+            return ({
+                ...state,
+            })
         }
         /** *************************/
 
