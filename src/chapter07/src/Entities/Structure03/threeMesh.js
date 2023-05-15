@@ -35,37 +35,15 @@ export const createrMesh = (root) => {
     let meshCollision
 
     return {
-        // addMesh: (tile) => {
-        //     if (!tile.tileData) {
-        //         return;
-        //     }
-        //
-        //     if (!tilesGeom[tile.tileData.keyModel]) {
-        //         return;
-        //     }
-        //
-        //     // if (tile.tileData.keyModel !== 't_XY') {
-        //     //      return;
-        //     // }
-        //
-        //     const { i, j, k, tileData } = tile
-        //
-        //     const g = createGeomFromBuffer(tilesGeom[tile.tileData.keyModel])
-        //     const mesh = new THREE.Mesh(g, structureMaterial)
-        //     mesh.rotation.y = tileData.rotationY
-        //     mesh.position.set(W * k  + (W / 2), H * i - 160, W * j + (W / 2))
-        //     root.studio.addToScene(mesh)
-        //
-        //     const gCollision = createGeomFromBuffer({ v: tilesGeom[tile.tileData.keyModel].col })
-        //     const meshCollision = new THREE.Mesh(gCollision, basicMat)
-        //     meshCollision.rotation.y = tileData.rotationY
-        //     meshCollision.position.set(W * k  + (W / 2), H * i - 160, W * j + (W / 2))
-        //     root.studio.addToScene(meshCollision)
-        //     meshCollision.visible = false
-        //     root.system_PlayerMoveOnLevel.addItemToPlayerCollision(meshCollision)
-        // },
-
         generateMeshes: (mapData, structureData) => {
+            const colors = {}
+            for (let key in tilesGeom) {
+                colors[key] = []
+                for (let i = 0; i < tilesGeom[key].c.length; i += 3) {
+                    colors[key].push(...structureData.COLOR_00)
+                }
+            }
+
             return new Promise(res => {
                 const v = []
                 const c = []
@@ -86,7 +64,8 @@ export const createrMesh = (root) => {
                     rotateArrY(copyV, tileData.rotationY)
                     translateArr(copyV, W * k, H * i, W * j)
                     v.push(...copyV)
-                    c.push(...tilesGeom[tileData.keyModel].c)
+                    //c.push(...tilesGeom[tileData.keyModel].c)
+                    c.push(...colors[tileData.keyModel])
                     u.push(...tilesGeom[tileData.keyModel].u)
 
                     const copyVCollision = [...tilesGeom[tileData.keyModel].col]

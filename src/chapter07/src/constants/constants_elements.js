@@ -1,3 +1,7 @@
+import { i } from "mathjs"
+
+import { Color } from 'three'
+
 export const W = 160
 export const H = 80
 export const SIZE_X = 7
@@ -5,13 +9,18 @@ export const SIZE_Y = 15
 export const SIZE_Z = 7
 export const COLOR_00 = [1, .3, 1]
 
+
+console.log(new Color(0.6, 0, 0).getHexString())
+
 export const STRUCTURES = [
     /** start center hole */
     {
+        ENV_COLOR: new Color(0.6, 0, 0),
+        FOG: { color: 0x440000, near: 150, far: 1000, time: 2000 },
+        COLOR_00: [1, .3, 1],
         SIZE_X: 5,
         SIZE_Y: 7,
         SIZE_Z: 5,
-        COLOR_00: [.3, 1, 1],
         X: -320,
         Y: -270,
         Z: -170,
@@ -26,34 +35,40 @@ export const STRUCTURES = [
 
     /** left */
     {
+        ENV_COLOR: new Color(0, 0, 0),
+        FOG: { color: 0x000000, near: 150, far: 1000, time: 2000 },
+        COLOR_00: [1, 1, 1],
         SIZE_X: 5,
         SIZE_Y: 8,
         SIZE_Z: 5,
         X: -780,
         Y: -300,
         Z: -200,
-        COLOR_00: [1, .3, 1],
         mapFill: [],
     },
 
     /** right */
     {
+        ENV_COLOR: new Color(0.1, 0.1, 0.3),
+        FOG: { color: 0x110044, near: 150, far: 1000, time: 2000 },
+        COLOR_00: [.1, 1, .5],
         SIZE_X: 5,
         SIZE_Y: 8,
         SIZE_Z: 5,
         X: 150,
         Y: -300,
         Z: -200,
-        COLOR_00: [1, .3, 1],
         mapFill: [],
     },
 
     /** center hole */
     {
+        ENV_COLOR: new Color(0.8, 0.9, 0.8),
+        FOG: { color: 0x005555, near: 150, far: 1000, time: 2000 },
+        COLOR_00: [.7, .7, .2],
         SIZE_X: 5,
         SIZE_Y: 7,
         SIZE_Z: 5,
-        COLOR_00: [.3, 1, 1],
         X: -320,
         Y: -270,
         Z: -170,
@@ -68,10 +83,12 @@ export const STRUCTURES = [
     
 
     {
+        ENV_COLOR: new Color(0.3, 0.3, 0.0),
+        FOG: { color: 0x666600, near: 150, far: 1000, time: 2000 },
+        COLOR_00: [.3, 2, 1],
         SIZE_X: 6,
         SIZE_Y: 10,
         SIZE_Z: 6,
-        COLOR_00: [.3, 1, 1],
         X: -470,
         Y: -500,
         Z: -200,
@@ -89,10 +106,12 @@ export const STRUCTURES = [
 
 
     {
+        ENV_COLOR: new Color(0.3, 0, 0.2),
+        FOG: { color: 0x30020, near: 150, far: 1000, time: 2000 },
+        COLOR_00: [.7, .8, .2],
         SIZE_X: 8,
         SIZE_Y: 8,
         SIZE_Z: 8,
-        COLOR_00: [.3, 1, 1],
         X: - 500,
         Y: 0,
         Z: 0,
@@ -116,10 +135,13 @@ export const STRUCTURES = [
     },
 
     {
+
+        ENV_COLOR: new Color(0.5, 0.5, 0.7),
+        FOG: { color: 0x880800, near: 150, far: 1000, time: 2000 },
+        COLOR_00: [.6, .7, .2],
         SIZE_X: 5,
         SIZE_Y: 17,
         SIZE_Z: 5,
-        COLOR_00: [.3, 1, 1],
         X: - 500,
         Y: 0,
         Z: 0,
@@ -144,8 +166,8 @@ export const STRUCTURES = [
 ]
 
 
-export const FOG_CONF = { color: 0x440000, near: 150, far: 1000, time: 2000 }
-export const FOG_CONF_02 = { color: 0x990000, near: 150, far: 1000, time: 2000 }
+//export const FOG_CONF = { color: 0x440000, near: 150, far: 1000, time: 2000 }
+//export const FOG_CONF_02 = { color: 0x990000, near: 150, far: 1000, time: 2000 }
 
 
 

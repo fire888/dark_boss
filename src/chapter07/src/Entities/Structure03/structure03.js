@@ -43,6 +43,7 @@ export const createStructure3 = (
                 --count
                 if (
                     map.items[rY][rZ][rX] &&
+                    map.items[rY][rZ][rX].tileData &&
                     (
                         count < 0 ||
                         map.items[rY][rZ][rX].tileData.keyModel === 't_L' ||

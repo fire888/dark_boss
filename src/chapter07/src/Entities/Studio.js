@@ -179,6 +179,24 @@ export class Studio {
                 this._scene.fog.far = startData.far
             })
             .start()
+    }
+
+
+    changeEnvColor (colorTarget) {
+        const startData = {
+            color: this._scene.fog.color,
+        } 
+        const endData = {
+            color: colorTarget,
+        }
+
+        new TWEEN.Tween(startData)
+        .to(endData, 3000)
+        .onUpdate(() => {
+            this._scene.fog.color = startData.color
+            this._renderer.setClearColor(startData.color.getHex())
+        })
+        .start()
 
     }
 

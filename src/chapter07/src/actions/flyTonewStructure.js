@@ -191,9 +191,14 @@ async function flyProcess (root) {
     })
 
     await startFly(root)
-    studio.changeFog(FOG_CONF_02)
+    studio.changeFog({
+        ...STRUCTURES[countStruct - 1].FOG, 
+        color: STRUCTURES[countStruct - 1].ENV_COLOR 
+    })
     await easyFly(root, -8000)
-
+    studio.changeEnvColor(STRUCTURES[countStruct].ENV_COLOR)
+    await pause(3000)
+    
     unsubscribe()
 
     player.toggleBlocked = true
@@ -224,7 +229,7 @@ async function flyProcess (root) {
     })
 
     player.toggleBlocked = false
-    setTimeout(() => studio.changeFog(FOG_CONF),1000)
+    setTimeout(() => studio.changeFog(STRUCTURES[countStruct].FOG),1000)
     await easyFly(root, 1000)
     await endFly(root)
 
