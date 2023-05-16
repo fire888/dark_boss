@@ -9,8 +9,8 @@ export const SIZE_Y = 15
 export const SIZE_Z = 7
 export const COLOR_00 = [1, .3, 1]
 
-
-console.log(new Color(0.6, 0, 0).getHexString())
+const c = new Color(0x926192)
+console.log(c.r + ', ' + c.g + ', ' + c.b)
 
 export const STRUCTURES = [
     /** start center hole */
@@ -33,39 +33,11 @@ export const STRUCTURES = [
         ],
     },
 
-    /** left */
-    {
-        ENV_COLOR: new Color(0, 0, 0),
-        FOG: { color: 0x000000, near: 150, far: 1000, time: 2000 },
-        COLOR_00: [1, 1, 1],
-        SIZE_X: 5,
-        SIZE_Y: 8,
-        SIZE_Z: 5,
-        X: -780,
-        Y: -300,
-        Z: -200,
-        mapFill: [],
-    },
-
-    /** right */
-    {
-        ENV_COLOR: new Color(0.1, 0.1, 0.3),
-        FOG: { color: 0x110044, near: 150, far: 1000, time: 2000 },
-        COLOR_00: [.1, 1, .5],
-        SIZE_X: 5,
-        SIZE_Y: 8,
-        SIZE_Z: 5,
-        X: 150,
-        Y: -300,
-        Z: -200,
-        mapFill: [],
-    },
-
     /** center hole */
     {
-        ENV_COLOR: new Color(0.8, 0.9, 0.8),
-        FOG: { color: 0x005555, near: 150, far: 1000, time: 2000 },
-        COLOR_00: [.7, .7, .2],
+        ENV_COLOR: new Color(0.7, 0.8, 0.7),
+        FOG: { color: 0x005555, near: 150, far: 700, time: 2000 },
+        COLOR_00: [0.5725490196078431, 0.3803921568627451, 0.5725490196078431],
         SIZE_X: 5,
         SIZE_Y: 7,
         SIZE_Z: 5,
@@ -80,6 +52,39 @@ export const STRUCTURES = [
             { tile: 'empty', place: [3, 0, 2] },
         ],
     },
+
+    /** right */
+    {
+        ENV_COLOR: new Color(0.05, 0.1, 0.2),
+        //ENV_COLOR: new Color(0.1, 0.1, 0.3),
+        FOG: { color: 0x34364c, near: 150, far: 1000, time: 2000 },
+        COLOR_00: [.1, 1, .5],
+        SIZE_X: 5,
+        SIZE_Y: 8,
+        SIZE_Z: 5,
+        X: 150,
+        Y: -300,
+        Z: -200,
+        mapFill: [],
+    },
+
+    /** left */
+    {
+        ENV_COLOR: new Color(0, 0, 0),
+        FOG: { color: 0x000000, near: 150, far: 1000, time: 2000 },
+        COLOR_00: [1, 1, 1],
+        SIZE_X: 5,
+        SIZE_Y: 8,
+        SIZE_Z: 5,
+        X: -780,
+        Y: -300,
+        Z: -200,
+        mapFill: [],
+    },
+
+
+
+
     
 
     {
