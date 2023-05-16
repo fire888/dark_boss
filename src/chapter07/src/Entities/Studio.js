@@ -19,8 +19,6 @@ export class Studio {
         rendererCon.canvas = document.getElementById(canId)
 
         this._renderer = new THREE.WebGLRenderer(rendererCon)
-        //this._renderer.outputEncoding = THREE.sRGBEncoding;
-        //this._renderer.setClearColor(clearColor)
         this._renderer.setClearColor(0x990000)
         this._renderer.setPixelRatio(window.devicePixelRatio)
         this._renderer.setSize(window.innerWidth, window.innerHeight)
@@ -35,21 +33,6 @@ export class Studio {
         const controls = new OrbitControls(this._controlsCamera, this._renderer.domElement)
         controls.target.set(0, 0, 0)
         controls.update();
-
-
-        // this._composer = new EffectComposer(this._renderer)
-        // this._renderPass = new RenderPass(this._scene, this._controlsCamera)
-        // this._composer.addPass(this._renderPass)
-        // if (this._root.CONSTANTS.studioConfig.composerAddPass) {
-        //     if (this._root.CONSTANTS.studioConfig.composerAddPass === 'Saturate') {
-        //         this._composer.addPass(new ShaderPass(Saturate))
-        //     }
-        //     if (this._root.CONSTANTS.studioConfig.composerAddPass === 'Saturate2') {
-        //         this._composer.addPass(new ShaderPass(Saturate2))
-        //     }
-        // }
-
-
 
         /** toggle view camera to debug by orbitControls */
         const vec3 = new THREE.Vector3()
@@ -130,13 +113,6 @@ export class Studio {
            // this._composer.render(this._scene, this._controlsCamera)
         }
 
-
-        //this._backgroundImgKey = root.CONSTANTS.studioConfig.sceneEnvironment.backgroundImgKey
-        emitter.subscribe('changeSceneEnvironment')(sceneEnvironment => {
-            console.log('deprecated!!', 'studio', 'changeSceneEnvironment', sceneEnvironment)
-        })
-
-
        // setTimeout(() => { toggleView() }, 200)
     }
 
@@ -149,13 +125,6 @@ export class Studio {
         this._playerCamera = cam
         //this._renderPass.camera = this._playerCamera
     }
-
-
-    // changeEnvironment (sceneEnvironment, conf = null) {
-    //     this._changeFog(sceneEnvironment, conf)
-    //     this._changeBackground(sceneEnvironment, conf)
-    // }
-
 
     changeFog (sceneFogData) {
         const { near, far, color, time } = sceneFogData
@@ -181,7 +150,6 @@ export class Studio {
             .start()
     }
 
-
     changeEnvColor (colorTarget) {
         const startData = {
             color: this._scene.fog.color,
@@ -198,16 +166,6 @@ export class Studio {
         })
         .start()
 
-    }
-
-
-    _changeBackground (sceneEnvironment) {
-        // const { backgroundImgKey } = sceneEnvironment
-        //
-        // if (backgroundImgKey !== this._backgroundImgKey) {
-        //     this._backgroundImgKey = backgroundImgKey
-        //     this._scene.background = this._root.assets[backgroundImgKey] || null
-        // }
     }
 }
 

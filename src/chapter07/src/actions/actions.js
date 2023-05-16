@@ -42,6 +42,13 @@ export class actions {
             type: 'ENABLE_CONTROL_SOUND',
         })
 
+        //studio.changeEnvColor(STRUCTURES[0].ENV_COLOR)
+        //studio.changeFog(STRUCTURES[0].FOG)
+
+
+        if (!root.materials) {
+            root.materials = {}
+        }
         root.assets.textureTiles.magFilter = THREE.NearestFilter
         root.assets.textureTiles.minFilter = THREE.NearestFilter
         const structureMaterial = new THREE.MeshBasicMaterial({
@@ -49,10 +56,16 @@ export class actions {
             map: root.assets.textureTiles,
             vertexColors: true,
         })
-        if (!root.materials) {
-            root.materials = {}
-        }
+        root.assets.textureTilesInv.magFilter = THREE.NearestFilter
+        root.assets.textureTilesInv.minFilter = THREE.NearestFilter
+        const structureMaterialInv = new THREE.MeshBasicMaterial({
+            color: 0xffffff,
+            map: root.assets.textureTilesInv,
+            vertexColors: true,
+        })
+
         root.materials.structureMaterial = structureMaterial
+        root.materials.structureMaterialInv = structureMaterialInv
         const basicMat = new THREE.MeshBasicMaterial({ color: 0xffff00 })
         root.materials.basicMat = basicMat
 

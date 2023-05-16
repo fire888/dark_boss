@@ -77,7 +77,7 @@ export const createrMesh = (root) => {
                 const { X, Y, Z } = structureData
 
                 const g = createGeomFromBuffer({ v, c, u })
-                mesh = new THREE.Mesh(g, structureMaterial)
+                mesh = new THREE.Mesh(g, structureData.mat ? root.materials[structureData.mat] : structureMaterial)
                 mesh.position.set(X, Y, Z)
                 root.studio.addToScene(mesh)
 

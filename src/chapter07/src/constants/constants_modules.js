@@ -12,6 +12,7 @@ import { actions } from '../actions/actions'
 import { Ui } from "../ui/Ui";
 
 import textureTiles from '../../../assets/chapter07/texture01.jpg'
+import textureTilesInv from '../../../assets/chapter07/texture01_inv.jpg'
 
 export const GAME_MODULES = [
     {
@@ -82,7 +83,8 @@ export const GAME_MODULES = [
         constr: actions,
         initStateKey: 'beforeStartPlay',
             assetsToLoad: [
-                { type: 'img', path: textureTiles, key: 'textureTiles', wrap: true },
+                { type: 'img', path: textureTiles, key: 'textureTiles', wrap: false },
+                { type: 'img', path: textureTilesInv, key: 'textureTilesInv', wrap: false },
             ],
 
     },
