@@ -39,6 +39,7 @@ export const STRUCTURES = [
     },
 
 
+    /** red */
     {
         ENV_COLOR: new Color(0.2980392156862745, 0, 0.08235294117647059),
         FOG: { color: 0xb1384b, near: 150, far: 1000, time: 2000 },
@@ -134,8 +135,6 @@ export const STRUCTURES = [
         mapFill: [],
     },
     
-
-
     /** inverted */
     {
         ENV_COLOR: new Color(0, 0, 0),
@@ -156,14 +155,6 @@ export const STRUCTURES = [
             { tile: 'empty', place: [3, 0, 3] },
         ],
     },
-
-    
-
-
-
-
-
-
 ]
 
 
