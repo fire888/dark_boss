@@ -19,8 +19,8 @@ export class system_PlayerMoveOnLevel {
         //player.mesh.position.fromArray([0, -40, 0])
         player.mesh.position.fromArray([0, 0, 0])
 
-
-        const collisionsWalls = new helper_CollisionsItems_v02()
+        this._collisionsBottom = new helper_CollisionsItems_v02()
+        this._collisionsWalls = new helper_CollisionsItems_v02()
 
         const {
             speed,
@@ -48,7 +48,7 @@ export class system_PlayerMoveOnLevel {
 
 
         const checkBottomAndDropDownPlayer = data => {
-            const [isCollision, collision] = collisionsWalls.checkCollisions(player.mesh, player.bottomObj, OFFSET_FROM_PLANES_TO_DROP)
+            const [isCollision, collision] = this._collisionsBottom.checkCollisions(player.mesh, player.bottomObj, OFFSET_FROM_PLANES_TO_DROP)
 
             /** move player to top if on stairs */
             if (isCollision && OFFSET_FROM_PLANES > collision.distance) {
@@ -68,7 +68,7 @@ export class system_PlayerMoveOnLevel {
 
 
         const checkAndMoveFront = data => {
-            const [isCollision, collision] = collisionsWalls.checkCollisions(player.mesh, player.frontObj, OFFSET_FROM_PLANES)
+            const [isCollision, collision] = this._collisionsWalls.checkCollisions(player.mesh, player.frontObj, OFFSET_FROM_PLANES)
 
             /** update level new area */
             if (isCollision) {
@@ -85,7 +85,7 @@ export class system_PlayerMoveOnLevel {
 
 
         const checkAndMoveBack = data => {
-            const [isCollision] = collisionsWalls.checkCollisions(player.mesh, player.backObj, OFFSET_FROM_PLANES)
+            const [isCollision] = this._collisionsWalls.checkCollisions(player.mesh, player.backObj, OFFSET_FROM_PLANES)
             if (isCollision) return;
 
             player.mesh.translateZ(speed * data.count)
@@ -156,17 +156,22 @@ export class system_PlayerMoveOnLevel {
 
         emitter.subscribe('keyEvent')(data => keys = data)
         //emitter.subscribe('frameUpdate')(update)
-
-
-        this._collisionsWalls = collisionsWalls
     }
 
 
     addItemToPlayerCollision (item) {
-        this._collisionsWalls.setItemToCollision(item)
+        this._collisionsBottom.setItemToCollision(item)
     }
 
     removeItemFromPlayerCollision (item) {
+        this._collisionsBottom.removeItemFromCollision(item)
+    }
+
+    addItemToPlayerCollisionWalls (item) {
+        this._collisionsWalls.setItemToCollision(item)
+    }
+    
+    removeItemToPlayerCollisionWalls (item) {
         this._collisionsWalls.removeItemFromCollision(item)
     }
 

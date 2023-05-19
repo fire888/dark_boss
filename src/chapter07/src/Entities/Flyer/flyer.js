@@ -50,6 +50,7 @@ export const createFlyer = (root) => {
     meshCollision.visible = false
     mesh.add(meshCollision)
     root.system_PlayerMoveOnLevel.addItemToPlayerCollision(meshCollision)
+    root.system_PlayerMoveOnLevel.addItemToPlayerCollisionWalls(meshCollision)
 
     const playerNearObj = new THREE.Object3D()
     playerNearObj.position.set(0, 10, -100)
