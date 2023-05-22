@@ -1,5 +1,8 @@
 import { Color } from 'three'
-import { STRUCTURE_TWO_HOUSES } from './const_structures'
+import {
+    STRUCTURE_TWO_HOUSES,
+    STRUCTURE_L,
+} from './const_structures'
 export const W = 160
 export const H = 80
 export const SIZE_X = 7
@@ -7,32 +10,33 @@ export const SIZE_Y = 15
 export const SIZE_Z = 7
 export const COLOR_00 = [1, .3, 1]
 
-const c = new Color(0xffcc4c)
-console.log(c.r + ', ' + c.g + ', ' + c.b)
+//const c = new Color(0xffcc4c)
+//console.log(c.r + ', ' + c.g + ', ' + c.b)
 
 export const STRUCTURES = [
+    /** start center hole */
+    {
+        ENV_COLOR: new Color(0.6, 0, 0),
+        FOG: { color: 0x440000, near: 150, far: 1000, time: 2000 },
+        COLOR_00: [1, .3, 1],
+        mat: 'structureMaterial',
+        SIZE_X: 5,
+        SIZE_Y: 7,
+        SIZE_Z: 5,
+        X: -320,
+        Y: -270,
+        Z: -170,
+        mapFill: [
+            { tile: 'empty', place: [3, 4, 2] },
+            { tile: 'empty', place: [3, 3, 2] },
+            { tile: 'empty', place: [3, 2, 2] },
+            { tile: 'empty', place: [3, 1, 2] },
+            { tile: 'empty', place: [3, 0, 2] },
+        ],
+    },
+
+    STRUCTURE_L,
     STRUCTURE_TWO_HOUSES,
-    //STRUCTURE_TWO_HOUSES,
-    // /** start center hole */
-    // {
-    //     ENV_COLOR: new Color(0.6, 0, 0),
-    //     FOG: { color: 0x440000, near: 150, far: 1000, time: 2000 },
-    //     COLOR_00: [1, .3, 1],
-    //     mat: 'structureMaterial',
-    //     SIZE_X: 5,
-    //     SIZE_Y: 7,
-    //     SIZE_Z: 5,
-    //     X: -320,
-    //     Y: -270,
-    //     Z: -170,
-    //     mapFill: [
-    //         { tile: 'empty', place: [3, 4, 2] },
-    //         { tile: 'empty', place: [3, 3, 2] },
-    //         { tile: 'empty', place: [3, 2, 2] },
-    //         { tile: 'empty', place: [3, 1, 2] },
-    //         { tile: 'empty', place: [3, 0, 2] },
-    //     ],
-    // },
 
 
     /** light inverted */
