@@ -1,7 +1,10 @@
 import { Color } from 'three'
 import {
     STRUCTURE_TWO_HOUSES,
-    STRUCTURE_L,
+    STRUCTURE_LONG_LEFT,
+    STRUCTURE_TOP_LEFT,
+    STRUCTURE_TOP_RIGHT,
+    STRUCTURE_BIG_HOLE,
 } from './const_structures'
 export const W = 160
 export const H = 80
@@ -35,7 +38,10 @@ export const STRUCTURES = [
         ],
     },
 
-    STRUCTURE_L,
+    STRUCTURE_BIG_HOLE,
+    STRUCTURE_TOP_RIGHT,
+    STRUCTURE_TOP_LEFT,
+    STRUCTURE_LONG_LEFT,
     STRUCTURE_TWO_HOUSES,
 
 
