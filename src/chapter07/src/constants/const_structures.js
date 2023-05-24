@@ -6,6 +6,39 @@ export const W = 160
 const c = new Color(0x93cfd9)
 console.log(c.r + ', ' + c.g + ', ' + c.b)
 
+const items = [
+    {i: 0, j: 0, k: 0, maybeTilesInds: [2], queue:{ind: 22, calk: true}, resultTileIndex:2, tileData: { keyModel: 't_I', rotationY: Math.PI / 2 }},
+    {i: 0, j: 0, k: 1, maybeTilesInds: [2], queue:{ind: 22, calk: true}, resultTileIndex:2, tileData: { keyModel: 't_I', rotationY: Math.PI / 2 }},
+    {i: 0, j: 0, k: 2, maybeTilesInds: [2], queue:{ind: 22, calk: true}, resultTileIndex:2, tileData: { keyModel: 't_I', rotationY: Math.PI / 2 }},
+    {i: 0, j: 0, k: 3, maybeTilesInds: [2], queue:{ind: 22, calk: true}, resultTileIndex:2, tileData: { keyModel: 't_I', rotationY: Math.PI / 2 }},
+    {i: 0, j: 0, k: 4, maybeTilesInds: [2], queue:{ind: 22, calk: true}, resultTileIndex:2, tileData: { keyModel: 't_I', rotationY: Math.PI / 2 }},
+]
+export const FINAL_MAP = {
+    iterateAll: f => {
+        for (let i = 0; i < items.length; ++i) {
+            f(items[i])
+        }
+    }
+}
+export const FINAL_STRUCTURE = {
+    ENV_COLOR: new Color(0.6, 0, 0),
+    FOG: { color: 0x990000, near: 150, far: 1000, time: 2000 },
+    COLOR_00: [1, .3, 1],
+    mat: 'matNotFog',
+    X: -800,
+    Y: -100,
+    Z: 160,
+    mapFill: [
+        { tile: 'empty', place: [3, 4, 2] },
+        { tile: 'empty', place: [3, 3, 2] },
+        { tile: 'empty', place: [3, 2, 2] },
+        { tile: 'empty', place: [3, 1, 2] },
+        { tile: 'empty', place: [3, 0, 2] },
+    ],
+}
+
+
+
 export const STRUCTURE_BIG_HOLE = (() => {
     const mapFill = []
     for (let i = 3; i < 6; ++i) {

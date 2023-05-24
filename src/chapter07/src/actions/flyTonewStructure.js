@@ -1,5 +1,5 @@
 import * as TWEEN from "@tweenjs/tween.js";
-import { divide } from "mathjs";
+import { FINAL_STRUCTURE, FINAL_MAP } from "../constants/const_structures";
 import {
     STRUCTURES,
     FOG_CONF,
@@ -210,15 +210,17 @@ async function flyProcess (root) {
         'p': false,
     })
     structure.destroyStructure()
-    await structure.generateStructure(STRUCTURES[countStruct])
+    //await structure.generateStructure(STRUCTURES[countStruct])
+    await structure.generateStructureFinal(FINAL_MAP, FINAL_STRUCTURE)
+    root.studio.addToScene(root.finalItem.mesh)
 
-    const coordsFuel = structure.getCoordsForItem('easyItem')
-    root.studio.addToScene(fuel.mesh)
-    fuel.mesh.position.set(
-        coordsFuel[0] * W + STRUCTURES[countStruct].X,
-        coordsFuel[1] * H + STRUCTURES[countStruct].Y + (H / 2),
-        coordsFuel[2] * W + STRUCTURES[countStruct].Z
-    )
+    // const coordsFuel = structure.getCoordsForItem('easyItem')
+    // root.studio.addToScene(fuel.mesh)
+    // fuel.mesh.position.set(
+    //     coordsFuel[0] * W + STRUCTURES[countStruct].X,
+    //     coordsFuel[1] * H + STRUCTURES[countStruct].Y + (H / 2),
+    //     coordsFuel[2] * W + STRUCTURES[countStruct].Z
+    // )
 
     await pause(200)
     flyer.mesh.position.z = 8000

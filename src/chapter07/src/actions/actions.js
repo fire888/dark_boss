@@ -13,6 +13,8 @@ import { createFlyer } from '../Entities/Flyer/flyer'
 import { createFuel } from '../Entities/fuel'
 import { system_PlayerNearLevelItems } from '../systems/system_PlayerNearLevelItems'
 import { flyToNewStructure } from './flyTonewStructure'
+//import {create} from "../Entities/Structure03/geometries/geomElemFinal";
+import { createFinalItem } from '../Entities/finalItem'
 
 
 
@@ -63,6 +65,13 @@ export class actions {
             map: root.assets.textureTilesInv,
             vertexColors: true,
         })
+        const matNotFog = new THREE.MeshBasicMaterial({
+            color: 0xffffff,
+            map: root.assets.textureTilesInv,
+            vertexColors: true,
+            fog: false,
+        })
+        root.materials.matNotFog = matNotFog
 
         root.materials.structureMaterial = structureMaterial
         root.materials.structureMaterialInv = structureMaterialInv
@@ -71,6 +80,10 @@ export class actions {
 
         const fuel = createFuel(root)
         root.fuel = fuel
+
+        const finalItem = createFinalItem(root)
+        // console.log(finalItem)
+        root.finalItem = finalItem
 
         ///////////////////////////////////////////////////
         ///////////////////////////////////////////////////
