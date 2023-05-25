@@ -1,5 +1,5 @@
 import * as TWEEN from "@tweenjs/tween.js";
-import { FINAL_STRUCTURE, FINAL_MAP } from "../constants/const_structures";
+import { FINAL_STRUCTURE, FINAL_MAP, FINAL_ENV_COLOR } from "../constants/const_structures";
 import {
     STRUCTURES,
     FOG_CONF,
@@ -210,17 +210,15 @@ async function flyProcess (root) {
         'p': false,
     })
     structure.destroyStructure()
-    //await structure.generateStructure(STRUCTURES[countStruct])
-    await structure.generateStructureFinal(FINAL_MAP, FINAL_STRUCTURE)
-    root.studio.addToScene(root.finalItem.mesh)
+    await structure.generateStructure(STRUCTURES[countStruct])
 
-    // const coordsFuel = structure.getCoordsForItem('easyItem')
-    // root.studio.addToScene(fuel.mesh)
-    // fuel.mesh.position.set(
-    //     coordsFuel[0] * W + STRUCTURES[countStruct].X,
-    //     coordsFuel[1] * H + STRUCTURES[countStruct].Y + (H / 2),
-    //     coordsFuel[2] * W + STRUCTURES[countStruct].Z
-    // )
+    const coordsFuel = structure.getCoordsForItem('easyItem')
+    root.studio.addToScene(fuel.mesh)
+    fuel.mesh.position.set(
+        coordsFuel[0] * W + STRUCTURES[countStruct].X,
+        coordsFuel[1] * H + STRUCTURES[countStruct].Y + (H / 2),
+        coordsFuel[2] * W + STRUCTURES[countStruct].Z
+    )
 
     await pause(200)
     flyer.mesh.position.z = 8000
@@ -274,7 +272,82 @@ async function flyProcess (root) {
 }
 
 
+async function flyProcessToFinal(root) {
+    const {
+        flyer,
+        structure,
+        dispatcher,
+        system_PlayerNearLevelItems,
+        player,
+        studio,
+        emitter,
+        frameUpdater,
+        fuel,
+    } = root
+
+    await pause(20)
+
+    system_PlayerNearLevelItems.removeItemFromCheck(flyer.objectForCheck)
+    dispatcher.dispatch({ type: 'TOGGLE_BUTTON_DRAW_CAR', is: false })
+
+    player.mesh.position.sub(flyer.mesh.position)
+    flyer.mesh.add(root.player.mesh)
+
+
+    const fullDiff = 8000
+    const unsubscribe = frameUpdater.on(data => {
+        flyer.arrow.rotation.z = (Math.abs(flyer.mesh.position.z) / fullDiff) * (Math.PI / 4)
+    })
+
+    await startFly(root)
+    studio.changeFog({
+        ...STRUCTURES[countStruct - 1].FOG,
+        color: STRUCTURES[countStruct - 1].ENV_COLOR
+    })
+    await easyFly(root, -8000)
+    //studio.changeEnvColor(STRUCTURES[countStruct].ENV_COLOR)
+    studio.changeEnvColor(FINAL_ENV_COLOR)
+    await pause(3000)
+
+    unsubscribe()
+
+    player.toggleBlocked = true
+    emitter.emit('keyEvent')({
+        'up': false,
+        'down': false,
+        'left': false,
+        'right': false,
+        'p': false,
+    })
+    structure.destroyStructure()
+    await structure.generateStructureFinal(FINAL_MAP, FINAL_STRUCTURE)
+    root.studio.addToScene(root.finalItem.mesh)
+    root.finalItem.mesh.position.set(-160 * 5.75, -70, 160)
+
+    await pause(200)
+    flyer.mesh.position.z = 8000
+
+    const fullDiff2 = 8000
+    const unsubscribe2 = frameUpdater.on(data => {
+        flyer.arrow.rotation.z = ((8000 - flyer.mesh.position.z) / fullDiff2) * (Math.PI / 4) + (Math.PI / 4)
+    })
+
+    player.toggleBlocked = false
+    setTimeout(() => studio.changeFog(FINAL_ENV_COLOR),1000)
+    await easyFly(root, 1000)
+    await endFly(root)
+
+    unsubscribe2()
+
+    dispatcher.dispatch({ type: 'CLICK_DRAW' })
+    player.mesh.position.add(flyer.mesh.position)
+    studio.addToScene(root.player.mesh)
+
+}
+
+
 
 export const flyToNewStructure = root => {
-    flyProcess(root).then()
+    //flyProcess(root).then()
+    flyProcessToFinal(root).then()
 }

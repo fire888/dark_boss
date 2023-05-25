@@ -4,6 +4,10 @@ import {tileUv} from "./uvAtlas";
 import { COLOR_00 } from '../../../constants/constants_elements'
 
 const hpW = W / 6
+const S = 40
+const S2 = S * 2
+const SM = 41
+const SMH = 3000
 
 export const createElemFinal = ({
 
@@ -33,10 +37,10 @@ export const createElemFinal = ({
     for (let i = 0; i < 20; ++i) {
         v.push(
             ...createFace(
-                [-20, -40 -(i * 40), -20],
-                [20, -40 - (i * 40), -20],
-                [20, -(i * 40), -20],
-                [-20, - (i * 40), -20],
+                [-S, -S2 -(i * S2), -S],
+                [S, -S2 - (i * S2), -S],
+                [S, -(i * S2), -S],
+                [-S, - (i * S2), -S],
             )
         )
         c.push(...colorSide)
@@ -44,10 +48,10 @@ export const createElemFinal = ({
 
         v.push(
             ...createFace(
-                [-20, -40 -(i * 40), 20],
-                [-20, -40 - (i * 40), -20],
-                [-20, -(i * 40), -20],
-                [-20, - (i * 40), 20],
+                [-S, -S2 -(i * S2), -S],
+                [-S, -S2 - (i * S2), S],
+                [-S, -(i * S2), S],
+                [-S, - (i * S2), -S],
             )
         )
         c.push(...colorSide)
@@ -55,10 +59,10 @@ export const createElemFinal = ({
 
         v.push(
             ...createFace(
-                [20, -40 -(i * 40), -20],
-                [20, -40 - (i * 40), 20],
-                [20, -(i * 40), 20],
-                [20, - (i * 40), -20],
+                [S, -S2 -(i * S2), -S],
+                [S, -S2 - (i * S2), S],
+                [S, -(i * S2), S],
+                [S, - (i * S2), -S],
             )
         )
         c.push(...colorSide)
@@ -66,31 +70,53 @@ export const createElemFinal = ({
 
         v.push(
             ...createFace(
-                [20, -40 -(i * 40), 20],
-                [-20, -40 - (i * 40), 20],
-                [-20, -(i * 40), 20],
-                [20, - (i * 40), 20],
+                [S, -S2 -(i * S2), S],
+                [-S, -S2 - (i * S2), S],
+                [-S, -(i * S2), S],
+                [S, - (i * S2), S],
             )
         )
         c.push(...colorSide)
         u.push(...tileUv['gor_pattern_01'])
     }
 
-    v.push(
+
+    const v2 = []
+    v2.push(
         ...createFace(
-            [20, -1000, -20.5],
-            [-20, -1000, -20.5],
-            [-20, 1000, -20.5],
-            [20, 1000, -20.5],
+            [SM, -SMH, -SM],
+            [-SM, -SMH, -SM],
+            [-SM, 0, -SM],
+            [SM, 0, -SM],
         )
     )
-    c.push(...colorSideOuter)
-    u.push(...tileUv['white'])
+    v2.push(
+        ...createFace(
+            [-SM, -SMH, SM],
+            [-SM, -SMH, -SM],
+            [-SM, 0, -SM],
+            [-SM, 0, SM],
+        )
+    )
+    v2.push(
+        ...createFace(
+            [-SM, -SMH, SM],
+            [SM, -SMH, SM],
+            [SM, 0, SM],
+            [-SM, 0, SM],
+        )
+    )
+    v2.push(
+        ...createFace(
+            [SM, -SMH, SM],
+            [SM, -SMH, -SM],
+            [SM, 0, -SM],
+            [SM, 0, SM],
+        )
+    )
 
 
-
-
-    return { v, col, u, c }
+    return { v, col, u, c, v2 }
 }
 
 

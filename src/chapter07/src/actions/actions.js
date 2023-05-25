@@ -4,6 +4,7 @@ import {
    // ENV_NORMAL,
     STRUCTURES,
 } from '../constants/constants_elements';
+import { FINAL_ENV_COLOR } from "../constants/const_structures";
 //import { createWorldReal } from '../systems/system_worldReal'
 //import { createWaveMain } from '../Entities/Structure01/WaveMain'
 import { createStructure2 } from '../Entities/Structure02/structure02'
@@ -69,9 +70,15 @@ export class actions {
             color: 0xffffff,
             map: root.assets.textureTilesInv,
             vertexColors: true,
-            fog: false,
         })
         root.materials.matNotFog = matNotFog
+
+        const matNotFogOuter = new THREE.MeshBasicMaterial({
+            //color: FINAL_ENV_COLOR.toHexString(),
+            color: FINAL_ENV_COLOR,
+            fog: false,
+        })
+        root.materials.matNotFogOuter = matNotFogOuter
 
         root.materials.structureMaterial = structureMaterial
         root.materials.structureMaterialInv = structureMaterialInv
