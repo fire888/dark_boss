@@ -2,11 +2,11 @@ import {H, W} from "../../../constants/constants_elements";
 import {createFace, fillColorFace, rotateArrY} from "../../../helpers/geomHelpers";
 import {tileUv} from "./uvAtlas";
 import { COLOR_00 } from '../../../constants/constants_elements'
+import { FINAL_STRUCTURE } from '../../../constants/const_structures'
 
-const hpW = W / 6
-const S = 40
+const S = 80
 const S2 = S * 2
-const SM = 41
+const SM = 81
 const SMH = 3000
 
 export const createElemFinal = ({
@@ -19,15 +19,7 @@ export const createElemFinal = ({
 
 
     /** sides ***/
-
-
-
-    const colorPolygonOuter = fillColorFace([1, 1, 1])
-    const colorSideOuter = [
-        ...colorPolygonOuter,
-    ]
-
-    const colorPolygonInner = fillColorFace([1, 1, 1])
+    const colorPolygonInner = fillColorFace(FINAL_STRUCTURE.COLOR_00)
     const colorSide = [
         ...colorPolygonInner,
     ]
@@ -44,18 +36,18 @@ export const createElemFinal = ({
             )
         )
         c.push(...colorSide)
-        u.push(...tileUv['gor_pattern_01'])
+        u.push(...tileUv['lines'])
 
         v.push(
             ...createFace(
-                [-S, -S2 -(i * S2), -S],
-                [-S, -S2 - (i * S2), S],
-                [-S, -(i * S2), S],
-                [-S, - (i * S2), -S],
+                [-S, -S2 -(i * S2), S],
+                [-S, -S2 - (i * S2), -S],
+                [-S, -(i * S2), -S],
+                [-S, - (i * S2), S],
             )
         )
         c.push(...colorSide)
-        u.push(...tileUv['gor_pattern_01'])
+        u.push(...tileUv['lines'])
 
         v.push(
             ...createFace(
@@ -66,7 +58,7 @@ export const createElemFinal = ({
             )
         )
         c.push(...colorSide)
-        u.push(...tileUv['gor_pattern_01'])
+        u.push(...tileUv['lines'])
 
         v.push(
             ...createFace(
@@ -77,7 +69,7 @@ export const createElemFinal = ({
             )
         )
         c.push(...colorSide)
-        u.push(...tileUv['gor_pattern_01'])
+        u.push(...tileUv['lines'])
     }
 
 
@@ -92,10 +84,10 @@ export const createElemFinal = ({
     )
     v2.push(
         ...createFace(
-            [-SM, -SMH, SM],
             [-SM, -SMH, -SM],
-            [-SM, 0, -SM],
+            [-SM, -SMH, SM],
             [-SM, 0, SM],
+            [-SM, 0, -SM],
         )
     )
     v2.push(

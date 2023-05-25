@@ -1,4 +1,5 @@
 import * as TWEEN from "@tweenjs/tween.js";
+import * as THREE from 'three'
 import { FINAL_STRUCTURE, FINAL_MAP, FINAL_ENV_COLOR } from "../constants/const_structures";
 import {
     STRUCTURES,
@@ -305,7 +306,6 @@ async function flyProcessToFinal(root) {
         color: STRUCTURES[countStruct - 1].ENV_COLOR
     })
     await easyFly(root, -8000)
-    //studio.changeEnvColor(STRUCTURES[countStruct].ENV_COLOR)
     studio.changeEnvColor(FINAL_ENV_COLOR)
     await pause(3000)
 
@@ -321,8 +321,6 @@ async function flyProcessToFinal(root) {
     })
     structure.destroyStructure()
     await structure.generateStructureFinal(FINAL_MAP, FINAL_STRUCTURE)
-    root.studio.addToScene(root.finalItem.mesh)
-    root.finalItem.mesh.position.set(-160 * 5.75, -70, 160)
 
     await pause(200)
     flyer.mesh.position.z = 8000
@@ -333,9 +331,13 @@ async function flyProcessToFinal(root) {
     })
 
     player.toggleBlocked = false
-    setTimeout(() => studio.changeFog(FINAL_ENV_COLOR),1000)
+    setTimeout(() => studio.changeFog(FINAL_STRUCTURE.FOG), 1000)
     await easyFly(root, 1000)
     await endFly(root)
+
+    root.studio.addToScene(root.finalItem.mesh)
+    root.finalItem.mesh.position.set(-160 * 5.75 - 40, -70, 160)
+    root.system_PlayerMoveOnLevel.addItemToPlayerCollisionWalls(root.finalItem.mesh)
 
     unsubscribe2()
 
@@ -343,6 +345,18 @@ async function flyProcessToFinal(root) {
     player.mesh.position.add(flyer.mesh.position)
     studio.addToScene(root.player.mesh)
 
+    const finalTrigger = new THREE.Object3D()
+    finalTrigger.position.set(-160 * 5.75 - 40, -400, 160)
+    studio.addToScene(finalTrigger)
+    system_PlayerNearLevelItems.setItemToCheck(finalTrigger, 'endGame', 80, 80)
+    root.emitter.subscribe('checkNear')(data => {
+        if (data.item === 'endGame' && data.is) {
+            studio.changeFog({color: 0x20072a, near: 1, far: 5, time: 3000})
+            setTimeout(() => {
+                root.dispatcher.dispatch({ type: 'SHOW_FINAL_MESSAGE' })
+            }, 5000)
+        }
+    })
 }
 
 

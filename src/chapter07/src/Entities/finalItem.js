@@ -15,10 +15,7 @@ export const createFinalItem = (root) => {
     const col = []
 
     {
-        const elem = createElemFinal({
-            h: 12,
-            color: [1, 1, 0],
-        })
+        const elem = createElemFinal({})
         v.push(...elem.v)
         v2.push(...elem.v2)
         c.push(...elem.c)
