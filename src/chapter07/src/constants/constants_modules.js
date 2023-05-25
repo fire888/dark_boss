@@ -14,6 +14,10 @@ import { Ui } from "../ui/Ui";
 import textureTiles from '../../../assets/chapter07/texture01.jpg'
 import textureTilesInv from '../../../assets/chapter07/texture01_inv.jpg'
 
+import { system_Sound } from '../systems/system_Sound'
+import soundStepsSrc from '../../../assets/chapter06/audio/steps.mp3'
+import soundAmbientSrc from '../../../assets/chapter06/audio/ambient_loop.mp3'
+
 export const GAME_MODULES = [
     {
         key: 'emitter',
@@ -63,16 +67,16 @@ export const GAME_MODULES = [
         constr: system_PlayerMoveOnLevel,
         initStateKey: 'beforeStartPlay',
     },
-    // {
-    //     key: 'system_Sound',
-    //     constr: system_Sound,
-    //     initStateKey: 'beforeStartPlay',
-    //     assetsToLoad: [
-    //         { type: 'soundMp3', path: soundAmbientSrc, key: 'soundAmbient' },
-    //         //{ type: 'soundMp3', path: carStart, key: 'carStart' },
-    //         //{ type: 'soundMp3', path: carLoop, key: 'carLoop' },
-    //     ]
-    // },
+    {
+        key: 'system_Sound',
+        constr: system_Sound,
+        initStateKey: 'beforeStartPlay',
+        assetsToLoad: [
+            { type: 'soundMp3', path: soundAmbientSrc, key: 'soundAmbient' },
+            { type: 'soundMp3', path: soundStepsSrc, key: 'soundStep' },
+            //{ type: 'soundMp3', path: carLoop, key: 'carLoop' },
+        ]
+    },
     {
         key: 'customUi',
         constr: Ui,

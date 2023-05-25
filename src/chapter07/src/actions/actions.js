@@ -45,9 +45,6 @@ export class actions {
             type: 'ENABLE_CONTROL_SOUND',
         })
 
-        //studio.changeEnvColor(STRUCTURES[0].ENV_COLOR)
-        //studio.changeFog(STRUCTURES[0].FOG)
-
 
         if (!root.materials) {
             root.materials = {}
@@ -159,8 +156,8 @@ export class actions {
 
         ui.showStartButton(() => {
             //startPipeline(root).then()
-            //player.toggleBlocked(false)
-            //this._root.system_Sound && this._root.system_Sound.playAmbient()
+            player.toggleBlocked(false)
+            this._root.system_Sound && this._root.system_Sound.playAmbient()
 
 
             // setTimeout(() => {

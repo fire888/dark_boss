@@ -163,7 +163,7 @@ const goToPlatform = (root) => {
 
 let countStruct = 1
 
-async function flyProcess (root) {
+async function flyProcess (root, onComplete) {
     const {
         flyer,
         structure,
@@ -177,6 +177,10 @@ async function flyProcess (root) {
     } = root
 
     await pause(20)
+
+    if (!STRUCTURES[countStruct]) {
+        return void onComplete()
+    }
 
 
     system_PlayerNearLevelItems.removeItemFromCheck(flyer.objectForCheck)
@@ -354,6 +358,7 @@ async function flyProcessToFinal(root) {
             studio.changeFog({color: 0x20072a, near: 1, far: 5, time: 3000})
             setTimeout(() => {
                 root.dispatcher.dispatch({ type: 'SHOW_FINAL_MESSAGE' })
+                root.system_PlayerMoveOnLevel.isFreeze = true
             }, 5000)
         }
     })
@@ -362,6 +367,7 @@ async function flyProcessToFinal(root) {
 
 
 export const flyToNewStructure = root => {
-    //flyProcess(root).then()
-    flyProcessToFinal(root).then()
+    flyProcess(root, () => {
+        flyProcessToFinal(root).then()
+    }).then()
 }

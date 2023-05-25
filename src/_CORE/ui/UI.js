@@ -7,26 +7,26 @@ import { changeLang } from "../helpers/helper_translate";
 
 
 /** ANIMATION LOADER */
-// const loader = document.querySelector('.progress')
-// let offsetLoader = -100
-// let isAnimateLoader = true
+const loader = document.querySelector('.progress')
+let offsetLoader = -100
+let isAnimateLoader = true
 
 
 
-// const loaderTimeOut = () => {
-//     if (!isAnimateLoader) return;
+const loaderTimeOut = () => {
+    if (!isAnimateLoader) return;
 
-//     setTimeout(() => {
-//         offsetLoader ++;
-//         offsetLoader === 0 && (offsetLoader -= 100)
-//         loader.style.marginLeft = offsetLoader + '%'
-//         loaderTimeOut()
-//     }, 30)
-// }
+    setTimeout(() => {
+        offsetLoader ++;
+        offsetLoader === 0 && (offsetLoader -= 100)
+        loader.style.marginLeft = offsetLoader + '%'
+        loaderTimeOut()
+    }, 30)
+}
 
 
 
-//loaderTimeOut()
+loaderTimeOut()
 
 
 
@@ -58,13 +58,13 @@ export class UI {
             document.querySelector('.start-screen').style.display = 'none'
         }
 
-        // isAnimateLoader = false
-        // startButtons.style.display = 'flex'
-        // startButtons.addEventListener('click', e => {
-        //     onClick()
-        //     hideStartScreen(e)
-        // })
-        // progressWrapper.style.display = 'none'
+        isAnimateLoader = false
+        startButtons.style.display = 'flex'
+        startButtons.addEventListener('click', e => {
+            onClick()
+            hideStartScreen(e)
+        })
+        progressWrapper.style.display = 'none'
     }
 }
 

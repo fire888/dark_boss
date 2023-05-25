@@ -7,6 +7,7 @@ export const INFO_VOC = {
         'Endways': 'Напрямик',
         'Machine': 'Машина',
         'Rooms': 'Комнаты',
+        'Platform': 'Платформа',
         'in production': 'скоро..',
         ' (current)': ' (тут)',
         'Author: ': 'от: ',
