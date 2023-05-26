@@ -350,9 +350,9 @@ async function flyProcessToFinal(root) {
     studio.addToScene(root.player.mesh)
 
     const finalTrigger = new THREE.Object3D()
-    finalTrigger.position.set(-160 * 5.75 - 40, -400, 160)
+    finalTrigger.position.set(-160 * 5.75 - 40, -800, 160)
     studio.addToScene(finalTrigger)
-    system_PlayerNearLevelItems.setItemToCheck(finalTrigger, 'endGame', 80, 80)
+    system_PlayerNearLevelItems.setItemToCheck(finalTrigger, 'endGame', 400, 400)
     root.emitter.subscribe('checkNear')(data => {
         if (data.item === 'endGame' && data.is) {
             studio.changeFog({color: 0x20072a, near: 1, far: 5, time: 3000})

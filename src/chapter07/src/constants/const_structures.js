@@ -3,7 +3,7 @@ import { Color } from 'three'
 export const W = 160
 
 
-const c = new Color(0x9000cc)
+const c = new Color(0xa76815)
 console.log(c.r + ', ' + c.g + ', ' + c.b)
 
 const items = [
@@ -20,11 +20,11 @@ export const FINAL_MAP = {
         }
     }
 }
-export const FINAL_ENV_COLOR = new Color(0.5647058823529412, 0, 0.8)
+export const FINAL_ENV_COLOR = new Color(0.6549019607843137, 0.40784313725490196, 0.08235294117647059)
 export const FINAL_STRUCTURE = {
     ENV_COLOR: FINAL_ENV_COLOR,
-    FOG: { color: 0x3344aa, near: 150, far: 1000, time: 2000 },
-    COLOR_00: [1, .3, 1],
+    FOG: { color: 0xa76815, near: 150, far: 1000, time: 2000 },
+    COLOR_00: [0.6549019607843137, 0.40784313725490196, 0.08235294117647059],
     mat: 'structureMaterial',
     X: -800,
     Y: -100,

@@ -17,7 +17,8 @@ export const COLOR_00 = [1, .3, 1]
 //console.log(c.r + ', ' + c.g + ', ' + c.b)
 
 export const STRUCTURES = [
-    /** start center hole */
+
+    /** 0 start center hole */
     {
         ENV_COLOR: new Color(0.6, 0, 0),
         FOG: { color: 0x440000, near: 150, far: 1000, time: 2000 },
@@ -37,14 +38,79 @@ export const STRUCTURES = [
             { tile: 'empty', place: [3, 0, 2] },
         ],
     },
-
-    STRUCTURE_BIG_HOLE,
-    STRUCTURE_TOP_RIGHT,
+    /** 3 */
     STRUCTURE_TOP_LEFT,
+
+    /** 4 */
     STRUCTURE_LONG_LEFT,
+
+    /** 2 */
+    STRUCTURE_TOP_RIGHT,
+
+    /** 7 */
+    /** light */
+    {
+        ENV_COLOR: new Color(0.5725490196078431, 0.5529411764705883, 0.396078431372549),
+        FOG: { color: 0x2f2922, near: 150, far: 700, time: 2000 },
+        COLOR_00: [0.9686274509803922, 0.9490196078431372, 0.8196078431372549],
+        mat: 'structureMaterial',
+        SIZE_X: 5,
+        SIZE_Y: 17,
+        SIZE_Z: 5,
+        X: -480,
+        Y: -430,
+        Z: -170,
+        mapFill: [
+            { tile: 'empty', place: [5, 4, 3] },
+            { tile: 'empty', place: [5, 3, 3] },
+            { tile: 'empty', place: [5, 2, 3] },
+            { tile: 'empty', place: [5, 1, 3] },
+            { tile: 'empty', place: [5, 0, 3] },
+        ],
+    },
+
+    /** 5 */
     STRUCTURE_TWO_HOUSES,
 
+    /** 10 */
+    /** right */
+    {
+        ENV_COLOR: new Color(0.05, 0.1, 0.2),
+        //ENV_COLOR: new Color(0.1, 0.1, 0.3),
+        FOG: { color: 0x34364c, near: 150, far: 1000, time: 2000 },
+        COLOR_00: [.1, 1, .5],
+        mat: 'structureMaterialInv',
+        SIZE_X: 5,
+        SIZE_Y: 8,
+        SIZE_Z: 5,
+        X: 150,
+        Y: -300,
+        Z: -200,
+        mapFill: [],
+    },
 
+    /** 8 */
+    /** center hole */
+    {
+        ENV_COLOR: new Color(0.7, 0.8, 0.7),
+        FOG: { color: 0x005555, near: 150, far: 700, time: 2000 },
+        COLOR_00: [0.5725490196078431, 0.3803921568627451, 0.5725490196078431],
+        SIZE_X: 5,
+        SIZE_Y: 7,
+        SIZE_Z: 5,
+        X: -320,
+        Y: -270,
+        Z: -170,
+        mapFill: [
+            { tile: 'empty', place: [3, 4, 2] },
+            { tile: 'empty', place: [3, 3, 2] },
+            { tile: 'empty', place: [3, 2, 2] },
+            { tile: 'empty', place: [3, 1, 2] },
+            { tile: 'empty', place: [3, 0, 2] },
+        ],
+    },
+
+    /** 6 */
     /** light inverted */
     {
         ENV_COLOR: new Color(.8, .8, .8),
@@ -67,50 +133,11 @@ export const STRUCTURES = [
         ],
     },
 
-
-    /** light */
-    {
-        ENV_COLOR: new Color(0.5725490196078431, 0.5529411764705883, 0.396078431372549),
-        FOG: { color: 0x2f2922, near: 150, far: 700, time: 2000 },
-        COLOR_00: [0.9686274509803922, 0.9490196078431372, 0.8196078431372549],
-        mat: 'structureMaterial',
-        SIZE_X: 5,
-        SIZE_Y: 17,
-        SIZE_Z: 5,
-        X: -480,
-        Y: -430,
-        Z: -170,
-        mapFill: [
-            { tile: 'empty', place: [5, 4, 3] },
-            { tile: 'empty', place: [5, 3, 3] },
-            { tile: 'empty', place: [5, 2, 3] },
-            { tile: 'empty', place: [5, 1, 3] },
-            { tile: 'empty', place: [5, 0, 3] },
-        ],
-    },
+    /** 1 */
+    STRUCTURE_BIG_HOLE,
 
 
-    /** center hole */
-    {
-        ENV_COLOR: new Color(0.7, 0.8, 0.7),
-        FOG: { color: 0x005555, near: 150, far: 700, time: 2000 },
-        COLOR_00: [0.5725490196078431, 0.3803921568627451, 0.5725490196078431],
-        SIZE_X: 5,
-        SIZE_Y: 7,
-        SIZE_Z: 5,
-        X: -320,
-        Y: -270,
-        Z: -170,
-        mapFill: [
-            { tile: 'empty', place: [3, 4, 2] },
-            { tile: 'empty', place: [3, 3, 2] },
-            { tile: 'empty', place: [3, 2, 2] },
-            { tile: 'empty', place: [3, 1, 2] },
-            { tile: 'empty', place: [3, 0, 2] },
-        ],
-    },
-
-
+    /** 9 */
     /** left */
     {
         ENV_COLOR: new Color(0, 0, 0),
@@ -126,22 +153,8 @@ export const STRUCTURES = [
     },
 
 
-    /** right */
-    {
-        ENV_COLOR: new Color(0.05, 0.1, 0.2),
-        //ENV_COLOR: new Color(0.1, 0.1, 0.3),
-        FOG: { color: 0x34364c, near: 150, far: 1000, time: 2000 },
-        COLOR_00: [.1, 1, .5],
-        mat: 'structureMaterialInv',
-        SIZE_X: 5,
-        SIZE_Y: 8,
-        SIZE_Z: 5,
-        X: 150,
-        Y: -300,
-        Z: -200,
-        mapFill: [],
-    },
-    
+
+    /** 11 */
     /** inverted */
     {
         ENV_COLOR: new Color(0, 0, 0),
