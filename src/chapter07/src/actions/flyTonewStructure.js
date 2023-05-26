@@ -174,6 +174,7 @@ async function flyProcess (root, onComplete) {
         emitter,
         frameUpdater,
         fuel,
+        system_Sound,
     } = root
 
     await pause(20)
@@ -195,6 +196,7 @@ async function flyProcess (root, onComplete) {
         flyer.arrow.rotation.z = (Math.abs(flyer.mesh.position.z) / fullDiff) * (Math.PI / 4)
     })
 
+    system_Sound.startCar()
     await startFly(root)
     studio.changeFog({
         ...STRUCTURES[countStruct - 1].FOG, 
@@ -237,6 +239,7 @@ async function flyProcess (root, onComplete) {
     setTimeout(() => studio.changeFog(STRUCTURES[countStruct].FOG),1000)
     await easyFly(root, 1000)
     await endFly(root)
+    system_Sound.stopCar()
 
     unsubscribe2()
 
@@ -249,6 +252,13 @@ async function flyProcess (root, onComplete) {
     studio.removeFromScene(fuel.mesh)
 
     await goToPlatform(root)
+
+    if (player.mesh.position.distanceTo(flyer.objectForCheck.getWorldPosition()) < 20) {
+        dispatcher.dispatch({
+            type: 'TOGGLE_BUTTON_DRAW_CAR',
+            is: true
+        })
+    }
 
     system_PlayerNearLevelItems.setItemToCheck(flyer.objectForCheck, 'platformObjectForCheck', 20, 30)
 
@@ -288,6 +298,7 @@ async function flyProcessToFinal(root) {
         emitter,
         frameUpdater,
         fuel,
+        system_Sound,
     } = root
 
     await pause(20)
@@ -303,7 +314,7 @@ async function flyProcessToFinal(root) {
     const unsubscribe = frameUpdater.on(data => {
         flyer.arrow.rotation.z = (Math.abs(flyer.mesh.position.z) / fullDiff) * (Math.PI / 4)
     })
-
+    system_Sound.startCar()
     await startFly(root)
     studio.changeFog({
         ...STRUCTURES[countStruct - 1].FOG,
@@ -338,6 +349,7 @@ async function flyProcessToFinal(root) {
     setTimeout(() => studio.changeFog(FINAL_STRUCTURE.FOG), 1000)
     await easyFly(root, 1000)
     await endFly(root)
+    system_Sound.stopCar()
 
     root.studio.addToScene(root.finalItem.mesh)
     root.finalItem.mesh.position.set(-160 * 5.75 - 40, -70, 160)

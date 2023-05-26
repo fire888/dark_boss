@@ -38,6 +38,15 @@ export class system_PlayerMoveOnLevel {
         player.toggleCanMove = (dir, val) => this.isCanMove[dir] = val
 
 
+        this._isTabCurrent = true
+        document.addEventListener("visibilitychange", function() {
+            if (document.visibilityState === 'visible') {
+                this._isTabCurrent = true
+            } else {
+                this._isTabCurrent = false
+            }
+        });
+
         this.isFreeze = false
         let keys = {}
 
@@ -97,6 +106,10 @@ export class system_PlayerMoveOnLevel {
         let savedPos = new THREE.Vector3()
 
         this.update = data => {
+            if (!this._isTabCurrent) {
+                return;
+            }
+
             if (this.isFreeze) {
                 return;
             }
@@ -123,7 +136,7 @@ export class system_PlayerMoveOnLevel {
                 isSoundWalk
             ) {
                 isSoundWalk = false
-                //root.system_Sound.stopWalk()
+                root.system_Sound.stopWalk()
             }
 
 
@@ -140,13 +153,13 @@ export class system_PlayerMoveOnLevel {
 
             if (savedPos.y > player.mesh.position.y) {
                 isSoundWalk = false
-                //root.system_Sound.stopWalk()
+                root.system_Sound.stopWalk()
                 isMustStartSound = false
             }
 
             if (isMustStartSound) {
                 isSoundWalk = true
-                //root.system_Sound.startWalk()
+                root.system_Sound.startWalk()
             }
 
             keys['p'] && console.log(`player.mesh.position.fromArray([${player.mesh.position.x}, ${player.mesh.position.y}, ${player.mesh.position.z}])`)

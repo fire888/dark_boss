@@ -14,15 +14,20 @@ export class system_Sound {
 
 
 
-        this._soundCarStart = new THREE.Audio(listener)
-        this._soundCarStart.setBuffer(root.assets.carStart)
-        this._soundCarStart.setLoop(false)
-        this._soundCarStart.setVolume(0.09)
+        // this._soundCarStart = new THREE.Audio(listener)
+        // this._soundCarStart.setBuffer(root.assets.carStart)
+        // this._soundCarStart.setLoop(false)
+        // this._soundCarStart.setVolume(0.09)
 
         this._soundCar = new THREE.Audio(listener)
-        this._soundCar.setBuffer(root.assets.carLoop)
+        this._soundCar.setBuffer(root.assets.soundPlatform)
         this._soundCar.setLoop(true)
         this._soundCar.setVolume(0.09)
+
+        this._w = new THREE.Audio(listener)
+        this._w.setBuffer(root.assets.soundStep)
+        this._w.setLoop(true)
+        this._w.setVolume(.3)
 
 
         this._isMuted = false
@@ -53,10 +58,10 @@ export class system_Sound {
             return;
         } 
 
-        this._soundCarStart.play()
-        this._timer = setTimeout(() => {
+        //this._soundCarStart.play()
+        //this._timer = setTimeout(() => {
             this._soundCar.play()
-        }, 4000)
+        //}, 4000)
     }
 
     stopCar () {
@@ -64,8 +69,23 @@ export class system_Sound {
             return;
         } 
 
-        this._soundCarStart.isPlaying && this._soundCarStart.stop()
+        //this._soundCarStart.isPlaying && this._soundCarStart.stop()
         this._soundCar.isPlaying && this._soundCar.stop()
         clearTimeout(this._timer)
+    }
+
+    startWalk () {
+
+        if (this._isMuted) {
+            return;
+        }
+        this._w.play()
+    }
+
+    stopWalk () {
+        if (this._isMuted) {
+            return;
+        }
+        this._w.isPlaying && this._w.stop()
     }
 }
