@@ -87,7 +87,8 @@ export class system_PlayerMoveOnLevel {
                 return;
             }
 
-            player.mesh.translateZ(-speed * data.count)
+            player.controls.moveForward(speed * data.count)
+            //player.mesh.translateZ(-speed * data.count)
             emitter.emit('playerMove')('forward')
         }
 
@@ -97,7 +98,8 @@ export class system_PlayerMoveOnLevel {
             const [isCollision] = this._collisionsWalls.checkCollisions(player.mesh, player.backObj, OFFSET_FROM_PLANES)
             if (isCollision) return;
 
-            player.mesh.translateZ(speed * data.count)
+            //player.mesh.translateZ(speed * data.count)
+            player.controls.moveForward(-speed * data.count)
             emitter.emit('playerMove')('back')
         }
 
@@ -114,8 +116,10 @@ export class system_PlayerMoveOnLevel {
                 return;
             }
 
-            keys['left'] && player.mesh.rotateY(speedRot * data.count)
-            keys['right'] && player.mesh.rotateY(-speedRot * data.count)
+            //keys['left'] && player.mesh.rotateY(speedRot * data.count)
+            //keys['right'] && player.mesh.rotateY(-speedRot * data.count)
+            keys['left'] && player.controls.moveRight(speedRot * data.count)
+            keys['right'] && player.controls.moveRight(-speedRot * data.count)
 
             if (isBlocked) return;
             

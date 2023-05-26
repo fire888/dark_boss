@@ -158,6 +158,7 @@ export class actions {
             //startPipeline(root).then()
             player.toggleBlocked(false)
             this._root.system_Sound && this._root.system_Sound.playAmbient()
+            player.controlsLock()
 
 
             // setTimeout(() => {
