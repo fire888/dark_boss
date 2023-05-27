@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls.js';
+import { checkDevice } from '../helpers/checkerDevice'
 
 
 export class Player {
@@ -20,18 +21,27 @@ export class Player {
         this.isBlocked = true
         this.isFreeze = true
 
+        const device = checkDevice()
+        this.isNeedControls = device.deviceType === 'desktop'
+
+        console.log(device)
+
+
+        this.mesh = new THREE.Object3D()
 
         {
             const { fov, ratio, near, far } = cameraData
             this._camera = new THREE.PerspectiveCamera(fov, ratio, near, far)
             this._camera.position.fromArray([0, 0, -2])
-            //this.mesh.add(this._camera)
-            this.controls = new PointerLockControls(this._camera, document.body );
-
+            if (this.isNeedControls) {
+                this.controls = new PointerLockControls(this._camera, document.body );
+                this.mesh = this._camera
+            } else {
+                this.mesh.add(this._camera)
+            }
         }
-        
-        this.mesh = this._camera
-        //this.mesh = new THREE.Object3D()
+
+
         this.mesh.rotation.fromArray([0, 0, 0])
         this.mesh.userData.type = 'player'
 
@@ -89,6 +99,8 @@ export class Player {
     }
 
     controlsLock () {
-        this.controls.lock()
+        if (this.controls) {
+            this.controls.lock()
+        }
     }
 }
