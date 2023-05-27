@@ -185,7 +185,7 @@ async function flyProcess (root, onComplete) {
 
 
     system_PlayerNearLevelItems.removeItemFromCheck(flyer.objectForCheck)
-    dispatcher.dispatch({ type: 'TOGGLE_BUTTON_DRAW_CAR', is: false })
+    //dispatcher.dispatch({ type: 'TOGGLE_BUTTON_DRAW_CAR', is: false })
 
     player.mesh.position.sub(flyer.mesh.position)
     flyer.mesh.add(root.player.mesh)
@@ -253,35 +253,35 @@ async function flyProcess (root, onComplete) {
 
     await goToPlatform(root)
 
-    if (player.mesh.position.distanceTo(flyer.objectForCheck.getWorldPosition()) < 20) {
-        dispatcher.dispatch({
-            type: 'TOGGLE_BUTTON_DRAW_CAR',
-            is: true
-        })
-    }
+    // if (player.mesh.position.distanceTo(flyer.objectForCheck.getWorldPosition()) < 20) {
+    //     dispatcher.dispatch({
+    //         type: 'TOGGLE_BUTTON_DRAW_CAR',
+    //         is: true
+    //     })
+    // }
 
     system_PlayerNearLevelItems.setItemToCheck(flyer.objectForCheck, 'platformObjectForCheck', 20, 30)
 
-    const unsubscribeCheckNearPlatform = root.emitter.subscribe('checkNear')(data => {
-        if (data.item === 'platformObjectForCheck' && data.is) {
-            dispatcher.dispatch({
-                type: 'TOGGLE_BUTTON_DRAW_CAR',
-                is: true
-            })
-        }
-        if (data.item === 'platformObjectForCheck' && !data.is) {
-            dispatcher.dispatch({
-                type: 'TOGGLE_BUTTON_DRAW_CAR',
-                is: false
-            })
-        }
-    })
+    // const unsubscribeCheckNearPlatform = root.emitter.subscribe('checkNear')(data => {
+    //     if (data.item === 'platformObjectForCheck' && data.is) {
+    //         dispatcher.dispatch({
+    //             type: 'TOGGLE_BUTTON_DRAW_CAR',
+    //             is: true
+    //         })
+    //     }
+    //     if (data.item === 'platformObjectForCheck' && !data.is) {
+    //         dispatcher.dispatch({
+    //             type: 'TOGGLE_BUTTON_DRAW_CAR',
+    //             is: false
+    //         })
+    //     }
+    // })
 
-    const unsubscribeClickMachineDraw = root.emitter.subscribe('clickMachineDraw')(() => {
-        unsubscribeCheckNearPlatform()
-        unsubscribeClickMachineDraw()
+    //const unsubscribeClickMachineDraw = root.emitter.subscribe('clickMachineDraw')(() => {
+       // unsubscribeCheckNearPlatform()
+    //    unsubscribeClickMachineDraw()
         flyToNewStructure(root) 
-    })
+    //})
 
     ++countStruct
 }

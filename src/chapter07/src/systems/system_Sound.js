@@ -37,7 +37,7 @@ export class system_Sound {
             if (isMute) {
 
                 this._sound.isPlaying && this._sound.stop()
-                this._soundCarStart.isPlaying && this._soundCarStart.stop()
+                //this._soundCarStart.isPlaying && this._soundCarStart.stop()
                 this._soundCar.isPlaying && this._soundCar.stop()
             } else {
                 this._sound.play()

@@ -59,7 +59,7 @@ export const STRUCTURES = [
             { tile: 'empty', place: [3, 0, 2] },
         ],
     },
-    
+
     /** 3 */
     STRUCTURE_TOP_LEFT,
 
