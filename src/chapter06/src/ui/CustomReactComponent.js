@@ -91,8 +91,20 @@ function CustomReactComponent(props) {
             {/*)}*/}
 
             {props.isShowFinalMessage && (
-                    <div className='final-mess'>{t('To be continued')}</div>
-                )}
+                <div className='final-mess'>
+                    <button
+                        className='final-button'
+                        onClick={() => {
+                            window.location.replace('./../chapter07')
+                        }}>
+                        {t('Continue')}
+                    </button>
+                </div>
+            )}
+
+            {/*{props.isShowFinalMessage && (*/}
+            {/*        <div className='final-mess'>{t('To be continued')}</div>*/}
+            {/*    )}*/}
         </>
     )
 }
