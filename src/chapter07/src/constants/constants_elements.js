@@ -38,6 +38,28 @@ export const STRUCTURES = [
             { tile: 'empty', place: [3, 0, 2] },
         ],
     },
+
+        /** 8 */
+    /** center hole */
+    {
+        ENV_COLOR: new Color(0.7, 0.8, 0.7),
+        FOG: { color: 0x005555, near: 150, far: 700, time: 2000 },
+        COLOR_00: [0.5725490196078431, 0.3803921568627451, 0.5725490196078431],
+        SIZE_X: 5,
+        SIZE_Y: 7,
+        SIZE_Z: 5,
+        X: -320,
+        Y: -270,
+        Z: -170,
+        mapFill: [
+            { tile: 'empty', place: [3, 4, 2] },
+            { tile: 'empty', place: [3, 3, 2] },
+            { tile: 'empty', place: [3, 2, 2] },
+            { tile: 'empty', place: [3, 1, 2] },
+            { tile: 'empty', place: [3, 0, 2] },
+        ],
+    },
+
     /** 3 */
     STRUCTURE_TOP_LEFT,
 
@@ -89,26 +111,7 @@ export const STRUCTURES = [
         mapFill: [],
     },
 
-    /** 8 */
-    /** center hole */
-    {
-        ENV_COLOR: new Color(0.7, 0.8, 0.7),
-        FOG: { color: 0x005555, near: 150, far: 700, time: 2000 },
-        COLOR_00: [0.5725490196078431, 0.3803921568627451, 0.5725490196078431],
-        SIZE_X: 5,
-        SIZE_Y: 7,
-        SIZE_Z: 5,
-        X: -320,
-        Y: -270,
-        Z: -170,
-        mapFill: [
-            { tile: 'empty', place: [3, 4, 2] },
-            { tile: 'empty', place: [3, 3, 2] },
-            { tile: 'empty', place: [3, 2, 2] },
-            { tile: 'empty', place: [3, 1, 2] },
-            { tile: 'empty', place: [3, 0, 2] },
-        ],
-    },
+
 
     /** 6 */
     /** light inverted */
