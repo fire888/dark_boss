@@ -9,7 +9,7 @@ import { Player } from '../Entities/player'
 
 import { system_PlayerMoveOnLevel } from '../systems/system_PlayerMoveOnLevel'
 import { actions } from '../actions/actions'
-import { Ui } from "../ui/Ui";
+import { Ui } from "../ui/Ui"
 
 import textureTiles from '../../../assets/chapter07/texture01.jpg'
 import textureTilesInv from '../../../assets/chapter07/texture01_inv.jpg'

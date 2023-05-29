@@ -120,14 +120,10 @@ export class actions {
         ui.showStartButton(() => {
             player.toggleBlocked(false)
             this._root.system_Sound && this._root.system_Sound.playAmbient()
-            player.controlsLock()
-
-
-            // setTimeout(() => {
-            //     addSegment(0)
-            // }, 0)
+            if (root.player.controls) {
+                root.buttonMouse.style.display = 'block'
+            }
         })
-
     }
 }
 

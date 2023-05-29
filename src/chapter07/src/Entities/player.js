@@ -8,11 +8,7 @@ export class Player {
         const { studio, CONSTANTS } = root
 
         const {
-            //startPos,
-            //startRot,
             cameraData,
-            //frontObjPos,
-            //backObjPos,
             lightDataOne,
         } = CONSTANTS.playerConfig
 
@@ -23,8 +19,7 @@ export class Player {
 
         const device = checkDevice()
         this.isNeedControls = device.deviceType === 'desktop'
-
-        console.log(device)
+        console.log(device.deviceType)
 
 
         this.mesh = new THREE.Object3D()
@@ -72,6 +67,20 @@ export class Player {
 
         studio.setCamera(this._camera)
         studio.addToScene(this.mesh)
+
+
+        root.emitter.subscribe('clickButtonMouse')(() => {
+            this.controlsLock()
+        })
+
+        document.addEventListener("pointerlockchange", () => {
+            if (document.pointerLockElement === document.body) {
+            } else {
+                this._camera.rotation.z = 0
+                this._camera.rotation.x = 0
+                //buttonMouse.style.display = 'block'
+            }
+        })
     }
 
     // toggleBlocked (val) {
