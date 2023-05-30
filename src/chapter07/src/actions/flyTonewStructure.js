@@ -365,15 +365,32 @@ async function flyProcessToFinal(root) {
     finalTrigger.position.set(-160 * 5.75 - 40, -800, 160)
     studio.addToScene(finalTrigger)
     system_PlayerNearLevelItems.setItemToCheck(finalTrigger, 'endGame', 400, 400)
-    root.emitter.subscribe('checkNear')(data => {
-        if (data.item === 'endGame' && data.is) {
+
+    let isFinal = false
+    frameUpdater.on(data => {
+        if (player.mesh.position.y < -400 && !isFinal) {
+            isFinal = true
+
             studio.changeFog({color: 0x20072a, near: 1, far: 5, time: 3000})
             setTimeout(() => {
                 root.dispatcher.dispatch({ type: 'SHOW_FINAL_MESSAGE' })
                 root.system_PlayerMoveOnLevel.isFreeze = true
+                if (root.player.controls) {
+                    root.player.controlsUnlock()
+                    setTimeout(() => {
+                        root.buttonMouse.style.display = 'none'
+                    }, 1000)
+
+                }
             }, 5000)
         }
     })
+
+    // root.emitter.subscribe('checkNear')(data => {
+    //     if (data.item === 'endGame' && data.is) {
+    //
+    //     }
+    // })
 }
 
 

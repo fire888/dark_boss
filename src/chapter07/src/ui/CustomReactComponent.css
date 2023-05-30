@@ -165,6 +165,19 @@ button.open-locations-car-button {
     background-color: #181d3855;
 }
 
+.button-mouse {
+    position: absolute;
+    right: 130px;
+    top: 20px;
+    z-index: 100;
+    background: url('../../../assets/chapter07/mouse.png') no-repeat center;
+    background-size: contain;
+    min-width: 40px;
+    min-height: 35px;
+    border: none;
+    cursor: pointer;
+  }
+
 
 
 

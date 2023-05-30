@@ -20,11 +20,11 @@ export const FINAL_MAP = {
         }
     }
 }
-export const FINAL_ENV_COLOR = new Color(0.6549019607843137, 0.40784313725490196, 0.08235294117647059)
+export const FINAL_ENV_COLOR = new Color(1, 1, 0)
 export const FINAL_STRUCTURE = {
     ENV_COLOR: FINAL_ENV_COLOR,
-    FOG: { color: 0xa76815, near: 150, far: 1000, time: 2000 },
-    COLOR_00: [0.6549019607843137, 0.40784313725490196, 0.08235294117647059],
+    FOG: { color: 0xffff00, near: 150, far: 1000, time: 2000 },
+    COLOR_00: [1, 1, 0],
     mat: 'structureMaterial',
     X: -800,
     Y: -100,

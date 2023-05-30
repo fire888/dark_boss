@@ -5,11 +5,11 @@ import { FrameUpdater } from "../../../_CORE/helpers/helper_FrameUpdater_02"
 import { Helper_TweenUpdater } from "../../../_CORE/helpers/helper_TweenUpdater"
 import { Studio } from '../Entities/Studio'
 import { KeyBoard } from "../../../_CORE/helpers/helper_KeyBoard"
-import { Player } from '../../../_CORE/entities/createPlayer_v02'
+import { Player } from '../Entities/player'
 
 import { system_PlayerMoveOnLevel } from '../systems/system_PlayerMoveOnLevel'
 import { actions } from '../actions/actions'
-import { Ui } from "../ui/Ui";
+import { Ui } from "../ui/Ui"
 
 import textureTiles from '../../../assets/chapter07/texture01.jpg'
 import textureTilesInv from '../../../assets/chapter07/texture01_inv.jpg'
