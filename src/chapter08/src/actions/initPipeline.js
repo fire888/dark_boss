@@ -1,0 +1,126 @@
+import { LoaderAssets } from '../../../_CORE/helpers/helper_LoadAssets'
+import { EventEmitter } from "../../../_CORE/helpers/helper_Emitter"
+import { DeviceResizer } from "../../../_CORE/helpers/helper_DeviceResizer"
+import { FrameUpdater } from "../../../_CORE/helpers/helper_FrameUpdater_02"
+import { Helper_TweenUpdater } from "../../../_CORE/helpers/helper_TweenUpdater"
+import { Studio } from '../../../chapter07/src/Entities/Studio'
+import { KeyBoard } from "../../../_CORE/helpers/helper_KeyBoard"
+import { Player } from '../../../chapter07/src/Entities/player'
+
+import { system_PlayerMoveOnLevel } from '../../../chapter07/src/systems/system_PlayerMoveOnLevel'
+import { actions } from '../../../chapter07/src/actions/actions'
+import { Ui } from "../../../chapter07/src/ui/Ui"
+
+import textureTiles from '../../../assets/chapter07/texture01.jpg'
+import textureTilesInv from '../../../assets/chapter07/texture01_inv.jpg'
+
+import { system_Sound } from '../../../chapter07/src/systems/system_Sound'
+import soundStepsSrc from '../../../assets/chapter06/audio/steps.mp3'
+import soundAmbientSrc from '../../../assets/chapter05/audio/ambient.mp3'
+import soundPlatformSrc from '../../../assets/chapter07/platform_loop.mp3'
+//import * as CONSTANTS from "../constants/constants_elements";
+
+export const GAME_MODULES = [
+    // {
+    //     key: 'emitter',
+    //     constr: EventEmitter,
+    //     initStateKey: 'pageLoaded',
+    // },
+    // {
+    //     key: 'deviceResizer',
+    //     constr: DeviceResizer,
+    //     initStateKey: 'pageLoaded',
+    // },
+    // {
+    //     key: 'loaderAssets',
+    //     constr: LoaderAssets,
+    //     initStateKey: 'pageLoaded',
+    // },
+
+    /////////////////////////////////////////
+
+    // {
+    //     key: 'frameUpdater',
+    //     constr: FrameUpdater,
+    //     initStateKey: 'beforeStartPlay',
+    // },
+    // {
+    //     key: 'tweenUpdater',
+    //     constr: Helper_TweenUpdater,
+    //     initStateKey: 'beforeStartPlay',
+    // },
+    // {
+    //     key: 'studio',
+    //     constr: Studio,
+    //     initStateKey: 'beforeStartPlay',
+    // },
+    // {
+    //     key: 'keyBoard',
+    //     constr: KeyBoard,
+    //     initStateKey: 'beforeStartPlay',
+    // },
+    // {
+    //     key: 'player',
+    //     constr: Player,
+    //     initStateKey: 'beforeStartPlay',
+    // },
+    // {
+    //     key: 'system_PlayerMoveOnLevel',
+    //     constr: system_PlayerMoveOnLevel,
+    //     initStateKey: 'beforeStartPlay',
+    // },
+    // {
+    //     key: 'system_Sound',
+    //     constr: system_Sound,
+    //     initStateKey: 'beforeStartPlay',
+    //     assetsToLoad: [
+    //         { type: 'soundMp3', path: soundAmbientSrc, key: 'soundAmbient' },
+    //         { type: 'soundMp3', path: soundStepsSrc, key: 'soundStep' },
+    //         { type: 'soundMp3', path: soundPlatformSrc, key: 'soundPlatform' },
+    //     ]
+    // },
+    // {
+    //     key: 'customUi',
+    //     constr: Ui,
+    //     initStateKey: 'pageLoaded',
+    // },
+    // {
+    //     key: 'actions',
+    //     constr: actions,
+    //     initStateKey: 'beforeStartPlay',
+    //     assetsToLoad: [
+    //         { type: 'img', path: textureTiles, key: 'textureTiles', wrap: false },
+    //         { type: 'img', path: textureTilesInv, key: 'textureTilesInv', wrap: false },
+    //     ],
+    //
+    // },
+]
+
+
+export async function initPipeline(CONSTANTS) {
+    const root = {}
+    root.CONSTANTS = CONSTANTS
+    root.emitter = new EventEmitter(root)
+    root.deviceResizer = new DeviceResizer(root)
+    root.loaderAssets = new LoaderAssets(root)
+    root.frameUpdater = new FrameUpdater(root)
+    root.tweenUpdater = new Helper_TweenUpdater(root)
+    root.studio = new Studio(root)
+    root.keyBoard = new KeyBoard(root)
+    root.player = new Player(root)
+    root.system_PlayerMoveOnLevel = new system_PlayerMoveOnLevel(root)
+
+    root.customUi = new Ui(root)
+
+    const assets = await root.loaderAssets.loadAssets([
+        { type: 'img', path: textureTiles, key: 'textureTiles', wrap: false },
+        { type: 'img', path: textureTilesInv, key: 'textureTilesInv', wrap: false },
+        { type: 'soundMp3', path: soundAmbientSrc, key: 'soundAmbient' },
+        { type: 'soundMp3', path: soundStepsSrc, key: 'soundStep' },
+        { type: 'soundMp3', path: soundPlatformSrc, key: 'soundPlatform' },
+    ])
+    root.assets = assets
+    root.system_Sound = new system_Sound(root)
+
+    root.actions = new actions(root)
+}
