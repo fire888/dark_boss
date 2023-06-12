@@ -11,6 +11,7 @@ import { createFuel } from '../Entities/fuel'
 import { system_PlayerNearLevelItems } from '../systems/system_PlayerNearLevelItems'
 import { flyToNewStructure } from './flyTonewStructure'
 import { createFinalItem } from '../Entities/finalItem'
+import { createSuperWall } from '../Entities/superWall'
 
 
 
@@ -27,7 +28,6 @@ export class actions {
             system_PlayerMoveOnLevel,
             ui,
             player,
-            emitter,
         } = this._root
 
 
@@ -75,6 +75,19 @@ export class actions {
         root.materials.structureMaterialInv = structureMaterialInv
         const basicMat = new THREE.MeshBasicMaterial({ color: 0xffff00 })
         root.materials.basicMat = basicMat
+
+
+
+        const geomSuperWall = createSuperWall(root)
+        console.log('&*&*&*&*&*&*&*&', geomSuperWall)
+        root.studio.addToScene(geomSuperWall.mesh)
+
+
+
+
+
+
+
 
         const fuel = createFuel(root)
         root.fuel = fuel

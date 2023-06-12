@@ -10,6 +10,5 @@ import * as CONSTANTS from './constants/constants_elements'
 
 
 window.addEventListener('load', () => {
-    //pipeLineForInit(GAME_MODULES, CONSTANTS )
     initPipeline(CONSTANTS).then()
 })
