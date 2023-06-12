@@ -27,8 +27,8 @@ export class Studio {
         this._scene.fog = new THREE.Fog(0x440000, 150, 1000)
 
 
-        this._playerCamera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 5000)
-        this._controlsCamera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 5000)
+        this._playerCamera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 20000)
+        this._controlsCamera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 20000)
         this._controlsCamera.position.set(0, 500, 100)
         const controls = new OrbitControls(this._controlsCamera, this._renderer.domElement)
         controls.target.set(0, 0, 0)
