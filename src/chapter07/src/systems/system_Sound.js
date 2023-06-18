@@ -22,7 +22,7 @@ export class system_Sound {
         this._soundCar = new THREE.Audio(listener)
         this._soundCar.setBuffer(root.assets.soundPlatform)
         this._soundCar.setLoop(true)
-        this._soundCar.setVolume(0.09)
+        this._soundCar.setVolume(0.5)
 
         this._w = new THREE.Audio(listener)
         this._w.setBuffer(root.assets.soundStep)

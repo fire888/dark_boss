@@ -16,8 +16,8 @@ import textureTilesInv from '../../../assets/chapter07/texture01_inv.jpg'
 
 import { system_Sound } from '../systems/system_Sound'
 import soundStepsSrc from '../../../assets/chapter06/audio/steps.mp3'
-import soundAmbientSrc from '../../../assets/chapter05/audio/ambient.mp3'
-import soundPlatformSrc from '../../../assets/chapter07/platform_loop.mp3'
+import soundAmbientSrc from '../../../assets/chapter07/ambient_07.mp3'
+import soundPlatformSrc from '../../../assets/chapter07/fly.mp3'
 
 export const GAME_MODULES = [
     {

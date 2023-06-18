@@ -16,9 +16,11 @@ const startFly = (root) => {
     const {
         flyer,
         frameUpdater,
+        system_Sound,
     } = root
 
     return new Promise(res => {
+        //system_Sound.startCar()
         let spd = 0
         const unsubscribe1 = frameUpdater.on(data => {
             flyer.mesh.position.z += spd
