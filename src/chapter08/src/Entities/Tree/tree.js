@@ -3,9 +3,8 @@ import { createTreeGeometry } from './treeGeometry'
 
 
 const createMat = (root) => {
-    console.log(root)
     return new THREE.MeshBasicMaterial({
-        color: 0xff0000,
+        color: 0xffffff,
         map: root.assets.textureTiles
     })
 }

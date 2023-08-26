@@ -139,6 +139,17 @@ export const rotateArr = (arr, angle) => {
     }
 }
 
+export const rotateArrX = (arr, angle) => {
+    const matrix = m4.xRotation(angle);
+
+    for (let i = 0; i < arr.length; i += 3) {
+        const vector = m4.transformPoint(matrix, [arr[i + 0], arr[i + 1], arr[i + 2], 1])
+        arr[i + 0] = vector[0]
+        arr[i + 1] = vector[1]
+        arr[i + 2] = vector[2]
+    }
+}
+
 export const rotateArrY = (arr, angle) => {
     const matrix = m4.yRotation(angle);
 

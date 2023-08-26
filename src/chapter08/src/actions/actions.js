@@ -77,8 +77,14 @@ export class actions {
         root.materials.basicMat = basicMat
 
 
-        const tree = new Tree(root)
-        studio.addToScene(tree)
+        for (let i = 0; i < 10; ++i) {
+            for (let j = 0; j < 10; ++j) {
+                const tree = new Tree(root)
+                tree.position.set(i * 250, 0, j * 250)
+                studio.addToScene(tree)
+            }
+        }
+
 
         //const geomSuperWall = createSuperWall(root)
         //console.log('&*&*&*&*&*&*&*&', geomSuperWall)

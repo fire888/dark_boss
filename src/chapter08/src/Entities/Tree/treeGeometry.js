@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { createFace } from '../../helpers/geomHelpers'
+import { createFace, rotateArrZ, rotateArrX, rotateArrY } from '../../helpers/geomHelpers'
 
 const { PI, cos, sin, random } = Math
 const PI2 = PI * 2
@@ -10,24 +10,34 @@ const createPoints = () => {
     const L = 10
 
 
-    const createLevel = (offset, r) => {
+    const createLevel = (offset, rot, r) => {
         const arrP = []
 
         for (let i = 0; i < RN; ++i) {
             const x = sin(i / RN * PI2) * r
             const z = cos(i / RN * PI2) * r
-            arrP.push([x + offset[0], 0 + offset[1], z + offset[2]])
+            const coord = [x + offset[0], 0 + offset[1], z + offset[2]]
+            rotateArrX(coord, rot[0])
+            rotateArrY(coord, rot[1])
+            rotateArrZ(coord, rot[2])
+            arrP.push(coord)
         }
         return arrP
     }
 
     const arrL = []
     const offset = [0, 0, 0]
+    const rot = [0, 0, 0]
     for (let i = 0; i < L; ++i) {
-        arrL.push(createLevel(offset, R * (L - i - 1) / L))
-        offset[0] += (Math.random() - .5) * R
+        arrL.push(createLevel(offset, rot, R * (L - i - 1) / L))
+
+        offset[0] += (random() - .5) * R
         offset[1] += 40
-        offset[2] += (Math.random() -.5) * R
+        offset[2] += (random() -.5) * R
+
+        rot[0] += (random() - .5) * .3
+        rot[1] += (random() - .5) * .1
+        rot[2] += (random() - .5) * .3
     }
 
     const arr = []

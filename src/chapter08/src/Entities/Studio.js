@@ -19,12 +19,12 @@ export class Studio {
         rendererCon.canvas = document.getElementById(canId)
 
         this._renderer = new THREE.WebGLRenderer(rendererCon)
-        this._renderer.setClearColor(0x990000)
+        this._renderer.setClearColor(0x000000)
         this._renderer.setPixelRatio(window.devicePixelRatio)
         this._renderer.setSize(window.innerWidth, window.innerHeight)
 
         this._scene = new THREE.Scene()
-        this._scene.fog = new THREE.Fog(0x440000, 150, 1000)
+        //this._scene.fog = new THREE.Fog(0x440000, 150, 1000)
 
 
         this._playerCamera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 20000)
