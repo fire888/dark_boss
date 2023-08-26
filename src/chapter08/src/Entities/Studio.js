@@ -74,6 +74,9 @@ export class Studio {
             toggleView()
         })
 
+        /** TODO: remove */
+        toggleView()
+
 
 
         const resize = () => {

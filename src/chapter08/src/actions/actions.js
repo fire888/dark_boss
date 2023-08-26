@@ -1,18 +1,18 @@
 import * as TWEEN from '@tweenjs/tween.js'
 import * as THREE from 'three'
-import {
-    STRUCTURES,
-} from '../constants/constants_elements';
+// import {
+//     STRUCTURES,
+// } from '../constants/constants_elements';
 import { FINAL_ENV_COLOR } from "../constants/const_structures";
-import { createStructure3 } from '../Entities/Structure03/structure03'
+//import { createStructure3 } from '../Entities/Structure03/structure03'
 import { createSystemSprites } from '../Entities/sprites'
-import { createFlyer } from '../Entities/Flyer/flyer'
-import { createFuel } from '../Entities/fuel'
+//import { createFlyer } from '../Entities/Flyer/flyer'
+//import { createFuel } from '../Entities/fuel'
 import { system_PlayerNearLevelItems } from '../systems/system_PlayerNearLevelItems'
-import { flyToNewStructure } from './flyTonewStructure'
-import { createFinalItem } from '../Entities/finalItem'
-import { createSuperWall } from '../Entities/superWall'
-
+//import { flyToNewStructure } from './flyTonewStructure'
+//import { createFinalItem } from '../Entities/finalItem'
+//import { createSuperWall } from '../Entities/superWall'
+import { Tree } from '../Entities/Tree/tree'
 
 
 export class actions {
@@ -77,47 +77,49 @@ export class actions {
         root.materials.basicMat = basicMat
 
 
+        const tree = new Tree()
+        studio.addToScene(tree)
 
-        const geomSuperWall = createSuperWall(root)
-        console.log('&*&*&*&*&*&*&*&', geomSuperWall)
-        root.studio.addToScene(geomSuperWall.mesh)
-
-
-
-
+        //const geomSuperWall = createSuperWall(root)
+        //console.log('&*&*&*&*&*&*&*&', geomSuperWall)
+        //root.studio.addToScene(geomSuperWall.mesh)
 
 
 
 
-        const fuel = createFuel(root)
-        root.fuel = fuel
 
-        const finalItem = createFinalItem(root)
-        root.finalItem = finalItem
+
+
+
+        //const fuel = createFuel(root)
+        //root.fuel = fuel
+
+        //const finalItem = createFinalItem(root)
+        //root.finalItem = finalItem
 
 
         const sprites = createSystemSprites(root)
         sprites.addToScene()
         root.sprites = sprites
 
-        const structure = createStructure3(root)
-        root.structure = structure
-        structure.generateStructure(STRUCTURES[0]).then(() => {})
+        //const structure = createStructure3(root)
+        //root.structure = structure
+        //structure.generateStructure(STRUCTURES[0]).then(() => {})
 
 
-        const flyer = createFlyer(root)
-        flyer.mesh.position.z = 300
-        root.flyer = flyer
-        root.system_PlayerNearLevelItems.setItemToCheck(flyer.objectForCheck, 'platformObjectForCheck', 20, 30)
-        const unsubscribeCheckNearPlatform = root.emitter.subscribe('checkNear')(data => {
-            if (data.item === 'platformObjectForCheck' && data.is) {
-                unsubscribeCheckNearPlatform()
-                flyToNewStructure(root)
-            }
-        })
+        // const flyer = createFlyer(root)
+        // flyer.mesh.position.z = 300
+        // root.flyer = flyer
+        // root.system_PlayerNearLevelItems.setItemToCheck(flyer.objectForCheck, 'platformObjectForCheck', 20, 30)
+        // const unsubscribeCheckNearPlatform = root.emitter.subscribe('checkNear')(data => {
+        //     if (data.item === 'platformObjectForCheck' && data.is) {
+        //         unsubscribeCheckNearPlatform()
+        //         flyToNewStructure(root)
+        //     }
+        // })
 
 
-        player.setToPos(0, 400, 485)
+        player.setToPos(0, 0, 80)
 
 
         player.toggleBlocked(false)
@@ -133,9 +135,9 @@ export class actions {
         ui.showStartButton(() => {
             player.toggleBlocked(false)
             this._root.system_Sound && this._root.system_Sound.playAmbient()
-            if (player.controls) {
-                player.controlsLock()
-            }
+            // if (player.controls) {
+            //     player.controlsLock()
+            // }
             //if (root.player.controls) {
             //    root.buttonMouse.style.display = 'block'
             //}
