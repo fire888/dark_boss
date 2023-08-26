@@ -77,7 +77,7 @@ export class actions {
         root.materials.basicMat = basicMat
 
 
-        const tree = new Tree()
+        const tree = new Tree(root)
         studio.addToScene(tree)
 
         //const geomSuperWall = createSuperWall(root)

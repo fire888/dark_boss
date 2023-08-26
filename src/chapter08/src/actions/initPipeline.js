@@ -9,7 +9,7 @@ import { Player } from '../Entities/player'
 import { system_PlayerMoveOnLevel } from '../systems/system_PlayerMoveOnLevel'
 import { actions } from './actions'
 import { Ui } from "../../../chapter07/src/ui/Ui"
-import textureTiles from '../../../assets/chapter07/texture01.jpg'
+import textureTiles from '../../../assets/chapter08/texture01.jpg'
 import textureTilesInv from '../../../assets/chapter07/texture01_inv.jpg'
 import { system_Sound } from '../systems/system_Sound'
 import soundStepsSrc from '../../../assets/chapter06/audio/steps.mp3'

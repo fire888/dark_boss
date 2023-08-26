@@ -1,18 +1,18 @@
 import * as THREE from 'three'
+import { createTreeGeometry } from './treeGeometry'
 
-const createGeom = () => {
-    return new THREE.BoxGeometry(50, 50, 50)
+
+const createMat = (root) => {
+    console.log(root)
+    return new THREE.MeshBasicMaterial({
+        color: 0xff0000,
+        map: root.assets.textureTiles
+    })
 }
-
-const createMat = () => {
-    return new THREE.MeshBasicMaterial({ color: "0xff0000" })
-}
-
-
 
 export class Tree extends THREE.Mesh {
     constructor(root) {
-        super(createGeom(), createMat());
+        super(createTreeGeometry(), createMat(root));
 
     }
 }
