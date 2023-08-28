@@ -16,28 +16,35 @@ const createPoints = () => {
         for (let i = 0; i < RN; ++i) {
             const x = sin(i / RN * PI2) * r
             const z = cos(i / RN * PI2) * r
-            const coord = [x + offset[0], 0 + offset[1], z + offset[2]]
-            rotateArrX(coord, rot[0])
-            rotateArrY(coord, rot[1])
-            rotateArrZ(coord, rot[2])
+            const coord = [x, 0, z]
+            rotateArrX(coord, rot.x)
+            rotateArrZ(coord, rot.z)
+            coord[0] += offset.x
+            coord[1] += offset.y
+            coord[2] += offset.z
             arrP.push(coord)
         }
         return arrP
     }
 
     const arrL = []
-    const offset = [0, 0, 0]
-    const rot = [0, 0, 0]
+    const offset = new THREE.Vector3()
+    let savedOffset = new THREE.Vector3()
+    let savedDist = null
+    const rot = new THREE.Vector3()
     for (let i = 0; i < L; ++i) {
         arrL.push(createLevel(offset, rot, R * (L - i - 1) / L))
 
-        offset[0] += (random() - .5) * R
-        offset[1] += 40
-        offset[2] += (random() -.5) * R
+        savedOffset.copy(offset)
 
-        rot[0] += (random() - .5) * .3
-        rot[1] += (random() - .5) * .1
-        rot[2] += (random() - .5) * .3
+        offset.x += (random() - .5) * R
+        offset.y += 40
+        offset.z += (random() -.5) * R
+
+        const d = offset.distanceTo(savedOffset)
+
+        //console.log(Math.acos((offset.x - savedOffset.x) / d ) - PI / 2)
+        //rot.x = -Math.acos((offset.x - savedOffset.x) / d ) - PI / 2
     }
 
     const arr = []

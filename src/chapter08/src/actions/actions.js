@@ -80,7 +80,7 @@ export class actions {
         for (let i = 0; i < 10; ++i) {
             for (let j = 0; j < 10; ++j) {
                 const tree = new Tree(root)
-                tree.position.set(i * 250, 0, j * 250)
+                tree.position.set(i * 400, 0, j * 400)
                 studio.addToScene(tree)
             }
         }
