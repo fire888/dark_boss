@@ -77,13 +77,16 @@ export class actions {
         root.materials.basicMat = basicMat
 
 
-        for (let i = 0; i < 10; ++i) {
-            for (let j = 0; j < 10; ++j) {
-                const tree = new Tree(root)
-                tree.position.set(i * 400, 0, j * 400)
-                studio.addToScene(tree)
-            }
-        }
+        // for (let i = 0; i < 10; ++i) {
+        //     for (let j = 0; j < 10; ++j) {
+        //         const tree = new Tree(root)
+        //         tree.position.set(i * 300, 0, -j * 300)
+        //         studio.addToScene(tree)
+        //     }
+        // }
+
+        const tree = new Tree(root)
+        studio.addToScene(tree)
 
 
         //const geomSuperWall = createSuperWall(root)

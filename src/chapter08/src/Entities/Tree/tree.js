@@ -11,7 +11,6 @@ const createMat = (root) => {
 
 export class Tree extends THREE.Mesh {
     constructor(root) {
-        super(createTreeGeometry(), createMat(root));
-
+        super(createTreeGeometry(root), createMat(root));
     }
 }

@@ -29,7 +29,7 @@ export class Studio {
 
         this._playerCamera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 20000)
         this._controlsCamera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 20000)
-        this._controlsCamera.position.set(0, 500, 100)
+        this._controlsCamera.position.set(0, 100, 200)
         const controls = new OrbitControls(this._controlsCamera, this._renderer.domElement)
         controls.target.set(0, 0, 0)
         controls.update();
