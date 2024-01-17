@@ -8,13 +8,13 @@ export function prepareStore(root) {
     if (!root.customStore) root.customStore = {}
 
     const controls = function(state = startDefaultStoreData, action) {
-        if (action.type === 'TOGGLE_INFO') {
-            return ({
-                ...state,
-                isShowControls: !!state.isInfo,
-                isInfo: !state.isInfo,
-            })
-        }
+        //if (action.type === 'TOGGLE_INFO') {
+        //    return ({
+        //        ...state,
+        //        isShowControls: !!state.isInfo,
+        //        isInfo: !state.isInfo,
+        //    })
+        //}
         if (action.type === 'CHANGE_INFO_CHAPTER') {
             return ({
                 ...state,

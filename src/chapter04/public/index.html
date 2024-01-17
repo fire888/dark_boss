@@ -28,7 +28,7 @@ body {
   text-align: center;
 }
 h1 {
-  font-size: 15vw;
+  font-size: 10vw;
   line-height: 30px;
 }
 h2 {
@@ -66,7 +66,7 @@ a {
   align-items: center;
 }
 .img-wrapper {
-  margin: 2vh 0 0 0;
+  margin: 6vh 0 0 0;
   background-color: #33072c;
   padding: 4vh;
   flex: 0 1 auto;
@@ -82,11 +82,18 @@ a {
   margin-bottom: -2em;
   margin-top: 1rem;
 }
+
+.instructions img {
+  max-width: 320px;
+  height: auto;
+  border: none;
+}
+
 .instructions p {
   font-size: 16px;
 }
 .load-container {
-  margin: 3vh 0 0 0; 
+  margin: 7vh 0 0 0; 
   min-width: 100%;
   text-align: center;
   min-height: 60px;
@@ -100,14 +107,14 @@ a {
 .progress-wrapper {
   border: 2px solid #e4f9ff; 
   min-height: 4vh;
-  width: 31vh;
+  width: 320px;
   overflow: hidden;
   border-radius: 5px; 
 }
 .startbuttons-wrapper {
   /*border: 2px solid #e4f9ff;*/ 
   min-height: 4vh;
-  width: 31vh;
+  width: 320px;
   overflow: hidden;
   display: flex;
   flex-direction: row;
@@ -123,10 +130,11 @@ a {
 .start-butt { 
   margin: 0 3px;
   flex: 1 1 auto;
-  min-height: 4vh;
+  min-height: 6vh;
   background: #e4f9ff;
-  color: #181d38;
-  font-size: 2vh;
+  color: #4d0f48;
+  font-size: 3vh;
+  font-weight: bold;
   transition: 0.2s;
   border: solid 1px white;
   border-radius: 5px;
@@ -137,6 +145,8 @@ a {
   color: #e4f9ff;
   cursor: pointer;
 }
+
+
   </style>
 </head>
 <body>
@@ -144,18 +154,18 @@ a {
   <div class='start-screen'>
     <div class='message'>
       <div class = 'name'>
-        <h1>ENDWAYS</h1>
+        <h1>ПОДЗЕМЕЛЬЕ</h1>
       </div>
       <div class="img-wrapper"> 
         <img src="start-img.png">
       </div>
       <div class="instructions">
-        <p>Keys: &#8592; &#8593; &#8594; &#8595;, w s a d</p>
+        <img src="keys.png">
       </div> 
       <div class = "load-container">
         <div class="startbuttons-wrapper" style="display: none;">
-            <button class="start-butt" data-lang="en">EN</button>
-            <button class="start-butt" data-lang="ru">RU</button>
+            <!-- <button class="start-butt" data-lang="en">EN</button> -->
+            <button class="start-butt" data-lang="ru">начать</button>
         </div>
         <div class="progress-wrapper">
           <div class="progress"></div> 

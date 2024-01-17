@@ -79,7 +79,7 @@ export default connect(
 
 
 
-            {props.isShowControls && isShowFullScreenButt && (
+            {/* {props.isShowControls && isShowFullScreenButt && (
                 <button
                     className="butt-fullscreen control-small"
                     onClick={() => {
@@ -92,7 +92,7 @@ export default connect(
                 <button
                     className="butt-info control-small"
                     onClick={() => props.dispatch({ type: 'TOGGLE_INFO' })}>
-                </button>)}
+                </button>)} */}
 
 
             {props.isInfo && <Info />}

@@ -15,7 +15,7 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps)(function(props) {
     return ( 
         <div className="info">
-            <button
+            {/* <button
                 className="control-small butt-infoClose"
                 onClick={() => props.dispatch({ type: 'TOGGLE_INFO' })}>
             </button>
@@ -38,7 +38,7 @@ export default connect(mapStateToProps)(function(props) {
                         <a href={item.href} target="blank">{t(item.aText)}</a>
                     </li>)
                 }</ul>
-            </div>      
+            </div>       */}
         </div>)
 })
 
