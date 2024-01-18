@@ -31,23 +31,25 @@ export class StarterPlay {
 
         ui.showStartButton(() => {
             system_Sound.playAmbient()
-            if (isPROD) {
-                studio.changeEnvironment(START_ENV_CONFIG, { updateAmb: false, time: 1500 })
-
-                setTimeout(() => {
-                    studio.changeEnvironment(START_ENV_CONFIG_2, { updateAmb: false, time: 1500 }) 
-                    
-                    setTimeout(() => {
-                        system_Monsters.setBotTo(4)
-                        studio.changeEnvironment(START_ENV_CONFIG_3, { updateAmb: false, time: 1500 }) 
-                        player.toggleBlocked(false)
-                    }, 1500)
-                }, 4000)
-            } else {
+            //if (isPROD) {
+            //     studio.changeEnvironment(START_ENV_CONFIG, { updateAmb: false, time: 1500 })
+            //
+            //     setTimeout(() => {
+            //         studio.changeEnvironment(START_ENV_CONFIG_2, { updateAmb: false, time: 1500 })
+            //
+            //         setTimeout(() => {
+            //             system_Monsters.setBotTo(4)
+            //             studio.changeEnvironment(START_ENV_CONFIG_3, { updateAmb: false, time: 1500 })
+            //             player.toggleBlocked(false)
+            //             player.controlsLock()
+            //         }, 1500)
+            //     }, 4000)
+            //} else {
                 system_Monsters.setBotTo(4)
                 studio.changeEnvironment(START_ENV_CONFIG_3, { updateAmb: false, time: 1500 }) 
                 player.toggleBlocked(false)
-            }
+                player.controlsLock()
+            //}
         })
     }
 }

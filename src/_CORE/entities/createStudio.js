@@ -19,6 +19,7 @@ export class Studio {
         rendererCon.canvas = document.getElementById(canId)
 
         this._renderer = new THREE.WebGLRenderer(rendererCon)
+        this.renderer =this._renderer
         console.log(clearColor)
         this._renderer.setClearColor(clearColor)
         this._renderer.setPixelRatio(window.devicePixelRatio)

@@ -136,10 +136,12 @@ const createPipelineActionsWithMapItem = (y, z, x, map) => {
 
 
 export const createMap = (tiles) => {
+    console.log('tiles', tiles)
     let map
 
     return {
         generateMap: (dataStructure) => {
+            console.log('genMap dataToCalculate ', dataStructure)
             let maxCallStack = 10000
 
             return new Promise(res => {
