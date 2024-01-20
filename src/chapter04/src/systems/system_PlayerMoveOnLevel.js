@@ -6,7 +6,7 @@ import * as THREE from 'three'
 export class system_PlayerMoveOnLevel {
     constructor (root) {
 
-
+        console.log('&&&&&&')
 
         const { 
             emitter, 
@@ -67,7 +67,6 @@ export class system_PlayerMoveOnLevel {
         const OFFSET_FROM_PLANES_TO_DROP = 17.2
 
 
-
         const rotatePlayerToTop = () => {
             quaternionOld.copy(player.mesh.quaternion)
             quaternionNew.setFromAxisAngle(UP_VECTOR, Math.random() * Math.PI * 2)
@@ -116,8 +115,6 @@ export class system_PlayerMoveOnLevel {
             /** move player to top if on stairs */
             if (isCollision && OFFSET_FROM_PLANES > collision.distance) {
                 player.mesh.translateY(OFFSET_FROM_PLANES - collision.distance)
-
-                return;
             }
 
 
@@ -181,7 +178,6 @@ export class system_PlayerMoveOnLevel {
             keys['right'] && player.mesh.rotateY(-speedRot * data.count)
 
             if (isBlocked) return;
-
             checkBottomAndDropDownPlayer(data)
             keys['up'] && this.isCanMove['forward'] && checkAndMoveFront(data)
             keys['down'] && this.isCanMove['back'] && checkAndMoveBack(data)

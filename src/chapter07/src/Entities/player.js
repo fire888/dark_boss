@@ -27,7 +27,7 @@ export class Player {
             this._camera = new THREE.PerspectiveCamera(fov, ratio, near, far)
             this._camera.position.fromArray([0, 0, -2])
             if (this.isNeedControls) {
-                this.controls = new PointerLockControls(this._camera, studio.);
+                this.controls = new PointerLockControls(this._camera, document.body);
                 this.mesh = this._camera
             } else {
                 this.mesh.add(this._camera)

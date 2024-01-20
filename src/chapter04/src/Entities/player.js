@@ -1,11 +1,10 @@
 import * as THREE from 'three'
-import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls.js';
+import { PointerLockControls } from '../components/PointerLockControls';
 //import { checkDevice } from '../helpers/checkerDevice'
 
 
 export class Player {
     constructor (root) {
-        console.log('$%$%$%$%$')
         const { studio, CONSTANTS } = root
 
         const {
@@ -30,15 +29,14 @@ export class Player {
             this._camera = new THREE.PerspectiveCamera(fov, ratio, near, far)
             this._camera.position.fromArray([0, 0, -2])
             if (this.isNeedControls) {
-                this.controls = new PointerLockControls(this._camera, studio.renderer.canvas);
-                this.mesh = this._camera
+                this.controls = new PointerLockControls(this._camera, studio.renderer.canvas, this.mesh);
+                this.mesh.add(this._camera)
             } else {
                 this.mesh.add(this._camera)
             }
         }
 
-
-        this.mesh.rotation.fromArray([0, 0, 0])
+        //this.mesh.rotation.fromArray([0, 0, 0])
         this.mesh.userData.type = 'player'
 
 
@@ -77,9 +75,14 @@ export class Player {
         document.addEventListener("pointerlockchange", () => {
             if (document.pointerLockElement === document.body) {
             } else {
-                this._camera.rotation.z = 0
-                this._camera.rotation.x = 0
+                //this._camera.rotation.z = 0
+                //this._camera.rotation.x = 0
             }
+        })
+
+        //console.log(studio)
+        studio.renderer.domElement.addEventListener('click', () => {
+            this.controlsLock()
         })
     }
 
@@ -116,8 +119,6 @@ export class Player {
     controlsUnlock () {
         if (this.controls) {
             this.controls.unlock()
-            this._camera.rotation.z = 0
-            this._camera.rotation.x = 0
         }
     }
 }
