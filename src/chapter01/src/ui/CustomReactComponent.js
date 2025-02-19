@@ -50,7 +50,7 @@ function CustomReactComponent(props) {
           <div className='final-mess'>
             <button
               onClick={() => {
-                window.location.replace('./../chapter02')
+                window.location.replace('./../02')
               }}>
               {t('Continue')}
             </button>

@@ -8,9 +8,11 @@ export const INFO_VOC = {
         'Machine': 'Машина',
         'Rooms': 'Комнаты',
         'Platform': 'Платформа',
+        'Struct': 'Структура',
         'in production': 'скоро..',
         ' (current)': ' (тут)',
         'Author: ': 'от: ',
-        'Github: ': 'Гитхаб: '
+        'Github: ': 'Гитхаб: ',
+        'Continue': 'Продолжить',
     }
 } 
