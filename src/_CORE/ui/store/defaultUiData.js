@@ -15,7 +15,7 @@ export const startDefaultStoreData = {
             { text: 'Rooms', href: './../06' },
             { text: 'Platform', href: './../07' },
             { text: 'Struct', href: './../08' },
-            { text: 'in production' },
+            { text: 'Town', href: './../09' },
         ],
         currentChapterIndex: null,
         bottomText: '',

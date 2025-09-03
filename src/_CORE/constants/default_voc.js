@@ -9,6 +9,7 @@ export const INFO_VOC = {
         'Rooms': 'Комнаты',
         'Platform': 'Платформа',
         'Struct': 'Структура',
+        'Town': 'Город',
         'in production': 'скоро..',
         ' (current)': ' (тут)',
         'Author: ': 'от: ',
